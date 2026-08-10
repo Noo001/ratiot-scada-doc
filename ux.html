@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RatioT SCADA — пользовательский опыт</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>RatioT SCADA</h1>
+      <div class="subtitle">Пользовательский опыт / выжимка из мануала</div>
+      <nav>
+        <a href="index.html">← Общая база знаний</a>
+        <a href="#about">Что это</a>
+        <a href="#first-login">Первый вход</a>
+        <a href="#navigation">Меню и навигация</a>
+        <a href="#dashboards">Дашборды</a>
+        <a href="#components">Компоненты и binding</a>
+        <a href="#permissions">Пользователи и права</a>
+        <a href="#alarms">Аварии и события</a>
+        <a href="#scenarios">Типовые сценарии</a>
+        <a href="#customize">Кастомизация</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section id="intro">
+        <h2>Пользовательский опыт в RatioT SCADA</h2>
+        <p>Эта страница — выжимка из «Руководства по эксплуатации» (≈2800 стр.) именно про то, как конечный пользователь работает с Web UI.</p>
+        <p>Фокус: что это за система, для чего она нужна, как в неё зайти, как перемещаться и выполнять рабочие задачи.</p>
+      </section>
+
+      <section id="about">
+        <h2>Что такое RatioT SCADA и зачем она нужна</h2>
+        <p><strong>RatioT SCADA</strong> — это программная платформа для диспетчеризации, мониторинга и управления промышленными объектами, инженерными системами и оборудованием.</p>
+
+        <h3>Для чего используется</h3>
+        <div class="columns">
+          <div class="card">
+            <h4>Сбор данных</h4>
+            <p>Подключает PLC, RTU, датчики, счётчики, IoT-устройства по десяткам промышленных протоколов и считывает текущие значения.</p>
+          </div>
+          <div class="card">
+            <h4>Визуализация</h4>
+            <p>Показывает состояние объектов на мнемосхемах, дашбордах, трендах, таблицах и SVG-схемах в реальном времени.</p>
+          </div>
+          <div class="card">
+            <h4>Управление</h4>
+            <p>Позволяет оператору подавать команды на оборудование: включить/выключить, изменить уставку, запустить тест, квитировать аварию.</p>
+          </div>
+          <div class="card">
+            <h4>Аварии и события</h4>
+            <p>Фиксирует отклонения, формирует аварийные сообщения, журналы, отправляет уведомления (e-mail/SMS) и контролирует SLA.</p>
+          </div>
+          <div class="card">
+            <h4>История и отчёты</h4>
+            <p>Хранит временные ряды, события и архивы. Позволяет строить отчёты и аналитику через SQL, R, Python или встроенные инструменты.</p>
+          </div>
+          <div class="card">
+            <h4>Разделение доступа</h4>
+            <p>Каждый пользователь видит только свои объекты и дашборды. Поддерживаются роли, группы устройств, интеграция с LDAP/AD.</p>
+          </div>
+        </div>
+
+        <h3>Кто работает с системой</h3>
+        <ul>
+          <li><strong>Операторы / диспетчеры</strong> — смотрят текущее состояние, реагируют на аварии, управляют оборудованием.</li>
+          <li><strong>Инженеры / наладчики</strong> — настраивают устройства, создают дашборды, пишут скрипты.</li>
+          <li><strong>Администраторы</strong> — управляют пользователями, лицензиями, сервером, резервным копированием.</li>
+          <li><strong>Руководство / аналитики</strong> — используют отчёты и исторические данные для принятия решений.</li>
+        </ul>
+
+        <h3>Где работает пользователь</h3>
+        <p>Основной интерфейс — <strong>Web UI</strong>, который открывается в браузере. Не требуется устанавливать клиентское приложение.</p>
+        <p>Администраторы дополнительно используют <strong>Net Admin</strong> (порт 6440) для лицензирования и серверной настройки.</p>
+      </section>
+
+      <section id="first-login">
+        <h2>Как и куда заходить</h2>
+
+        <div class="note">
+          <strong>Быстрый старт:</strong> открой в Chrome/Firefox адрес <code>https://&lt;IP_сервера&gt;:8443/web</code>, введи <code>admin / admin</code> и нажми <strong>Login</strong>. После входа откроется <strong>Default Dashboard</strong>.
+        </div>
+
+        <ul>
+          <li>Открывать только в <strong>Google Chrome</strong> или <strong>Mozilla Firefox</strong>.</li>
+          <li>URL по умолчанию: <code>https://&lt;host&gt;:8443/web</code> или <code>http://&lt;host&gt;:8080/web</code>.</li>
+          <li>Если настроен сертификат с ошибкой, браузер предупредит — нужно принять риск/исключение.</li>
+          <li>Учётка по умолчанию: <code>admin / admin</code>.</li>
+          <li>Стартовая страница — <strong>Default Dashboard</strong>. Она же открывается по кнопке <strong>Home</strong>.</li>
+        </ul>
+
+        <h3>URL-адреса внутри Web UI</h3>
+        <table>
+          <tr><th>Путь</th><th>Назначение</th></tr>
+          <tr><td><code>/web</code></td><td>Главная страница (Default Dashboard)</td></tr>
+          <tr><td><code>/web/login</code></td><td>Страница входа</td></tr>
+          <tr><td><code>/web/admin</code></td><td>Административный дашборд (если есть права)</td></tr>
+          <tr><td><code>/web/dashboards/&lt;context&gt;</code></td><td>Конкретный дашборд, например <code>users.admin.dashboards.overview</code></td></tr>
+        </table>
+      </section>
+
+      <section id="navigation">
+        <h2>Главное меню и навигация</h2>
+        <p>В шапке Web UI обычно три пункта:</p>
+        <ul>
+          <li><strong>RatioT SCADA</strong> — логотип/название, часто ведёт на домашний дашборд.</li>
+          <li><strong>Home</strong> — возврат на Default Dashboard.</li>
+          <li><strong>Logout</strong> — выход из системы.</li>
+        </ul>
+        <p>Дальше пользователь перемещается по дашбордам: через ссылки внутри мнемосхем, кнопки, таблицы, динамические панели.</p>
+
+        <h3>Переходы между дашбордами</h3>
+        <p>Из binding или скрипта можно открыть другой дашборд:</p>
+        <pre>{web/redirect("users.admin.dashboards.example")}</pre>
+        <p>Параметры перехода:</p>
+        <ul>
+          <li><code>historyUrlChanged = false</code> — URL не меняется.</li>
+          <li><code>newTab = false</code> — открыть в текущей вкладке.</li>
+          <li><code>parameters</code> — передать данные в целевой дашборд.</li>
+        </ul>
+      </section>
+
+      <section id="dashboards">
+        <h2>Дашборды</h2>
+        <p>Каждый дашборд — это объект в контексте пользователя:</p>
+        <pre>users.&lt;username&gt;.dashboards.&lt;dashboard_name&gt;</pre>
+
+        <h3>Типы дашбордов</h3>
+        <div class="columns">
+          <div class="card">
+            <h4>Default Dashboard</h4>
+            <p>Открывается после входа. Настраивается администратором как стартовая точка.</p>
+          </div>
+          <div class="card">
+            <h4>Landing Dashboard</h4>
+            <p>«Посадочная» страница, на которую можно прийти по короткому URL. Например, <code>/web/dashboards/users.admin.dashboards.landingDashboard</code> или даже <code>/landingDashboard</code>, если настроен alias.</p>
+          </div>
+          <div class="card">
+            <h4>Административный дашборд</h4>
+            <p><code>users.admin.dashboards.administration</code> — для настройки сервера, пользователей, устройств.</p>
+          </div>
+        </div>
+
+        <h3>Autorun — автозапуск</h3>
+        <p>У пользователя может быть объект <code>users.&lt;username&gt;.autorun</code>. Он выполняется сразу после входа. Типичное применение — автоматически открыть нужный дашборд или выполнить действие.</p>
+
+        <h3>Короткие ссылки и alias</h3>
+        <p>Дашборд можно открыть по полному пути или по alias. Например:</p>
+        <pre>http://example.com/web/dashboards/users.admin.dashboards.a</pre>
+        <p>Или использовать <code>{env/alias}</code> внутри binding.</p>
+      </section>
+
+      <section id="components">
+        <h2>Компоненты интерфейса и binding</h2>
+        <p>Все элементы управления (кнопки, поля, диаграммы, таблицы, SVG) живут внутри форм. Форма — это контейнер с компонентами.</p>
+
+        <h3>Адресация компонентов</h3>
+        <pre>form/&lt;component&gt;:&lt;property&gt;</pre>
+        <p>Примеры:</p>
+        <ul>
+          <li><code>form/textField1:text</code> — значение текстового поля.</li>
+          <li><code>form/image1:imageTable$imageData[0]</code> — данные изображения.</li>
+          <li><code>form/gauge:datasets[1]</code> — набор данных gauge.</li>
+        </ul>
+
+        <h3>Binding — связывание со значениями</h3>
+        <p>Синтаксис:</p>
+        <pre>{context:property}</pre>
+        <p>Примеры:</p>
+        <pre>{users.admin.devices.virtual:random}
+{form/numberField1:value} * 100
+round(10 * {users.admin.devices.virtual:random})</pre>
+
+        <h3>События компонентов</h3>
+        <p>События обозначаются через <code>@</code>:</p>
+        <pre>form/button1:click@
+form/button1:mouseClicked@</pre>
+
+        <h3>Действия (Actions)</h3>
+        <p>Действие над контекстом:</p>
+        <pre>{cardholders:import!}</pre>
+        <p>Через скрипт:</p>
+        <pre>callFunction("", "executeQuery", {form/queryText:text})</pre>
+
+        <h3>Основные виджеты</h3>
+        <ul>
+          <li><strong>Label / Text</strong> — текстовые надписи.</li>
+          <li><strong>Button</strong> — кнопки с обработчиками.</li>
+          <li><strong>Text Field / Number Field</strong> — ввод значений.</li>
+          <li><strong>Data Table</strong> — таблицы с данными, фильтрами, сортировкой.</li>
+          <li><strong>Line Chart / Gauge / Traffic Chart</strong> — диаграммы и индикаторы.</li>
+          <li><strong>Image / SVG</strong> — встроенная графика и SVG-манипуляции.</li>
+          <li><strong>Panel</strong> — контейнеры с динамическим содержимым.</li>
+        </ul>
+
+        <h3>Динамические панели</h3>
+        <p>Панель может генерировать дочерние элементы из таблицы. Это позволяет рисовать списки, карточки, повторяющиеся блоки без ручного дублирования.</p>
+      </section>
+
+      <section id="permissions">
+        <h2>Пользователи и права доступа</h2>
+        <p>Вся модель безопасности построена на иерархии контекстов:</p>
+        <pre>users.&lt;username&gt;.devices.&lt;device&gt;
+users.&lt;username&gt;.dashboards.&lt;dashboard&gt;
+users.&lt;username&gt;.alerts.&lt;alert&gt;</pre>
+
+        <h3>Как работают права</h3>
+        <ul>
+          <li>Пользователь видит только те объекты, которые лежат в его ветке <code>users.&lt;username&gt;.*</code>.</li>
+          <li>Администратор <code>users.admin</code> видит практически всё, включая <code>users.*</code>.</li>
+          <li>Можно задать доступ через группы устройств: <code>users.&lt;username&gt;.devgroups.&lt;group&gt;</code>.</li>
+          <li>Доступ может быть ограничен на уровне отдельных свойств и действий.</li>
+        </ul>
+
+        <h3>Регистрация пользователей</h3>
+        <p>В конфигурации сервера есть параметр <code>usersSelfRegistration</code>:</p>
+        <ul>
+          <li><code>true</code> — новые пользователи могут зарегистрироваться сами через Web UI.</li>
+          <li><code>false</code> — только администратор создаёт пользователей.</li>
+        </ul>
+      </section>
+
+      <section id="alarms">
+        <h2>Аварии и события</h2>
+        <p>Система ведёт журнал событий и поддерживает активные аварии — <strong>ActiveAlerts</strong>.</p>
+
+        <h3>Поля активной аварии</h3>
+        <table>
+          <tr><th>Поле</th><th>Смысл</th></tr>
+          <tr><td><code>location</code></td><td>Где произошла авария (контекст)</td></tr>
+          <tr><td><code>event</code></td><td>ID события</td></tr>
+          <tr><td><code>alert</code></td><td>Текст/имя аварии</td></tr>
+          <tr><td><code>type</code></td><td>Тип</td></tr>
+          <tr><td><code>time</code></td><td>Время возникновения</td></tr>
+          <tr><td><code>level</code></td><td>Уровень критичности</td></tr>
+          <tr><td><code>message</code></td><td>Сообщение для оператора</td></tr>
+          <tr><td><code>acknowledgements</code></td><td>Кто и когда квитировал</td></tr>
+          <tr><td><code>data / cause / trigger</code></td><td>Дополнительная информация</td></tr>
+        </table>
+
+        <h3>Уровни событий</h3>
+        <p>В мануале встречаются уровни от 0 до 5 (чаще всего 0 — критичный, 5 — информационный). Конкретная расшифровка зависит от настройки проекта.</p>
+
+        <h3>Квитирование</h3>
+        <p>Аварии можно квитировать из таблицы или по нажатию кнопки. В binding/скрипте используется соответствующее действие над контекстом аварии.</p>
+
+        <h3>Фильтры событий</h3>
+        <p>Оператор может настроить фильтры, чтобы видеть только свои события, события по устройству или за период. Фильтры хранятся в контексте пользователя.</p>
+      </section>
+
+      <section id="scenarios">
+        <h2>Типовые сценарии пользователя</h2>
+        <div class="columns">
+          <div class="card">
+            <h4>1. Просмотр текущих значений</h4>
+            <p>Открыть дашборд → посмотреть на label/gauge/chart, значения которых привязаны к тегам устройств.</p>
+          </div>
+          <div class="card">
+            <h4>2. Управление оборудованием</h4>
+            <p>Нажать кнопку → вызвать action → устройство выполняет команду (например, <code>buzz()</code>, <code>reboot()</code>, <code>selfTest()</code>).</p>
+          </div>
+          <div class="card">
+            <h4>3. Подтверждение аварии</h4>
+            <p>В таблице активных аварий нажать кнопку «Квитировать» или выполнить соответствующее действие.</p>
+          </div>
+          <div class="card">
+            <h4>4. Просмотр истории</h4>
+            <p>Открыть Data Table с историческими данными, выбрать период, применить фильтр.</p>
+          </div>
+          <div class="card">
+            <h4>5. Переход к деталям</h4>
+            <p>Клик по строке/кнопке → <code>web/redirect()</code> → открывается детализированный дашборд объекта.</p>
+          </div>
+          <div class="card">
+            <h4>6. Выполнение отчёта/запроса</h4>
+            <p>Ввести параметры в поля → нажать кнопку → таблица обновляется результатом SQL-запроса или вызова функции.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="customize">
+        <h2>Кастомизация интерфейса</h2>
+        <ul>
+          <li><strong>Страница входа:</strong> шаблон <code>loginPage.html</code> лежит в <code>&lt;RatioT SCADA&gt;\admin\web\static\templates</code>. Поддерживает переменные <code>{{loginUsername}}</code>, <code>{{loginPassword}}</code>, <code>{{loginSubmit}}</code>, <code>{{loginRegister}}</code>, <code>{{formError}}</code>.</li>
+          <li><strong>CSS:</strong> каждый компонент можно стилизовать через CSS, включая размеры, цвета, отступы, grid.</li>
+          <li><strong>Адаптивность:</strong> поддерживаются breakpoints (Mobile, Tablet, Laptop, Full HD, QHD, Ultra HD) для разных разрешений.</li>
+          <li><strong>Иконки:</strong> можно назначать компонентам и действиям через <code>iconId</code>.</li>
+        </ul>
+
+        <h3>Пример кастомного binding</h3>
+        <pre>// Цвет фона в зависимости от аварии
+{.:voltageAlert$voltageAlert}
+  ? "background-color: red"
+  : "background-color: green"
+
+// Переход на другой дашборд по клику
+{web/redirect("users.admin.dashboards.detail", false, false)}</pre>
+      </section>
+
+      <footer>
+        Собрано из «Руководства по эксплуатации RatioT SCADA». Последнее обновление: август 2026.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('nav a[href^="#"]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => link.classList.remove('active'));
+          const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    sections.forEach(section => observer.observe(section));
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const id = link.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, null, '#' + id);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
