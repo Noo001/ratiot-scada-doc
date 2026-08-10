@@ -3,403 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RatioT SCADA — база знаний</title>
+  <title>Документация</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .landing {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .landing h1 {
+      font-size: 2.6rem;
+      margin-bottom: 12px;
+    }
+    .landing .lead {
+      color: var(--muted);
+      font-size: 1.15rem;
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .tile {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      text-align: left;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .tile:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      border-color: var(--accent);
+    }
+    .tile h2 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+      color: var(--accent);
+    }
+    .tile p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .tile.disabled {
+      opacity: .6;
+      pointer-events: none;
+    }
+    footer.landing-footer {
+      margin-top: 60px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="layout">
-    <aside>
-      <h1>RatioT SCADA</h1>
-      <div class="subtitle">База знаний / выжимка</div>
-      <nav>
-        <a href="#intro">Введение</a>
-        <a href="#architecture">Архитектура</a>
-        <a href="#stack">Технологический стек</a>
-        <a href="#ports">Порты и протоколы</a>
-        <a href="#install">Установка</a>
-        <a href="#run">Управление сервером</a>
-        <a href="#entities">Основные сущности</a>
-        <a href="#protocols">Поддерживаемые протоколы</a>
-        <a href="#hmi">HMI / Web UI</a>
-        <a href="#scripts">Скрипты и SQL</a>
-        <a href="ux.html">Пользовательский опыт →</a>
-        <a href="#sources">Источники</a>
-        <a href="#next">Следующие шаги</a>
-      </nav>
-    </aside>
+  <div class="landing">
+    <h1>Документация</h1>
+    <p class="lead">Централизованная база знаний по проектам. Выбирай раздел — переходи к документации.</p>
 
-    <main>
-      <section id="intro">
-        <h2>Введение</h2>
-        <p><strong>RatioT SCADA</strong> — серверная SCADA/HMI-платформа для сбора данных, визуализации и управления промышленными объектами.</p>
-        <p>Этот документ — краткая выжимка по официальным руководствам. Она поможет быстро понять, из чего состоит система, как её развернуть и куда копать дальше.</p>
-        <p><a href="ux.html" class="badge">→ Пользовательский опыт</a> — отдельная выжимка про вход, дашборды, binding, права доступа, аварии и типовые сценарии.</p>
-        <div class="note">
-          <strong>Важно:</strong> репозиторий кода <code>https://gitlab.dkc.ru/ratiot/ratio-t-scada</code> пока не склонирован — требуется доступ к GitLab. База знаний собрана только из PDF-руководств.
-        </div>
-      </section>
+    <div class="tiles">
+      <a class="tile" href="scada/index.html">
+        <h2>RatioT SCADA</h2>
+        <p>Архитектура, развёртывание, Web UI, пользовательский опыт, протоколы, HMI и скрипты.</p>
+      </a>
 
-      <section id="architecture">
-        <h2>Архитектура</h2>
-        <div class="columns">
-          <div class="card">
-            <h4>RatioT SCADA Server</h4>
-            <p>Ядро системы. Работает как служба/демон, собирает данные, выполняет скрипты, хранит историю, отдаёт API и Web UI.</p>
-          </div>
-          <div class="card">
-            <h4>Web UI</h4>
-            <p>Клиентская часть на React. Открывается в браузере Chrome/Firefox по HTTPS <code>8443</code> или HTTP <code>8080</code>.</p>
-          </div>
-          <div class="card">
-            <h4>Net Admin</h4>
-            <p>Административный интерфейс на порту <code>6440</code>. Нужен для лицензирования, конфигурации, активации.</p>
-          </div>
-          <div class="card">
-            <h4>Historian / NoSQL</h4>
-            <p>Встроенное хранилище на Apache Cassandra. Опционально можно подключить классические СУБД.</p>
-          </div>
-        </div>
+      <div class="tile disabled">
+        <h2>Другие проекты</h2>
+        <p>Сюда можно добавить плитки для других систем по мере появления документации.</p>
+      </div>
+    </div>
 
-        <h3>Схема взаимодействия</h3>
-        <pre>
-[ PLC / RTU / Датчики ]
-         │
-         ▼
-[ RatioT SCADA Server ] ◄──── API (6460) / Net Admin (6440)
-   │ JVM Java 17       │      Web UI (8080/8443)
-   │ Cassandra (NoSQL) │
-   │ RDBMS (опц.)      │
-         │
-         ▼
-[ Web UI / Dashboards / HMI ]
-        </pre>
-      </section>
-
-      <section id="stack">
-        <h2>Технологический стек</h2>
-        <table>
-          <tr><th>Компонент</th><th>Технология</th></tr>
-          <tr><td>Сервер</td><td>Java 17 (JVM)</td></tr>
-          <tr><td>NoSQL-хранилище</td><td>Apache Cassandra (встроенная)</td></tr>
-          <tr><td>Реляционные БД (опц.)</td><td>MySQL, PostgreSQL, Oracle, MS SQL Server, Firebird</td></tr>
-          <tr><td>Встроенные БД</td><td>H2 / Cassandra</td></tr>
-          <tr><td>Web UI</td><td>React</td></tr>
-          <tr><td>HMI-редактор</td><td>Web UI Builder, SVG, CSS, bindings</td></tr>
-          <tr><td>Скриптование</td><td>Java, R, Python, встроенные выражения</td></tr>
-          <tr><td>ОС сервера</td><td>Windows 7/10/11, Windows Server 2016/2019, Linux</td></tr>
-        </table>
-      </section>
-
-      <section id="ports">
-        <h2>Порты и протоколы</h2>
-        <table>
-          <tr><th>Порт</th><th>Назначение</th></tr>
-          <tr><td>6460</td><td>Собственный API сервера</td></tr>
-          <tr><td>6440</td><td>Net Admin</td></tr>
-          <tr><td>8080</td><td>Web UI — HTTP</td></tr>
-          <tr><td>8443</td><td>Web UI — HTTPS</td></tr>
-          <tr><td>162/UDP</td><td>SNMP-ловушки</td></tr>
-          <tr><td>2055</td><td>NetFlow</td></tr>
-          <tr><td>6343</td><td>sFlow</td></tr>
-          <tr><td>514</td><td>Syslog</td></tr>
-          <tr><td>9042</td><td>NoSQL (Cassandra)</td></tr>
-          <tr><td>47808</td><td>BACnet</td></tr>
-          <tr><td>7800</td><td>Heartbeat</td></tr>
-          <tr><td>21 / 22 / 69</td><td>FTP / SSH / TFTP</td></tr>
-          <tr><td>389</td><td>LDAP / Active Directory</td></tr>
-          <tr><td>25 / 110 / 143</td><td>SMTP / POP3 / IMAP</td></tr>
-          <tr><td>1812</td><td>RADIUS</td></tr>
-          <tr><td>50000–60000</td><td>Диапазон для вспомогательных соединений</td></tr>
-        </table>
-      </section>
-
-      <section id="install">
-        <h2>Установка и развёртывание</h2>
-
-        <h3>Требования</h3>
-        <ul>
-          <li>Java 17 (JRE/JDK).</li>
-          <li>64-разрядная ОС Windows или Linux.</li>
-          <li>Для NoSQL-историка желательны SSD и 12–16 ГБ RAM.</li>
-          <li>На Linux установку и запуск рекомендуется выполнять под root или через sudoers.</li>
-        </ul>
-
-        <h3>Дистрибутивы</h3>
-        <ul>
-          <li>Windows: <code>RatioT_SCADA_full_6.34.07_windows-x64.exe</code></li>
-          <li>Linux: <code>RatioT_SCADA_full_6.34.07_unix-x64.sh</code></li>
-        </ul>
-
-        <h3>Варианты установки</h3>
-        <ol>
-          <li><strong>GUI:</strong> запустить инсталлятор и пройти мастер.</li>
-          <li><strong>Тихая:</strong>
-            <pre># Linux
-./installer.sh -q -varfile response.varfile
-
-# Windows
-installer.exe -q -varfile response.varfile</pre>
-          </li>
-          <li><strong>Вручную через response.varfile:</strong> файл находится в <code>RatioT SCADA/.install4j/response.varfile</code>. После правки перезапустить установку.</li>
-          <li><strong>Docker:</strong> собрать образ и запустить:
-            <pre>docker build -t RatioT_SCADA .
-docker run RatioT_SCADA</pre>
-            Внутри контейнера сервер стартует через <code>xvfb-run --auto-servernum ./ag_server -r</code>.
-          </li>
-        </ol>
-
-        <h3>Пути по умолчанию</h3>
-        <table>
-          <tr><th>ОС</th><th>Путь</th></tr>
-          <tr><td>Linux</td><td><code>/opt/RatioT SCADA</code></td></tr>
-          <tr><td>Windows</td><td><code>C:\Program Files\RatioT SCADA</code></td></tr>
-        </table>
-
-        <h3>Лицензирование</h3>
-        <ol>
-          <li>Сгенерировать <code>activation.txt</code> через Net Admin.</li>
-          <li>Получить файл <code>server.license</code>.</li>
-          <li>Положить <code>server.license</code> в каталог сервера и перезапустить.</li>
-        </ol>
-      </section>
-
-      <section id="run">
-        <h2>Управление сервером</h2>
-
-        <h3>Linux</h3>
-        <pre># systemd
-systemctl enable RatioT_SCADA.service
-systemctl restart RatioT_SCADA.service
-systemctl status RatioT_SCADA.service -l
-
-# init-скрипт
-service RatioT_SCADA_service start|stop|restart|status
-
-# консоль
-RatioT_SCADA_console</pre>
-
-        <h3>Windows</h3>
-        <ul>
-          <li>Служба запускается через <code>Services.msc</code>.</li>
-          <li>Консоль: <code>RatioT_SCADA_console.exe</code>.</li>
-        </ul>
-
-        <h3>Полезные флаги</h3>
-        <table>
-          <tr><th>Флаг</th><th>Назначение</th></tr>
-          <tr><td><code>-a</code></td><td>Режим администратора</td></tr>
-          <tr><td><code>-e &lt;file&gt;</code></td><td>Выполнить SQL-скрипт</td></tr>
-          <tr><td><code>-s &lt;file&gt;</code></td><td>Сохранить SQL-скрипт</td></tr>
-          <tr><td><code>-c</code></td><td>Консольный режим</td></tr>
-          <tr><td><code>-u</code></td><td>GUI-установщик</td></tr>
-          <tr><td><code>-p &lt;user&gt; &lt;pass&gt;</code></td><td>Авторизация</td></tr>
-        </table>
-      </section>
-
-      <section id="entities">
-        <h2>Основные сущности системы</h2>
-        <div class="columns">
-          <div class="card">
-            <h4>Проект (.prs)</h4>
-            <p>Главный файл конфигурации SCADA. В него входят модели, устройства, теги, dashboards, скрипты.</p>
-          </div>
-          <div class="card">
-            <h4>Модель (Model)</h4>
-            <p>Логическое описание объекта или устройства. Может включать параметры, состояния, подмодели.</p>
-          </div>
-          <div class="card">
-            <h4>Устройство (Device)</h4>
-            <p>Источник данных: PLC, RTU, контроллер, виртуальный источник. Связывается с моделью.</p>
-          </div>
-          <div class="card">
-            <h4>Тег / переменная</h4>
-            <p>Значение, приходящее с устройства или вычисляемое. Имеет тип, контекст, историю.</p>
-          </div>
-          <div class="card">
-            <h4>Historian</h4>
-            <p>Подсистема хранения временных рядов. По умолчанию на Cassandra; можно использовать RRD.</p>
-          </div>
-          <div class="card">
-            <h4>Dashboard / HMI</h4>
-            <p>Визуализация: формы, SVG-элементы, таблицы, диаграммы, динамические панели.</p>
-          </div>
-          <div class="card">
-            <h4>События и алармы</h4>
-            <p>Журнал событий, SLA, уведомления по e-mail/SMS. Поддерживаются фильтры и подписки.</p>
-          </div>
-          <div class="card">
-            <h4>Пользователи и роли</h4>
-            <p>Аутентификация и права доступа. Интеграция с LDAP/AD и RADIUS.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="protocols">
-        <h2>Поддерживаемые протоколы и источники данных</h2>
-        <p>По оглавлению «Руководства по эксплуатации» система умеет работать с большинством промышленных протоколов:</p>
-        <div class="columns">
-          <div class="card">
-            <h4>Промышленные</h4>
-            <ul>
-              <li>Modbus (TCP/UDP/RTU/ASCII/Serial)</li>
-              <li>OPC DA / OPC UA</li>
-              <li>IEC-104 / IEC-104 Server</li>
-              <li>DNP3</li>
-              <li>Ethernet/IP</li>
-              <li>BACnet</li>
-              <li>Siemens S7</li>
-              <li>Omron FINS</li>
-              <li>DLMS/COSEM</li>
-              <li>CoAP</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>IoT / Сетевые</h4>
-            <ul>
-              <li>MQTT</li>
-              <li>HTTP/HTTPS</li>
-              <li>SNMP</li>
-              <li>SNMP-ловушки (162/UDP)</li>
-              <li>Syslog, NetFlow, sFlow</li>
-              <li>Kafka</li>
-              <li>NMEA 0183</li>
-              <li>XMPP</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Связь и уведомления</h4>
-            <ul>
-              <li>FTP / SSH / TFTP / SMB/CIFS</li>
-              <li>SIP</li>
-              <li>SMPP</li>
-              <li>SOAP</li>
-              <li>SQL (JDBC)</li>
-              <li>IMAP / POP3 / SMTP</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h4>Инфраструктура</h4>
-            <ul>
-              <li>LDAP / Active Directory</li>
-              <li>RADIUS</li>
-              <li>DNS (RFC-2136)</li>
-              <li>IPMI</li>
-              <li>JMX</li>
-              <li>VMware</li>
-              <li>WebSphere MQ</li>
-              <li>WMI</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="hmi">
-        <h2>HMI / Web UI</h2>
-        <h3>Как открыть</h3>
-        <ul>
-          <li>Стартовый URL по умолчанию: <code>https://&lt;host&gt;:8443/web</code> или <code>http://&lt;host&gt;:8080/web</code>.</li>
-          <li>Поддерживаемые браузеры: Google Chrome, Mozilla Firefox.</li>
-          <li>Учётная запись по умолчанию: <code>admin/admin</code>.</li>
-        </ul>
-
-        <h3>Web UI Builder</h3>
-        <p>Редактор мнемосхем работает в браузере. Основные инструменты:</p>
-        <ul>
-          <li><strong>Формы и виджеты</strong> — label, button, chart, table, panel.</li>
-          <li><strong>SVG-графика</strong> — встроенная библиотека <code>svgManipulation</code>; можно вставлять свои SVG.</li>
-          <li><strong>Binding</strong> — связывание свойств виджетов с тегами через выражения вида <code>{users.admin.devices.virtual:random}</code>.</li>
-          <li><strong>CSS</strong> — стилизация элементов через обычный CSS.</li>
-          <li><strong>Динамические панели</strong> — генерация содержимого из таблиц/списков.</li>
-        </ul>
-
-        <h3>Пример binding</h3>
-        <pre>// Отображение значения
-{users.admin.devices.virtual:random}
-
-// Масштабирование и округление
-round(10 * {users.admin.devices.virtual:random})
-
-// Условие для цвета
-{form/fan:state} == 'on' ? color(255,0,0) : color(0,255,0)</pre>
-      </section>
-
-      <section id="scripts">
-        <h2>Скрипты, SQL и выражения</h2>
-        <ul>
-          <li><strong>Встроенные выражения</strong> — используются в binding и событиях виджетов.</li>
-          <li><strong>Java</strong> — можно писать сложную логику и расширения.</li>
-          <li><strong>R</strong> и <strong>Python</strong> — поддерживаются для аналитики и обработки данных.</li>
-          <li><strong>SQL</strong> — встроенные запросы к данным системы и внешним БД.</li>
-        </ul>
-
-        <h3>Пример SQL-запроса к событиям</h3>
-        <pre>SELECT *
-FROM events:get('users', 'login') as logins
-WHERE logins.get$username = 'john'</pre>
-
-        <h3>Пример executeQuery во внешней БД</h3>
-        <pre>{users.admin.devices.linkserver_database:executeQuery(
-  "SELECT * FROM logins WHERE username = 'john'"
-)}</pre>
-      </section>
-
-      <section id="sources">
-        <h2>Источники</h2>
-        <ul>
-          <li>PDF: Руководство по развёртыванию RatioT SCADA (98 стр.) — локально в проекте <code>scada-doc/incoming/</code></li>
-          <li>PDF: Руководство по эксплуатации RatioT SCADA (2849 стр.) — локально в проекте <code>scada-doc/incoming/</code></li>
-          <li>Извлечённый текст: развёртывание — локально в проекте <code>scada-doc/extracted/</code></li>
-          <li>Извлечённый текст: эксплуатация — локально в проекте <code>scada-doc/extracted/</code></li>
-          <li><a href="https://gitlab.dkc.ru/ratiot/ratio-t-scada" target="_blank">GitLab: ratiot/ratio-t-scada</a> (доступ ограничен)</li>
-        </ul>
-        <div class="note">
-          <strong>Статус репозитория:</strong> по состоянию на август 2026 репозиторий <code>ratiot/ratio-t-scada</code> пустой — в нём только шаблонный <code>README.md</code>. Код проекта в нём пока не размещён.
-        </div>
-      </section>
-
-      <section id="next">
-        <h2>Следующие шаги</h2>
-        <ol>
-          <li><strong>Дать доступ к GitLab.</strong> Нужен PAT/токен или настроить SSH-ключ для <code>git@gitlab.dkc.ru</code>, чтобы склонировать код.</li>
-          <li><strong>Уточнить фокус.</strong> Какой раздел важнее: развёртывание, разработка HMI, протоколы, администрирование пользователей, API?</li>
-          <li><strong>Дополнить базу знаний.</strong> После клонирования кода добавить разделы по структуре репозитория, сборке и ключевым модулям.</li>
-          <li><strong>Автогенерация.</strong> Можно превратить этот сайт в генератор документации из кода и PDF.</li>
-        </ol>
-      </section>
-
-      <footer>
-        Собрано из официальной документации RatioT SCADA. Последнее обновление: август 2026.
-      </footer>
-    </main>
+    <footer class="landing-footer">
+      Внутреняя документация. Последнее обновление: август 2026.
+    </footer>
   </div>
-
-  <script>
-    // Подсветка активного пункта навигации при скролле
-    const sections = document.querySelectorAll('section[id]');
-    const links = document.querySelectorAll('nav a[href^="#"]');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          links.forEach(link => link.classList.remove('active'));
-          const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-20% 0px -60% 0px' });
-    sections.forEach(section => observer.observe(section));
-
-    // Плавная прокрутка по клику
-    links.forEach(link => {
-      link.addEventListener('click', (e) => {
-        const id = link.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if (el) {
-          e.preventDefault();
-          el.scrollIntoView({ behavior: 'smooth' });
-          history.pushState(null, null, '#' + id);
-        }
-      });
-    });
-  </script>
 </body>
 </html>

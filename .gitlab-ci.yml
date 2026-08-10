@@ -2,7 +2,8 @@ pages:
   stage: deploy
   script:
     - mkdir public
-    - cp index.html style.css ux.html public/
+    - cp index.html style.css public/
+    - cp -r scada public/
   artifacts:
     paths:
       - public
