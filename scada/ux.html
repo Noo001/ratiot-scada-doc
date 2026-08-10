@@ -3,40 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RatioT SCADA — пользовательский опыт</title>
+  <title>RatioT SCADA — руководство пользователя</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="layout">
     <aside>
       <h1>RatioT SCADA</h1>
-      <div class="subtitle">Пользовательский опыт / выжимка из мануала</div>
+      <div class="subtitle">Руководство пользователя / выжимка из мануала</div>
       <nav>
         <a href="index.html">← Общая база знаний</a>
-        <a href="#about">Что это</a>
-        <a href="#first-login">Первый вход</a>
-        <a href="#navigation">Меню и навигация</a>
-        <a href="#dashboards">Дашборды</a>
+        <a href="#about">Что это и зачем</a>
+        <a href="#login">Вход и первые шаги</a>
+        <a href="#structure">Как устроена система</a>
+        <a href="#devices">Устройства и теги</a>
+        <a href="#models">Модели и группы</a>
+        <a href="#dashboards">Дашборды и Web UI Builder</a>
         <a href="#components">Компоненты и binding</a>
-        <a href="#permissions">Пользователи и права</a>
+        <a href="#data">Данные, запросы, отчёты</a>
         <a href="#alarms">Аварии и события</a>
-        <a href="#scenarios">Типовые сценарии</a>
-        <a href="#customize">Кастомизация</a>
+        <a href="#access">Пользователи и доступ</a>
+        <a href="#scenarios">Типовые задачи</a>
       </nav>
     </aside>
 
     <main>
       <section id="intro">
-        <h2>Пользовательский опыт в RatioT SCADA</h2>
-        <p>Эта страница — выжимка из «Руководства по эксплуатации» (≈2800 стр.) именно про то, как конечный пользователь работает с Web UI.</p>
-        <p>Фокус: что это за система, для чего она нужна, как в неё зайти, как перемещаться и выполнять рабочие задачи.</p>
+        <h2>Руководство пользователя RatioT SCADA</h2>
+        <p>Эта страница — подробная выжимка из официальных руководств. Здесь собрано то, как устроена система, как в неё входить, как работать с устройствами, дашбордами, данными, авариями и правами доступа.</p>
+        <p>Материал опирается на «Руководство по развёртыванию» и «Руководство по эксплуатации». Если какой-то момент в руководстве не раскрыт, это отмечено отдельно.</p>
       </section>
 
       <section id="about">
         <h2>Что такое RatioT SCADA и зачем она нужна</h2>
         <p><strong>RatioT SCADA</strong> — это программная платформа для диспетчеризации, мониторинга и управления промышленными объектами, инженерными системами и оборудованием.</p>
 
-        <h3>Для чего используется</h3>
+        <h3>Что умеет платформа</h3>
         <div class="columns">
           <div class="card">
             <h4>Сбор данных</h4>
@@ -71,149 +73,441 @@
           <li><strong>Администраторы</strong> — управляют пользователями, лицензиями, сервером, резервным копированием.</li>
           <li><strong>Руководство / аналитики</strong> — используют отчёты и исторические данные для принятия решений.</li>
         </ul>
-
-        <h3>Где работает пользователь</h3>
-        <p>Основной интерфейс — <strong>Web UI</strong>, который открывается в браузере. Не требуется устанавливать клиентское приложение.</p>
-        <p>Администраторы дополнительно используют <strong>Net Admin</strong> (порт 6440) для лицензирования и серверной настройки.</p>
       </section>
 
-      <section id="first-login">
-        <h2>Как и куда заходить</h2>
+      <section id="login">
+        <h2>Вход и первые шаги</h2>
 
-        <div class="note">
-          <strong>Быстрый старт:</strong> открой в Chrome/Firefox адрес <code>https://&lt;IP_сервера&gt;:8443/web</code>, введи <code>admin / admin</code> и нажми <strong>Login</strong>. После входа откроется <strong>Default Dashboard</strong>.
-        </div>
-
+        <h3>Как открыть Web UI</h3>
         <ul>
-          <li>Открывать только в <strong>Google Chrome</strong> или <strong>Mozilla Firefox</strong>.</li>
-          <li>URL по умолчанию: <code>https://&lt;host&gt;:8443/web</code> или <code>http://&lt;host&gt;:8080/web</code>.</li>
-          <li>Если настроен сертификат с ошибкой, браузер предупредит — нужно принять риск/исключение.</li>
-          <li>Учётка по умолчанию: <code>admin / admin</code>.</li>
-          <li>Стартовая страница — <strong>Default Dashboard</strong>. Она же открывается по кнопке <strong>Home</strong>.</li>
+          <li>Открой браузер <strong>Google Chrome</strong> или <strong>Mozilla Firefox</strong>. Internet Explorer не поддерживается.</li>
+          <li>Адрес по умолчанию: <code>https://&lt;IP_сервера&gt;:8443/web</code> или <code>http://&lt;IP_сервера&gt;:8080/web</code>.</li>
+          <li>Если сервер запущен локально — <code>https://localhost:8443/web</code>.</li>
+          <li>Если браузер ругается на сертификат, нужно принять исключение и продолжить.</li>
         </ul>
 
-        <h3>URL-адреса внутри Web UI</h3>
+        <h3>Авторизация</h3>
+        <ul>
+          <li>Логин и пароль по умолчанию у администратора: <code>admin / admin</code>.</li>
+          <li>Страница входа можно кастомизировать через файл <code>loginPage.html</code> в каталоге <code>admin/web/static/templates</code> сервера.</li>
+          <li>Доступные переменные шаблона: <code>{{loginUsername}}</code>, <code>{{loginPassword}}</code>, <code>{{loginSubmit}}</code>, <code>{{loginRegister}}</code>, <code>{{formError}}</code>.</li>
+        </ul>
+
+        <h3>Что видно после входа</h3>
+        <ul>
+          <li>Открывается <strong>Default Dashboard</strong> — стартовая мнемосхема.</li>
+          <li>В шапке три основных пункта: <strong>RatioT SCADA</strong> (логотип/ссылка на домашний дашборд), <strong>Home</strong> (возврат на Default Dashboard), <strong>Logout</strong> (выход).</li>
+          <li>Дальше пользователь перемещается по дашбордам через кнопки, ссылки, таблицы и динамические панели.</li>
+        </ul>
+
+        <h3>Адреса внутри Web UI</h3>
         <table>
-          <tr><th>Путь</th><th>Назначение</th></tr>
-          <tr><td><code>/web</code></td><td>Главная страница (Default Dashboard)</td></tr>
+          <tr><th>Путь</th><th>Что открывает</th></tr>
+          <tr><td><code>/web</code></td><td>Главная страница, Default Dashboard</td></tr>
           <tr><td><code>/web/login</code></td><td>Страница входа</td></tr>
           <tr><td><code>/web/admin</code></td><td>Административный дашборд (если есть права)</td></tr>
           <tr><td><code>/web/dashboards/&lt;context&gt;</code></td><td>Конкретный дашборд, например <code>users.admin.dashboards.overview</code></td></tr>
         </table>
       </section>
 
-      <section id="navigation">
-        <h2>Главное меню и навигация</h2>
-        <p>В шапке Web UI обычно три пункта:</p>
-        <ul>
-          <li><strong>RatioT SCADA</strong> — логотип/название, часто ведёт на домашний дашборд.</li>
-          <li><strong>Home</strong> — возврат на Default Dashboard.</li>
-          <li><strong>Logout</strong> — выход из системы.</li>
-        </ul>
-        <p>Дальше пользователь перемещается по дашбордам: через ссылки внутри мнемосхем, кнопки, таблицы, динамические панели.</p>
+      <section id="structure">
+        <h2>Как устроена система: иерархия объектов</h2>
+        <p>Вся конфигурация RatioT SCADA хранится в виде иерархии контекстов. Каждый объект — это узел в дереве, у которого есть свойства, функции, события и дочерние объекты.</p>
 
-        <h3>Переходы между дашбордами</h3>
-        <p>Из binding или скрипта можно открыть другой дашборд:</p>
-        <pre>{web/redirect("users.admin.dashboards.example")}</pre>
-        <p>Параметры перехода:</p>
+        <h3>Общее дерево</h3>
+        <pre>users
+  └── &lt;username&gt;
+        ├── dashboards
+        │     └── &lt;dashboard_name&gt;
+        ├── deviceservers
+        │     └── &lt;device_server_name&gt;
+        │           └── devices
+        │                 └── &lt;device_name&gt;
+        │                       └── &lt;tags / properties&gt;
+        ├── devgroups
+        │     └── &lt;group_name&gt;
+        ├── models
+        │     └── &lt;model_name&gt;
+        ├── queries
+        │     └── &lt;query_name&gt;
+        ├── alerts
+        │     └── &lt;alert_name&gt;
+        └── autorun</pre>
+
+        <h3>Ключевые понятия</h3>
+        <table>
+          <tr><th>Объект</th><th>Что это</th></tr>
+          <tr><td><strong>Проект (.prs)</strong></td><td>Главный файл конфигурации SCADA. В него входят модели, устройства, дашборды, скрипты, запросы.</td></tr>
+          <tr><td><strong>Модель (Model)</strong></td><td>Шаблон устройства или объекта. Описывает свойства, теги, события и функции, которые потом можно использовать для множества устройств.</td></tr>
+          <tr><td><strong>Device Server</strong></td><td>Логический или физический контейнер для устройств. Часто соответствует одному протоколу или одному шлюзу/каналу связи.</td></tr>
+          <tr><td><strong>Устройство (Device)</strong></td><td>Конкретный источник данных: PLC, RTU, контроллер, датчик, виртуальный источник. Живёт внутри Device Server.</td></tr>
+          <tr><td><strong>Тег / переменная</strong></td><td>Значение, приходящее с устройства или вычисляемое. Имеет имя, тип, контекст, историю и качество.</td></tr>
+          <tr><td><strong>Historian</strong></td><td>Подсистема хранения временных рядов. По умолчанию на Apache Cassandra; можно использовать RRD.</td></tr>
+          <tr><td><strong>Dashboard</strong></td><td>Мнемосхема: набор форм, компонентов, SVG, таблиц, диаграмм.</td></tr>
+          <tr><td><strong>Query</strong></td><td>Именованный запрос к данным системы. Можно использовать в таблицах и скриптах.</td></tr>
+          <tr><td><strong>Alert / Event</strong></td><td>Аварийное событие или просто событие в журнале. Имеет уровень, время, сообщение, признак квитирования.</td></tr>
+        </table>
+
+        <h3>Как обращаться к объектам</h3>
+        <p>Каждый объект имеет путь в дереве. Примеры путей, которые встречаются в документации:</p>
         <ul>
-          <li><code>historyUrlChanged = false</code> — URL не меняется.</li>
-          <li><code>newTab = false</code> — открыть в текущей вкладке.</li>
-          <li><code>parameters</code> — передать данные в целевой дашборд.</li>
+          <li>Устройство: <code>users.admin.deviceservers.ds1.devices.thermostat</code></li>
+          <li>Тег температуры: <code>users.admin.deviceservers.ds1.devices.thermostat:temperature$temperature</code></li>
+          <li>Дашборд: <code>users.admin.dashboards.overview</code></li>
+          <li>Модель: <code>users.admin.models.pump</code></li>
+          <li>Запрос: <code>users.admin.queries.energy_consumption</code></li>
+          <li>Авария: <code>users.admin.alerts.water_level_warning</code></li>
         </ul>
+        <p>Маска <code>users.*</code> означает «все пользователи». Маска <code>users.*.devices.*</code> означает «все устройства всех пользователей».</p>
+      </section>
+
+      <section id="devices">
+        <h2>Устройства и теги</h2>
+
+        <h3>Из чего состоит работа с устройством</h3>
+        <p>Чтобы получать данные из оборудования, в системе нужно настроить цепочку:</p>
+        <ol>
+          <li><strong>Device Server</strong> — канал/протокол/шлюз.</li>
+          <li><strong>Device</strong> — конкретное устройство на этом канале.</li>
+          <li><strong>Tag / Property</strong> — переменная внутри устройства, которую нужно считывать или записывать.</li>
+        </ol>
+
+        <h3>Пример пути к тегу</h3>
+        <pre>users.admin.deviceservers.ds1.devices.thermostat:temperature$temperature</pre>
+        <p>Здесь:</p>
+        <ul>
+          <li><code>users.admin</code> — пользователь-владелец.</li>
+          <li><code>deviceservers.ds1</code> — Device Server с именем <code>ds1</code>.</li>
+          <li><code>devices.thermostat</code> — устройство «термостат».</li>
+          <li><code>temperature</code> — контекст/сущность тега.</li>
+          <li><code>temperature$temperature</code> — значение температуры.</li>
+        </ul>
+
+        <h3>Как читать значение в binding</h3>
+        <pre>{users.admin.deviceservers.ds1.devices.thermostat:temperature$temperature}</pre>
+        <p>Такое выражение можно привязать к label, gauge, chart, table или использовать в условии.</p>
+
+        <h3>Как вызвать действие на устройстве</h3>
+        <p>У устройств и Device Server есть функции. Примеры из документации:</p>
+        <ul>
+          <li>Перезагрузить устройство: <code>users.admin.devices.dev1:reboot()</code></li>
+          <li>Подать сигнал на Device Server: <code>users.admin.deviceservers.ds1:buzz()</code></li>
+          <li>Запустить самотестирование: <code>users.admin.deviceservers.ds1.devices.1:selfTest("quick")</code></li>
+        </ul>
+        <p>Действие вызывается через binding или скрипт:</p>
+        <pre>{users.admin.deviceservers.ds1:buzz()}</pre>
+
+        <h3>Качество и статус тега</h3>
+        <p>У каждого тега есть не только значение, но и качество (quality) — насколько актуальны данные. Например, если связь с устройством пропала, качество меняется, и это можно отобразить цветом или диагностической панелью.</p>
+
+        <h3>Статус Device Server</h3>
+        <p>Device Server имеет объект <code>deviceServerInfo</code> и <code>status</code>. Через них можно узнать:</p>
+        <ul>
+          <li>Кто владелец, имя сервера.</li>
+          <li>Статус соединения (<code>status</code>).</li>
+          <li>Объём трафика: <code>servertods</code> (сервер → DS) и <code>dstoserver</code> (DS → сервер).</li>
+        </ul>
+        <p>Пример SQL-запроса для мониторинга Device Server:</p>
+        <pre>SELECT
+  info.deviceServerInfo$owner,
+  info.deviceServerInfo$name,
+  info.status$servertods,
+  info.status$dstoserver
+FROM
+  users.*.deviceservers.*:status:deviceServerInfo as info
+ORDER BY
+  info.deviceServerInfo$owner,
+  info.deviceServerInfo$name</pre>
+      </section>
+
+      <section id="models">
+        <h2>Модели и группы устройств</h2>
+
+        <h3>Модель (Model)</h3>
+        <p>Модель — это шаблон. Она описывает, какие теги, свойства, события и функции есть у типового устройства. Например, модель «насос» может содержать теги:</p>
+        <ul>
+          <li><code>state</code> — включён/выключен.</li>
+          <li><code>pressure</code> — давление.</li>
+          <li><code>temperature</code> — температура двигателя.</li>
+          <li><code>runtime</code> — наработка.</li>
+        </ul>
+        <p>Когда инженер создаёт реальное устройство, он может указать, что оно основано на модели <code>users.admin.models.pump</code>. Тогда устройство автоматически получает все теги и функции модели.</p>
+
+        <h3>Группы устройств (devgroups)</h3>
+        <p>Группы позволяют объединять устройства для удобного доступа и запросов. Пример:</p>
+        <pre>users.admin.devgroups.genericGroup.virtural</pre>
+        <p>Маска <code>users.admin.devgroups.genericGroup.*</code> покроет все устройства группы. Это удобно, когда нужно:</p>
+        <ul>
+          <li>Отобразить таблицу по нескольким устройствам.</li>
+          <li>Применить один запрос или аварию к группе.</li>
+          <li>Ограничить права пользователя не одним устройством, а группой.</li>
+        </ul>
+        <p>Пример функции для получения переменной из группы:</p>
+        <pre>getVariable("users.admin.devgroups.genericGroup.virtural", "info")</pre>
+
+        <h3>Наследование и копирование</h3>
+        <p>Контексты можно копировать. Функция <code>makeCopy()</code> создаёт копию объекта с его дочерними элементами и переменными. Это полезно, когда нужно быстро размножить похожие устройства или дашборды.</p>
       </section>
 
       <section id="dashboards">
-        <h2>Дашборды</h2>
-        <p>Каждый дашборд — это объект в контексте пользователя:</p>
+        <h2>Дашборды и Web UI Builder</h2>
+
+        <h3>Что такое дашборд</h3>
+        <p>Дашборд — это объект, который содержит визуальные формы и компоненты. Он хранится в контексте пользователя:</p>
         <pre>users.&lt;username&gt;.dashboards.&lt;dashboard_name&gt;</pre>
+        <p>Примеры:</p>
+        <ul>
+          <li><code>users.admin.dashboards.overview</code> — общий обзор.</li>
+          <li><code>users.admin.dashboards.landingDashboard</code> — посадочная страница.</li>
+          <li><code>users.admin.dashboards.administration</code> — административный дашборд.</li>
+        </ul>
 
-        <h3>Типы дашбордов</h3>
-        <div class="columns">
-          <div class="card">
-            <h4>Default Dashboard</h4>
-            <p>Открывается после входа. Настраивается администратором как стартовая точка.</p>
-          </div>
-          <div class="card">
-            <h4>Landing Dashboard</h4>
-            <p>«Посадочная» страница, на которую можно прийти по короткому URL. Например, <code>/web/dashboards/users.admin.dashboards.landingDashboard</code> или даже <code>/landingDashboard</code>, если настроен alias.</p>
-          </div>
-          <div class="card">
-            <h4>Административный дашборд</h4>
-            <p><code>users.admin.dashboards.administration</code> — для настройки сервера, пользователей, устройств.</p>
-          </div>
-        </div>
+        <h3>Как открыть дашборд по прямой ссылке</h3>
+        <p>Можно дать оператору конкретный URL:</p>
+        <pre>https://&lt;host&gt;:8443/web/dashboards/users.admin.dashboards.overview</pre>
+        <p>Если для дашборда настроен alias, можно использовать короткое имя:</p>
+        <pre>https://&lt;host&gt;:8443/web/dashboards/landingDashboard</pre>
 
-        <h3>Autorun — автозапуск</h3>
-        <p>У пользователя может быть объект <code>users.&lt;username&gt;.autorun</code>. Он выполняется сразу после входа. Типичное применение — автоматически открыть нужный дашборд или выполнить действие.</p>
+        <h3>Web UI Builder</h3>
+        <p>Дашборды создаются в визуальном редакторе прямо в браузере. В редакторе можно:</p>
+        <ul>
+          <li>Создать форму (form).</li>
+          <li>Добавить компоненты: label, button, text field, number field, image, gauge, chart, data table, panel.</li>
+          <li>Настроить свойства компонентов.</li>
+          <li>Привязать компоненты к данным через binding.</li>
+          <li>Добавить обработчики событий: click, mouseClicked, valueChanged и т.д.</li>
+          <li>Стилизовать через CSS.</li>
+        </ul>
 
-        <h3>Короткие ссылки и alias</h3>
-        <p>Дашборд можно открыть по полному пути или по alias. Например:</p>
-        <pre>http://example.com/web/dashboards/users.admin.dashboards.a</pre>
-        <p>Или использовать <code>{env/alias}</code> внутри binding.</p>
+        <h3>Структура адреса компонента</h3>
+        <p>Каждый компонент внутри формы имеет адрес:</p>
+        <pre>form/&lt;component_name&gt;:&lt;property&gt;</pre>
+        <p>Примеры:</p>
+        <ul>
+          <li><code>form/label1:text</code> — текст label.</li>
+          <li><code>form/textField1:value</code> — значение текстового поля.</li>
+          <li><code>form/button1:click@</code> — событие клика кнопки.</li>
+          <li><code>form/gauge:datasets[1]</code> — первый набор данных gauge.</li>
+          <li><code>form/image1:imageTable$imageData[0]</code> — данные изображения.</li>
+        </ul>
+
+        <h3>Пример из руководства: простая мнемосхема</h3>
+        <p>На форме размещены:</p>
+        <ul>
+          <li>Label <code>label0</code> — показывает значение.</li>
+          <li>Label <code>label1</code> — показывает округлённое значение.</li>
+          <li>Button <code>button0</code> — обновляет значение.</li>
+        </ul>
+        <p>Binding label:</p>
+        <pre>{users.admin.devices.virtual:random}</pre>
+        <p>Округление и масштабирование:</p>
+        <pre>round(10 * {users.admin.devices.virtual:random})</pre>
+        <p>Обработчик кнопки:</p>
+        <pre>form/button0:mouseClicked@</pre>
+
+        <h3>Адаптивность и CSS</h3>
+        <p>Каждый компонент можно стилизовать через CSS. Пример из руководства:</p>
+        <pre>{
+  font-size: 1.5em;
+  margin-left: 20%;
+}</pre>
+        <p>Дашборд поддерживает адаптивные breakpoints: Mobile, Tablet, Laptop, Full HD, QHD, Ultra HD. Для каждого breakpoint можно задать своё поведение компонентов.</p>
+
+        <h3>Компоновка: Grid, Absolute, Dockable</h3>
+        <ul>
+          <li><strong>Grid</strong> — компоненты размещаются по ячейкам сетки. Удобно для адаптивных форм.</li>
+          <li><strong>Absolute</strong> — компоненты размещаются по координатам X/Y. Удобно для точных мнемосхем.</li>
+          <li><strong>Dockable</strong> — компоненты «прилипают» к сторонам контейнера.</li>
+        </ul>
+
+        <h3>Переходы между дашбордами</h3>
+        <p>Из binding или скрипта можно открыть другой дашборд:</p>
+        <pre>{web/redirect("users.admin.dashboards.detail")}</pre>
+        <p>Можно передать параметры:</p>
+        <pre>{web/redirect("users.admin.dashboards.detail", false, false, 'structure("key","value1","value2")')}</pre>
+        <p>Аргументы:</p>
+        <ul>
+          <li>Первый — целевой дашборд.</li>
+          <li>Второй — менять ли URL в истории (<code>false</code> — не менять).</li>
+          <li>Третий — открывать в новой вкладке (<code>false</code> — текущая).</li>
+          <li>Четвёртый — параметры, которые попадут в целевой дашборд.</li>
+        </ul>
       </section>
 
       <section id="components">
-        <h2>Компоненты интерфейса и binding</h2>
-        <p>Все элементы управления (кнопки, поля, диаграммы, таблицы, SVG) живут внутри форм. Форма — это контейнер с компонентами.</p>
+        <h2>Компоненты и binding</h2>
 
-        <h3>Адресация компонентов</h3>
-        <pre>form/&lt;component&gt;:&lt;property&gt;</pre>
-        <p>Примеры:</p>
-        <ul>
-          <li><code>form/textField1:text</code> — значение текстового поля.</li>
-          <li><code>form/image1:imageTable$imageData[0]</code> — данные изображения.</li>
-          <li><code>form/gauge:datasets[1]</code> — набор данных gauge.</li>
-        </ul>
-
-        <h3>Binding — связывание со значениями</h3>
-        <p>Синтаксис:</p>
+        <h3>Binding — связывание с данными</h3>
+        <p>Binding — это механизм, при котором свойство компонента автоматически обновляется из значения тега или выражения. Синтаксис:</p>
         <pre>{context:property}</pre>
         <p>Примеры:</p>
-        <pre>{users.admin.devices.virtual:random}
-{form/numberField1:value} * 100
-round(10 * {users.admin.devices.virtual:random})</pre>
-
-        <h3>События компонентов</h3>
-        <p>События обозначаются через <code>@</code>:</p>
-        <pre>form/button1:click@
-form/button1:mouseClicked@</pre>
-
-        <h3>Действия (Actions)</h3>
-        <p>Действие над контекстом:</p>
-        <pre>{cardholders:import!}</pre>
-        <p>Через скрипт:</p>
-        <pre>callFunction("", "executeQuery", {form/queryText:text})</pre>
-
-        <h3>Основные виджеты</h3>
         <ul>
-          <li><strong>Label / Text</strong> — текстовые надписи.</li>
-          <li><strong>Button</strong> — кнопки с обработчиками.</li>
-          <li><strong>Text Field / Number Field</strong> — ввод значений.</li>
-          <li><strong>Data Table</strong> — таблицы с данными, фильтрами, сортировкой.</li>
-          <li><strong>Line Chart / Gauge / Traffic Chart</strong> — диаграммы и индикаторы.</li>
-          <li><strong>Image / SVG</strong> — встроенная графика и SVG-манипуляции.</li>
-          <li><strong>Panel</strong> — контейнеры с динамическим содержимым.</li>
+          <li>Простое значение: <code>{users.admin.devices.virtual:random}</code></li>
+          <li>Масштабирование: <code>{form/numberField1:value} * 100</code></li>
+          <li>Округление: <code>round(10 * {users.admin.devices.virtual:random})</code></li>
         </ul>
+
+        <h3>Условия и цвета</h3>
+        <p>Можно менять внешний вид компонента в зависимости от данных:</p>
+        <pre>{.:voltageAlert$voltageAlert}
+  ? "background-color: red"
+  : "background-color: green"</pre>
+        <p>Или:</p>
+        <pre>({.:voltage$voltage} > 50)
+  ? "background-color: red"
+  : "background-color: green"</pre>
+
+        <h3>События</h3>
+        <p>События обозначаются через <code>@</code>:</p>
+        <ul>
+          <li><code>form/button1:click@</code> — клик левой кнопкой.</li>
+          <li><code>form/button1:mouseClicked@</code> — клик мышью.</li>
+          <li><code>form/numberField0:value</code> — значение поля.</li>
+        </ul>
+
+        <h3>SVG-графика</h3>
+        <p>RatioT SCADA поддерживает SVG. Можно вставлять готовые SVG из библиотеки или загружать свои. В руководстве разбирается пример с вентилятором:</p>
+        <ul>
+          <li>SVG-элемент <code>Fan</code> привязан к состоянию <code>form/Fan:state</code>.</li>
+          <li>Индикатор <code>Indicator</code> меняет цвет в зависимости от состояния.</li>
+          <li>Клик по вентилятору переключает состояние: <code>{form/Fan:state} == "on" ? 'off' : 'on'</code>.</li>
+        </ul>
+        <p>Для SVG-манипуляций используется библиотека <code>svgManipulation</code>.</p>
 
         <h3>Динамические панели</h3>
-        <p>Панель может генерировать дочерние элементы из таблицы. Это позволяет рисовать списки, карточки, повторяющиеся блоки без ручного дублирования.</p>
+        <p>Панель может генерировать дочерние компоненты из таблицы. Это позволяет рисовать списки, карточки, повторяющиеся блоки. В руководстве пример с торговым автоматом: у автомата 6 ячеек, каждая ячейка — это динамически созданная панель с label и кнопкой.</p>
+
+        <h3>Действия (Actions)</h3>
+        <p>Действие — это вызов функции или метода контекста. Примеры:</p>
+        <ul>
+          <li><code>{cardholders:import!}</code> — импортировать карточки.</li>
+          <li><code>{users.admin.deviceservers.ds1:buzz()}</code> — подать сигнал.</li>
+          <li><code>callFunction("", "executeQuery", {form/queryText:text})</code> — вызвать функцию executeQuery с параметром.</li>
+        </ul>
       </section>
 
-      <section id="permissions">
-        <h2>Пользователи и права доступа</h2>
-        <p>Вся модель безопасности построена на иерархии контекстов:</p>
-        <pre>users.&lt;username&gt;.devices.&lt;device&gt;
-users.&lt;username&gt;.dashboards.&lt;dashboard&gt;
-users.&lt;username&gt;.alerts.&lt;alert&gt;</pre>
+      <section id="data">
+        <h2>Данные, запросы, отчёты</h2>
 
-        <h3>Как работают права</h3>
+        <h3>SQL внутри RatioT SCADA</h3>
+        <p>RatioT SCADA позволяет писать SQL-запросы к данным системы. Это не классическая БД, а специальный SQL-подобный слой, который работает с контекстами и тегами.</p>
+        <p>Пример запроса к событиям входа:</p>
+        <pre>SELECT *
+FROM events:get('users', 'login') as logins
+WHERE logins.get$username = 'john'</pre>
+        <p>Пример с использованием внешней БД:</p>
+        <pre>{users.admin.devices.linkserver_database:executeQuery(
+  "SELECT * FROM logins WHERE username = 'john'"
+)}</pre>
+
+        <h3>Именованные запросы (Queries)</h3>
+        <p>Запросы можно сохранять в контексте пользователя и вызывать по имени:</p>
+        <pre>users.&lt;username&gt;.queries.&lt;query_name&gt;</pre>
+        <p>Пример из руководства:</p>
+        <pre>{users.admin.queries.energy_consumption:execute()}</pre>
+
+        <h3>Data Table</h3>
+        <p>Data Table — основной компонент для отображения табличных данных. Он может показывать:</p>
         <ul>
-          <li>Пользователь видит только те объекты, которые лежат в его ветке <code>users.&lt;username&gt;.*</code>.</li>
-          <li>Администратор <code>users.admin</code> видит практически всё, включая <code>users.*</code>.</li>
-          <li>Можно задать доступ через группы устройств: <code>users.&lt;username&gt;.devgroups.&lt;group&gt;</code>.</li>
-          <li>Доступ может быть ограничен на уровне отдельных свойств и действий.</li>
+          <li>Результат запроса.</li>
+          <li>Значения нескольких тегов.</li>
+          <li>Исторические данные.</li>
+          <li>Фильтрованные события.</li>
         </ul>
+        <p>В таблице можно настраивать столбцы, фильтры, сортировку, подсветку строк и действия по клику.</p>
+
+        <h3>Группировка и агрегаты</h3>
+        <p>В SQL-запросах поддерживаются агрегатные функции: <code>COUNT</code>, <code>MIN</code>, <code>MAX</code>, <code>SUM</code>, <code>AVG</code>. Пример мониторинга загрузки процессоров:</p>
+        <pre>SELECT
+  info.info$description AS device,
+  avg(processors.hrProcessorTable$hrProcessorLoad) AS processor_utilization_percentage
+FROM
+  users.*.devices.*:hrProcessorTable AS processors
+LEFT OUTER JOIN
+  users.*.devices.*:info as info
+ON
+  processors$CONTEXT_ID = info$CONTEXT_ID
+GROUP BY
+  device
+HAVING
+  avg(processors.hrProcessorTable$hrProcessorLoad) > 90
+ORDER BY
+  processor_utilization_percentage DESC</pre>
+
+        <h3>Историк и временные ряды</h3>
+        <p>Исторические данные хранятся в historian'е. По умолчанию используется Apache Cassandra, но можно подключить и другие хранилища. Для получения истории используются функции типа <code>statistics</code> или SQL-запросы к историческим таблицам.</p>
+        <p>Пример статистики по энергопотреблению из руководства:</p>
+        <pre>SELECT
+  stats.statistics$context as "Device Context",
+  stats.statistics$end as "Period",
+  stats.statistics$average * 60 as "Average kW per hour"
+FROM
+  utilities:statistics("users.admin.devices.virtual", "energy_consumption", null, "hour") as stats</pre>
+      </section>
+
+      <section id="alarms">
+        <h2>Аварии и события</h2>
+
+        <h3>Что такое события и аварии</h3>
+        <ul>
+          <li><strong>Событие</strong> — любая запись в журнале: вход, изменение значения, действие оператора.</li>
+          <li><strong>Авария (Alert)</strong> — событие, требующее реакции. Имеет уровень критичности и может быть квитирована.</li>
+        </ul>
+
+        <h3>Структура активной аварии</h3>
+        <p>Активные аварии хранятся в контексте <code>activeAlerts</code>. Основные поля:</p>
+        <table>
+          <tr><th>Поле</th><th>Смысл</th></tr>
+          <tr><td><code>location</code></td><td>Где произошла авария (контекст).</td></tr>
+          <tr><td><code>event</code></td><td>ID события.</td></tr>
+          <tr><td><code>alert</code></td><td>Текст/имя аварии.</td></tr>
+          <tr><td><code>type</code></td><td>Тип аварии.</td></tr>
+          <tr><td><code>time</code></td><td>Время возникновения.</td></tr>
+          <tr><td><code>level</code></td><td>Уровень критичности (0 — самый высокий).</td></tr>
+          <tr><td><code>key</code></td><td>Ключ, по которому аварии группируются.</td></tr>
+          <tr><td><code>message</code></td><td>Сообщение для оператора.</td></tr>
+          <tr><td><code>trigger</code></td><td>Условие, по которому сработала авария.</td></tr>
+          <tr><td><code>cause</code></td><td>Причина.</td></tr>
+          <tr><td><code>acknowledgements</code></td><td>Кто и когда квитировал.</td></tr>
+        </table>
+
+        <h3>Уровни аварий</h3>
+        <p>В документации встречаются уровни от 0 до 5. Обычно:</p>
+        <ul>
+          <li>0 — критичный.</li>
+          <li>1 — высокий.</li>
+          <li>2 — средний.</li>
+          <li>3 — низкий.</li>
+          <li>4–5 — информационный.</li>
+        </ul>
+        <p>Конкретная расшифровка уровней зависит от настройки проекта.</p>
+
+        <h3>Квитирование</h3>
+        <p>Аварии можно квитировать из таблицы или по нажатию кнопки. В binding/скрипте используется соответствующее действие над контекстом аварии.</p>
+
+        <h3>SLA и мониторинг</h3>
+        <p>В руководстве развёртывания приведён пример SLA: если процессор загружен более 80% и текущая загрузка на 20% выше средней за 6 периодов, фиксируется событие. Это показывает, что система умеет строить условия на основе исторических данных и временных окон.</p>
+
+        <h3>Фильтры событий</h3>
+        <p>Оператор может настроить фильтры, чтобы видеть только свои события, события по устройству или за период. Фильтры хранятся в контексте пользователя, например:</p>
+        <pre>users.&lt;username&gt;.filters.&lt;filter_name&gt;</pre>
+      </section>
+
+      <section id="access">
+        <h2>Пользователи и доступ</h2>
+
+        <h3>Иерархия доступа</h3>
+        <p>Вся модель безопасности построена на иерархии контекстов. Пользователь видит только те объекты, которые лежат в его ветке <code>users.&lt;username&gt;.*</code>.</p>
+        <ul>
+          <li>Администратор <code>users.admin</code> видит практически всё, включая <code>users.*</code>.</li>
+          <li>Обычный пользователь видит только <code>users.&lt;свой_логин&gt;.*</code>.</li>
+          <li>Можно задать доступ через группы устройств: <code>users.&lt;username&gt;.devgroups.&lt;group&gt;</code>.</li>
+        </ul>
+
+        <h3>Примеры путей доступа</h3>
+        <pre>users.admin.devices.thermometer1          // устройство администратора
+users.user1.devices.gateway1              // устройство пользователя user1
+users.*.devices.*                         // все устройства всех пользователей (для админ-запросов)</pre>
 
         <h3>Регистрация пользователей</h3>
         <p>В конфигурации сервера есть параметр <code>usersSelfRegistration</code>:</p>
@@ -221,87 +515,61 @@ users.&lt;username&gt;.alerts.&lt;alert&gt;</pre>
           <li><code>true</code> — новые пользователи могут зарегистрироваться сами через Web UI.</li>
           <li><code>false</code> — только администратор создаёт пользователей.</li>
         </ul>
-      </section>
 
-      <section id="alarms">
-        <h2>Аварии и события</h2>
-        <p>Система ведёт журнал событий и поддерживает активные аварии — <strong>ActiveAlerts</strong>.</p>
-
-        <h3>Поля активной аварии</h3>
-        <table>
-          <tr><th>Поле</th><th>Смысл</th></tr>
-          <tr><td><code>location</code></td><td>Где произошла авария (контекст)</td></tr>
-          <tr><td><code>event</code></td><td>ID события</td></tr>
-          <tr><td><code>alert</code></td><td>Текст/имя аварии</td></tr>
-          <tr><td><code>type</code></td><td>Тип</td></tr>
-          <tr><td><code>time</code></td><td>Время возникновения</td></tr>
-          <tr><td><code>level</code></td><td>Уровень критичности</td></tr>
-          <tr><td><code>message</code></td><td>Сообщение для оператора</td></tr>
-          <tr><td><code>acknowledgements</code></td><td>Кто и когда квитировал</td></tr>
-          <tr><td><code>data / cause / trigger</code></td><td>Дополнительная информация</td></tr>
-        </table>
-
-        <h3>Уровни событий</h3>
-        <p>В мануале встречаются уровни от 0 до 5 (чаще всего 0 — критичный, 5 — информационный). Конкретная расшифровка зависит от настройки проекта.</p>
-
-        <h3>Квитирование</h3>
-        <p>Аварии можно квитировать из таблицы или по нажатию кнопки. В binding/скрипте используется соответствующее действие над контекстом аварии.</p>
-
-        <h3>Фильтры событий</h3>
-        <p>Оператор может настроить фильтры, чтобы видеть только свои события, события по устройству или за период. Фильтры хранятся в контексте пользователя.</p>
+        <h3>Интеграция с корпоративной системой</h3>
+        <p>RatioT SCADA поддерживает аутентификацию через LDAP/Active Directory и RADIUS. Это позволяет использовать корпоративные учётные записи и централизованное управление правами.</p>
       </section>
 
       <section id="scenarios">
-        <h2>Типовые сценарии пользователя</h2>
+        <h2>Типовые задачи</h2>
         <div class="columns">
           <div class="card">
             <h4>1. Просмотр текущих значений</h4>
-            <p>Открыть дашборд → посмотреть на label/gauge/chart, значения которых привязаны к тегам устройств.</p>
+            <p>Открыть дашборд → посмотреть на label, gauge или chart. Значения обновляются сами, потому что привязаны к тегам.</p>
           </div>
           <div class="card">
             <h4>2. Управление оборудованием</h4>
-            <p>Нажать кнопку → вызвать action → устройство выполняет команду (например, <code>buzz()</code>, <code>reboot()</code>, <code>selfTest()</code>).</p>
+            <p>Нажать кнопку → вызвать action → устройство выполняет команду. Например, <code>buzz()</code>, <code>reboot()</code>, <code>selfTest()</code>.</p>
           </div>
           <div class="card">
             <h4>3. Подтверждение аварии</h4>
-            <p>В таблице активных аварий нажать кнопку «Квитировать» или выполнить соответствующее действие.</p>
+            <p>В таблице активных аварий нажать кнопку «Квитировать» или выполнить соответствующее действие над контекстом аварии.</p>
           </div>
           <div class="card">
             <h4>4. Просмотр истории</h4>
             <p>Открыть Data Table с историческими данными, выбрать период, применить фильтр.</p>
           </div>
           <div class="card">
-            <h4>5. Переход к деталям</h4>
-            <p>Клик по строке/кнопке → <code>web/redirect()</code> → открывается детализированный дашборд объекта.</p>
+            <h4>5. Переход к деталям объекта</h4>
+            <p>Клик по строке или кнопке → <code>web/redirect()</code> → открывается детальный дашборд устройства.</p>
           </div>
           <div class="card">
-            <h4>6. Выполнение отчёта/запроса</h4>
-            <p>Ввести параметры в поля → нажать кнопку → таблица обновляется результатом SQL-запроса или вызова функции.</p>
+            <h4>6. Построение отчёта</h4>
+            <p>Ввести параметры в поля формы → нажать кнопку → таблица обновляется результатом SQL-запроса или вызова функции.</p>
+          </div>
+          <div class="card">
+            <h4>7. Настройка нового устройства</h4>
+            <p>Создать Device Server, внутри него создать Device, настроить теги. Устройство можно привязать к модели, чтобы унаследовать стандартный набор тегов и функций.</p>
+          </div>
+          <div class="card">
+            <h4>8. Создание дашборда</h4>
+            <p>Открыть Web UI Builder, создать форму, добавить компоненты, настроить binding и CSS, сохранить как дашборд в <code>users.&lt;username&gt;.dashboards</code>.</p>
           </div>
         </div>
       </section>
 
-      <section id="customize">
-        <h2>Кастомизация интерфейса</h2>
+      <section id="limits">
+        <h2>Что нужно уточнить</h2>
+        <p>Руководства описывают модель данных, binding, SQL и примеры дашбордов, но не всегда дают пошаговые клики для каждого экрана. Для полного руководства «кнопка за кнопкой» нужно либо дополнительное руководство от разработчиков, либо практическая запись экрана.</p>
         <ul>
-          <li><strong>Страница входа:</strong> шаблон <code>loginPage.html</code> лежит в <code>&lt;RatioT SCADA&gt;\admin\web\static\templates</code>. Поддерживает переменные <code>{{loginUsername}}</code>, <code>{{loginPassword}}</code>, <code>{{loginSubmit}}</code>, <code>{{loginRegister}}</code>, <code>{{formError}}</code>.</li>
-          <li><strong>CSS:</strong> каждый компонент можно стилизовать через CSS, включая размеры, цвета, отступы, grid.</li>
-          <li><strong>Адаптивность:</strong> поддерживаются breakpoints (Mobile, Tablet, Laptop, Full HD, QHD, Ultra HD) для разных разрешений.</li>
-          <li><strong>Иконки:</strong> можно назначать компонентам и действиям через <code>iconId</code>.</li>
+          <li>Точные шаги создания Device Server и Device в Net Admin/Web UI Builder — не раскрыты в доступных PDF.</li>
+          <li>Детали настройки конкретных протоколов (Modbus, OPC UA, SNMP и т.д.) лежат в отдельных разделах руководства по эксплуатации.</li>
+          <li>Административные операции (пользователи, лицензии, backup) выполняются в Net Admin на порту 6440.</li>
         </ul>
-
-        <h3>Пример кастомного binding</h3>
-        <pre>// Цвет фона в зависимости от аварии
-{.:voltageAlert$voltageAlert}
-  ? "background-color: red"
-  : "background-color: green"
-
-// Переход на другой дашборд по клику
-{web/redirect("users.admin.dashboards.detail", false, false)}</pre>
       </section>
 
       <footer>
-        Собрано из «Руководства по эксплуатации RatioT SCADA». Последнее обновление: август 2026.
+        Собрано из «Руководства по развёртыванию» и «Руководства по эксплуатации» RatioT SCADA. Последнее обновление: август 2026.
       </footer>
     </main>
   </div>
