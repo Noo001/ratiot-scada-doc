@@ -23,7 +23,7 @@
         <a href="#tags">Теги и переменные</a>
         <a href="#dashboards">Дашборды</a>
         <a href="#historian">Историк и архивы</a>
-        <a href="#alarms">Алармы и события</a>
+        <a href="#alarms">Аварии и события</a>
         <a href="#users">Пользователи и права</a>
         <a href="#backup">Резервное копирование</a>
         <a href="#api">API и интеграции</a>
@@ -31,7 +31,6 @@
         <a href="#scripts">Скрипты и SQL</a>
         <a href="ux.html">Пользовательский опыт →</a>
         <a href="#sources">Источники</a>
-        <a href="#next">Следующие шаги</a>
       </nav>
     </aside>
 
@@ -231,7 +230,7 @@ RatioT_SCADA_console</pre>
             <p>Визуализация: формы, SVG-элементы, таблицы, диаграммы, динамические панели.</p>
           </div>
           <div class="card">
-            <h4>События и алармы</h4>
+            <h4>События и аварии</h4>
             <p>Журнал событий, SLA, уведомления по e-mail/SMS. Поддерживаются фильтры и подписки.</p>
           </div>
           <div class="card">
@@ -415,9 +414,9 @@ form/button0:mouseClicked@</pre>
     </thead>
     <tbody>
       <tr><td>ag_properties</td><td>Конфигурация и свойства</td></tr>
-      <tr><td>ag_events</td><td>События, алармы, журналы</td></tr>
+      <tr><td>ag_events</td><td>События, аварии, журналы</td></tr>
       <tr><td>ag_data</td><td>Данные, бинарные массивы</td></tr>
-      <tr><td>ag_alert</td><td>Информация об алармах</td></tr>
+      <tr><td>ag_alert</td><td>Информация об авариях</td></tr>
     </tbody>
   </table>
 
@@ -445,16 +444,16 @@ FROM
 </section>
 
       <section id="alarms">
-      <h2>Алармы и события</h2>
+      <h2>Аварии и события</h2>
 
-        <h3>Контекст алармов</h3>
+        <h3>Контекст аварий</h3>
       <p>Алармы располагаются в контексте пользователя. Примеры путей:</p>
       <pre>users.USER_NAME.alerts
 users.*.alerts
 users.admin.alerts</pre>
 
-        <h3>Создание аларма (структура)</h3>
-      <p>Основные поля определения аларма:</p>
+        <h3>Создание аварии (структура)</h3>
+      <p>Основные поля определения аварии:</p>
       <ul>
         <li><code>name</code>, <code>description</code>, <code>enabled</code>;</li>
         <li><code>eventTriggers</code> — список триггеров по событиям (mask, event, filter, level, message);</li>
@@ -479,7 +478,7 @@ users.admin.alerts</pre>
       <pre>{events:get("users", "login", "{username} == 'john'")}</pre>
 
       <div class="note">
-    <strong>Примечание:</strong> пошаговая инструкция по созданию алармов через Web UI Builder в исходных файлах присутствует частично (событие <code>event1</code>, <code>errorReport</code>). [нужно уточнить в мануале]
+    <strong>Примечание:</strong> пошаговая инструкция по созданию аварий через Web UI Builder в исходных файлах присутствует частично (событие <code>event1</code>, <code>errorReport</code>). [нужно уточнить в мануале]
   </div>
 </section>
 
@@ -521,7 +520,7 @@ users.admin.alerts</pre>
   </ol>
 
         <h3>Права доступа</h3>
-      <p>Права задаются через поле <code>permissions</code> в определениях переменных, функций, событий, алармов и контекстов. Примеры контекстов:</p>
+      <p>Права задаются через поле <code>permissions</code> в определениях переменных, функций, событий, аварий и контекстов. Примеры контекстов:</p>
       <pre>users.*.alerts.*
 users.admin.devices.*
 users.admin.models.*</pre>
