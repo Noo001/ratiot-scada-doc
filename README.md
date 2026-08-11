@@ -4,68 +4,63 @@
 
 ## Где смотреть сайт
 
-Сайт публикуется через **GitLab Pages** из проекта `ratiot/doc`:
+Сайт публикуется через **GitHub Pages**:
 
-```
-https://gitlab.dkc.ru/ratiot/doc/-/pages
-https://gitlab.dkc.ru/pages/ratiot/doc/
+```text
+https://noo001.github.io/ratiot-scada-doc/
 ```
 
-> Точный URL можно посмотреть в GitLab: проект `ratiot/doc` → слева **Deploy → Pages** или **Settings → Pages**.
+После включения GitHub Pages в настройках репозитория сайт будет доступен по ссылке выше.
 
 ## Структура репозитория
 
 ```
 .
-├── .gitlab-ci.yml      # Конфигурация GitLab Pages
-├── index.html          # Главная страница с плитками проектов
-├── style.css           # Общие стили
+├── .github/
+│   └── workflows/
+│       └── pages.yml     # Конфигурация GitHub Pages
+├── index.html            # Главная страница с плитками проектов
+├── style.css             # Общие стили
 └── scada/
-    ├── index.html      # База знаний по RatioT SCADA
-    └── ux.html         # Руководство пользователя по интерфейсу
+    ├── index.html        # База знаний по RatioT SCADA
+    └── ux.html           # Руководство пользователя по интерфейсу
 ```
 
 ## Как вносить изменения
 
-1. Редактируй файлы в локальной копии `C:/repos/ratiot-scada-doc-publish`.
+1. Редактируй файлы в локальной копии.
 2. Закоммить и запушь в `main`:
 
 ```bash
-cd /c/repos/ratiot-scada-doc-publish
+cd /c/repos/github-ratiot-scada-doc
 git add .
 git commit -m "описание изменений"
 git push origin main
 ```
 
-Если SSH-ключ настроен отдельно:
-
-```bash
-GIT_SSH_COMMAND="ssh -i /c/Users/andrey.efremtsev/.ssh/ratiot_scada_doc_deploy -o StrictHostKeyChecking=no" git push origin main
-```
-
-После пуша GitLab автоматически запустит pipeline `pages` и опубликует новую версию сайта. Проверить статус можно в проекте `ratiot/doc` → **Build → Pipelines**.
+После пуша GitHub Actions автоматически опубликует новую версию сайта. Проверить статус можно во вкладке **Actions**.
 
 ## Как запускать локально (для проверки перед пушем)
 
 Можно открыть `index.html` прямо в браузере, но некоторые браузеры блокируют локальные ресурсы (CSS, переходы между страницами). Лучше запустить минимальный сервер:
 
-### Через Python (если установлен)
+### Через Python
 
 ```bash
-cd /c/repos/ratiot-scada-doc-publish
+cd /c/repos/github-ratiot-scada-doc
 python -m http.server 8765
 ```
 
-### Через Perl (если есть `server.pl` из старого проекта)
+### Через Node.js
 
 ```bash
-cd /c/repos/ratiot-scada-doc-publish
-perl server.pl
+cd /c/repos/github-ratiot-scada-doc
+npx http-server -p 8765
 ```
 
 После этого сайт доступен по адресу:
 
-```
+```text
 http://localhost:8765/
 ```
 
@@ -85,36 +80,19 @@ http://localhost:8765/
 </a>
 ```
 
-4. Убедись, что папка проекта копируется в артефакт `public` в `.gitlab-ci.yml`:
-
-```yaml
-script:
-  - mkdir public
-  - cp index.html style.css public/
-  - cp -r scada public/
-  - cp -r newproject public/
-```
-
-5. Запушь изменения.
+4. Запушь изменения. GitHub Actions само опубликует новую версию.
 
 ## CI/CD
 
-Pipeline использует job `pages`:
+Публикация через GitHub Actions:
 
-- **Stage:** `deploy`
-- **Runner:** `tvr-v-rdep` (тег `shell`)
-- **Executor:** shell
-- **Артефакт:** папка `public` со всеми файлами сайта
+- **Workflow:** `.github/workflows/pages.yml`
+- **Триггер:** push в `main`
+- **Результат:** сайт на GitHub Pages
 
-Если pipeline не берёт задачу, проверь, что в `.gitlab-ci.yml` указан тег, соответствующий доступному раннеру:
-
-```yaml
-tags:
-  - shell
-```
+Если сайт не обновляется после пуша, проверь вкладку **Actions → Deploy to GitHub Pages**.
 
 ## Контакты и вопросы
 
-- Проект в GitLab: `https://gitlab.dkc.ru/ratiot/doc`
-- Локальная рабочая копия: `C:/repos/ratiot-scada-doc-publish`
-- Контекст и заметки: `C:/repos/scada-doc/KIMIKO_CONTEXT.md`
+- Репозиторий: `https://github.com/Noo001/ratiot-scada-doc`
+- Локальная рабочая копия: `C:/repos/github-ratiot-scada-doc`
