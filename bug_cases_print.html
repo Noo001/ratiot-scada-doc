@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Баг-кейсы RatioT SCADA</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .content { padding: 32px 40px; max-width: 900px; }
+    .content h1 { font-size: 2rem; margin-bottom: 8px; }
+    .content h2 { margin-top: 36px; padding-bottom: 8px; border-bottom: 1px solid var(--border); page-break-after: avoid; }
+    .content h3 { margin-top: 24px; page-break-after: avoid; }
+    .content p { margin: 12px 0; }
+    .content ul, .content ol { margin: 12px 0; padding-left: 24px; }
+    .content li { margin: 6px 0; }
+    .content code { background: var(--code); padding: 2px 6px; border-radius: 4px; font-family: Consolas, monospace; }
+    .content pre { background: var(--code); padding: 16px; border-radius: 8px; overflow-x: auto; }
+    .content pre code { background: transparent; padding: 0; }
+    .content blockquote { border-left: 4px solid var(--accent); margin: 16px 0; padding: 8px 16px; background: var(--accent-light); }
+    .content table { border-collapse: collapse; width: 100%; margin: 16px 0; page-break-inside: avoid; }
+    .content th, .content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .content th { background: var(--accent-light); }
+    .content img { max-width: 100%; height: auto; }
+    a { color: #0066cc; text-decoration: underline; }
+    @media print {
+      body { -webkit-print-color-adjust: exact; }
+      h2 { page-break-after: avoid; }
+      img { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Баг-кейсы RatioT SCADA 6.41.09</h1>
+<p><strong>Дата тестирования:</strong> 13.08.2026<br />
+<strong>Версия:</strong> RatioT Server 6.41.09-2456<br />
+<strong>Контур:</strong> локальная установка <code>C:\Program Files\RatioTScada</code><br />
+<strong>Учётные данные для тестов:</strong> <code>admin / admin</code>, тестовый пользователь <code>testuser02 / TestPassword123!</code></p>
+<hr />
+<h2>Кейс 1. Ошибки создания ресурсов при первом запуске сервера</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Ошибка инициализации</p>
+<h3>Описание</h3>
+<p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Установить RatioT SCADA 6.41.09 на чистую Windows.</li>
+<li>Запустить <code>C:\Program Files\RatioTScada\RatioT_server_console.exe</code>.</li>
+<li>Дождаться строки <code>Starting web server</code>.</li>
+<li>Открыть <code>C:\Program Files\RatioTScada\logs\server.log</code>.</li>
+<li>Найти строки с <code>ERROR ag.context</code>.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Первый запуск завершается без ERROR/FATAL.</p>
+<h3>Фактический результат</h3>
+<pre><code>13.08.2026 12:47:25,471 ERROR ag.context
+  Error creating resource 'users.admin.models.avatarManagement':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
+
+13.08.2026 12:47:25,733 ERROR ag.context
+  Error creating resource 'users.admin.reports.maintenance':
+  Контекст недоступен: users.admin.reports
+
+13.08.2026 12:47:26,509 ERROR ag.context
+  Error creating resource 'users.admin.models.workflowModel':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
+</code></pre>
+<h3>Скриншоты</h3>
+<ul>
+<li>Лог-файл: см. <code>C:\Program Files\RatioTScada\logs\server.log</code></li>
+<li>Автотест фиксирует проблему: <code>tests/test_ui_ux.py</code> → <code>test_log_errors()</code></li>
+</ul>
+<hr />
+<h2>Кейс 2. Токен в URL не авторизует пользователя в Web UI</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> UX / deep linking</p>
+<h3>Описание</h3>
+<p>Передача JWT-токена в URL дашборда (<code>/web/dashboards/...?token=&lt;token&gt;</code>) не авторизует пользователя. SPA перенаправляет на форму логина.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Получить токен:
+   <code>bash
+   curl -k -X POST -H "Content-Type: application/json" \
+     -d '{"username":"admin","password":"admin"}' \
+     <a href="https://localhost:8443/rest/auth">https://localhost:8443/rest/auth</a></code></li>
+<li>Открыть в браузере:
+   <code>https://localhost:8443/web/dashboards/users.admin.dashboards.default?token=&lt;token&gt;</code></li>
+<li>Убедиться, что открылась страница логина.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Токен принимается, пользователь попадает в дашборд.</p>
+<h3>Фактический результат</h3>
+<p>Открывается форма логина.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/02_token_url_login.png"><img alt="страница входа вместо дашборда" src="tests/screenshots/02_token_url_login.png" /></a> — страница входа вместо дашборда</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/02_token_url_dashboard.png"><img alt="та же страница входа при открытии URL с токеном" src="tests/screenshots/02_token_url_dashboard.png" /></a> — та же страница входа при открытии URL с токеном</li>
+</ul>
+<hr />
+<h2>Кейс 3. Противоречивая документация внутри программы</h2>
+<p><strong>Серьёзность:</strong> Low<br />
+<strong>Тип:</strong> Документация / терминология</p>
+<h3>Описание</h3>
+<p>Файл <code>admin/custom/templates/docs/cl_dashboard.htm</code> утверждает, что инструментальные панели можно использовать только в десктопном RatioT Client, в то время как остальная документация позиционирует панели как часть Web UI.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть в браузере:</li>
+<li><code>https://localhost:8443/static/docs/cl_dashboard.htm</code></li>
+<li><code>https://localhost:8443/static/docs/ls_wui_dashboards.htm</code></li>
+<li>Сравнить первые абзацы.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Единая терминология: Web UI — основной способ работы с панелями; RatioT Client — устаревший/альтернативный вариант.</p>
+<h3>Фактический результат</h3>
+<p>Пользователь может запутаться, где реально работают дашборды.</p>
+<hr />
+<h2>Кейс 4. Саморегистрация: заголовок «Admin Panel» и системное дерево для саморегистрированного пользователя</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> UX / брендинг / документация</p>
+<h3>Что говорит документация</h3>
+<ol>
+<li>В <code>ls_config_general.htm</code> параметр <strong>Включить саморегистрацию пользователя</strong> (<code>usersSelfRegistration = true</code>) описан так:</li>
+</ol>
+<blockquote>
+<p>«Если <code>usersSelfRegistration = true</code>, любой пользователь может зарегистрироваться, войти в систему и использовать RatioT Server.»</p>
+</blockquote>
+<ol>
+<li>В <code>ls_config_default_permissions.htm</code> сказано:</li>
+</ol>
+<blockquote>
+<p>«<em>Права доступа по умолчанию</em> — это глобальное свойство конфигурации сервера, определяющее права доступа по умолчанию и доступность ресурсов для вновь создаваемых пользователей RatioT Server. Оно используется при построении таблицы прав и таблице ресурсов при создании нового пользователя.»</p>
+</blockquote>
+<ol>
+<li>В <code>ls_users_self_registration.htm</code> сказано:</li>
+</ol>
+<blockquote>
+<p>«Саморегистрация пользователя позволяет операторам RatioT SCADA создавать собственные учетные записи, используя любой из Пользовательских Интерфейсов RatioT Server.»</p>
+</blockquote>
+<h3>Учётные данные для воспроизведения</h3>
+<ul>
+<li>Логин: <code>testuser02</code></li>
+<li>Пароль: <code>TestPassword123!</code></li>
+</ul>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть <code>https://localhost:8443/web/login</code>.</li>
+<li>Нажать <strong>Зарегистрироваться</strong>.</li>
+<li>Заполнить обязательные поля:</li>
+<li>Имя пользователя: <code>testuser02</code></li>
+<li>Имя: <code>Test</code></li>
+<li>Фамилия: <code>User</code></li>
+<li>Пароль: <code>TestPassword123!</code></li>
+<li>Повторите пароль: <code>TestPassword123!</code></li>
+<li>Нажать <strong>Зарегистрироваться</strong>.</li>
+<li>После успешной регистрации открывается <strong>Admin Panel</strong> с системным деревом.</li>
+<li>Повторно выполнить вход под <code>testuser02</code> — открывается тот же Admin Panel.</li>
+</ol>
+<h3>Проверка через REST API</h3>
+<pre><code class="language-bash"># Получаем токен testuser02
+curl -k -X POST -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;username&quot;:&quot;testuser02&quot;,&quot;password&quot;:&quot;TestPassword123!&quot;}' \
+  <a href="https://localhost:8443/rest/auth">https://localhost:8443/rest/auth</a>
+
+# Проверяем доступные контексты
+for ctx in users.admin users.testuser02 users.admin.devices users.testuser02.devices; do
+  curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
+    <a href="https://localhost:8443/rest/v1/contexts/$ctx">https://localhost:8443/rest/v1/contexts/$ctx</a>
+done
+</code></pre>
+<p><strong>Результаты:</strong>
+- <code>users.admin</code> → HTTP 400, «Контекст не найден: users.admin<code>-</code>users.admin.devices<code>→ HTTP 400, «Контекст не найден: users.admin.devices</code>
+- <code>users.testuser02</code> → HTTP 200, доступен собственный пользовательский контекст
+- <code>users.testuser02.devices</code> → HTTP 200, доступен собственный контекст устройств</p>
+<h3>Уточнение</h3>
+<p>Права доступа работают корректно: саморегистрированный пользователь <strong>не имеет</strong> доступа к <code>users.admin</code>. В системном дереве он видит только свой контекст <code>users.testuser02</code> и его подразделы. Проблема не в RBAC, а в UI/UX: заголовок окна <strong>«Admin Panel»</strong> и общий вид системного дерева с разделами «Пользователи», «Приложения», «Модели» и т.д. создают впечатление, что пользователь получил административный доступ. Документация позиционирует саморегистрацию как инструмент для <strong>операторов</strong>, но интерфейс после входа не даёт понять, что это обычный операторский аккаунт, а не администратор.</p>
+<h3>Ожидаемый результат</h3>
+<ul>
+<li>Для саморегистрированного/операторского пользователя заголовок не должен быть <strong>Admin Panel</strong>.</li>
+<li>В системном дереве или в приветственном экране должно быть понятно, что пользователь работает в рамках своего персонального контекста (<code>users.testuser02</code>).</li>
+</ul>
+<h3>Фактический результат</h3>
+<p>Саморегистрированный пользователь видит <strong>Admin Panel</strong> и системное дерево, идентичное тому, что видит администратор, хотя реально доступен только <code>users.testuser02</code>. Это может ввести в заблуждение оператора и службу поддержки.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/02_register_form.png"><img alt="форма регистрации" src="tests/screenshots/02_register_form.png" /></a> — форма регистрации</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/03_register_filled.png"><img alt="заполненная форма" src="tests/screenshots/03_register_filled.png" /></a> — заполненная форма</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/04_register_success.png"><img alt="сразу после регистрации открывается Admin Panel" src="tests/screenshots/04_register_success.png" /></a> — сразу после регистрации открывается Admin Panel</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/05_login_as_new.png"><img alt="вход под testuser02, открывается Admin Panel" src="tests/screenshots/05_login_as_new.png" /></a> — вход под <code>testuser02</code>, открывается Admin Panel</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/06_dashboard.png"><img alt="заголовок Admin Panel для testuser02" src="tests/screenshots/06_dashboard.png" /></a> — заголовок <strong>Admin Panel</strong> для саморегистрированного пользователя</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/04_tree_expanded.png"><img alt="раскрытое системное дерево testuser02" src="tests/screenshots/04_tree_expanded.png" /></a> — в дереве только <code>testuser02</code>, <code>users.admin</code> отсутствует</li>
+</ul>
+<hr />
+<h2>Кейс 5. Консольный вывод Playwright повреждён (кодировка)</h2>
+<p><strong>Серьёзность:</strong> Low<br />
+<strong>Тип:</strong> Окружение / локализация</p>
+<h3>Описание</h3>
+<p>При запуске <code>tests/ui_automation.py</code> в Git Bash русские сообщения в stdout отображаются как <code>��������</code>. Это не влияет на функциональность, но затрудняет отладку.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Запустить <code>python tests/ui_automation.py</code> из Git Bash.</li>
+<li>Обратить внимание на русский текст в консоли.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Корректный вывод UTF-8.</p>
+<h3>Фактический результат</h3>
+<p>Кракозябры из-за несоответствия кодировки терминала.</p>
+<hr />
+<h2>Кейс 6. Режимы лицензирования free / trial не описаны в документации</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Документация / лицензирование</p>
+<h3>Описание</h3>
+<p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами:
+- <strong>Пробная лицензия (30 дней)</strong>
+- <strong>Бесплатная лицензия на 100 тэгов</strong></p>
+<p>Однако в официальной документации (<code>licensing.htm</code>, <code>ls_license_server.htm</code>, <code>ls_config_license_server.htm</code>, <code>ls_requirements.htm</code>) описаны только именные лицензии, привязанные к инсталляции, и централизованный сервер лицензий. Пробный и бесплатный режимы не упоминаются.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Запустить установку <code>RatioT SCADA 6.41.09</code>.</li>
+<li>На шаге «Выберите тип лицензии» увидеть два варианта: «Пробная лицензия (30 дней)» и «Бесплатная лицензия на 100 тэгов».</li>
+<li>Открыть <code>https://localhost:8443/static/docs/licensing.htm</code>.</li>
+<li>Убедиться, что раздел описывает только именные лицензии и активационный ключ.</li>
+<li>Проверить <code>ls_license_server.htm</code> и <code>ls_config_license_server.htm</code> — там также нет описания free/trial.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Документация должна содержать раздел о бесплатном и пробном режимах: какие ограничения, как переключаться, что происходит по истечении срока/при превышении лимита тегов, можно ли использовать в продакшене.</p>
+<h3>Фактический результат</h3>
+<p>Пользователь видит в инсталляторе режимы, о которых в документации ни слова. Непонятно:
+- чем отличаются free и trial;
+- что будет после 30 дней или после 100 тегов;
+- можно ли перейти с free/trial на полную лицензию без переустановки.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/install_overwrite_1.png"><img alt="диалог выбора лицензии в инсталляторе" src="tests/screenshots/install_overwrite_1.png" /></a> — диалог выбора лицензии в инсталляторе</li>
+</ul>
+<h3>Ссылки на документацию</h3>
+<ul>
+<li><code>admin/custom/templates/docs/licensing.htm</code></li>
+<li><code>admin/custom/templates/docs/ls_license_server.htm</code></li>
+<li><code>admin/custom/templates/docs/ls_config_license_server.htm</code></li>
+</ul>
+<hr />
+<h2>Кейс 7. Инсталлятор запрашивает перезапись собственных файлов</h2>
+<p><strong>Серьёзность:</strong> Low<br />
+<strong>Тип:</strong> Установка / UX</p>
+<h3>Описание</h3>
+<p>При установке RatioT SCADA 6.41.09 инсталлятор выдаёт диалог «Файл уже существует. Вы хотите, чтобы программа установки заменила его?» для файлов внутри <code>C:\Program Files\RatioTScada\admin\custom\templates\docs_ru\wizard_1.png</code> и <code>wizard_2.png</code>. Это создаёт впечатление, что установка повторяется поверх существующей, или что инсталлятор не может корректно управлять своими же файлами.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Запустить установку RatioT SCADA 6.41.09.</li>
+<li>Пройти шаги до копирования файлов.</li>
+<li>Дождаться диалога с предложением заменить <code>docs_ru\wizard_1.png</code>.</li>
+<li>Нажать «Да для всех».</li>
+<li>Через некоторое время появится аналогичный диалог для <code>docs_ru\wizard_2.png</code>.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>На чистой установке инсталлятор не должен спрашивать о перезаписи собственных файлов. Если это обновление — должен быть единый диалог «Заменить все» или тихая перезапись без лишних подтверждений.</p>
+<h3>Фактический результат</h3>
+<p>Пользователь вынужден несколько раз вручную подтверждать перезапись файлов, которые только что были скопированы установщиком. Это выглядит как ошибка упаковки инсталлятора: одни и те же файлы попадают в разные компоненты/директории и конфликтуют при распаковке.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/install_overwrite_2.png"><img alt="диалог перезаписи wizard_1.png" src="tests/screenshots/install_overwrite_2.png" /></a> — диалог перезаписи <code>wizard_1.png</code></li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/install_overwrite_3.png"><img alt="диалог перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /></a> — диалог перезаписи <code>wizard_2.png</code></li>
+</ul>
+<h3>Примечание</h3>
+<p>Скриншоты предоставлены в файле <code>incoming/скрины.docx</code>.</p>
+<hr />
+<h2>Кейс 8. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h2>
+<p><strong>Серьёзность:</strong> High<br />
+<strong>Тип:</strong> Импорт / экспорт данных</p>
+<h3>Описание</h3>
+<p>При создании пустого Modbus-устройства и импорте регистров из ранее экспортированных файлов CSV/XML теряются имя, описание, адрес, размер и другие поля. Импорт того же файла в формате <code>.tbl</code> работает корректно. Кроме того, окно экспорта не содержит кнопки закрытия — чтобы выйти, пользователь вынужден что-то экспортировать. При экспорте регистров с русскими именами/описаниями в CSV в полученном файле русский текст отображается кракозябрами.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть <code>https://localhost:8443</code> и войти под <code>admin / admin</code>.</li>
+<li>Перейти в дереве: <strong>Устройства → modbus → Конфигурация → Регистры устройства</strong>.</li>
+<li>Создать несколько регистров с именами и описаниями на русском языке.</li>
+<li>Нажать кнопку экспорта и сохранить файл в форматах <code>.csv</code>, <code>.xml</code>, <code>.tbl</code>.</li>
+<li>Удалить все регистры или создать новое пустое Modbus-устройство.</li>
+<li>Импортировать сохранённые <code>.csv</code> и <code>.xml</code>.</li>
+<li>Сравнить заполненность полей с исходными данными и с импортом <code>.tbl</code>.</li>
+<li>Открыть экспортированный <code>.csv</code> в Excel/Notepad++ и проверить кодировку русских строк.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<ul>
+<li>CSV и XML импортируют все поля аналогично <code>.tbl</code>.</li>
+<li>Диалог экспорта можно закрыть без выполнения экспорта.</li>
+<li>CSV-файл содержит корректную UTF-8 / Windows-1251 кодировку для русских символов.</li>
+</ul>
+<h3>Фактический результат</h3>
+<ul>
+<li>После импорта CSV/XML поля <strong>Имя</strong>, <strong>Описание</strong>, <strong>Десятичный адрес</strong>, <strong>Размер</strong> остаются пустыми.</li>
+<li>Диалог экспорта нельзя закрыть без экспорта.</li>
+<li>CSV-файл содержит нечитаемые символы вместо русского текста.</li>
+</ul>
+<h3>Уточнение по лицензированию</h3>
+<p>При проверке на текущей trial-лицензии (<code>Trial License</code>, 0/100 устройств) в диалоге добавления устройства драйвер <strong>Modbus</strong> отсутствует. В списке доступны IEC-104, Агент, BACnet, DNP3 и др., но Modbus нет. Это не позволяет лично воспроизвести импорт/экспорт регистров в данном контуре. Скриншоты самого бага (пустые поля, кодировка) предоставлены коллегами с полноценной лицензией.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/modbus_import_empty.png"><img alt="пустое устройство modbus перед импортом" src="tests/screenshots/modbus_import_empty.png" /></a> — пустое устройство modbus перед импортом</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/modbus_import_csv_empty_fields.png"><img alt="после импорта CSV: пустые имена/описания и адреса" src="tests/screenshots/modbus_import_csv_empty_fields.png" /></a> — после импорта CSV: пустые имена/описания и адреса</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/modbus_import_tbl_ok.png"><img alt="после импорта TBL: данные на месте" src="tests/screenshots/modbus_import_tbl_ok.png" /></a> — после импорта TBL: данные на месте</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/modbus_export_dialog.png"><img alt="диалог экспорта без кнопки закрыть" src="tests/screenshots/modbus_export_dialog.png" /></a> — диалог экспорта без кнопки закрыть</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/modbus_csv_encoding.png"><img alt="CSV с искажённой кодировкой" src="tests/screenshots/modbus_csv_encoding.png" /></a> — CSV с искажённой кодировкой</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/case8_modbus_empty.png"><img alt="драйвер Modbus отсутствует в trial-версии" src="tests/screenshots/case8_modbus_empty.png" /></a> — драйвер Modbus отсутствует в списке доступных драйверов (trial-лицензия)</li>
+</ul>
+<h3>Источник</h3>
+<p>Материалы коллег из <code>incoming/Баги с импортом и экспортом Modbus регистров в форматах csv и xml.docx</code>.</p>
+<hr />
+<h2>Кейс 9. Настройки колонок компонента eventLog сбрасываются при поступлении событий</h2>
+<p><strong>Серьёзность:</strong> High<br />
+<strong>Тип:</strong> Web UI / дашборды / компонент eventLog</p>
+<h3>Описание</h3>
+<p>В дашборде добавлен элемент <strong>Журнал событий (eventLog)</strong>. В расширенных настройках на вкладке <strong>Колонки</strong> включена опция «Ширина колонок настроена вручную», задан порядок колонок, их ширина и видимость. Настройки применяются, пока событий нет; как только поступает событие, таблица возвращается к дефолтному виду и отображаются все колонки, включая скрытые.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть дашборд (например, <code>АВР.Главный экран</code>).</li>
+<li>Добавить или отредактировать компонент <strong>Журнал событий</strong>.</li>
+<li>В разделе <strong>Расширенные → Колонки</strong> включить «Ширина колонок настроена вручную».</li>
+<li>Скрыть колонки <strong>Подтверждение</strong> и <strong>Обогащение</strong>, задать порядок и ширину остальных.</li>
+<li>Сохранить дашборд.</li>
+<li>Дождаться/сгенерировать событие (например, переключение режима работы).</li>
+<li>Убедиться, что таблица вернулась к стандартному набору колонок.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Настроенные колонки сохраняются независимо от наличия событий.</p>
+<h3>Фактический результат</h3>
+<p>При поступлении события отображаются все колонки, настройки не применены.</p>
+<h3>Уточнение по лицензированию</h3>
+<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен (нет кнопки/раздела для добавления/редактирования компонентов), поэтому лично воспроизвести настройку колонок eventLog в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/eventlog_columns_editor.png"><img alt="редактор дашборда с выделенным eventLog" src="tests/screenshots/eventlog_columns_editor.png" /></a> — редактор дашборда с выделенным eventLog</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/eventlog_columns_nodata.png"><img alt="настройки колонок без данных" src="tests/screenshots/eventlog_columns_nodata.png" /></a> — настройки колонок без данных</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/eventlog_columns_list.png"><img alt="список полей eventLog" src="tests/screenshots/eventlog_columns_list.png" /></a> — список полей eventLog</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/eventlog_with_event.png"><img alt="журнал с событием: видны все колонки" src="tests/screenshots/eventlog_with_event.png" /></a> — журнал с событием: видны все колонки</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/eventlog_empty_after_event.png"><img alt="после события настройки не восстановились" src="tests/screenshots/eventlog_empty_after_event.png" /></a> — после события настройки не восстановились</li>
+</ul>
+<h3>Источник</h3>
+<p>Тикет <code>ASD-6406</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
+<hr />
+<h2>Кейс 10. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> UX / дерево тегов / документация</p>
+<h3>Описание</h3>
+<p>На вебинаре по RatioT SCADA 6.4 озвучивалось, что при привязке тегов цифрового двойника в дереве тегов источником можно выбирать не только устройство, но и абсолютную модель. В текущей версии такой возможности нет, а в документации описание отсутствует.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть <strong>Дерево тегов</strong>.</li>
+<li>Попытаться настроить источник для тега цифрового двойника.</li>
+<li>В диалоге выбора источника проверить список доступных вариантов.</li>
+</ol>
+<h3>Уточнение по лицензированию</h3>
+<p>При проверке на trial-версии раздел <strong>Дерево тегов</strong> в системном дереве и в поиске отсутствует. Это не позволяет лично воспроизвести диалог выбора источника в данном контуре. Скриншоты с отсутствием абсолютной модели предоставлены коллегами с полноценной лицензией.</p>
+<h3>Ожидаемый результат</h3>
+<ul>
+<li>Дерево тегов доступно в лицензии.</li>
+<li>В диалоге выбора источника доступен выбор абсолютной модели.</li>
+<li>Функция описана в документации.</li>
+</ul>
+<h3>Фактический результат</h3>
+<ul>
+<li>В trial-версии раздел "Дерево тегов" отсутствует.</li>
+<li>Скриншоты коллег показывают, что выбор источника ограничен устройствами; абсолютная модель не доступна.</li>
+</ul>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/tagtree_source_empty.png"><img alt="диалог выбора источника, список пуст/отсутствует абсолютная модель" src="tests/screenshots/tagtree_source_empty.png" /></a> — диалог выбора источника, список пуст/отсутствует абсолютная модель</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/case10_tag_tree.png"><img alt="поиск &quot;тег&quot; в системном дереве не находит раздел &quot;Дерево тегов&quot;" src="tests/screenshots/case10_tag_tree.png" /></a> — поиск "тег" не находит раздел "Дерево тегов" в trial-версии</li>
+</ul>
+<h3>Источник</h3>
+<p>Тикет <code>ASD-6418</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
+<hr />
+<h2>Кейс 11. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h2>
+<p><strong>Серьёзность:</strong> Critical<br />
+<strong>Тип:</strong> Хранилище / конфигурация сервера</p>
+<h3>Описание</h3>
+<p>В настройках сервера, раздел <strong>Хранилище → База данных</strong>, пункт <strong>Хранилище событий</strong> по умолчанию отключён. Если выбрать <strong>NoSQL-хранилище</strong>, сервер уходит в перезапуск и больше не восстанавливается. Утилита <code>configurator</code> для версии 6.41 отсутствует, что не позволяет восстановить конфигурацию.</p>
+<h3>Воспроизведение</h3>
+<blockquote>
+<p>⚠️ Выполнять только на тестовом контуре с возможностью переустановки.
+1. Открыть <strong>Настройки → Хранилище → База данных</strong>.
+2. Для пункта <strong>Хранилище событий</strong> выбрать <strong>NoSQL-хранилище</strong>.
+3. Сохранить конфигурацию.
+4. Наблюдать перезапуск сервера.</p>
+</blockquote>
+<h3>Ожидаемый результат</h3>
+<p>Сервер перезапускается и продолжает работать с выбранным хранилищем; либо операция блокируется с понятным сообщением о неподдерживаемой конфигурации.</p>
+<h3>Фактический результат</h3>
+<p>Сервер не восстанавливается; конфигурация может быть потеряна; отсутствует утилита для ручного восстановления.</p>
+<h3>Уточнение</h3>
+<p>При проверке на trial-версии вкладка <strong>Хранилище → База данных</strong> доступна, и в ней видно, что <strong>Хранилище событий</strong> по умолчанию <strong>Отключено</strong>. Рядом расположен выпадающий список с вариантом <strong>NoSQL хранилище</strong>. Само переключение не производилось, чтобы не вывести сервер из строя.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/storage_nosql_dropdown.png"><img alt="вкладка «Хранилище» с выпадающим списком хранилищ" src="tests/screenshots/storage_nosql_dropdown.png" /></a> — скриншот коллег: выпадающий список хранилищ</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/case11_storage.png"><img alt="вкладка Хранилище в trial-версии" src="tests/screenshots/case11_storage.png" /></a> — вкладка <strong>Хранилище → База данных</strong>, "Хранилище событий" = "Отключено"</li>
+</ul>
+<h3>Источник</h3>
+<p>Тикет <code>ASD-6392</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
+<hr />
+<h2>Кейс 12. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Web UI / HTML-сниппеты / визуализация</p>
+<h3>Описание</h3>
+<p>При добавлении на дашборд компонента <strong>HTML-сниппет</strong> с произвольным HTML/CSS происходит сдвиг всего layout дашборда вниз. После обновления страницы (F5) дашборд возвращается к стандартному виду, но при повторном открытии редактора сдвиг появляется снова.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть редактор дашборда.</li>
+<li>Добавить компонент <strong>HTML-сниппет</strong>.</li>
+<li>Вставить код, содержащий <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code> и стили.</li>
+<li>Сохранить дашборд.</li>
+<li>Перейти к визуализации — убедиться, что элементы дашборда съехали ниже.</li>
+<li>Обновить страницу — layout вернулся к норме.</li>
+<li>Снова открыть редактор — сдвиг воспроизводится.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>HTML-сниппет отображается внутри выделенной области без влияния на остальную вёрстку дашборда. Состояние сохраняется после обновления страницы.</p>
+<h3>Фактический результат</h3>
+<p>Визуализация дашборда сдвигается вниз; после F5 временно восстанавливается.</p>
+<h3>Уточнение по лицензированию</h3>
+<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен: нет кнопки "Редактировать" для существующих дашбордов и нет возможности добавить HTML-сниппет. Попытки открыть URL <code>/.../edit</code> приводят к странице 404 (см. кейс 16). Поэтому лично воспроизвести сдвиг layout в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/html_snippet_editor.png"><img alt="редактор с добавленным HTML-сниппетом" src="tests/screenshots/html_snippet_editor.png" /></a> — редактор с добавленным HTML-сниппетом</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/html_snippet_code.png"><img alt="фрагмент вставленного HTML/CSS" src="tests/screenshots/html_snippet_code.png" /></a> — фрагмент вставленного HTML/CSS</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/html_snippet_layout_shift.png"><img alt="дашборд съехал вниз" src="tests/screenshots/html_snippet_layout_shift.png" /></a> — дашборд съехал вниз</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/html_snippet_dashboard.png"><img alt="визуализация после обновления страницы" src="tests/screenshots/html_snippet_dashboard.png" /></a> — визуализация после обновления страницы</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/html_snippet_game_editor.png"><img alt="второй пример: HTML-игра в редакторе" src="tests/screenshots/html_snippet_game_editor.png" /></a> — второй пример: HTML-игра в редакторе</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/html_snippet_game_runtime.png"><img alt="та же игра в режиме просмотра" src="tests/screenshots/html_snippet_game_runtime.png" /></a> — та же игра в режиме просмотра</li>
+</ul>
+<h3>Источник</h3>
+<p><code>incoming/отчет о проблеме с html.docx</code>.</p>
+<hr />
+<h2>Кейс 13. Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</h2>
+<p><strong>Серьёзность:</strong> High<br />
+<strong>Тип:</strong> Установка / лицензирование</p>
+<h3>Описание</h3>
+<p>При установке RatioT SCADA в папку, отличную от предыдущей, инсталлятор всё равно запрашивает согласие на копирование/перезапись файлов. После замены файла лицензии в новой папке программа продолжает сообщать об отсутствии лицензии. Служба сервера запускается и перезапускается, но веб-сервер не отвечает. В итоге требуется полное удаление всех версий; при новой установке генерируется новый activation key, и старая лицензия не принимается.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Установить RatioT SCADA в папку A (например, <code>C:\Program Files\RatioTScada</code>).</li>
+<li>Получить и сохранить файл лицензии для activation key A.</li>
+<li>Установить ту же или новую версию RatioT SCADA в папку B (например, другой диск или подпапку).</li>
+<li>На шаге копирования согласиться с перезаписью/копированием файлов.</li>
+<li>Подменить файл лицензии в папке B файлом от папки A.</li>
+<li>Запустить сервер.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<ul>
+<li>Инсталлятор корректно определяет новую директорию и не запрашивает перезапись.</li>
+<li>Замена файла лицензии приводит к её активации, либо в интерфейсе есть понятная инструкция, как обновить ключ.</li>
+<li>Веб-сервер становится доступен после запуска службы.</li>
+</ul>
+<h3>Фактический результат</h3>
+<ul>
+<li>Инсталлятор требует подтверждения копирования даже при разных папках.</li>
+<li>Лицензия не активируется; сервер не отвечает по вебу.</li>
+<li>После удаления и переустановки генерируется новый activation key, и старая лицензия не подходит.</li>
+</ul>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/install_overwrite_1.png"><img alt="диалог выбора типа лицензии" src="tests/screenshots/install_overwrite_1.png" /></a> — диалог выбора типа лицензии</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/install_overwrite_2.png"><img alt="запрос перезаписи wizard_1.png" src="tests/screenshots/install_overwrite_2.png" /></a> — запрос перезаписи <code>wizard_1.png</code></li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/install_overwrite_3.png"><img alt="запрос перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /></a> — запрос перезаписи <code>wizard_2.png</code></li>
+</ul>
+<h3>Источник</h3>
+<p>Переписка <code>Re: Минимальные/рекомендуемые системные требования к RatioT SCADA.msg</code>.</p>
+<hr />
+<h2>Кейс 15. Локальный магазин приложений отсутствует в веб-клиенте</h2>
+<p><strong>Серьёзность:</strong> High<br />
+<strong>Тип:</strong> Установка / плагины / UX</p>
+<h3>Описание</h3>
+<p>В дистрибутиве RatioT SCADA присутствует локальный файл магазина приложений <code>C:\Program Files\RatioTScada\store\store.xml</code>. Документация (<code>ls_store.htm</code>) описывает магазин приложений как способ распространения модулей и решений, а также указывает, что в системном дереве должен быть доступен плагин <strong>Магазин</strong> под разделом <strong>Драйверы и расширения</strong>. Однако в веб-клиенте отсутствует какой-либо раздел или плагин «Магазин приложений». Если пользователь удалит приложение/модуль, восстановить его из локального магазина через веб-интерфейс невозможно.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Установить RatioT SCADA 6.41.09.</li>
+<li>Убедиться, что файл <code>C:\Program Files\RatioTScada\store\store.xml</code> существует.</li>
+<li>Открыть <code>https://localhost:8443</code> и войти под <code>admin / admin</code>.</li>
+<li>В системном дереве слева раскрыть <strong>Драйверы и расширения</strong>.</li>
+<li>В поле поиска ввести <strong>Магазин</strong>.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<ul>
+<li>В системном дереве доступен плагин <strong>Магазин приложений</strong> (Store Client).</li>
+<li>Через него можно просматривать, устанавливать и восстанавливать модули из локального или публичного магазина.</li>
+</ul>
+<h3>Фактический результат</h3>
+<ul>
+<li>В системном дереве нет плагина <strong>Магазин приложений</strong>.</li>
+<li>Поиск по слову <strong>Магазин</strong> не возвращает результатов.</li>
+<li>Локальный <code>store.xml</code> существует, но недоступен через UI.</li>
+<li>Удалённые приложения/модули нельзя восстановить через веб-клиент.</li>
+</ul>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/store_tree_search.png"><img alt="поиск &quot;Магазин&quot; в системном дереве не находит раздел" src="tests/screenshots/store_tree_search.png" /></a> — поиск "Магазин" в дереве не находит раздел</li>
+</ul>
+<h3>Источник</h3>
+<ul>
+<li>Локальный файл: <code>C:\Program Files\RatioTScada\store\store.xml</code></li>
+<li>Документация: <code>admin/custom/templates/docs/ls_store.htm</code></li>
+</ul>
+<hr />
+<h2>Кейс 16. Вёрстка страницы 404</h2>
+<p><strong>Серьёзность:</strong> Low<br />
+<strong>Тип:</strong> Web UI / вёрстка</p>
+<h3>Описание</h3>
+<p>При обращении к несуществующей странице (например, через внутреннюю навигацию SPA) отображается страница 404 с огромным логотипом DKC, который перекрывает центр экрана. Текст «404 — Страница не найдена» и ссылка «На главную» накладываются на красный круг логотипа, что делает сообщение трудночитаемым.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Войти в веб-интерфейс RatioT SCADA.</li>
+<li>Перейти по URL, который не существует (например, открыть несуществующий путь внутри SPA).</li>
+<li>Убедиться, что отображается страница 404 с логотипом DKC.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Страница 404 содержит чёткое, центрированное сообщение об ошибке без перекрытия текстом логотипа. Логотип либо отсутствует, либо расположен так, чтобы не мешать чтению.</p>
+<h3>Фактический результат</h3>
+<p>Логотип DKC занимает большую часть экрана, а текст ошибки наложен на красный фон логотипа. Визуально выглядит некорректно.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/store_docs.png"><img alt="страница 404 с перекрывающим логотипом" src="tests/screenshots/store_docs.png" /></a> — страница 404, текст перекрыт логотипом DKC</li>
+</ul>
+<hr />
+<h2>Кейс 17. В Web UI и документации остались артефакты стороннего бренда AggreGate</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Брендинг / UI / документация</p>
+<h3>Описание</h3>
+<p>Продукт поставляется и позиционируется как <strong>DKC RatioT SCADA</strong> (логотип DKC на странице логина, заголовок «Администрирование • RatioT Server»). Однако в веб-ресурсах и документации внутри дистрибутива остались многочисленные артефакты предыдущего бренда <strong>AggreGate</strong> и домена <strong>aggregate.digital</strong>: имена файлов, пользовательские строки, ссылки на внешние ресурсы, исключения в исходном коде сервера. Это нарушает условия договора и может ввести пользователя и службу поддержки в заблуждение.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Установить RatioT SCADA 6.41.09.</li>
+<li>Открыть в браузере <code>https://localhost:8443/web/login</code> — убедиться, что отображается логотип <strong>DKC</strong>.</li>
+<li>Войти под <code>admin / admin</code> — убедиться, что заголовок содержит <strong>RatioT Server</strong>.</li>
+<li>В каталоге установки открыть:</li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js</code></li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\res_en.js</code></li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\</code></li>
+<li><code>C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\com\tibbo\linkserver\plugin\context\web\exception\</code></li>
+<li>Выполнить поиск по строке <code>AggreGate</code> и домену <code>aggregate.digital</code>.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<ul>
+<li>В пользовательских ресурсах, именах файлов, исключениях сервера и документации отсутствуют упоминания <strong>AggreGate</strong> и <strong>aggregate.digital</strong>.</li>
+<li>Все ссылки поддержки/документации ведут на ресурсы <strong>DKC / RatioT</strong>.</li>
+</ul>
+<h3>Фактический результат</h3>
+<ul>
+<li>В <code>res_ru.js</code> / <code>res_en.js</code> присутствуют ключи:</li>
+<li><code>adminPageTitle: "Добро пожаловать на платформу AggreGate!"</code></li>
+<li><code>product: "AggreGate"</code></li>
+<li><code>productClient: "AggreGate Client"</code></li>
+<li><code>productServer: "AggreGate Server"</code></li>
+<li><code>publicStoreAddress: "store.aggregate.digital"</code></li>
+<li><code>urlDocumentation: "https://aggregate.digital/docs/aggregate/ru_6.4/"</code></li>
+<li><code>urlProduct: "https://aggregate.digital/"</code></li>
+<li><code>urlSupportForum: "https://community.aggregate.digital/"</code></li>
+<li>и другие ссылки на <code>aggregate.digital</code>.</li>
+<li>В каталоге <code>admin/web/static/js/</code> есть файлы:</li>
+<li><code>agg-app-component-common-containers-login-page.js</code></li>
+<li><code>aggregate-ts-sdk.d.ts</code></li>
+<li>В исходном коде сервера есть файл: <code>AggreGateAccountLockedException.kt</code>.</li>
+<li>Во встроенной документации (<code>tmp_*.htm</code>, извлечённой из <code>admin/custom/templates/docs/</code>) также встречается бренд <strong>AggreGate</strong>.</li>
+</ul>
+<h3>Скриншоты</h3>
+<ul>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/case17_login.png"><img alt="страница логина позиционирует продукт как DKC" src="tests/screenshots/case17_login.png" /></a> — страница логина с логотипом DKC</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/case17_after_login.png"><img alt="после входа заголовок RatioT Server" src="tests/screenshots/case17_after_login.png" /></a> — после входа заголовок содержит RatioT Server</li>
+<li><a href="https://noo001.github.io/ratiot-scada-doc/tests/screenshots/case17_aggregate_artifacts.png"><img alt="артефакты AggreGate в ресурсах и коде" src="tests/screenshots/case17_aggregate_artifacts.png" /></a> — примеры артефактов бренда AggreGate в файлах продукта</li>
+</ul>
+<h3>Источник</h3>
+<ul>
+<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js</code>, <code>res_en.js</code></li>
+<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\static\js\agg-app-component-common-containers-login-page.js</code>, <code>aggregate-ts-sdk.d.ts</code></li>
+<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\...\AggreGateAccountLockedException.kt</code></li>
+<li>Встроенная документация: <code>admin/custom/templates/docs/*.htm</code></li>
+</ul>
+<hr />
+<h2>Итог</h2>
+<table>
+<thead>
+<tr>
+<th>Кейс</th>
+<th>Серьёзность</th>
+<th>Статус</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Ошибки старта</td>
+<td>Medium</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>2. Токен в URL не авторизует</td>
+<td>Medium</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>3. Противоречивая документация</td>
+<td>Low</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>4. Саморегистрация: заголовок Admin Panel для обычного пользователя</td>
+<td>Medium</td>
+<td>Уточнено / Подтверждён</td>
+</tr>
+<tr>
+<td>5. Кодировка консоли</td>
+<td>Low</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>6. Режимы free/trial не описаны в документации</td>
+<td>Medium</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>7. Инсталлятор запрашивает перезапись собственных файлов</td>
+<td>Low</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>8. Импорт/экспорт Modbus CSV/XML теряет поля и кодировку</td>
+<td>High</td>
+<td>Подтверждён коллегами / в trial нет драйвера Modbus</td>
+</tr>
+<tr>
+<td>9. eventLog сбрасывает настройки колонок при событиях</td>
+<td>High</td>
+<td>Подтверждён коллегами / в trial нет редактора дашбордов</td>
+</tr>
+<tr>
+<td>10. Дерево тегов: нет абсолютной модели как источника</td>
+<td>Medium</td>
+<td>Подтверждён коллегами / в trial нет раздела</td>
+</tr>
+<tr>
+<td>11. NoSQL-хранилище событий ломает сервер</td>
+<td>Critical</td>
+<td>Подтверждён коллегами / настройка доступна, переключение не проводилось</td>
+</tr>
+<tr>
+<td>12. HTML-сниппет сдвигает layout дашборда</td>
+<td>Medium</td>
+<td>Подтверждён коллегами / в trial нет редактора дашбордов</td>
+</tr>
+<tr>
+<td>13. Установка/лицензирование: новый activation key после переустановки</td>
+<td>High</td>
+<td>Подтверждён коллегами / требует переустановки</td>
+</tr>
+<tr>
+<td>15. Локальный магазин приложений отсутствует в веб-клиенте</td>
+<td>High</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>16. Вёрстка страницы 404</td>
+<td>Low</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>17. Артефакты бренда AggreGate в UI и документации</td>
+<td>Medium</td>
+<td>Подтверждён</td>
+</tr>
+</tbody>
+</table>
+  </div>
+</body>
+</html>
