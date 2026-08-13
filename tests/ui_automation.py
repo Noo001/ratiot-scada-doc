@@ -98,10 +98,12 @@ async def main():
 
         # 3. Разлогиниваемся (если регистрация сразу авторизовала)
         await logout(page)
+        await context.clear_cookies()
+        await page.goto("about:blank")
 
         # 4. Вход созданным пользователем
         await page.goto(f"{BASE_URL}/web/login")
-        await page.wait_for_selector("input[type='password']", state="visible")
+        await page.wait_for_selector("input", state="visible")
         login_inputs = await page.locator("input").all()
         if len(login_inputs) >= 2:
             await login_inputs[0].fill(TEST_USER["username"])
