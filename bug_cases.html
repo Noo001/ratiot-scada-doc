@@ -78,147 +78,16 @@
 <li>Автотест фиксирует проблему: <code>tests/test_ui_ux.py</code> → <code>test_log_errors()</code></li>
 </ul>
 <hr />
-<h2>Кейс 2. Токен в URL не авторизует пользователя в Web UI</h2>
-<p><strong>Серьёзность:</strong> Medium<br />
-<strong>Тип:</strong> UX / deep linking</p>
-<h3>Описание</h3>
-<p>Передача JWT-токена в URL дашборда (<code>/web/dashboards/...?token=&lt;token&gt;</code>) не авторизует пользователя. SPA перенаправляет на форму логина.</p>
-<h3>Воспроизведение</h3>
-<ol>
-<li>Получить токен:
-   <code>bash
-   curl -k -X POST -H "Content-Type: application/json" \
-     -d '{"username":"admin","password":"admin"}' \
-     https://localhost:8443/rest/auth</code></li>
-<li>Открыть в браузере:
-   <code>https://localhost:8443/web/dashboards/users.admin.dashboards.default?token=&lt;token&gt;</code></li>
-<li>Убедиться, что открылась страница логина.</li>
-</ol>
-<h3>Ожидаемый результат</h3>
-<p>Токен принимается, пользователь попадает в дашборд.</p>
-<h3>Фактический результат</h3>
-<p>Открывается форма логина.</p>
-<h3>Скриншоты</h3>
-<ul>
-<li><img alt="страница входа вместо дашборда" src="tests/screenshots/02_token_url_login.png" /> — страница входа вместо дашборда</li>
-<li><img alt="та же страница входа при открытии URL с токеном" src="tests/screenshots/02_token_url_dashboard.png" /> — та же страница входа при открытии URL с токеном</li>
-</ul>
-<hr />
-<h2>Кейс 3. Противоречивая документация внутри программы</h2>
-<p><strong>Серьёзность:</strong> Low<br />
-<strong>Тип:</strong> Документация / терминология</p>
-<h3>Описание</h3>
-<p>Файл <code>admin/custom/templates/docs/cl_dashboard.htm</code> утверждает, что инструментальные панели можно использовать только в десктопном RatioT Client, в то время как остальная документация позиционирует панели как часть Web UI.</p>
-<h3>Воспроизведение</h3>
-<ol>
-<li>Открыть в браузере:</li>
-<li><code>https://localhost:8443/static/docs/cl_dashboard.htm</code></li>
-<li><code>https://localhost:8443/static/docs/ls_wui_dashboards.htm</code></li>
-<li>Сравнить первые абзацы.</li>
-</ol>
-<h3>Ожидаемый результат</h3>
-<p>Единая терминология: Web UI — основной способ работы с панелями; RatioT Client — устаревший/альтернативный вариант.</p>
-<h3>Фактический результат</h3>
-<p>Пользователь может запутаться, где реально работают дашборды.</p>
-<hr />
-<h2>Кейс 4. Саморегистрация: заголовок «Admin Panel» и системное дерево для саморегистрированного пользователя</h2>
-<p><strong>Серьёзность:</strong> Medium<br />
-<strong>Тип:</strong> UX / брендинг / документация</p>
-<h3>Что говорит документация</h3>
-<ol>
-<li>В <code>ls_config_general.htm</code> параметр <strong>Включить саморегистрацию пользователя</strong> (<code>usersSelfRegistration = true</code>) описан так:</li>
-</ol>
-<blockquote>
-<p>«Если <code>usersSelfRegistration = true</code>, любой пользователь может зарегистрироваться, войти в систему и использовать RatioT Server.»</p>
-</blockquote>
-<ol>
-<li>В <code>ls_config_default_permissions.htm</code> сказано:</li>
-</ol>
-<blockquote>
-<p>«<em>Права доступа по умолчанию</em> — это глобальное свойство конфигурации сервера, определяющее права доступа по умолчанию и доступность ресурсов для вновь создаваемых пользователей RatioT Server. Оно используется при построении таблицы прав и таблице ресурсов при создании нового пользователя.»</p>
-</blockquote>
-<ol>
-<li>В <code>ls_users_self_registration.htm</code> сказано:</li>
-</ol>
-<blockquote>
-<p>«Саморегистрация пользователя позволяет операторам RatioT SCADA создавать собственные учетные записи, используя любой из Пользовательских Интерфейсов RatioT Server.»</p>
-</blockquote>
-<h3>Учётные данные для воспроизведения</h3>
-<ul>
-<li>Логин: <code>testuser02</code></li>
-<li>Пароль: <code>TestPassword123!</code></li>
-</ul>
-<h3>Воспроизведение</h3>
-<ol>
-<li>Открыть <code>https://localhost:8443/web/login</code>.</li>
-<li>Нажать <strong>Зарегистрироваться</strong>.</li>
-<li>Заполнить обязательные поля:</li>
-<li>Имя пользователя: <code>testuser02</code></li>
-<li>Имя: <code>Test</code></li>
-<li>Фамилия: <code>User</code></li>
-<li>Пароль: <code>TestPassword123!</code></li>
-<li>Повторите пароль: <code>TestPassword123!</code></li>
-<li>Нажать <strong>Зарегистрироваться</strong>.</li>
-<li>После успешной регистрации открывается <strong>Admin Panel</strong> с системным деревом.</li>
-<li>Повторно выполнить вход под <code>testuser02</code> — открывается тот же Admin Panel.</li>
-</ol>
-<h3>Проверка через REST API</h3>
-<pre><code class="language-bash"># Получаем токен testuser02
-curl -k -X POST -H &quot;Content-Type: application/json&quot; \
-  -d '{&quot;username&quot;:&quot;testuser02&quot;,&quot;password&quot;:&quot;TestPassword123!&quot;}' \
-  https://localhost:8443/rest/auth
-
-# Проверяем доступные контексты
-for ctx in users.admin users.testuser02 users.admin.devices users.testuser02.devices; do
-  curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
-    https://localhost:8443/rest/v1/contexts/$ctx
-done
-</code></pre>
-<p><strong>Результаты:</strong>
-- <code>users.admin</code> → HTTP 400, «Контекст не найден: users.admin<code>-</code>users.admin.devices<code>→ HTTP 400, «Контекст не найден: users.admin.devices</code>
-- <code>users.testuser02</code> → HTTP 200, доступен собственный пользовательский контекст
-- <code>users.testuser02.devices</code> → HTTP 200, доступен собственный контекст устройств</p>
-<h3>Уточнение</h3>
-<p>Права доступа работают корректно: саморегистрированный пользователь <strong>не имеет</strong> доступа к <code>users.admin</code>. В системном дереве он видит только свой контекст <code>users.testuser02</code> и его подразделы. Проблема не в RBAC, а в UI/UX: заголовок окна <strong>«Admin Panel»</strong> и общий вид системного дерева с разделами «Пользователи», «Приложения», «Модели» и т.д. создают впечатление, что пользователь получил административный доступ. Документация позиционирует саморегистрацию как инструмент для <strong>операторов</strong>, но интерфейс после входа не даёт понять, что это обычный операторский аккаунт, а не администратор.</p>
-<h3>Ожидаемый результат</h3>
-<ul>
-<li>Для саморегистрированного/операторского пользователя заголовок не должен быть <strong>Admin Panel</strong>.</li>
-<li>В системном дереве или в приветственном экране должно быть понятно, что пользователь работает в рамках своего персонального контекста (<code>users.testuser02</code>).</li>
-</ul>
-<h3>Фактический результат</h3>
-<p>Саморегистрированный пользователь видит <strong>Admin Panel</strong> и системное дерево, идентичное тому, что видит администратор, хотя реально доступен только <code>users.testuser02</code>. Это может ввести в заблуждение оператора и службу поддержки.</p>
-<h3>Скриншоты</h3>
-<ul>
-<li><img alt="форма регистрации" src="tests/screenshots/02_register_form.png" /> — форма регистрации</li>
-<li><img alt="заполненная форма" src="tests/screenshots/03_register_filled.png" /> — заполненная форма</li>
-<li><img alt="сразу после регистрации открывается Admin Panel" src="tests/screenshots/04_register_success.png" /> — сразу после регистрации открывается Admin Panel</li>
-<li><img alt="вход под testuser02, открывается Admin Panel" src="tests/screenshots/05_login_as_new.png" /> — вход под <code>testuser02</code>, открывается Admin Panel</li>
-<li><img alt="заголовок Admin Panel для testuser02" src="tests/screenshots/06_dashboard.png" /> — заголовок <strong>Admin Panel</strong> для саморегистрированного пользователя</li>
-<li><img alt="раскрытое системное дерево testuser02" src="tests/screenshots/04_tree_expanded.png" /> — в дереве только <code>testuser02</code>, <code>users.admin</code> отсутствует</li>
-</ul>
-<hr />
-<h2>Кейс 5. Консольный вывод Playwright повреждён (кодировка)</h2>
-<p><strong>Серьёзность:</strong> Low<br />
-<strong>Тип:</strong> Окружение / локализация</p>
-<h3>Описание</h3>
-<p>При запуске <code>tests/ui_automation.py</code> в Git Bash русские сообщения в stdout отображаются как <code>��������</code>. Это не влияет на функциональность, но затрудняет отладку.</p>
-<h3>Воспроизведение</h3>
-<ol>
-<li>Запустить <code>python tests/ui_automation.py</code> из Git Bash.</li>
-<li>Обратить внимание на русский текст в консоли.</li>
-</ol>
-<h3>Ожидаемый результат</h3>
-<p>Корректный вывод UTF-8.</p>
-<h3>Фактический результат</h3>
-<p>Кракозябры из-за несоответствия кодировки терминала.</p>
-<hr />
 <h2>Кейс 6. Режимы лицензирования free / trial не описаны в документации</h2>
 <p><strong>Серьёзность:</strong> Medium<br />
 <strong>Тип:</strong> Документация / лицензирование</p>
 <h3>Описание</h3>
-<p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами:
+<p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами на <strong>этапе установки</strong>:
 - <strong>Пробная лицензия (30 дней)</strong>
 - <strong>Бесплатная лицензия на 100 тэгов</strong></p>
+<blockquote>
+<p><strong>Важно:</strong> режим с ограничением в 100 тегов устанавливается исключительно через инсталлятор при первой установке. В самом веб-интерфейсе RatioT SCADA и в документации нет управления или описания этого режима.</p>
+</blockquote>
 <p>Однако в официальной документации (<code>licensing.htm</code>, <code>ls_license_server.htm</code>, <code>ls_config_license_server.htm</code>, <code>ls_requirements.htm</code>) описаны только именные лицензии, привязанные к инсталляции, и централизованный сервер лицензий. Пробный и бесплатный режимы не упоминаются.</p>
 <h3>Воспроизведение</h3>
 <ol>
@@ -465,14 +334,13 @@ done
 </ul>
 <h3>Скриншоты</h3>
 <ul>
-<li><img alt="диалог выбора типа лицензии" src="tests/screenshots/install_overwrite_1.png" /> — диалог выбора типа лицензии</li>
-<li><img alt="запрос перезаписи wizard_1.png" src="tests/screenshots/install_overwrite_2.png" /> — запрос перезаписи <code>wizard_1.png</code></li>
-<li><img alt="запрос перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /> — запрос перезаписи <code>wizard_2.png</code></li>
+<li><img alt="страница «Информация о сервере»" src="tests/screenshots/case13_server_info.png" /> — в веб-интерфейсе открыта страница <strong>Информация о сервере</strong></li>
+<li><img alt="лицензионная информация: Trial License, 30 дней, 100 устройств" src="tests/screenshots/case13_license_info.png" /> — вкладка <strong>Лицензионная информация</strong> показывает <code>Trial License</code>, оставшееся время 29 дней, максимальное количество устройств 100</li>
 </ul>
 <h3>Источник</h3>
 <p>Переписка <code>Re: Минимальные/рекомендуемые системные требования к RatioT SCADA.msg</code>.</p>
 <hr />
-<h2>Кейс 15. Локальный магазин приложений отсутствует в веб-клиенте</h2>
+<h2>Кейс 14. Локальный магазин приложений отсутствует в веб-клиенте</h2>
 <p><strong>Серьёзность:</strong> High<br />
 <strong>Тип:</strong> Установка / плагины / UX</p>
 <h3>Описание</h3>
@@ -501,13 +369,19 @@ done
 <ul>
 <li><img alt="поиск &quot;Магазин&quot; в системном дереве не находит раздел" src="tests/screenshots/store_tree_search.png" /> — поиск "Магазин" в дереве не находит раздел</li>
 </ul>
+<h3>Пруф из документации</h3>
+<p>В <code>admin/custom/templates/docs/ls_store.htm</code> сказано:</p>
+<blockquote>
+<p>«Магазин приложений — это особый RatioT Server, на котором работает модуль "marketplace" (Store Server), и который предоставляет решения и модули для других серверов RatioT SCADA. Другие экземпляры RatioT Server могут подключиться к Магазину и загрузить предлагаемые решения и модули при помощи модуля Store Client. ... Функционал Магазина обеспечивается плагином <strong>Store Client</strong>, который скачивает решения и модули с серверов Магазина приложений...»</p>
+</blockquote>
+<p>То есть документация декларирует наличие плагина <strong>Store Client</strong> для загрузки/восстановления модулей, но в веб-клиенте он отсутствует.</p>
 <h3>Источник</h3>
 <ul>
 <li>Локальный файл: <code>C:\Program Files\RatioTScada\store\store.xml</code></li>
 <li>Документация: <code>admin/custom/templates/docs/ls_store.htm</code></li>
 </ul>
 <hr />
-<h2>Кейс 16. Вёрстка страницы 404</h2>
+<h2>Кейс 15. Вёрстка страницы 404</h2>
 <p><strong>Серьёзность:</strong> Low<br />
 <strong>Тип:</strong> Web UI / вёрстка</p>
 <h3>Описание</h3>
@@ -527,60 +401,6 @@ done
 <li><img alt="страница 404 с перекрывающим логотипом" src="tests/screenshots/store_docs.png" /> — страница 404, текст перекрыт логотипом DKC</li>
 </ul>
 <hr />
-<h2>Кейс 17. В Web UI и документации остались артефакты стороннего бренда AggreGate</h2>
-<p><strong>Серьёзность:</strong> Medium<br />
-<strong>Тип:</strong> Брендинг / UI / документация</p>
-<h3>Описание</h3>
-<p>Продукт поставляется и позиционируется как <strong>DKC RatioT SCADA</strong> (логотип DKC на странице логина, заголовок «Администрирование • RatioT Server»). Однако в веб-ресурсах и документации внутри дистрибутива остались многочисленные артефакты предыдущего бренда <strong>AggreGate</strong> и домена <strong>aggregate.digital</strong>: имена файлов, пользовательские строки, ссылки на внешние ресурсы, исключения в исходном коде сервера. Это нарушает условия договора и может ввести пользователя и службу поддержки в заблуждение.</p>
-<h3>Воспроизведение</h3>
-<ol>
-<li>Установить RatioT SCADA 6.41.09.</li>
-<li>Открыть в браузере <code>https://localhost:8443/web/login</code> — убедиться, что отображается логотип <strong>DKC</strong>.</li>
-<li>Войти под <code>admin / admin</code> — убедиться, что заголовок содержит <strong>RatioT Server</strong>.</li>
-<li>В каталоге установки открыть:</li>
-<li><code>C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js</code></li>
-<li><code>C:\Program Files\RatioTScada\admin\web\static\js\res_en.js</code></li>
-<li><code>C:\Program Files\RatioTScada\admin\web\static\js\</code></li>
-<li><code>C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\com\tibbo\linkserver\plugin\context\web\exception\</code></li>
-<li>Выполнить поиск по строке <code>AggreGate</code> и домену <code>aggregate.digital</code>.</li>
-</ol>
-<h3>Ожидаемый результат</h3>
-<ul>
-<li>В пользовательских ресурсах, именах файлов, исключениях сервера и документации отсутствуют упоминания <strong>AggreGate</strong> и <strong>aggregate.digital</strong>.</li>
-<li>Все ссылки поддержки/документации ведут на ресурсы <strong>DKC / RatioT</strong>.</li>
-</ul>
-<h3>Фактический результат</h3>
-<ul>
-<li>В <code>res_ru.js</code> / <code>res_en.js</code> присутствуют ключи:</li>
-<li><code>adminPageTitle: "Добро пожаловать на платформу AggreGate!"</code></li>
-<li><code>product: "AggreGate"</code></li>
-<li><code>productClient: "AggreGate Client"</code></li>
-<li><code>productServer: "AggreGate Server"</code></li>
-<li><code>publicStoreAddress: "store.aggregate.digital"</code></li>
-<li><code>urlDocumentation: "https://aggregate.digital/docs/aggregate/ru_6.4/"</code></li>
-<li><code>urlProduct: "https://aggregate.digital/"</code></li>
-<li><code>urlSupportForum: "https://community.aggregate.digital/"</code></li>
-<li>и другие ссылки на <code>aggregate.digital</code>.</li>
-<li>В каталоге <code>admin/web/static/js/</code> есть файлы:</li>
-<li><code>agg-app-component-common-containers-login-page.js</code></li>
-<li><code>aggregate-ts-sdk.d.ts</code></li>
-<li>В исходном коде сервера есть файл: <code>AggreGateAccountLockedException.kt</code>.</li>
-<li>Во встроенной документации (<code>tmp_*.htm</code>, извлечённой из <code>admin/custom/templates/docs/</code>) также встречается бренд <strong>AggreGate</strong>.</li>
-</ul>
-<h3>Скриншоты</h3>
-<ul>
-<li><img alt="страница логина позиционирует продукт как DKC" src="tests/screenshots/case17_login.png" /> — страница логина с логотипом DKC</li>
-<li><img alt="после входа заголовок RatioT Server" src="tests/screenshots/case17_after_login.png" /> — после входа заголовок содержит RatioT Server</li>
-<li><img alt="артефакты AggreGate в ресурсах и коде" src="tests/screenshots/case17_aggregate_artifacts.png" /> — примеры артефактов бренда AggreGate в файлах продукта</li>
-</ul>
-<h3>Источник</h3>
-<ul>
-<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js</code>, <code>res_en.js</code></li>
-<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\static\js\agg-app-component-common-containers-login-page.js</code>, <code>aggregate-ts-sdk.d.ts</code></li>
-<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\...\AggreGateAccountLockedException.kt</code></li>
-<li>Встроенная документация: <code>admin/custom/templates/docs/*.htm</code></li>
-</ul>
-<hr />
 <h2>Итог</h2>
 <table>
 <thead>
@@ -594,26 +414,6 @@ done
 <tr>
 <td>1. Ошибки старта</td>
 <td>Medium</td>
-<td>Подтверждён</td>
-</tr>
-<tr>
-<td>2. Токен в URL не авторизует</td>
-<td>Medium</td>
-<td>Подтверждён</td>
-</tr>
-<tr>
-<td>3. Противоречивая документация</td>
-<td>Low</td>
-<td>Подтверждён</td>
-</tr>
-<tr>
-<td>4. Саморегистрация: заголовок Admin Panel для обычного пользователя</td>
-<td>Medium</td>
-<td>Уточнено / Подтверждён</td>
-</tr>
-<tr>
-<td>5. Кодировка консоли</td>
-<td>Low</td>
 <td>Подтверждён</td>
 </tr>
 <tr>
@@ -657,18 +457,13 @@ done
 <td>Подтверждён коллегами / требует переустановки</td>
 </tr>
 <tr>
-<td>15. Локальный магазин приложений отсутствует в веб-клиенте</td>
+<td>14. Локальный магазин приложений отсутствует в веб-клиенте</td>
 <td>High</td>
 <td>Подтверждён</td>
 </tr>
 <tr>
-<td>16. Вёрстка страницы 404</td>
+<td>15. Вёрстка страницы 404</td>
 <td>Low</td>
-<td>Подтверждён</td>
-</tr>
-<tr>
-<td>17. Артефакты бренда AggreGate в UI и документации</td>
-<td>Medium</td>
 <td>Подтверждён</td>
 </tr>
 </tbody>
