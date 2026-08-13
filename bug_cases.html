@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Баг-кейсы RatioT SCADA</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .content { padding: 32px 40px; max-width: 900px; }
+    .content h1 { font-size: 2rem; margin-bottom: 8px; }
+    .content h2 { margin-top: 36px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .content h3 { margin-top: 24px; }
+    .content p { margin: 12px 0; }
+    .content ul, .content ol { margin: 12px 0; padding-left: 24px; }
+    .content li { margin: 6px 0; }
+    .content code { background: var(--code); padding: 2px 6px; border-radius: 4px; font-family: Consolas, monospace; }
+    .content pre { background: var(--code); padding: 16px; border-radius: 8px; overflow-x: auto; }
+    .content pre code { background: transparent; padding: 0; }
+    .content blockquote { border-left: 4px solid var(--accent); margin: 16px 0; padding: 8px 16px; background: var(--accent-light); }
+    .content table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+    .content th, .content td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+    .content th { background: var(--accent-light); }
+    .back { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; }
+    .back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>RatioT SCADA</h1>
+      <div class="subtitle">Баг-кейсы и тестирование</div>
+      <nav>
+        <a href="index.html">← На главную</a>
+        <a href="scada/index.html">Документация SCADA</a>
+        <a href="ux.html">UX-заметки</a>
+      </nav>
+    </aside>
+    <main class="content">
+      <a class="back" href="index.html">← На главную</a>
+      <h1>Баг-кейсы RatioT SCADA 6.41.09</h1>
+<p><strong>Дата тестирования:</strong> 13.08.2026<br />
+<strong>Версия:</strong> RatioT Server 6.41.09-2456<br />
+<strong>Контур:</strong> локальная установка <code>C:\Program Files\RatioTScada</code><br />
+<strong>Учётные данные для тестов:</strong> <code>admin / admin</code>, тестовый пользователь <code>testuser02 / TestPassword123!</code></p>
+<hr />
+<h2>Кейс 1. Ошибки создания ресурсов при первом запуске сервера</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Ошибка инициализации</p>
+<h3>Описание</h3>
+<p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Установить RatioT SCADA 6.41.09 на чистую Windows.</li>
+<li>Запустить <code>C:\Program Files\RatioTScada\RatioT_server_console.exe</code>.</li>
+<li>Дождаться строки <code>Starting web server</code>.</li>
+<li>Открыть <code>C:\Program Files\RatioTScada\logs\server.log</code>.</li>
+<li>Найти строки с <code>ERROR ag.context</code>.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Первый запуск завершается без ERROR/FATAL.</p>
+<h3>Фактический результат</h3>
+<pre><code>13.08.2026 12:47:25,471 ERROR ag.context
+  Error creating resource 'users.admin.models.avatarManagement':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
+
+13.08.2026 12:47:25,733 ERROR ag.context
+  Error creating resource 'users.admin.reports.maintenance':
+  Контекст недоступен: users.admin.reports
+
+13.08.2026 12:47:26,509 ERROR ag.context
+  Error creating resource 'users.admin.models.workflowModel':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
+</code></pre>
+<h3>Скриншоты</h3>
+<ul>
+<li>Лог-файл: см. <code>C:\Program Files\RatioTScada\logs\server.log</code></li>
+<li>Автотест фиксирует проблему: <code>tests/test_ui_ux.py</code> → <code>test_log_errors()</code></li>
+</ul>
+<hr />
+<h2>Кейс 2. Токен в URL не авторизует пользователя в Web UI</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> UX / deep linking</p>
+<h3>Описание</h3>
+<p>Передача JWT-токена в URL дашборда (<code>/web/dashboards/...?token=&lt;token&gt;</code>) не авторизует пользователя. SPA перенаправляет на форму логина.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Получить токен:
+   <code>bash
+   curl -k -X POST -H "Content-Type: application/json" \
+     -d '{"username":"admin","password":"admin"}' \
+     https://localhost:8443/rest/auth</code></li>
+<li>Открыть в браузере:
+   <code>https://localhost:8443/web/dashboards/users.admin.dashboards.default?token=&lt;token&gt;</code></li>
+<li>Убедиться, что открылась страница логина.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Токен принимается, пользователь попадает в дашборд.</p>
+<h3>Фактический результат</h3>
+<p>Открывается форма логина.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><code>screenshot_login.png</code> — страница входа вместо дашборда</li>
+<li><code>screenshot_dashboard.png</code> — та же страница входа при открытии URL с токеном</li>
+</ul>
+<hr />
+<h2>Кейс 3. Противоречивая документация внутри программы</h2>
+<p><strong>Серьёзность:</strong> Low<br />
+<strong>Тип:</strong> Документация / терминология</p>
+<h3>Описание</h3>
+<p>Файл <code>admin/custom/templates/docs/cl_dashboard.htm</code> утверждает, что инструментальные панели можно использовать только в десктопном RatioT Client, в то время как остальная документация позиционирует панели как часть Web UI.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть в браузере:</li>
+<li><code>https://localhost:8443/static/docs/cl_dashboard.htm</code></li>
+<li><code>https://localhost:8443/static/docs/ls_wui_dashboards.htm</code></li>
+<li>Сравнить первые абзацы.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Единая терминология: Web UI — основной способ работы с панелями; RatioT Client — устаревший/альтернативный вариант.</p>
+<h3>Фактический результат</h3>
+<p>Пользователь может запутаться, где реально работают дашборды.</p>
+<hr />
+<h2>Кейс 4. Саморегистрация: соответствие прав нового пользователя документации (уточняется)</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> UX / RBAC / документация</p>
+<h3>Что говорит документация</h3>
+<ol>
+<li>В <code>ls_config_general.htm</code> параметр <strong>Включить саморегистрацию пользователя</strong> (<code>usersSelfRegistration = true</code>) описан так:</li>
+</ol>
+<blockquote>
+<p>«Если <code>usersSelfRegistration = true</code>, любой пользователь может зарегистрироваться, войти в систему и использовать RatioT Server.»</p>
+</blockquote>
+<ol>
+<li>В <code>ls_config_default_permissions.htm</code> сказано:</li>
+</ol>
+<blockquote>
+<p>«<em>Права доступа по умолчанию</em> — это глобальное свойство конфигурации сервера, определяющее права доступа по умолчанию и доступность ресурсов для вновь создаваемых пользователей RatioT Server. Оно используется при построении таблицы прав и таблице ресурсов при создании нового пользователя.»</p>
+</blockquote>
+<ol>
+<li>В <code>ls_users_self_registration.htm</code> сказано:</li>
+</ol>
+<blockquote>
+<p>«Саморегистрация пользователя позволяет операторам RatioT SCADA создавать собственные учетные записи, используя любой из Пользовательских Интерфейсов RatioT Server.»</p>
+</blockquote>
+<h3>Наблюдение</h3>
+<p>При включённой саморегистрации (<code>usersSelfRegistration = true</code>) новый пользователь <code>testuser02</code>, зарегистрированный через Web UI, после входа видит интерфейс с заголовком <strong>Admin Panel</strong> и системным деревом с разделами «Пользователи», «Приложения», «Инструментальные панели», «Тревоги» и т.д. Это создаёт впечатление, что саморегистрированный оператор получает административный доступ.</p>
+<h3>Учётные данные для воспроизведения</h3>
+<ul>
+<li>Логин: <code>testuser02</code></li>
+<li>Пароль: <code>TestPassword123!</code></li>
+</ul>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Открыть <code>https://localhost:8443/web/login</code>.</li>
+<li>Нажать <strong>Зарегистрироваться</strong>.</li>
+<li>Заполнить обязательные поля:</li>
+<li>Имя пользователя: <code>testuser02</code></li>
+<li>Имя: <code>Test</code></li>
+<li>Фамилия: <code>User</code></li>
+<li>Пароль: <code>TestPassword123!</code></li>
+<li>Повторите пароль: <code>TestPassword123!</code></li>
+<li>Нажать <strong>Зарегистрироваться</strong>.</li>
+<li>После успешной регистрации открывается <strong>Admin Panel</strong> с системным деревом.</li>
+<li>Повторно выполнить вход под <code>testuser02</code> — открывается тот же Admin Panel.</li>
+</ol>
+<h3>Проверка через REST API</h3>
+<pre><code class="language-bash"># Получаем токен testuser02
+curl -k -X POST -H &quot;Content-Type: application/json&quot; \
+  -d '{&quot;username&quot;:&quot;testuser02&quot;,&quot;password&quot;:&quot;TestPassword123!&quot;}' \
+  https://localhost:8443/rest/auth
+
+# Пытаемся обратиться к контексту admin
+curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
+  https://localhost:8443/rest/v1/contexts/users.admin
+</code></pre>
+<p><strong>Результат:</strong> HTTP 400 с сообщением «Контекст не найден: users.admin». То есть в REST дерево <code>users.admin</code> для <code>testuser02</code> недоступно, хотя в Web UI оно отображается.</p>
+<h3>Ожидаемый результат</h3>
+<p>Документация позиционирует саморегистрацию как инструмент для операторов, а права нового пользователя определяет явная настройка <strong>Права доступа по умолчанию</strong>. Ожидается, что:
+- либо новый пользователь не будет видеть административное дерево, соответствующее его реальным правам;
+- либо, если дерево видно всем по умолчанию, в интерфейсе будет явно разделение «видимость дерева» / «возможность изменять».</p>
+<h3>Фактический результат</h3>
+<p>В Web UI саморегистрированный пользователь видит <strong>Admin Panel</strong> и системное дерево, включая раздел «Пользователи». При этом REST-запрос к <code>users.admin</code> возвращает 400. Это противоречие между визуальным представлением и фактическими правами требует уточнения: либо это дефект отображения UI, либо дефолтные права по умолчанию дают слишком широкий доступ саморегистрированным пользователям.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><code>tests/screenshots/02_register_form.png</code> — форма регистрации</li>
+<li><code>tests/screenshots/03_register_filled.png</code> — заполненная форма</li>
+<li><code>tests/screenshots/04_register_success.png</code> — сразу после регистрации открывается Admin Panel</li>
+<li><code>tests/screenshots/05_login_as_new.png</code> — вход под <code>testuser02</code>, открывается Admin Panel</li>
+<li><code>tests/screenshots/06_dashboard.png</code> — подтверждение, что новый пользователь видит админ-интерфейс</li>
+</ul>
+<h3>Что нужно уточнить у разработчика</h3>
+<ul>
+<li>Какие именно контексты разрешены в <strong>Правах доступа по умолчанию</strong> «из коробки»?</li>
+<li>Является ли отображение Admin Panel для саморегистрированного пользователя ожидаемым поведением?</li>
+<li>Почему REST запрещает доступ к <code>users.admin</code>, а UI показывает дерево? Это баг отображения или разные проверки прав?</li>
+</ul>
+<hr />
+<h2>Кейс 5. Консольный вывод Playwright повреждён (кодировка)</h2>
+<p><strong>Серьёзность:</strong> Low<br />
+<strong>Тип:</strong> Окружение / локализация</p>
+<h3>Описание</h3>
+<p>При запуске <code>tests/ui_automation.py</code> в Git Bash русские сообщения в stdout отображаются как <code>��������</code>. Это не влияет на функциональность, но затрудняет отладку.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Запустить <code>python tests/ui_automation.py</code> из Git Bash.</li>
+<li>Обратить внимание на русский текст в консоли.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Корректный вывод UTF-8.</p>
+<h3>Фактический результат</h3>
+<p>Кракозябры из-за несоответствия кодировки терминала.</p>
+<hr />
+<h2>Итог</h2>
+<table>
+<thead>
+<tr>
+<th>Кейс</th>
+<th>Серьёзность</th>
+<th>Статус</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Ошибки старта</td>
+<td>Medium</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>2. Токен в URL не авторизует</td>
+<td>Medium</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>3. Противоречивая документация</td>
+<td>Low</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>4. Саморегистрация: несоответствие прав нового пользователя и UI</td>
+<td>Medium</td>
+<td>Требует уточнения</td>
+</tr>
+<tr>
+<td>5. Кодировка консоли</td>
+<td>Low</td>
+<td>Подтверждён</td>
+</tr>
+</tbody>
+</table>
+    </main>
+  </div>
+</body>
+</html>
