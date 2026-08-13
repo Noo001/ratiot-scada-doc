@@ -526,6 +526,60 @@ done
 <li><img alt="страница 404 с перекрывающим логотипом" src="tests/screenshots/store_docs.png" /> — страница 404, текст перекрыт логотипом DKC</li>
 </ul>
 <hr />
+<h2>Кейс 17. В Web UI и документации остались артефакты стороннего бренда AggreGate</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Брендинг / UI / документация</p>
+<h3>Описание</h3>
+<p>Продукт поставляется и позиционируется как <strong>DKC RatioT SCADA</strong> (логотип DKC на странице логина, заголовок «Администрирование • RatioT Server»). Однако в веб-ресурсах и документации внутри дистрибутива остались многочисленные артефакты предыдущего бренда <strong>AggreGate</strong> и домена <strong>aggregate.digital</strong>: имена файлов, пользовательские строки, ссылки на внешние ресурсы, исключения в исходном коде сервера. Это нарушает условия договора и может ввести пользователя и службу поддержки в заблуждение.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Установить RatioT SCADA 6.41.09.</li>
+<li>Открыть в браузере <code>https://localhost:8443/web/login</code> — убедиться, что отображается логотип <strong>DKC</strong>.</li>
+<li>Войти под <code>admin / admin</code> — убедиться, что заголовок содержит <strong>RatioT Server</strong>.</li>
+<li>В каталоге установки открыть:</li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js</code></li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\res_en.js</code></li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\</code></li>
+<li><code>C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\com\tibbo\linkserver\plugin\context\web\exception\</code></li>
+<li>Выполнить поиск по строке <code>AggreGate</code> и домену <code>aggregate.digital</code>.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<ul>
+<li>В пользовательских ресурсах, именах файлов, исключениях сервера и документации отсутствуют упоминания <strong>AggreGate</strong> и <strong>aggregate.digital</strong>.</li>
+<li>Все ссылки поддержки/документации ведут на ресурсы <strong>DKC / RatioT</strong>.</li>
+</ul>
+<h3>Фактический результат</h3>
+<ul>
+<li>В <code>res_ru.js</code> / <code>res_en.js</code> присутствуют ключи:</li>
+<li><code>adminPageTitle: "Добро пожаловать на платформу AggreGate!"</code></li>
+<li><code>product: "AggreGate"</code></li>
+<li><code>productClient: "AggreGate Client"</code></li>
+<li><code>productServer: "AggreGate Server"</code></li>
+<li><code>publicStoreAddress: "store.aggregate.digital"</code></li>
+<li><code>urlDocumentation: "https://aggregate.digital/docs/aggregate/ru_6.4/"</code></li>
+<li><code>urlProduct: "https://aggregate.digital/"</code></li>
+<li><code>urlSupportForum: "https://community.aggregate.digital/"</code></li>
+<li>и другие ссылки на <code>aggregate.digital</code>.</li>
+<li>В каталоге <code>admin/web/static/js/</code> есть файлы:</li>
+<li><code>agg-app-component-common-containers-login-page.js</code></li>
+<li><code>aggregate-ts-sdk.d.ts</code></li>
+<li>В исходном коде сервера есть файл: <code>AggreGateAccountLockedException.kt</code>.</li>
+<li>Во встроенной документации (<code>tmp_*.htm</code>, извлечённой из <code>admin/custom/templates/docs/</code>) также встречается бренд <strong>AggreGate</strong>.</li>
+</ul>
+<h3>Скриншоты</h3>
+<ul>
+<li><img alt="страница логина позиционирует продукт как DKC" src="tests/screenshots/case17_login.png" /> — страница логина с логотипом DKC</li>
+<li><img alt="после входа заголовок RatioT Server" src="tests/screenshots/case17_after_login.png" /> — после входа заголовок содержит RatioT Server</li>
+<li><img alt="артефакты AggreGate в ресурсах и коде" src="tests/screenshots/case17_aggregate_artifacts.png" /> — примеры артефактов бренда AggreGate в файлах продукта</li>
+</ul>
+<h3>Источник</h3>
+<ul>
+<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js</code>, <code>res_en.js</code></li>
+<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\static\js\agg-app-component-common-containers-login-page.js</code>, <code>aggregate-ts-sdk.d.ts</code></li>
+<li>Файлы дистрибутива: <code>C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\...\AggreGateAccountLockedException.kt</code></li>
+<li>Встроенная документация: <code>admin/custom/templates/docs/*.htm</code></li>
+</ul>
+<hr />
 <h2>Итог</h2>
 <table>
 <thead>
@@ -609,6 +663,11 @@ done
 <tr>
 <td>16. Вёрстка страницы 404</td>
 <td>Low</td>
+<td>Подтверждён</td>
+</tr>
+<tr>
+<td>17. Артефакты бренда AggreGate в UI и документации</td>
+<td>Medium</td>
 <td>Подтверждён</td>
 </tr>
 </tbody>
