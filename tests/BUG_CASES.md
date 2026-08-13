@@ -41,6 +41,7 @@
 ```
 
 ### Скриншоты
+- ![ERROR в server.log при первом запуске](tests/screenshots/case1_server_log_errors.png) — фрагмент `server.log` с ошибками инициализации ресурсов
 - Лог-файл: см. `C:\Program Files\RatioTScada\logs\server.log`
 - Автотест фиксирует проблему: `tests/test_ui_ux.py` → `test_log_errors()`
 
