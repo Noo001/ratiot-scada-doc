@@ -99,8 +99,8 @@
 <p>Открывается форма логина.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/02_token_url_login.png</code> — страница входа вместо дашборда</li>
-<li><code>tests/screenshots/02_token_url_dashboard.png</code> — та же страница входа при открытии URL с токеном</li>
+<li><img alt="страница входа вместо дашборда" src="tests/screenshots/02_token_url_login.png" /> — страница входа вместо дашборда</li>
+<li><img alt="та же страница входа при открытии URL с токеном" src="tests/screenshots/02_token_url_dashboard.png" /> — та же страница входа при открытии URL с токеном</li>
 </ul>
 <hr />
 <h2>Кейс 3. Противоречивая документация внутри программы</h2>
@@ -182,11 +182,11 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 <p>В Web UI саморегистрированный пользователь видит <strong>Admin Panel</strong> и системное дерево, включая раздел «Пользователи». При этом REST-запрос к <code>users.admin</code> возвращает 400. Это противоречие между визуальным представлением и фактическими правами требует уточнения: либо это дефект отображения UI, либо дефолтные права по умолчанию дают слишком широкий доступ саморегистрированным пользователям.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/02_register_form.png</code> — форма регистрации</li>
-<li><code>tests/screenshots/03_register_filled.png</code> — заполненная форма</li>
-<li><code>tests/screenshots/04_register_success.png</code> — сразу после регистрации открывается Admin Panel</li>
-<li><code>tests/screenshots/05_login_as_new.png</code> — вход под <code>testuser02</code>, открывается Admin Panel</li>
-<li><code>tests/screenshots/06_dashboard.png</code> — подтверждение, что новый пользователь видит админ-интерфейс</li>
+<li><img alt="форма регистрации" src="tests/screenshots/02_register_form.png" /> — форма регистрации</li>
+<li><img alt="заполненная форма" src="tests/screenshots/03_register_filled.png" /> — заполненная форма</li>
+<li><img alt="сразу после регистрации открывается Admin Panel" src="tests/screenshots/04_register_success.png" /> — сразу после регистрации открывается Admin Panel</li>
+<li><img alt="вход под testuser02, открывается Admin Panel" src="tests/screenshots/05_login_as_new.png" /> — вход под <code>testuser02</code>, открывается Admin Panel</li>
+<li><img alt="подтверждение, что новый пользователь видит админ-интерфейс" src="tests/screenshots/06_dashboard.png" /> — подтверждение, что новый пользователь видит админ-интерфейс</li>
 </ul>
 <h3>Что нужно уточнить у разработчика</h3>
 <ul>
@@ -235,7 +235,7 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 - можно ли перейти с free/trial на полную лицензию без переустановки.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/install_overwrite_1.png</code> — диалог выбора лицензии в инсталляторе</li>
+<li><img alt="диалог выбора лицензии в инсталляторе" src="tests/screenshots/install_overwrite_1.png" /> — диалог выбора лицензии в инсталляторе</li>
 </ul>
 <h3>Ссылки на документацию</h3>
 <ul>
@@ -263,8 +263,8 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 <p>Пользователь вынужден несколько раз вручную подтверждать перезапись файлов, которые только что были скопированы установщиком. Это выглядит как ошибка упаковки инсталлятора: одни и те же файлы попадают в разные компоненты/директории и конфликтуют при распаковке.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/install_overwrite_2.png</code> — диалог перезаписи <code>wizard_1.png</code></li>
-<li><code>tests/screenshots/install_overwrite_3.png</code> — диалог перезаписи <code>wizard_2.png</code></li>
+<li><img alt="диалог перезаписи wizard_1.png" src="tests/screenshots/install_overwrite_2.png" /> — диалог перезаписи <code>wizard_1.png</code></li>
+<li><img alt="диалог перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /> — диалог перезаписи <code>wizard_2.png</code></li>
 </ul>
 <h3>Примечание</h3>
 <p>Скриншоты предоставлены в файле <code>incoming/скрины.docx</code>.</p>
@@ -299,11 +299,11 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 </ul>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/modbus_import_empty.png</code> — пустое устройство modbus перед импортом</li>
-<li><code>tests/screenshots/modbus_import_csv_empty_fields.png</code> — после импорта CSV: пустые имена/описания и адреса</li>
-<li><code>tests/screenshots/modbus_import_tbl_ok.png</code> — после импорта TBL: данные на месте</li>
-<li><code>tests/screenshots/modbus_export_dialog.png</code> — диалог экспорта без кнопки закрыть</li>
-<li><code>tests/screenshots/modbus_csv_encoding.png</code> — CSV с искажённой кодировкой</li>
+<li><img alt="пустое устройство modbus перед импортом" src="tests/screenshots/modbus_import_empty.png" /> — пустое устройство modbus перед импортом</li>
+<li><img alt="после импорта CSV: пустые имена/описания и адреса" src="tests/screenshots/modbus_import_csv_empty_fields.png" /> — после импорта CSV: пустые имена/описания и адреса</li>
+<li><img alt="после импорта TBL: данные на месте" src="tests/screenshots/modbus_import_tbl_ok.png" /> — после импорта TBL: данные на месте</li>
+<li><img alt="диалог экспорта без кнопки закрыть" src="tests/screenshots/modbus_export_dialog.png" /> — диалог экспорта без кнопки закрыть</li>
+<li><img alt="CSV с искажённой кодировкой" src="tests/screenshots/modbus_csv_encoding.png" /> — CSV с искажённой кодировкой</li>
 </ul>
 <h3>Источник</h3>
 <p>Материалы коллег из <code>incoming/Баги с импортом и экспортом Modbus регистров в форматах csv и xml.docx</code>.</p>
@@ -329,11 +329,11 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 <p>При поступлении события отображаются все колонки, настройки не применены.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/eventlog_columns_editor.png</code> — редактор дашборда с выделенным eventLog</li>
-<li><code>tests/screenshots/eventlog_columns_nodata.png</code> — настройки колонок без данных</li>
-<li><code>tests/screenshots/eventlog_columns_list.png</code> — список полей eventLog</li>
-<li><code>tests/screenshots/eventlog_with_event.png</code> — журнал с событием: видны все колонки</li>
-<li><code>tests/screenshots/eventlog_empty_after_event.png</code> — после события настройки не восстановились</li>
+<li><img alt="редактор дашборда с выделенным eventLog" src="tests/screenshots/eventlog_columns_editor.png" /> — редактор дашборда с выделенным eventLog</li>
+<li><img alt="настройки колонок без данных" src="tests/screenshots/eventlog_columns_nodata.png" /> — настройки колонок без данных</li>
+<li><img alt="список полей eventLog" src="tests/screenshots/eventlog_columns_list.png" /> — список полей eventLog</li>
+<li><img alt="журнал с событием: видны все колонки" src="tests/screenshots/eventlog_with_event.png" /> — журнал с событием: видны все колонки</li>
+<li><img alt="после события настройки не восстановились" src="tests/screenshots/eventlog_empty_after_event.png" /> — после события настройки не восстановились</li>
 </ul>
 <h3>Источник</h3>
 <p>Тикет <code>ASD-6406</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
@@ -355,7 +355,7 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 <p>Выбор ограничен устройствами; абсолютная модель не доступна.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/tagtree_source_empty.png</code> — диалог выбора источника, список пуст/отсутствует абсолютная модель</li>
+<li><img alt="диалог выбора источника, список пуст/отсутствует абсолютная модель" src="tests/screenshots/tagtree_source_empty.png" /> — диалог выбора источника, список пуст/отсутствует абсолютная модель</li>
 </ul>
 <h3>Источник</h3>
 <p>Тикет <code>ASD-6418</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
@@ -379,7 +379,7 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 <p>Сервер не восстанавливается; конфигурация может быть потеряна; отсутствует утилита для ручного восстановления.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/storage_nosql_dropdown.png</code> — вкладка «Хранилище» с выпадающим списком хранилищ</li>
+<li><img alt="вкладка «Хранилище» с выпадающим списком хранилищ" src="tests/screenshots/storage_nosql_dropdown.png" /> — вкладка «Хранилище» с выпадающим списком хранилищ</li>
 </ul>
 <h3>Источник</h3>
 <p>Тикет <code>ASD-6392</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
@@ -405,12 +405,12 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 <p>Визуализация дашборда сдвигается вниз; после F5 временно восстанавливается.</p>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/html_snippet_editor.png</code> — редактор с добавленным HTML-сниппетом</li>
-<li><code>tests/screenshots/html_snippet_code.png</code> — фрагмент вставленного HTML/CSS</li>
-<li><code>tests/screenshots/html_snippet_layout_shift.png</code> — дашборд съехал вниз</li>
-<li><code>tests/screenshots/html_snippet_dashboard.png</code> — визуализация после обновления страницы</li>
-<li><code>tests/screenshots/html_snippet_game_editor.png</code> — второй пример: HTML-игра в редакторе</li>
-<li><code>tests/screenshots/html_snippet_game_runtime.png</code> — та же игра в режиме просмотра</li>
+<li><img alt="редактор с добавленным HTML-сниппетом" src="tests/screenshots/html_snippet_editor.png" /> — редактор с добавленным HTML-сниппетом</li>
+<li><img alt="фрагмент вставленного HTML/CSS" src="tests/screenshots/html_snippet_code.png" /> — фрагмент вставленного HTML/CSS</li>
+<li><img alt="дашборд съехал вниз" src="tests/screenshots/html_snippet_layout_shift.png" /> — дашборд съехал вниз</li>
+<li><img alt="визуализация после обновления страницы" src="tests/screenshots/html_snippet_dashboard.png" /> — визуализация после обновления страницы</li>
+<li><img alt="второй пример: HTML-игра в редакторе" src="tests/screenshots/html_snippet_game_editor.png" /> — второй пример: HTML-игра в редакторе</li>
+<li><img alt="та же игра в режиме просмотра" src="tests/screenshots/html_snippet_game_runtime.png" /> — та же игра в режиме просмотра</li>
 </ul>
 <h3>Источник</h3>
 <p><code>incoming/отчет о проблеме с html.docx</code>.</p>
@@ -443,9 +443,9 @@ curl -k -H &quot;Authorization: Bearer &lt;token&gt;&quot; \
 </ul>
 <h3>Скриншоты</h3>
 <ul>
-<li><code>tests/screenshots/install_overwrite_1.png</code> — диалог выбора типа лицензии</li>
-<li><code>tests/screenshots/install_overwrite_2.png</code> — запрос перезаписи <code>wizard_1.png</code></li>
-<li><code>tests/screenshots/install_overwrite_3.png</code> — запрос перезаписи <code>wizard_2.png</code></li>
+<li><img alt="диалог выбора типа лицензии" src="tests/screenshots/install_overwrite_1.png" /> — диалог выбора типа лицензии</li>
+<li><img alt="запрос перезаписи wizard_1.png" src="tests/screenshots/install_overwrite_2.png" /> — запрос перезаписи <code>wizard_1.png</code></li>
+<li><img alt="запрос перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /> — запрос перезаписи <code>wizard_2.png</code></li>
 </ul>
 <h3>Источник</h3>
 <p>Переписка <code>Re: Минимальные/рекомендуемые системные требования к RatioT SCADA.msg</code>.</p>

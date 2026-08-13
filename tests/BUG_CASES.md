@@ -74,8 +74,8 @@
 Открывается форма логина.
 
 ### Скриншоты
-- `tests/screenshots/02_token_url_login.png` — страница входа вместо дашборда
-- `tests/screenshots/02_token_url_dashboard.png` — та же страница входа при открытии URL с токеном
+- ![страница входа вместо дашборда](tests/screenshots/02_token_url_login.png) — страница входа вместо дашборда
+- ![та же страница входа при открытии URL с токеном](tests/screenshots/02_token_url_dashboard.png) — та же страница входа при открытии URL с токеном
 
 ---
 
@@ -164,11 +164,11 @@ curl -k -H "Authorization: Bearer <token>" \
 В Web UI саморегистрированный пользователь видит **Admin Panel** и системное дерево, включая раздел «Пользователи». При этом REST-запрос к `users.admin` возвращает 400. Это противоречие между визуальным представлением и фактическими правами требует уточнения: либо это дефект отображения UI, либо дефолтные права по умолчанию дают слишком широкий доступ саморегистрированным пользователям.
 
 ### Скриншоты
-- `tests/screenshots/02_register_form.png` — форма регистрации
-- `tests/screenshots/03_register_filled.png` — заполненная форма
-- `tests/screenshots/04_register_success.png` — сразу после регистрации открывается Admin Panel
-- `tests/screenshots/05_login_as_new.png` — вход под `testuser02`, открывается Admin Panel
-- `tests/screenshots/06_dashboard.png` — подтверждение, что новый пользователь видит админ-интерфейс
+- ![форма регистрации](tests/screenshots/02_register_form.png) — форма регистрации
+- ![заполненная форма](tests/screenshots/03_register_filled.png) — заполненная форма
+- ![сразу после регистрации открывается Admin Panel](tests/screenshots/04_register_success.png) — сразу после регистрации открывается Admin Panel
+- ![вход под `testuser02`, открывается Admin Panel](tests/screenshots/05_login_as_new.png) — вход под `testuser02`, открывается Admin Panel
+- ![подтверждение, что новый пользователь видит админ-интерфейс](tests/screenshots/06_dashboard.png) — подтверждение, что новый пользователь видит админ-интерфейс
 
 ### Что нужно уточнить у разработчика
 - Какие именно контексты разрешены в **Правах доступа по умолчанию** «из коробки»?
@@ -226,7 +226,7 @@ curl -k -H "Authorization: Bearer <token>" \
 - можно ли перейти с free/trial на полную лицензию без переустановки.
 
 ### Скриншоты
-- `tests/screenshots/install_overwrite_1.png` — диалог выбора лицензии в инсталляторе
+- ![диалог выбора лицензии в инсталляторе](tests/screenshots/install_overwrite_1.png) — диалог выбора лицензии в инсталляторе
 
 ### Ссылки на документацию
 - `admin/custom/templates/docs/licensing.htm`
@@ -257,8 +257,8 @@ curl -k -H "Authorization: Bearer <token>" \
 Пользователь вынужден несколько раз вручную подтверждать перезапись файлов, которые только что были скопированы установщиком. Это выглядит как ошибка упаковки инсталлятора: одни и те же файлы попадают в разные компоненты/директории и конфликтуют при распаковке.
 
 ### Скриншоты
-- `tests/screenshots/install_overwrite_2.png` — диалог перезаписи `wizard_1.png`
-- `tests/screenshots/install_overwrite_3.png` — диалог перезаписи `wizard_2.png`
+- ![диалог перезаписи `wizard_1.png`](tests/screenshots/install_overwrite_2.png) — диалог перезаписи `wizard_1.png`
+- ![диалог перезаписи `wizard_2.png`](tests/screenshots/install_overwrite_3.png) — диалог перезаписи `wizard_2.png`
 
 ### Примечание
 Скриншоты предоставлены в файле `incoming/скрины.docx`.
@@ -294,11 +294,11 @@ curl -k -H "Authorization: Bearer <token>" \
 - CSV-файл содержит нечитаемые символы вместо русского текста.
 
 ### Скриншоты
-- `tests/screenshots/modbus_import_empty.png` — пустое устройство modbus перед импортом
-- `tests/screenshots/modbus_import_csv_empty_fields.png` — после импорта CSV: пустые имена/описания и адреса
-- `tests/screenshots/modbus_import_tbl_ok.png` — после импорта TBL: данные на месте
-- `tests/screenshots/modbus_export_dialog.png` — диалог экспорта без кнопки закрыть
-- `tests/screenshots/modbus_csv_encoding.png` — CSV с искажённой кодировкой
+- ![пустое устройство modbus перед импортом](tests/screenshots/modbus_import_empty.png) — пустое устройство modbus перед импортом
+- ![после импорта CSV: пустые имена/описания и адреса](tests/screenshots/modbus_import_csv_empty_fields.png) — после импорта CSV: пустые имена/описания и адреса
+- ![после импорта TBL: данные на месте](tests/screenshots/modbus_import_tbl_ok.png) — после импорта TBL: данные на месте
+- ![диалог экспорта без кнопки закрыть](tests/screenshots/modbus_export_dialog.png) — диалог экспорта без кнопки закрыть
+- ![CSV с искажённой кодировкой](tests/screenshots/modbus_csv_encoding.png) — CSV с искажённой кодировкой
 
 ### Источник
 Материалы коллег из `incoming/Баги с импортом и экспортом Modbus регистров в форматах csv и xml.docx`.
@@ -329,11 +329,11 @@ curl -k -H "Authorization: Bearer <token>" \
 При поступлении события отображаются все колонки, настройки не применены.
 
 ### Скриншоты
-- `tests/screenshots/eventlog_columns_editor.png` — редактор дашборда с выделенным eventLog
-- `tests/screenshots/eventlog_columns_nodata.png` — настройки колонок без данных
-- `tests/screenshots/eventlog_columns_list.png` — список полей eventLog
-- `tests/screenshots/eventlog_with_event.png` — журнал с событием: видны все колонки
-- `tests/screenshots/eventlog_empty_after_event.png` — после события настройки не восстановились
+- ![редактор дашборда с выделенным eventLog](tests/screenshots/eventlog_columns_editor.png) — редактор дашборда с выделенным eventLog
+- ![настройки колонок без данных](tests/screenshots/eventlog_columns_nodata.png) — настройки колонок без данных
+- ![список полей eventLog](tests/screenshots/eventlog_columns_list.png) — список полей eventLog
+- ![журнал с событием: видны все колонки](tests/screenshots/eventlog_with_event.png) — журнал с событием: видны все колонки
+- ![после события настройки не восстановились](tests/screenshots/eventlog_empty_after_event.png) — после события настройки не восстановились
 
 ### Источник
 Тикет `ASD-6406` из `incoming/Тикеты в АГ от ДИР.docx`.
@@ -360,7 +360,7 @@ curl -k -H "Authorization: Bearer <token>" \
 Выбор ограничен устройствами; абсолютная модель не доступна.
 
 ### Скриншоты
-- `tests/screenshots/tagtree_source_empty.png` — диалог выбора источника, список пуст/отсутствует абсолютная модель
+- ![диалог выбора источника, список пуст/отсутствует абсолютная модель](tests/screenshots/tagtree_source_empty.png) — диалог выбора источника, список пуст/отсутствует абсолютная модель
 
 ### Источник
 Тикет `ASD-6418` из `incoming/Тикеты в АГ от ДИР.docx`.
@@ -389,7 +389,7 @@ curl -k -H "Authorization: Bearer <token>" \
 Сервер не восстанавливается; конфигурация может быть потеряна; отсутствует утилита для ручного восстановления.
 
 ### Скриншоты
-- `tests/screenshots/storage_nosql_dropdown.png` — вкладка «Хранилище» с выпадающим списком хранилищ
+- ![вкладка «Хранилище» с выпадающим списком хранилищ](tests/screenshots/storage_nosql_dropdown.png) — вкладка «Хранилище» с выпадающим списком хранилищ
 
 ### Источник
 Тикет `ASD-6392` из `incoming/Тикеты в АГ от ДИР.docx`.
@@ -420,12 +420,12 @@ HTML-сниппет отображается внутри выделенной �
 Визуализация дашборда сдвигается вниз; после F5 временно восстанавливается.
 
 ### Скриншоты
-- `tests/screenshots/html_snippet_editor.png` — редактор с добавленным HTML-сниппетом
-- `tests/screenshots/html_snippet_code.png` — фрагмент вставленного HTML/CSS
-- `tests/screenshots/html_snippet_layout_shift.png` — дашборд съехал вниз
-- `tests/screenshots/html_snippet_dashboard.png` — визуализация после обновления страницы
-- `tests/screenshots/html_snippet_game_editor.png` — второй пример: HTML-игра в редакторе
-- `tests/screenshots/html_snippet_game_runtime.png` — та же игра в режиме просмотра
+- ![редактор с добавленным HTML-сниппетом](tests/screenshots/html_snippet_editor.png) — редактор с добавленным HTML-сниппетом
+- ![фрагмент вставленного HTML/CSS](tests/screenshots/html_snippet_code.png) — фрагмент вставленного HTML/CSS
+- ![дашборд съехал вниз](tests/screenshots/html_snippet_layout_shift.png) — дашборд съехал вниз
+- ![визуализация после обновления страницы](tests/screenshots/html_snippet_dashboard.png) — визуализация после обновления страницы
+- ![второй пример: HTML-игра в редакторе](tests/screenshots/html_snippet_game_editor.png) — второй пример: HTML-игра в редакторе
+- ![та же игра в режиме просмотра](tests/screenshots/html_snippet_game_runtime.png) — та же игра в режиме просмотра
 
 ### Источник
 `incoming/отчет о проблеме с html.docx`.
@@ -459,9 +459,9 @@ HTML-сниппет отображается внутри выделенной �
 - После удаления и переустановки генерируется новый activation key, и старая лицензия не подходит.
 
 ### Скриншоты
-- `tests/screenshots/install_overwrite_1.png` — диалог выбора типа лицензии
-- `tests/screenshots/install_overwrite_2.png` — запрос перезаписи `wizard_1.png`
-- `tests/screenshots/install_overwrite_3.png` — запрос перезаписи `wizard_2.png`
+- ![диалог выбора типа лицензии](tests/screenshots/install_overwrite_1.png) — диалог выбора типа лицензии
+- ![запрос перезаписи `wizard_1.png`](tests/screenshots/install_overwrite_2.png) — запрос перезаписи `wizard_1.png`
+- ![запрос перезаписи `wizard_2.png`](tests/screenshots/install_overwrite_3.png) — запрос перезаписи `wizard_2.png`
 
 ### Источник
 Переписка `Re: Минимальные/рекомендуемые системные требования к RatioT SCADA.msg`.
