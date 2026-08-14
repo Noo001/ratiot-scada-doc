@@ -25,23 +25,21 @@ for m in pattern.finditer(md_text):
 filtered = [c for c in cases if c['old_num'] not in (12, 14, 15)]
 
 # Задаём порядок и группы по старой нумерации:
-# Сообщённые Агрегейту: 2, 3, 4, 6, 7, 9
-# Новые баги: 1, 5, 8, 10, 11, 13, 16, 17
 order_and_groups = [
-    (2, "Сообщённые Агрегейту"),
-    (3, "Сообщённые Агрегейту"),
-    (4, "Сообщённые Агрегейту"),
-    (6, "Сообщённые Агрегейту"),
-    (7, "Сообщённые Агрегейту"),
-    (9, "Сообщённые Агрегейту"),
-    (1, "Новые баги"),
-    (5, "Новые баги"),
-    (8, "Новые баги"),
-    (10, "Новые баги"),
-    (11, "Новые баги"),
-    (13, "Новые баги"),
-    (16, "Новые баги"),
-    (17, "Новые баги"),
+    (2, "Баги, которые были предъявлены Объединению Агрегейт"),
+    (3, "Баги, которые были предъявлены Объединению Агрегейт"),
+    (4, "Баги, которые были предъявлены Объединению Агрегейт"),
+    (6, "Баги, которые были предъявлены Объединению Агрегейт"),
+    (7, "Баги, которые были предъявлены Объединению Агрегейт"),
+    (9, "Баги, которые были предъявлены Объединению Агрегейт"),
+    (1, "Баги, которые ранее не предъявлялись Объединению"),
+    (5, "Баги, которые ранее не предъявлялись Объединению"),
+    (8, "Баги, которые ранее не предъявлялись Объединению"),
+    (10, "Баги, которые ранее не предъявлялись Объединению"),
+    (11, "Баги, которые ранее не предъявлялись Объединению"),
+    (13, "Баги, которые ранее не предъявлялись Объединению"),
+    (16, "Баги, которые ранее не предъявлялись Объединению"),
+    (17, "Баги, которые ранее не предъявлялись Объединению"),
 ]
 case_map = {c['old_num']: c for c in filtered}
 ordered = []
@@ -94,18 +92,28 @@ for c in filtered:
     c['body_md'] = re.sub(r'[-*]\s*incoming/.*', '', c['body_md'])
     c['body_md'] = re.sub(r'[-*]\s*Тикет\s+`[^`]+`\s*из\s*`[^`]+`\.?', '', c['body_md'])
 
-# Генерируем строки таблицы
-table_rows = []
+# Генерируем строки таблицы с группами
+groups_order = [
+    "Баги, которые были предъявлены Объединению Агрегейт",
+    "Баги, которые ранее не предъявлялись Объединению",
+]
+cases_by_group = {g: [] for g in groups_order}
 for c in filtered:
-    table_rows.append(
-        f'<tr><td>{c["new_num"]}</td><td><a href="#case-{c["new_num"]}">{c["title"]}</a></td>'
-        f'<td>{c["severity"]}</td><td>{c["status"]}</td></tr>'
-    )
+    cases_by_group[c['group']].append(c)
+
+table_rows = []
+for group in groups_order:
+    table_rows.append(f'<tr class="group-row"><td colspan="4"><strong>{group}</strong></td></tr>')
+    for c in cases_by_group[group]:
+        table_rows.append(
+            f'<tr><td>{c["new_num"]}</td><td><a href="#case-{c["new_num"]}">{c["title"]}</a></td>'
+            f'<td>{c["severity"]}</td><td>{c["status"]}</td></tr>'
+        )
 
 # Конвертируем тела кейсов в HTML
 md = markdown.Markdown(extensions=['fenced_code', 'tables'])
 
-sections_html = {"Сообщённые Агрегейту": [], "Новые баги": []}
+sections_html = {g: [] for g in groups_order}
 for c in filtered:
     # Конвертируем body
     body_html = md.convert(c['body_md'])
@@ -131,11 +139,13 @@ summary_table = '''<table class="summary-table">
 ''' + "\n".join(table_rows) + '''
 </tbody></table>'''
 
+g1 = groups_order[0]
+g2 = groups_order[1]
 body_html = (
-    '<h2 class="section-title" id="section-сообщённые">Сообщённые Агрегейту</h2>\n'
-    + "\n".join(sections_html["Сообщённые Агрегейту"])
-    + '\n<h2 class="section-title" id="section-новые">Новые баги</h2>\n'
-    + "\n".join(sections_html["Новые баги"])
+    f'<h2 class="section-title" id="section-предъявленные">{g1}</h2>\n'
+    + "\n".join(sections_html[g1])
+    + f'\n<h2 class="section-title" id="section-новые">{g2}</h2>\n'
+    + "\n".join(sections_html[g2])
 )
 
 final_html = f'''<!DOCTYPE html>
@@ -159,6 +169,8 @@ header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 .summary-table th {{ background: var(--bg); font-weight: 600; }}
 .summary-table tr {{ page-break-inside: avoid; }}
 .summary-table tr:nth-child(even) {{ background: #fafafa; }}
+.summary-table tr.group-row {{ background: var(--bg); }}
+.summary-table tr.group-row td {{ font-weight: 600; padding-top: 10px; padding-bottom: 10px; }}
 .summary-table a {{ color: var(--text); text-decoration: none; }}
 .summary-table a:hover {{ text-decoration: underline; color: var(--accent); }}
 .group-tag {{ display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.82rem; font-weight: 600; }}
