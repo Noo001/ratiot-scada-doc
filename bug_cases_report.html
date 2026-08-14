@@ -14,9 +14,10 @@ header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bo
 header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 .pdf-button { display: inline-block; padding: 12px 24px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; }
 .pdf-button:hover { background: #0550ae; }
-.summary-table { width: 100%; border-collapse: collapse; margin: 16px 0 32px; font-size: 0.95rem; }
-.summary-table th, .summary-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+.summary-table { width: 100%; border-collapse: collapse; margin: 16px 0 16px; font-size: 0.95rem; }
+.summary-table th, .summary-table td { border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
 .summary-table th { background: var(--bg); font-weight: 600; }
+.summary-table tr { page-break-inside: avoid; }
 .summary-table tr:nth-child(even) { background: #fafafa; }
 .summary-table a { color: var(--text); text-decoration: none; }
 .summary-table a:hover { text-decoration: underline; color: var(--accent); }
@@ -25,7 +26,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 .g-new { background:#fff8c5; color:#9a6700; }
 .g-extra { background:#fbefff; color:#8250df; }
 .g-excluded { background:#ffebe9; color:#cf222e; }
-.section-title { margin-top: 40px; padding-bottom: 8px; border-bottom: 2px solid var(--border); font-size: 1.4rem; }
+.section-title { margin-top: 24px; padding-bottom: 8px; border-bottom: 2px solid var(--border); font-size: 1.4rem; page-break-after: avoid; }
 .case { margin: 28px 0; padding: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
 .case h3 { margin-top: 0; font-size: 1.2rem; color: var(--text); }
 .case h4 { font-size: 1rem; color: var(--muted); margin: 16px 0 6px; text-transform: uppercase; letter-spacing: 0.02em; }
@@ -73,8 +74,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td>High</td><td>Подтверждён</td></tr>
 <tr><td>11</td><td><a href="#case-11">Вёрстка страницы 404</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>12</td><td><a href="#case-12">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td>Medium</td><td>Подтверждён</td></tr>
-<tr><td>13</td><td><a href="#case-13">Несуществующие страницы `/web/*` возвращают JSON вместо HTML 404</a></td><td>Low</td><td>Подтверждён</td></tr>
-<tr><td>14</td><td><a href="#case-14">Ссылки на справку из веб-клиента ведут на маркетинговый сайт вместо документации</a></td><td>Medium</td><td>Подтверждён</td></tr>
+<tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Подтверждён</td></tr>
+<tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Подтверждён</td></tr>
 </tbody></table>
 <h2 class="section-title" id="section-основные">Основные</h2>
 <section class="case severity-medium" id="case-1">
@@ -466,46 +467,43 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </ul>
 </section>
 <section class="case severity-low" id="case-13">
-<h3>Кейс 13. Несуществующие страницы `/web/*` возвращают JSON вместо HTML 404</h3>
+<h3>Кейс 13. Вкладки «Информации о сервере» обрезаются и не переносятся</h3>
 <p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
-<p>При обращении к несуществующему адресу внутри <code>/web/*</code> сервер возвращает сырой JSON-ответ об ошибке, а не пользовательскую HTML-страницу 404. При этом для статики <code>/static/docs/*</code> отдаётся HTML-страница 404 с логотипом DKC (см. кейс 11). Получается непоследовательное поведение: пользователь SPA видит JSON, пользователь документации — HTML.</p>
+<p>На странице <strong>Информация о сервере</strong> в правой части расположена строка вкладок: <strong>Сервер</strong>, <strong>Хранилище</strong>, <strong>Статистика контекстов</strong>, <strong>Статистика выражений</strong>, <strong>Статистика устройств</strong>, <strong>Лицензионная информация</strong>, <strong>Активные расширения</strong>, <strong>Установленные расширения</strong> и др. При стандартной ширине окна часть вкладок обрезается и не помещается в строку. Нет ни горизонтальной прокрутки, ни переноса вкладок, ни выпадающего меню «Ещё».</p>
 <h4>Воспроизведение</h4>
 <ol>
-<li>Открыть в браузере <code>https://localhost:8443/web/thispagedoesnotexist</code>.</li>
-<li>Убедиться, что в ответ приходит JSON <code>{"type":"about:blank","title":"Not Found","status":404,...}</code>.</li>
+<li>Войти в веб-клиент.</li>
+<li>Открыть <strong>Информация о сервере</strong>.</li>
+<li>Обратить внимание на строку вкладок в правой части.</li>
 </ol>
 <h4>Ожидаемый результат</h4>
-<p>Для любого несуществующего URL в веб-клиенте отображается единая HTML-страница 404 с понятным сообщением и навигацией.</p>
+<p>Все вкладки доступны: переносятся на следующую строку, прокручиваются или сворачиваются в меню.</p>
 <h4>Фактический результат</h4>
-<p><code>/web/*</code> возвращает JSON; <code>/static/docs/*</code> возвращает HTML-страница 404.</p>
+<p>Последние вкладки обрезаются (например, «Активные расширения» видно частично, «Установленные расширения» скрыта).</p>
 <h4>Скриншоты</h4>
 <ul>
-<li><img alt="404 для /web/* возвращает JSON" src="tests/screenshots/smoke_11_404_web.png" /> — несуществующий URL в SPA отдаёт JSON</li>
+<li><img alt="обрезанные вкладки Информации о сервере" src="tests/screenshots/smoke_03_server_info.png" /> — вкладки не помещаются в строку</li>
 </ul>
 </section>
 <section class="case severity-medium" id="case-14">
-<h3>Кейс 14. Ссылки на справку из веб-клиента ведут на маркетинговый сайт вместо документации</h3>
+<h3>Кейс 14. Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</h3>
 <p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
-<p>Во встроенных руководствах Web UI рядом с текстом справки отображается иконка вызова контекстной помощи. При нажатии на неё появляется окно с предложением «Читайте на сайте» и «Читать в документации». Обе ссылки ведут на внешний маркетинговый сайт <code>buff-lab.ru/ratiot_scada/</code>, где отсутствует техническая документация по текущему разделу. Пользователь не может получить справочную информацию из интерфейса.</p>
+<p>В системном дереве веб-клиента раздел <strong>Пользователи</strong> при открытии загружает контейнер с тем же названием, но внутри отображает не учётные записи пользователей, а корневые ресурсы сервера: <strong>Устройства</strong>, <strong>Группы устройств</strong>, <strong>Пользователи</strong>, <strong>Приложения</strong>, <strong>Модели</strong> и т.д. То есть раздел не выполняет свою функцию.</p>
 <h4>Воспроизведение</h4>
 <ol>
-<li>Войти в веб-клиент <code>https://localhost:8443/web</code>.</li>
-<li>Открыть любое встроенное руководство, например «Хранение и агрегация».</li>
-<li>Нажать на иконку справки в левом нижнем углу страницы руководства.</li>
-<li>Во всплывающем окне выбрать «Читайте на сайте» или «Читать в документации».</li>
-<li>Наблюдать переход на <code>buff-lab.ru/ratiot_scada/</code>.</li>
+<li>Войти в веб-клиент под <code>admin / admin</code>.</li>
+<li>В системном дереве слева открыть <strong>Пользователи</strong>.</li>
+<li>Посмотреть содержимое правой панели.</li>
 </ol>
 <h4>Ожидаемый результат</h4>
-<p>Ссылка открывает актуальную техническую документацию по текущему разделу либо встроенную справку внутри SCADA.</p>
+<p>В правой панели отображается список пользователей сервера (admin, testuser02 и др.) с возможностью их редактирования.</p>
 <h4>Фактический результат</h4>
-<p>Открывается маркетинговый лендинг <code>buff-lab.ru/ratiot_scada/</code>, на котором нет нужной справочной информации.</p>
+<p>В правой панели отображается корень системного дерева, а не пользователи.</p>
 <h4>Скриншоты</h4>
 <ul>
-<li><img alt="Иконка справки на странице руководства" src="tests/screenshots/case15_help_icon.png" /> — страница «Хранение и агрегация», внизу слева кнопка вызова справки</li>
-<li><img alt="Окно выбора источника справки" src="tests/screenshots/case15_help_popup.png" /> — предложения «Читайте на сайте» и «Читать в документации»</li>
-<li><img alt="Переход на внешний сайт" src="tests/screenshots/case15_external_site.png" /> — открывшийся <code>buff-lab.ru/ratiot_scada/</code> вместо документации</li>
+<li><img alt="раздел Пользователи открывает корень системного дерева" src="tests/screenshots/smoke_05_users.png" /> — вместо списка пользователей показаны системные ресурсы</li>
 </ul>
 </section>
 </div>

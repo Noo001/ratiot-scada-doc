@@ -21,8 +21,8 @@ for m in pattern.finditer(md_text):
         'body_md': body_md,
     })
 
-# Фильтруем: убираем 12 (AggreGate), 16, 17
-filtered = [c for c in cases if c['old_num'] not in (12, 16, 17)]
+# Фильтруем: убираем 12 (AggreGate), 14 (/web/* JSON 404), 15 (документация из SPA)
+filtered = [c for c in cases if c['old_num'] not in (12, 14, 15)]
 
 # Перенумеровываем
 for i, c in enumerate(filtered, start=1):
@@ -42,8 +42,8 @@ statuses = {
     10: "Подтверждён",
     11: "Подтверждён",
     13: "Подтверждён",
-    14: "Подтверждён",
-    15: "Подтверждён",
+    16: "Подтверждён",
+    17: "Подтверждён",
 }
 
 # Извлекаем серьёзность
@@ -119,9 +119,10 @@ header {{ border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-b
 header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 .pdf-button {{ display: inline-block; padding: 12px 24px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; }}
 .pdf-button:hover {{ background: #0550ae; }}
-.summary-table {{ width: 100%; border-collapse: collapse; margin: 16px 0 32px; font-size: 0.95rem; }}
-.summary-table th, .summary-table td {{ border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }}
+.summary-table {{ width: 100%; border-collapse: collapse; margin: 16px 0 16px; font-size: 0.95rem; }}
+.summary-table th, .summary-table td {{ border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }}
 .summary-table th {{ background: var(--bg); font-weight: 600; }}
+.summary-table tr {{ page-break-inside: avoid; }}
 .summary-table tr:nth-child(even) {{ background: #fafafa; }}
 .summary-table a {{ color: var(--text); text-decoration: none; }}
 .summary-table a:hover {{ text-decoration: underline; color: var(--accent); }}
@@ -130,7 +131,7 @@ header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 .g-new {{ background:#fff8c5; color:#9a6700; }}
 .g-extra {{ background:#fbefff; color:#8250df; }}
 .g-excluded {{ background:#ffebe9; color:#cf222e; }}
-.section-title {{ margin-top: 40px; padding-bottom: 8px; border-bottom: 2px solid var(--border); font-size: 1.4rem; }}
+.section-title {{ margin-top: 24px; padding-bottom: 8px; border-bottom: 2px solid var(--border); font-size: 1.4rem; page-break-after: avoid; }}
 .case {{ margin: 28px 0; padding: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }}
 .case h3 {{ margin-top: 0; font-size: 1.2rem; color: var(--text); }}
 .case h4 {{ font-size: 1rem; color: var(--muted); margin: 16px 0 6px; text-transform: uppercase; letter-spacing: 0.02em; }}
