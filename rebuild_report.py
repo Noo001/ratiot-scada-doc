@@ -58,6 +58,13 @@ for c in filtered:
     # Убираем строки серьёзности и типа из тела, т.к. они уже в meta
     c['body_md'] = re.sub(r'\*\*Серьёзность:\*\*\s*\w+\s*\n', '', c['body_md'])
     c['body_md'] = re.sub(r'\*\*Тип:\*\*\s*[^\n]+\s*\n', '', c['body_md'])
+    # Убираем служебные секции "Источник" и "Примечание" полностью
+    c['body_md'] = re.sub(r'###\s*(Источник|Примечание)\s*\n(.*?)(?=###|\Z)', '', c['body_md'], flags=re.DOTALL)
+    # Убираем служебные строки
+    c['body_md'] = re.sub(r'[-*]\s*Автотест фиксирует проблему:.*', '', c['body_md'])
+    c['body_md'] = re.sub(r'[-*]\s*Лог-файл:.*', '', c['body_md'])
+    c['body_md'] = re.sub(r'[-*]\s*incoming/.*', '', c['body_md'])
+    c['body_md'] = re.sub(r'[-*]\s*Тикет\s+`[^`]+`\s*из\s*`[^`]+`\.?', '', c['body_md'])
 
 # Генерируем строки таблицы
 table_rows = []
@@ -153,7 +160,8 @@ header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
   body {{ font-size: 10pt; }}
   .case {{ break-inside: avoid; border: none; padding: 8px 0; }}
   .case img {{ max-height: 60vh; }}
-  .summary-table {{ font-size: 9pt; }}
+  .summary-table {{ font-size: 8pt; }}
+  .summary-table th, .summary-table td {{ padding: 4px 6px; }}
 }}
 </style>
 </head>

@@ -48,7 +48,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
   body { font-size: 10pt; }
   .case { break-inside: avoid; border: none; padding: 8px 0; }
   .case img { max-height: 60vh; }
-  .summary-table { font-size: 9pt; }
+  .summary-table { font-size: 8pt; }
+  .summary-table th, .summary-table td { padding: 4px 6px; }
 }
 </style>
 </head>
@@ -109,8 +110,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h4>Скриншоты</h4>
 <ul>
 <li><img alt="ERROR в server.log при первом запуске" src="tests/screenshots/case1_server_log_errors.png" /> — фрагмент <code>server.log</code> с ошибками инициализации ресурсов</li>
-<li>Лог-файл: см. <code>C:\Program Files\RatioTScada\logs\server.log</code></li>
-<li>Автотест фиксирует проблему: <code>tests/test_ui_ux.py</code> → <code>test_log_errors()</code></li>
 </ul>
 </section>
 <section class="case severity-medium" id="case-2">
@@ -172,8 +171,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="диалог перезаписи wizard_1.png" src="tests/screenshots/install_overwrite_2.png" /> — диалог перезаписи <code>wizard_1.png</code></li>
 <li><img alt="диалог перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /> — диалог перезаписи <code>wizard_2.png</code></li>
 </ul>
-<h4>Примечание</h4>
-<p>Скриншоты предоставлены в файле <code>incoming/скрины.docx</code>.</p>
 </section>
 <section class="case severity-high" id="case-4">
 <h3>Кейс 4. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h3>
@@ -214,8 +211,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="CSV с искажённой кодировкой" src="tests/screenshots/modbus_csv_encoding.png" /> — CSV с искажённой кодировкой</li>
 <li><img alt="драйвер Modbus отсутствует в trial-версии" src="tests/screenshots/case8_modbus_empty.png" /> — драйвер Modbus отсутствует в списке доступных драйверов (trial-лицензия)</li>
 </ul>
-<h4>Источник</h4>
-<p>Материалы коллег из <code>incoming/Баги с импортом и экспортом Modbus регистров в форматах csv и xml.docx</code>.</p>
 </section>
 <section class="case severity-high" id="case-5">
 <h3>Кейс 5. Настройки колонок компонента eventLog сбрасываются при поступлении событий</h3>
@@ -246,8 +241,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="журнал с событием: видны все колонки" src="tests/screenshots/eventlog_with_event.png" /> — журнал с событием: видны все колонки</li>
 <li><img alt="после события настройки не восстановились" src="tests/screenshots/eventlog_empty_after_event.png" /> — после события настройки не восстановились</li>
 </ul>
-<h4>Источник</h4>
-<p>Тикет <code>ASD-6406</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
 </section>
 <section class="case severity-medium" id="case-6">
 <h3>Кейс 6. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h3>
@@ -278,8 +271,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="диалог выбора источника, список пуст/отсутствует абсолютная модель" src="tests/screenshots/tagtree_source_empty.png" /> — диалог выбора источника, список пуст/отсутствует абсолютная модель</li>
 <li><img alt="поиск &quot;тег&quot; в системном дереве не находит раздел &quot;Дерево тегов&quot;" src="tests/screenshots/case10_tag_tree.png" /> — поиск "тег" не находит раздел "Дерево тегов" в trial-версии</li>
 </ul>
-<h4>Источник</h4>
-<p>Тикет <code>ASD-6418</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
 </section>
 <section class="case severity-critical" id="case-7">
 <h3>Кейс 7. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h3>
@@ -305,8 +296,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="вкладка «Хранилище» с выпадающим списком хранилищ" src="tests/screenshots/storage_nosql_dropdown.png" /> — скриншот коллег: выпадающий список хранилищ</li>
 <li><img alt="вкладка Хранилище в trial-версии" src="tests/screenshots/case11_storage.png" /> — вкладка <strong>Хранилище → База данных</strong>, "Хранилище событий" = "Отключено"</li>
 </ul>
-<h4>Источник</h4>
-<p>Тикет <code>ASD-6392</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
 </section>
 <section class="case severity-medium" id="case-8">
 <h3>Кейс 8. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h3>
@@ -338,8 +327,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="второй пример: HTML-игра в редакторе" src="tests/screenshots/html_snippet_game_editor.png" /> — второй пример: HTML-игра в редакторе</li>
 <li><img alt="та же игра в режиме просмотра" src="tests/screenshots/html_snippet_game_runtime.png" /> — та же игра в режиме просмотра</li>
 </ul>
-<h4>Источник</h4>
-<p><code>incoming/отчет о проблеме с html.docx</code>.</p>
 </section>
 <section class="case severity-high" id="case-9">
 <h3>Кейс 9. Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</h3>
@@ -372,8 +359,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="страница «Информация о сервере»" src="tests/screenshots/case13_server_info.png" /> — в веб-интерфейсе открыта страница <strong>Информация о сервере</strong></li>
 <li><img alt="лицензионная информация: Trial License, 30 дней, 100 устройств" src="tests/screenshots/case13_license_info.png" /> — вкладка <strong>Лицензионная информация</strong> показывает <code>Trial License</code>, оставшееся время 29 дней, максимальное количество устройств 100</li>
 </ul>
-<h4>Источник</h4>
-<p>Переписка <code>Re: Минимальные/рекомендуемые системные требования к RatioT SCADA.msg</code>.</p>
 </section>
 <section class="case severity-high" id="case-10">
 <h3>Кейс 10. Локальный магазин приложений отсутствует в веб-клиенте</h3>
@@ -410,11 +395,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>«Магазин приложений — это особый RatioT Server, на котором работает модуль "marketplace" (Store Server), и который предоставляет решения и модули для других серверов RatioT SCADA. Другие экземпляры RatioT Server могут подключиться к Магазину и загрузить предлагаемые решения и модули при помощи модуля Store Client. ... Функционал Магазина обеспечивается плагином <strong>Store Client</strong>, который скачивает решения и модули с серверов Магазина приложений...»</p>
 </blockquote>
 <p>То есть документация декларирует наличие плагина <strong>Store Client</strong> для загрузки/восстановления модулей, но в веб-клиенте он отсутствует.</p>
-<h4>Источник</h4>
-<ul>
-<li>Локальный файл: <code>C:\Program Files\RatioTScada\store\store.xml</code></li>
-<li>Документация: <code>admin/custom/templates/docs/ls_store.htm</code></li>
-</ul>
 </section>
 <section class="case severity-low" id="case-11">
 <h3>Кейс 11. Вёрстка страницы 404</h3>

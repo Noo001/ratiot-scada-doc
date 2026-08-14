@@ -5,9 +5,9 @@ on:
     branches: [main]
     paths:
       - 'tests/BUG_CASES.md'
-      - 'build_pdf.py'
+      - 'rebuild_report.py'
       - 'generate_pdf.py'
-      - 'style.css'
+      - 'bug_cases_report.html'
       - 'tests/screenshots/**'
   workflow_dispatch:
 
@@ -33,14 +33,14 @@ jobs:
 
       - name: Build HTML and PDF
         run: |
-          python build_pdf.py
+          python rebuild_report.py
           python generate_pdf.py
 
       - name: Commit updated PDF and HTML
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add RatioT_SCADA_Bug_Cases.pdf bug_cases_print.html
+          git add RatioT_SCADA_Bug_Cases.pdf bug_cases_report.html
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
