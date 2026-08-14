@@ -1,0 +1,174 @@
+import re
+import markdown
+from pathlib import Path
+
+md_path = Path("tests/BUG_CASES.md")
+html_path = Path("bug_cases_report.html")
+md_text = md_path.read_text(encoding="utf-8")
+
+# Парсим кейсы из markdown
+pattern = re.compile(r'<a id="(case-\d+)"></a>\n## Кейс (\d+)\.\s*(.+?)\n\n(.+?)(?=\n---|\n## |\Z)', re.DOTALL)
+cases = []
+for m in pattern.finditer(md_text):
+    old_id = m.group(1)
+    old_num = int(m.group(2))
+    title = m.group(3).strip()
+    body_md = m.group(4).strip()
+    cases.append({
+        'old_id': old_id,
+        'old_num': old_num,
+        'title': title,
+        'body_md': body_md,
+    })
+
+# Фильтруем: убираем 12 (AggreGate), 16, 17
+filtered = [c for c in cases if c['old_num'] not in (12, 16, 17)]
+
+# Перенумеровываем
+for i, c in enumerate(filtered, start=1):
+    c['new_num'] = i
+
+# Статусы по кейсам
+statuses = {
+    1: "Подтверждён",
+    2: "Подтверждён",
+    3: "Подтверждён",
+    4: "Подтверждён коллегами / в trial нет драйвера Modbus",
+    5: "Подтверждён коллегами / в trial нет редактора дашбордов",
+    6: "Подтверждён коллегами / в trial нет раздела",
+    7: "Подтверждён коллегами / настройка доступна, переключение не проводилось",
+    8: "Подтверждён коллегами / в trial нет редактора дашбордов",
+    9: "Подтверждён коллегами / требует переустановки",
+    10: "Подтверждён",
+    11: "Подтверждён",
+    13: "Подтверждён",
+    14: "Подтверждён",
+    15: "Подтверждён",
+}
+
+# Извлекаем серьёзность
+def get_severity(body_md):
+    m = re.search(r'\*\*Серьёзность:\*\*\s*(\w+)', body_md)
+    return m.group(1) if m else "Medium"
+
+for c in filtered:
+    c['severity'] = get_severity(c['body_md'])
+    c['status'] = statuses.get(c['old_num'], "Подтверждён")
+    c['group'] = "Основные" if c['new_num'] <= 11 else "Дополнительные"
+    # Убираем строки серьёзности и типа из тела, т.к. они уже в meta
+    c['body_md'] = re.sub(r'\*\*Серьёзность:\*\*\s*\w+\s*\n', '', c['body_md'])
+    c['body_md'] = re.sub(r'\*\*Тип:\*\*\s*[^\n]+\s*\n', '', c['body_md'])
+
+# Генерируем строки таблицы
+table_rows = []
+for c in filtered:
+    table_rows.append(
+        f'<tr><td>{c["new_num"]}</td><td><a href="#case-{c["new_num"]}">{c["new_num"]}. {c["title"]}</a></td>'
+        f'<td>{c["severity"]}</td><td>{c["status"]}</td></tr>'
+    )
+
+# Конвертируем тела кейсов в HTML
+md = markdown.Markdown(extensions=['fenced_code', 'tables'])
+
+sections_html = {"Основные": [], "Дополнительные": []}
+for c in filtered:
+    # Конвертируем body
+    body_html = md.convert(c['body_md'])
+    md.reset()
+    # Подзаголовки секций делаем h4
+    body_html = re.sub(r'<h3([^>]*)>', r'<h4\1>', body_html)
+    body_html = re.sub(r'</h3>', r'</h4>', body_html)
+    body_html = re.sub(r'<h2([^>]*)>', r'<h4\1>', body_html)
+    body_html = re.sub(r'</h2>', r'</h4>', body_html)
+    body_html = re.sub(r'<h1([^>]*)>', r'<h4\1>', body_html)
+    body_html = re.sub(r'</h1>', r'</h4>', body_html)
+    # Обертка секции
+    section = f'''<section class="case severity-{c["severity"].lower()}" id="case-{c["new_num"]}">
+<h3>Кейс {c["new_num"]}. {c["title"]}</h3>
+<p class="meta"><span class="severity severity-{c["severity"].lower()}"><strong>Серьёзность:</strong> {c["severity"]}</span> <span class="type"><strong>Статус:</strong> {c["status"]}</span></p>
+{body_html}
+</section>'''
+    sections_html[c['group']].append(section)
+
+summary_table = '''<table class="summary-table">
+<thead><tr><th>№</th><th>Кейс</th><th>Серьёзность</th><th>Статус</th></tr></thead>
+<tbody>
+''' + "\n".join(table_rows) + '''
+</tbody></table>'''
+
+body_html = (
+    '<h2 class="section-title" id="section-основные">Основные</h2>\n'
+    + "\n".join(sections_html["Основные"])
+    + '\n<h2 class="section-title" id="section-дополнительные">Дополнительные</h2>\n'
+    + "\n".join(sections_html["Дополнительные"])
+)
+
+final_html = f'''<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отчёт по баг-кейсам RatioT SCADA</title>
+<style>
+:root {{ --text:#1f2328; --muted:#59636e; --border:#d1d9e0; --bg:#f6f8fa; --accent:#0969da; --danger:#cf222e; --warn:#9a6700; }}
+* {{ box-sizing: border-box; }}
+html {{ scroll-behavior: smooth; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); line-height: 1.55; margin: 0; padding: 0; background:#fff; }}
+.container {{ max-width: 980px; margin: 0 auto; padding: 32px 24px; }}
+header {{ border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; }}
+header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
+.pdf-button {{ display: inline-block; padding: 12px 24px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; }}
+.pdf-button:hover {{ background: #0550ae; }}
+.summary-table {{ width: 100%; border-collapse: collapse; margin: 16px 0 32px; font-size: 0.95rem; }}
+.summary-table th, .summary-table td {{ border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }}
+.summary-table th {{ background: var(--bg); font-weight: 600; }}
+.summary-table tr:nth-child(even) {{ background: #fafafa; }}
+.summary-table a {{ color: var(--text); text-decoration: none; }}
+.summary-table a:hover {{ text-decoration: underline; color: var(--accent); }}
+.group-tag {{ display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.82rem; font-weight: 600; }}
+.g-submitted {{ background:#ddf4ff; color:#0969da; }}
+.g-new {{ background:#fff8c5; color:#9a6700; }}
+.g-extra {{ background:#fbefff; color:#8250df; }}
+.g-excluded {{ background:#ffebe9; color:#cf222e; }}
+.section-title {{ margin-top: 40px; padding-bottom: 8px; border-bottom: 2px solid var(--border); font-size: 1.4rem; }}
+.case {{ margin: 28px 0; padding: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }}
+.case h3 {{ margin-top: 0; font-size: 1.2rem; color: var(--text); }}
+.case h4 {{ font-size: 1rem; color: var(--muted); margin: 16px 0 6px; text-transform: uppercase; letter-spacing: 0.02em; }}
+.case .meta {{ margin: 4px 0 12px; color: var(--muted); font-size: 0.95rem; }}
+.case .severity {{ font-weight: 600; margin-right: 16px; }}
+.severity-critical {{ color: #cf222e; }}
+.severity-high {{ color: #cf222e; }}
+.severity-medium {{ color: #9a6700; }}
+.severity-low {{ color: #59636e; }}
+.case p, .case li {{ margin: 6px 0; }}
+.case ul, .case ol {{ margin: 6px 0; padding-left: 22px; }}
+.case img {{ max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin: 6px 0; }}
+.case code {{ background: var(--bg); padding: 2px 4px; border-radius: 3px; font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace; font-size: 0.9em; }}
+.case pre {{ background: var(--bg); padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.9em; }}
+.case blockquote {{ margin: 8px 0; padding: 8px 14px; border-left: 4px solid var(--accent); background: var(--bg); color: var(--text); }}
+.case blockquote p {{ margin: 0; }}
+@media print {{
+  .pdf-button {{ display: none; }}
+  body {{ font-size: 10pt; }}
+  .case {{ break-inside: avoid; border: none; padding: 8px 0; }}
+  .case img {{ max-height: 60vh; }}
+  .summary-table {{ font-size: 9pt; }}
+}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09</h1>
+<a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
+</header>
+<h2>Сводная таблица</h2>
+{summary_table}
+{body_html}
+</div>
+</body>
+</html>
+'''
+
+html_path.write_text(final_html, encoding="utf-8")
+print(f"Сгенерирован {html_path}: {len(filtered)} кейсов")
