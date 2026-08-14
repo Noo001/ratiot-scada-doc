@@ -70,9 +70,9 @@ statuses = {
     17: "Подтверждён",
 }
 
-# Извлекаем серьёзность
+# Извлекаем критичность
 def get_severity(body_md):
-    m = re.search(r'\*\*Серьёзность:\*\*\s*(\w+)', body_md)
+    m = re.search(r'\*\*Критичность:\*\*\s*(\w+)', body_md)
     return m.group(1) if m else "Medium"
 
 for c in ordered:
@@ -82,7 +82,7 @@ for c in ordered:
 filtered = ordered
 for c in filtered:
     # Убираем строки серьёзности и типа из тела, т.к. они уже в meta
-    c['body_md'] = re.sub(r'\*\*Серьёзность:\*\*\s*\w+\s*\n', '', c['body_md'])
+    c['body_md'] = re.sub(r'\*\*Критичность:\*\*\s*\w+\s*\n', '', c['body_md'])
     c['body_md'] = re.sub(r'\*\*Тип:\*\*\s*[^\n]+\s*\n', '', c['body_md'])
     # Убираем служебные секции "Источник" и "Примечание" полностью
     c['body_md'] = re.sub(r'###\s*(Источник|Примечание)\s*\n(.*?)(?=###|\Z)', '', c['body_md'], flags=re.DOTALL)
@@ -110,7 +110,7 @@ for group in groups_order:
             f'<td>{c["severity"]}</td><td>{c["status"]}</td></tr>'
         )
 
-summary_table = '<table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Серьёзность</th><th>Статус</th></tr></thead><tbody>' + "\n".join(table_rows) + '</tbody></table>'
+summary_table = '<table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Критичность</th><th>Статус</th></tr></thead><tbody>' + "\n".join(table_rows) + '</tbody></table>'
 
 # Конвертируем тела кейсов в HTML
 md = markdown.Markdown(extensions=['fenced_code', 'tables'])
@@ -130,7 +130,7 @@ for c in filtered:
     # Обертка секции
     section = f'''<section class="case severity-{c["severity"].lower()}" id="case-{c["new_num"]}">
 <h3>Кейс {c["new_num"]}. {c["title"]}</h3>
-<p class="meta"><span class="severity severity-{c["severity"].lower()}"><strong>Серьёзность:</strong> {c["severity"]}</span> <span class="type"><strong>Статус:</strong> {c["status"]}</span></p>
+<p class="meta"><span class="severity severity-{c["severity"].lower()}"><strong>Критичность:</strong> {c["severity"]}</span> <span class="type"><strong>Статус:</strong> {c["status"]}</span></p>
 {body_html}
 </section>'''
     sections_html[c['group']].append(section)

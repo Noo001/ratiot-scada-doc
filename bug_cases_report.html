@@ -89,7 +89,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
 </header>
 <h2>Сводная таблица</h2>
-<table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Серьёзность</th><th>Статус</th></tr></thead><tbody><tr class="group-row"><td colspan="4"><strong>Сообщённые Агрегейту</strong></td></tr>
+<table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Критичность</th><th>Статус</th></tr></thead><tbody><tr class="group-row"><td colspan="4"><strong>Сообщённые Агрегейту</strong></td></tr>
 <tr><td>1</td><td><a href="#case-1">Режимы лицензирования free / trial не описаны в документации</a></td><td>Medium</td><td>Подтверждён</td></tr>
 <tr><td>2</td><td><a href="#case-2">Инсталлятор запрашивает перезапись собственных файлов</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>3</td><td><a href="#case-3">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td>High</td><td>Подтверждён коллегами / в trial нет драйвера Modbus</td></tr>
@@ -108,7 +108,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h2 class="section-title" id="section-предъявленные">Сообщённые Агрегейту</h2>
 <section class="case severity-medium" id="case-1">
 <h3>Кейс 1. Режимы лицензирования free / trial не описаны в документации</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами на <strong>этапе установки</strong>:
 - <strong>Пробная лицензия (30 дней)</strong>
@@ -145,7 +145,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-low" id="case-2">
 <h3>Кейс 2. Инсталлятор запрашивает перезапись собственных файлов</h3>
-<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>При установке RatioT SCADA 6.41.09 инсталлятор выдаёт диалог «Файл уже существует. Вы хотите, чтобы программа установки заменила его?» для файлов внутри <code>C:\Program Files\RatioTScada\admin\custom\templates\docs_ru\wizard_1.png</code> и <code>wizard_2.png</code>. Это создаёт впечатление, что установка повторяется поверх существующей, или что инсталлятор не может корректно управлять своими же файлами.</p>
 <h4>Воспроизведение</h4>
@@ -168,7 +168,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-high" id="case-3">
 <h3>Кейс 3. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h3>
-<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет драйвера Modbus</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет драйвера Modbus</span></p>
 <h4>Описание</h4>
 <p>При создании пустого Modbus-устройства и импорте регистров из ранее экспортированных файлов CSV/XML теряются имя, описание, адрес, размер и другие поля. Импорт того же файла в формате <code>.tbl</code> работает корректно. Кроме того, окно экспорта не содержит кнопки закрытия — чтобы выйти, пользователь вынужден что-то экспортировать. При экспорте регистров с русскими именами/описаниями в CSV в полученном файле русский текст отображается кракозябрами.</p>
 <h4>Воспроизведение</h4>
@@ -208,7 +208,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-4">
 <h3>Кейс 4. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет раздела</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет раздела</span></p>
 <h4>Описание</h4>
 <p>На вебинаре по RatioT SCADA 6.4 озвучивалось, что при привязке тегов цифрового двойника в дереве тегов источником можно выбирать не только устройство, но и абсолютную модель. В текущей версии такой возможности нет, а в документации описание отсутствует.</p>
 <h4>Воспроизведение</h4>
@@ -238,7 +238,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-critical" id="case-5">
 <h3>Кейс 5. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h3>
-<p class="meta"><span class="severity severity-critical"><strong>Серьёзность:</strong> Critical</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / настройка доступна, переключение не проводилось</span></p>
+<p class="meta"><span class="severity severity-critical"><strong>Критичность:</strong> Critical</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / настройка доступна, переключение не проводилось</span></p>
 <h4>Описание</h4>
 <p>В настройках сервера, раздел <strong>Хранилище → База данных</strong>, пункт <strong>Хранилище событий</strong> по умолчанию отключён. Если выбрать <strong>NoSQL-хранилище</strong>, сервер уходит в перезапуск и больше не восстанавливается. Утилита <code>configurator</code> для версии 6.41 отсутствует, что не позволяет восстановить конфигурацию.</p>
 <h4>Воспроизведение</h4>
@@ -263,7 +263,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-high" id="case-6">
 <h3>Кейс 6. Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</h3>
-<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / требует переустановки</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / требует переустановки</span></p>
 <h4>Описание</h4>
 <p>При установке RatioT SCADA в папку, отличную от предыдущей, инсталлятор всё равно запрашивает согласие на копирование/перезапись файлов. После замены файла лицензии в новой папке программа продолжает сообщать об отсутствии лицензии. Служба сервера запускается и перезапускается, но веб-сервер не отвечает. В итоге требуется полное удаление всех версий; при новой установке генерируется новый activation key, и старая лицензия не принимается.</p>
 <h4>Воспроизведение</h4>
@@ -296,7 +296,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h2 class="section-title" id="section-новые">Новые баги</h2>
 <section class="case severity-low" id="case-7">
 <h3>Кейс 7. Ошибки создания ресурсов при первом запуске сервера</h3>
-<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
 <h4>Воспроизведение</h4>
@@ -329,7 +329,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-high" id="case-8">
 <h3>Кейс 8. Настройки колонок компонента eventLog сбрасываются при поступлении событий</h3>
-<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
 <h4>Описание</h4>
 <p>В дашборде добавлен элемент <strong>Журнал событий (eventLog)</strong>. В расширенных настройках на вкладке <strong>Колонки</strong> включена опция «Ширина колонок настроена вручную», задан порядок колонок, их ширина и видимость. Настройки применяются, пока событий нет; как только поступает событие, таблица возвращается к дефолтному виду и отображаются все колонки, включая скрытые.</p>
 <h4>Воспроизведение</h4>
@@ -359,7 +359,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-9">
 <h3>Кейс 9. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
 <h4>Описание</h4>
 <p>При добавлении на дашборд компонента <strong>HTML-сниппет</strong> с произвольным HTML/CSS происходит сдвиг всего layout дашборда вниз. После обновления страницы (F5) дашборд возвращается к стандартному виду, но при повторном открытии редактора сдвиг появляется снова.</p>
 <h4>Воспроизведение</h4>
@@ -390,7 +390,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-high" id="case-10">
 <h3>Кейс 10. Локальный магазин приложений отсутствует в веб-клиенте</h3>
-<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>В дистрибутиве RatioT SCADA присутствует локальный файл магазина приложений <code>C:\Program Files\RatioTScada\store\store.xml</code>. Документация (<code>ls_store.htm</code>) описывает магазин приложений как способ распространения модулей и решений, а также указывает, что в системном дереве должен быть доступен плагин <strong>Магазин</strong> под разделом <strong>Драйверы и расширения</strong>. Однако в веб-клиенте отсутствует какой-либо раздел или плагин «Магазин приложений». Если пользователь удалит приложение/модуль, восстановить его из локального магазина через веб-интерфейс невозможно.</p>
 <h4>Воспроизведение</h4>
@@ -426,7 +426,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-low" id="case-11">
 <h3>Кейс 11. Вёрстка страницы 404</h3>
-<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>При обращении к несуществующей странице (например, через внутреннюю навигацию SPA) отображается страница 404 с огромным логотипом DKC, который перекрывает центр экрана. Текст «404 — Страница не найдена» и ссылка «На главную» накладываются на красный круг логотипа, что делает сообщение трудночитаемым.</p>
 <h4>Воспроизведение</h4>
@@ -446,7 +446,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-12">
 <h3>Кейс 12. Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>В системном дереве веб-клиента присутствует раздел <strong>«Драйвера и расширения»</strong> (уже с грамматической ошибкой: правильно «Драйверы и расширения»). При его открытии справа загружается контейнер с тем же названием, но содержимое представляет собой корень системного дерева: <strong>Устройства</strong>, <strong>Группы устройств</strong>, <strong>Пользователи</strong>, <strong>Приложения</strong>, <strong>Модели</strong> и т.д. — то есть общий список ресурсов сервера, а не драйверы/плагины. Tooltip раздела на английском языке: <code>plugins (pluginsGlobalConf)</code>.</p>
 <h4>Воспроизведение</h4>
@@ -475,7 +475,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-low" id="case-13">
 <h3>Кейс 13. Вкладки «Информации о сервере» обрезаются и не переносятся</h3>
-<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>На странице <strong>Информация о сервере</strong> в правой части расположена строка вкладок: <strong>Сервер</strong>, <strong>Хранилище</strong>, <strong>Статистика контекстов</strong>, <strong>Статистика выражений</strong>, <strong>Статистика устройств</strong>, <strong>Лицензионная информация</strong>, <strong>Активные расширения</strong>, <strong>Установленные расширения</strong> и др. При стандартной ширине окна часть вкладок обрезается и не помещается в строку. Нет ни горизонтальной прокрутки, ни переноса вкладок, ни выпадающего меню «Ещё».</p>
 <h4>Воспроизведение</h4>
@@ -495,7 +495,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-14">
 <h3>Кейс 14. Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>В системном дереве веб-клиента раздел <strong>Пользователи</strong> при открытии загружает контейнер с тем же названием, но внутри отображает не учётные записи пользователей, а корневые ресурсы сервера: <strong>Устройства</strong>, <strong>Группы устройств</strong>, <strong>Пользователи</strong>, <strong>Приложения</strong>, <strong>Модели</strong> и т.д. То есть раздел не выполняет свою функцию.</p>
 <h4>Воспроизведение</h4>
