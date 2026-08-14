@@ -2,3 +2,4 @@
 incoming/
 incoming_extracted/
 *.json
+__pycache__/
