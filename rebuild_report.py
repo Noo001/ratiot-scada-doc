@@ -110,6 +110,8 @@ for group in groups_order:
             f'<td>{c["severity"]}</td><td>{c["status"]}</td></tr>'
         )
 
+summary_table = '<table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Серьёзность</th><th>Статус</th></tr></thead><tbody>' + "\n".join(table_rows) + '</tbody></table>'
+
 # Конвертируем тела кейсов в HTML
 md = markdown.Markdown(extensions=['fenced_code', 'tables'])
 
@@ -133,20 +135,40 @@ for c in filtered:
 </section>'''
     sections_html[c['group']].append(section)
 
-summary_table = '''<table class="summary-table">
-<thead><tr><th>№</th><th>Кейс</th><th>Серьёзность</th><th>Статус</th></tr></thead>
-<tbody>
-''' + "\n".join(table_rows) + '''
-</tbody></table>'''
-
+# Генерируем левую колонку с навигацией
+nav_links = []
 g1 = groups_order[0]
 g2 = groups_order[1]
-body_html = (
-    f'<h2 class="section-title" id="section-предъявленные">{g1}</h2>\n'
-    + "\n".join(sections_html[g1])
-    + f'\n<h2 class="section-title" id="section-новые">{g2}</h2>\n'
-    + "\n".join(sections_html[g2])
-)
+nav_links.append(f'<a href="#section-предъявленные" class="group-link">{g1}</a>')
+for c in cases_by_group[g1]:
+    nav_links.append(f'<a href="#case-{c["new_num"]}">{c["new_num"]}. {c["title"]}</a>')
+nav_links.append(f'<a href="#section-новые" class="group-link">{g2}</a>')
+for c in cases_by_group[g2]:
+    nav_links.append(f'<a href="#case-{c["new_num"]}">{c["new_num"]}. {c["title"]}</a>')
+
+nav_links_html = "\n".join(nav_links)
+g1_sections_html = "\n".join(sections_html[g1])
+g2_sections_html = "\n".join(sections_html[g2])
+
+aside_html = f'''<aside>
+<h2>Отчёт по багам</h2>
+<nav>
+{nav_links_html}
+</nav>
+</aside>'''
+
+main_html = f'''<main>
+<header>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09</h1>
+<a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
+</header>
+<h2>Сводная таблица</h2>
+{summary_table}
+<h2 class="section-title" id="section-предъявленные">{g1}</h2>
+{g1_sections_html}
+<h2 class="section-title" id="section-новые">{g2}</h2>
+{g2_sections_html}
+</main>'''
 
 final_html = f'''<!DOCTYPE html>
 <html lang="ru">
@@ -159,13 +181,20 @@ final_html = f'''<!DOCTYPE html>
 * {{ box-sizing: border-box; }}
 html {{ scroll-behavior: smooth; }}
 body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); line-height: 1.55; margin: 0; padding: 0; background:#fff; }}
-.container {{ max-width: 980px; margin: 0 auto; padding: 32px 24px; }}
+.layout {{ display: flex; max-width: 1240px; margin: 0 auto; align-items: flex-start; }}
+aside {{ width: 320px; padding: 20px; position: sticky; top: 0; align-self: flex-start; border-right: 1px solid var(--border); max-height: 100vh; overflow-y: auto; }}
+aside h2 {{ font-size: 1.1rem; margin: 0 0 16px; }}
+aside nav {{ display: flex; flex-direction: column; gap: 4px; }}
+aside a {{ color: var(--text); text-decoration: none; font-size: 0.9rem; line-height: 1.35; padding: 4px 8px; border-radius: 4px; overflow-wrap: break-word; word-break: break-word; hyphens: auto; }}
+aside a:hover {{ background: var(--bg); color: var(--accent); }}
+aside a.group-link {{ font-weight: 700; margin-top: 10px; color: var(--accent); }}
+main {{ flex: 1; padding: 32px 24px; max-width: 900px; min-width: 0; }}
 header {{ border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; }}
 header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 .pdf-button {{ display: inline-block; padding: 12px 24px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; }}
 .pdf-button:hover {{ background: #0550ae; }}
 .summary-table {{ width: 100%; border-collapse: collapse; margin: 16px 0 16px; font-size: 0.95rem; }}
-.summary-table th, .summary-table td {{ border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }}
+.summary-table th, .summary-table td {{ border: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; overflow-wrap: break-word; word-break: break-word; }}
 .summary-table th {{ background: var(--bg); font-weight: 600; }}
 .summary-table tr {{ page-break-inside: avoid; }}
 .summary-table tr:nth-child(even) {{ background: #fafafa; }}
@@ -173,11 +202,6 @@ header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 .summary-table tr.group-row td {{ font-weight: 600; padding-top: 10px; padding-bottom: 10px; }}
 .summary-table a {{ color: var(--text); text-decoration: none; }}
 .summary-table a:hover {{ text-decoration: underline; color: var(--accent); }}
-.group-tag {{ display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.82rem; font-weight: 600; }}
-.g-submitted {{ background:#ddf4ff; color:#0969da; }}
-.g-new {{ background:#fff8c5; color:#9a6700; }}
-.g-extra {{ background:#fbefff; color:#8250df; }}
-.g-excluded {{ background:#ffebe9; color:#cf222e; }}
 .section-title {{ margin-top: 24px; padding-bottom: 8px; border-bottom: 2px solid var(--border); font-size: 1.4rem; page-break-after: avoid; }}
 .case {{ margin: 28px 0; padding: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }}
 .case h3 {{ margin-top: 0; font-size: 1.2rem; color: var(--text); }}
@@ -196,6 +220,8 @@ header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 .case blockquote {{ margin: 8px 0; padding: 8px 14px; border-left: 4px solid var(--accent); background: var(--bg); color: var(--text); }}
 .case blockquote p {{ margin: 0; }}
 @media print {{
+  aside {{ display: none; }}
+  .layout {{ display: block; }}
   .pdf-button {{ display: none; }}
   body {{ font-size: 10pt; }}
   .case {{ break-inside: avoid; border: none; padding: 8px 0; }}
@@ -206,14 +232,9 @@ header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09</h1>
-<a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
-</header>
-<h2>Сводная таблица</h2>
-{summary_table}
-{body_html}
+<div class="layout">
+{aside_html}
+{main_html}
 </div>
 </body>
 </html>
