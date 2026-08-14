@@ -63,57 +63,24 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <table class="summary-table">
 <thead><tr><th>№</th><th>Кейс</th><th>Серьёзность</th><th>Статус</th></tr></thead>
 <tbody>
-<tr><td>1</td><td><a href="#case-1">Ошибки создания ресурсов при первом запуске сервера</a></td><td>Medium</td><td>Подтверждён</td></tr>
-<tr><td>2</td><td><a href="#case-2">Режимы лицензирования free / trial не описаны в документации</a></td><td>Medium</td><td>Подтверждён</td></tr>
-<tr><td>3</td><td><a href="#case-3">Инсталлятор запрашивает перезапись собственных файлов</a></td><td>Low</td><td>Подтверждён</td></tr>
-<tr><td>4</td><td><a href="#case-4">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td>High</td><td>Подтверждён коллегами / в trial нет драйвера Modbus</td></tr>
-<tr><td>5</td><td><a href="#case-5">Настройки колонок компонента eventLog сбрасываются при поступлении событий</a></td><td>High</td><td>Подтверждён коллегами / в trial нет редактора дашбордов</td></tr>
-<tr><td>6</td><td><a href="#case-6">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td>Medium</td><td>Подтверждён коллегами / в trial нет раздела</td></tr>
-<tr><td>7</td><td><a href="#case-7">Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</a></td><td>Critical</td><td>Подтверждён коллегами / настройка доступна, переключение не проводилось</td></tr>
-<tr><td>8</td><td><a href="#case-8">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td>Medium</td><td>Подтверждён коллегами / в trial нет редактора дашбордов</td></tr>
-<tr><td>9</td><td><a href="#case-9">Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</a></td><td>High</td><td>Подтверждён коллегами / требует переустановки</td></tr>
+<tr><td>1</td><td><a href="#case-1">Режимы лицензирования free / trial не описаны в документации</a></td><td>Medium</td><td>Подтверждён</td></tr>
+<tr><td>2</td><td><a href="#case-2">Инсталлятор запрашивает перезапись собственных файлов</a></td><td>Low</td><td>Подтверждён</td></tr>
+<tr><td>3</td><td><a href="#case-3">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td>High</td><td>Подтверждён коллегами / в trial нет драйвера Modbus</td></tr>
+<tr><td>4</td><td><a href="#case-4">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td>Medium</td><td>Подтверждён коллегами / в trial нет раздела</td></tr>
+<tr><td>5</td><td><a href="#case-5">Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</a></td><td>Critical</td><td>Подтверждён коллегами / настройка доступна, переключение не проводилось</td></tr>
+<tr><td>6</td><td><a href="#case-6">Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</a></td><td>High</td><td>Подтверждён коллегами / требует переустановки</td></tr>
+<tr><td>7</td><td><a href="#case-7">Ошибки создания ресурсов при первом запуске сервера</a></td><td>Medium</td><td>Подтверждён</td></tr>
+<tr><td>8</td><td><a href="#case-8">Настройки колонок компонента eventLog сбрасываются при поступлении событий</a></td><td>High</td><td>Подтверждён коллегами / в trial нет редактора дашбордов</td></tr>
+<tr><td>9</td><td><a href="#case-9">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td>Medium</td><td>Подтверждён коллегами / в trial нет редактора дашбордов</td></tr>
 <tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td>High</td><td>Подтверждён</td></tr>
 <tr><td>11</td><td><a href="#case-11">Вёрстка страницы 404</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>12</td><td><a href="#case-12">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td>Medium</td><td>Подтверждён</td></tr>
 <tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Подтверждён</td></tr>
 </tbody></table>
-<h2 class="section-title" id="section-основные">Основные</h2>
+<h2 class="section-title" id="section-сообщённые">Сообщённые Агрегейту</h2>
 <section class="case severity-medium" id="case-1">
-<h3>Кейс 1. Ошибки создания ресурсов при первом запуске сервера</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
-<h4>Описание</h4>
-<p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
-<h4>Воспроизведение</h4>
-<ol>
-<li>Установить RatioT SCADA 6.41.09 на чистую Windows.</li>
-<li>Запустить <code>C:\Program Files\RatioTScada\RatioT_server_console.exe</code>.</li>
-<li>Дождаться строки <code>Starting web server</code>.</li>
-<li>Открыть <code>C:\Program Files\RatioTScada\logs\server.log</code>.</li>
-<li>Найти строки с <code>ERROR ag.context</code>.</li>
-</ol>
-<h4>Ожидаемый результат</h4>
-<p>Первый запуск завершается без ERROR/FATAL.</p>
-<h4>Фактический результат</h4>
-<pre><code>13.08.2026 12:47:25,471 ERROR ag.context
-  Error creating resource 'users.admin.models.avatarManagement':
-  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
-
-13.08.2026 12:47:25,733 ERROR ag.context
-  Error creating resource 'users.admin.reports.maintenance':
-  Контекст недоступен: users.admin.reports
-
-13.08.2026 12:47:26,509 ERROR ag.context
-  Error creating resource 'users.admin.models.workflowModel':
-  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
-</code></pre>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="ERROR в server.log при первом запуске" src="tests/screenshots/case1_server_log_errors.png" /> — фрагмент <code>server.log</code> с ошибками инициализации ресурсов</li>
-</ul>
-</section>
-<section class="case severity-medium" id="case-2">
-<h3>Кейс 2. Режимы лицензирования free / trial не описаны в документации</h3>
+<h3>Кейс 1. Режимы лицензирования free / trial не описаны в документации</h3>
 <p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами на <strong>этапе установки</strong>:
@@ -149,8 +116,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><code>admin/custom/templates/docs/ls_config_license_server.htm</code></li>
 </ul>
 </section>
-<section class="case severity-low" id="case-3">
-<h3>Кейс 3. Инсталлятор запрашивает перезапись собственных файлов</h3>
+<section class="case severity-low" id="case-2">
+<h3>Кейс 2. Инсталлятор запрашивает перезапись собственных файлов</h3>
 <p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
 <h4>Описание</h4>
 <p>При установке RatioT SCADA 6.41.09 инсталлятор выдаёт диалог «Файл уже существует. Вы хотите, чтобы программа установки заменила его?» для файлов внутри <code>C:\Program Files\RatioTScada\admin\custom\templates\docs_ru\wizard_1.png</code> и <code>wizard_2.png</code>. Это создаёт впечатление, что установка повторяется поверх существующей, или что инсталлятор не может корректно управлять своими же файлами.</p>
@@ -172,8 +139,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="диалог перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /> — диалог перезаписи <code>wizard_2.png</code></li>
 </ul>
 </section>
-<section class="case severity-high" id="case-4">
-<h3>Кейс 4. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h3>
+<section class="case severity-high" id="case-3">
+<h3>Кейс 3. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h3>
 <p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет драйвера Modbus</span></p>
 <h4>Описание</h4>
 <p>При создании пустого Modbus-устройства и импорте регистров из ранее экспортированных файлов CSV/XML теряются имя, описание, адрес, размер и другие поля. Импорт того же файла в формате <code>.tbl</code> работает корректно. Кроме того, окно экспорта не содержит кнопки закрытия — чтобы выйти, пользователь вынужден что-то экспортировать. При экспорте регистров с русскими именами/описаниями в CSV в полученном файле русский текст отображается кракозябрами.</p>
@@ -212,38 +179,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="драйвер Modbus отсутствует в trial-версии" src="tests/screenshots/case8_modbus_empty.png" /> — драйвер Modbus отсутствует в списке доступных драйверов (trial-лицензия)</li>
 </ul>
 </section>
-<section class="case severity-high" id="case-5">
-<h3>Кейс 5. Настройки колонок компонента eventLog сбрасываются при поступлении событий</h3>
-<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
-<h4>Описание</h4>
-<p>В дашборде добавлен элемент <strong>Журнал событий (eventLog)</strong>. В расширенных настройках на вкладке <strong>Колонки</strong> включена опция «Ширина колонок настроена вручную», задан порядок колонок, их ширина и видимость. Настройки применяются, пока событий нет; как только поступает событие, таблица возвращается к дефолтному виду и отображаются все колонки, включая скрытые.</p>
-<h4>Воспроизведение</h4>
-<ol>
-<li>Открыть дашборд (например, <code>АВР.Главный экран</code>).</li>
-<li>Добавить или отредактировать компонент <strong>Журнал событий</strong>.</li>
-<li>В разделе <strong>Расширенные → Колонки</strong> включить «Ширина колонок настроена вручную».</li>
-<li>Скрыть колонки <strong>Подтверждение</strong> и <strong>Обогащение</strong>, задать порядок и ширину остальных.</li>
-<li>Сохранить дашборд.</li>
-<li>Дождаться/сгенерировать событие (например, переключение режима работы).</li>
-<li>Убедиться, что таблица вернулась к стандартному набору колонок.</li>
-</ol>
-<h4>Ожидаемый результат</h4>
-<p>Настроенные колонки сохраняются независимо от наличия событий.</p>
-<h4>Фактический результат</h4>
-<p>При поступлении события отображаются все колонки, настройки не применены.</p>
-<h4>Уточнение по лицензированию</h4>
-<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен (нет кнопки/раздела для добавления/редактирования компонентов), поэтому лично воспроизвести настройку колонок eventLog в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="редактор дашборда с выделенным eventLog" src="tests/screenshots/eventlog_columns_editor.png" /> — редактор дашборда с выделенным eventLog</li>
-<li><img alt="настройки колонок без данных" src="tests/screenshots/eventlog_columns_nodata.png" /> — настройки колонок без данных</li>
-<li><img alt="список полей eventLog" src="tests/screenshots/eventlog_columns_list.png" /> — список полей eventLog</li>
-<li><img alt="журнал с событием: видны все колонки" src="tests/screenshots/eventlog_with_event.png" /> — журнал с событием: видны все колонки</li>
-<li><img alt="после события настройки не восстановились" src="tests/screenshots/eventlog_empty_after_event.png" /> — после события настройки не восстановились</li>
-</ul>
-</section>
-<section class="case severity-medium" id="case-6">
-<h3>Кейс 6. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h3>
+<section class="case severity-medium" id="case-4">
+<h3>Кейс 4. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h3>
 <p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет раздела</span></p>
 <h4>Описание</h4>
 <p>На вебинаре по RatioT SCADA 6.4 озвучивалось, что при привязке тегов цифрового двойника в дереве тегов источником можно выбирать не только устройство, но и абсолютную модель. В текущей версии такой возможности нет, а в документации описание отсутствует.</p>
@@ -272,8 +209,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="поиск &quot;тег&quot; в системном дереве не находит раздел &quot;Дерево тегов&quot;" src="tests/screenshots/case10_tag_tree.png" /> — поиск "тег" не находит раздел "Дерево тегов" в trial-версии</li>
 </ul>
 </section>
-<section class="case severity-critical" id="case-7">
-<h3>Кейс 7. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h3>
+<section class="case severity-critical" id="case-5">
+<h3>Кейс 5. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h3>
 <p class="meta"><span class="severity severity-critical"><strong>Серьёзность:</strong> Critical</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / настройка доступна, переключение не проводилось</span></p>
 <h4>Описание</h4>
 <p>В настройках сервера, раздел <strong>Хранилище → База данных</strong>, пункт <strong>Хранилище событий</strong> по умолчанию отключён. Если выбрать <strong>NoSQL-хранилище</strong>, сервер уходит в перезапуск и больше не восстанавливается. Утилита <code>configurator</code> для версии 6.41 отсутствует, что не позволяет восстановить конфигурацию.</p>
@@ -297,39 +234,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="вкладка Хранилище в trial-версии" src="tests/screenshots/case11_storage.png" /> — вкладка <strong>Хранилище → База данных</strong>, "Хранилище событий" = "Отключено"</li>
 </ul>
 </section>
-<section class="case severity-medium" id="case-8">
-<h3>Кейс 8. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
-<h4>Описание</h4>
-<p>При добавлении на дашборд компонента <strong>HTML-сниппет</strong> с произвольным HTML/CSS происходит сдвиг всего layout дашборда вниз. После обновления страницы (F5) дашборд возвращается к стандартному виду, но при повторном открытии редактора сдвиг появляется снова.</p>
-<h4>Воспроизведение</h4>
-<ol>
-<li>Открыть редактор дашборда.</li>
-<li>Добавить компонент <strong>HTML-сниппет</strong>.</li>
-<li>Вставить код, содержащий <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code> и стили.</li>
-<li>Сохранить дашборд.</li>
-<li>Перейти к визуализации — убедиться, что элементы дашборда съехали ниже.</li>
-<li>Обновить страницу — layout вернулся к норме.</li>
-<li>Снова открыть редактор — сдвиг воспроизводится.</li>
-</ol>
-<h4>Ожидаемый результат</h4>
-<p>HTML-сниппет отображается внутри выделенной области без влияния на остальную вёрстку дашборда. Состояние сохраняется после обновления страницы.</p>
-<h4>Фактический результат</h4>
-<p>Визуализация дашборда сдвигается вниз; после F5 временно восстанавливается.</p>
-<h4>Уточнение по лицензированию</h4>
-<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен: нет кнопки "Редактировать" для существующих дашбордов и нет возможности добавить HTML-сниппет. Попытки открыть URL <code>/.../edit</code> приводят к странице 404 (см. кейс 16). Поэтому лично воспроизвести сдвиг layout в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="редактор с добавленным HTML-сниппетом" src="tests/screenshots/html_snippet_editor.png" /> — редактор с добавленным HTML-сниппетом</li>
-<li><img alt="фрагмент вставленного HTML/CSS" src="tests/screenshots/html_snippet_code.png" /> — фрагмент вставленного HTML/CSS</li>
-<li><img alt="дашборд съехал вниз" src="tests/screenshots/html_snippet_layout_shift.png" /> — дашборд съехал вниз</li>
-<li><img alt="визуализация после обновления страницы" src="tests/screenshots/html_snippet_dashboard.png" /> — визуализация после обновления страницы</li>
-<li><img alt="второй пример: HTML-игра в редакторе" src="tests/screenshots/html_snippet_game_editor.png" /> — второй пример: HTML-игра в редакторе</li>
-<li><img alt="та же игра в режиме просмотра" src="tests/screenshots/html_snippet_game_runtime.png" /> — та же игра в режиме просмотра</li>
-</ul>
-</section>
-<section class="case severity-high" id="case-9">
-<h3>Кейс 9. Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</h3>
+<section class="case severity-high" id="case-6">
+<h3>Кейс 6. Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</h3>
 <p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / требует переустановки</span></p>
 <h4>Описание</h4>
 <p>При установке RatioT SCADA в папку, отличную от предыдущей, инсталлятор всё равно запрашивает согласие на копирование/перезапись файлов. После замены файла лицензии в новой папке программа продолжает сообщать об отсутствии лицензии. Служба сервера запускается и перезапускается, но веб-сервер не отвечает. В итоге требуется полное удаление всех версий; при новой установке генерируется новый activation key, и старая лицензия не принимается.</p>
@@ -358,6 +264,101 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <ul>
 <li><img alt="страница «Информация о сервере»" src="tests/screenshots/case13_server_info.png" /> — в веб-интерфейсе открыта страница <strong>Информация о сервере</strong></li>
 <li><img alt="лицензионная информация: Trial License, 30 дней, 100 устройств" src="tests/screenshots/case13_license_info.png" /> — вкладка <strong>Лицензионная информация</strong> показывает <code>Trial License</code>, оставшееся время 29 дней, максимальное количество устройств 100</li>
+</ul>
+</section>
+<h2 class="section-title" id="section-новые">Новые баги</h2>
+<section class="case severity-medium" id="case-7">
+<h3>Кейс 7. Ошибки создания ресурсов при первом запуске сервера</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<h4>Описание</h4>
+<p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Установить RatioT SCADA 6.41.09 на чистую Windows.</li>
+<li>Запустить <code>C:\Program Files\RatioTScada\RatioT_server_console.exe</code>.</li>
+<li>Дождаться строки <code>Starting web server</code>.</li>
+<li>Открыть <code>C:\Program Files\RatioTScada\logs\server.log</code>.</li>
+<li>Найти строки с <code>ERROR ag.context</code>.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Первый запуск завершается без ERROR/FATAL.</p>
+<h4>Фактический результат</h4>
+<pre><code>13.08.2026 12:47:25,471 ERROR ag.context
+  Error creating resource 'users.admin.models.avatarManagement':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
+
+13.08.2026 12:47:25,733 ERROR ag.context
+  Error creating resource 'users.admin.reports.maintenance':
+  Контекст недоступен: users.admin.reports
+
+13.08.2026 12:47:26,509 ERROR ag.context
+  Error creating resource 'users.admin.models.workflowModel':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
+</code></pre>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="ERROR в server.log при первом запуске" src="tests/screenshots/case1_server_log_errors.png" /> — фрагмент <code>server.log</code> с ошибками инициализации ресурсов</li>
+</ul>
+</section>
+<section class="case severity-high" id="case-8">
+<h3>Кейс 8. Настройки колонок компонента eventLog сбрасываются при поступлении событий</h3>
+<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
+<h4>Описание</h4>
+<p>В дашборде добавлен элемент <strong>Журнал событий (eventLog)</strong>. В расширенных настройках на вкладке <strong>Колонки</strong> включена опция «Ширина колонок настроена вручную», задан порядок колонок, их ширина и видимость. Настройки применяются, пока событий нет; как только поступает событие, таблица возвращается к дефолтному виду и отображаются все колонки, включая скрытые.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть дашборд (например, <code>АВР.Главный экран</code>).</li>
+<li>Добавить или отредактировать компонент <strong>Журнал событий</strong>.</li>
+<li>В разделе <strong>Расширенные → Колонки</strong> включить «Ширина колонок настроена вручную».</li>
+<li>Скрыть колонки <strong>Подтверждение</strong> и <strong>Обогащение</strong>, задать порядок и ширину остальных.</li>
+<li>Сохранить дашборд.</li>
+<li>Дождаться/сгенерировать событие (например, переключение режима работы).</li>
+<li>Убедиться, что таблица вернулась к стандартному набору колонок.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Настроенные колонки сохраняются независимо от наличия событий.</p>
+<h4>Фактический результат</h4>
+<p>При поступлении события отображаются все колонки, настройки не применены.</p>
+<h4>Уточнение по лицензированию</h4>
+<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен (нет кнопки/раздела для добавления/редактирования компонентов), поэтому лично воспроизвести настройку колонок eventLog в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="редактор дашборда с выделенным eventLog" src="tests/screenshots/eventlog_columns_editor.png" /> — редактор дашборда с выделенным eventLog</li>
+<li><img alt="настройки колонок без данных" src="tests/screenshots/eventlog_columns_nodata.png" /> — настройки колонок без данных</li>
+<li><img alt="список полей eventLog" src="tests/screenshots/eventlog_columns_list.png" /> — список полей eventLog</li>
+<li><img alt="журнал с событием: видны все колонки" src="tests/screenshots/eventlog_with_event.png" /> — журнал с событием: видны все колонки</li>
+<li><img alt="после события настройки не восстановились" src="tests/screenshots/eventlog_empty_after_event.png" /> — после события настройки не восстановились</li>
+</ul>
+</section>
+<section class="case severity-medium" id="case-9">
+<h3>Кейс 9. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён коллегами / в trial нет редактора дашбордов</span></p>
+<h4>Описание</h4>
+<p>При добавлении на дашборд компонента <strong>HTML-сниппет</strong> с произвольным HTML/CSS происходит сдвиг всего layout дашборда вниз. После обновления страницы (F5) дашборд возвращается к стандартному виду, но при повторном открытии редактора сдвиг появляется снова.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть редактор дашборда.</li>
+<li>Добавить компонент <strong>HTML-сниппет</strong>.</li>
+<li>Вставить код, содержащий <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code> и стили.</li>
+<li>Сохранить дашборд.</li>
+<li>Перейти к визуализации — убедиться, что элементы дашборда съехали ниже.</li>
+<li>Обновить страницу — layout вернулся к норме.</li>
+<li>Снова открыть редактор — сдвиг воспроизводится.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>HTML-сниппет отображается внутри выделенной области без влияния на остальную вёрстку дашборда. Состояние сохраняется после обновления страницы.</p>
+<h4>Фактический результат</h4>
+<p>Визуализация дашборда сдвигается вниз; после F5 временно восстанавливается.</p>
+<h4>Уточнение по лицензированию</h4>
+<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен: нет кнопки "Редактировать" для существующих дашбордов и нет возможности добавить HTML-сниппет. Попытки открыть URL <code>/.../edit</code> приводят к странице 404 (см. кейс 16). Поэтому лично воспроизвести сдвиг layout в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="редактор с добавленным HTML-сниппетом" src="tests/screenshots/html_snippet_editor.png" /> — редактор с добавленным HTML-сниппетом</li>
+<li><img alt="фрагмент вставленного HTML/CSS" src="tests/screenshots/html_snippet_code.png" /> — фрагмент вставленного HTML/CSS</li>
+<li><img alt="дашборд съехал вниз" src="tests/screenshots/html_snippet_layout_shift.png" /> — дашборд съехал вниз</li>
+<li><img alt="визуализация после обновления страницы" src="tests/screenshots/html_snippet_dashboard.png" /> — визуализация после обновления страницы</li>
+<li><img alt="второй пример: HTML-игра в редакторе" src="tests/screenshots/html_snippet_game_editor.png" /> — второй пример: HTML-игра в редакторе</li>
+<li><img alt="та же игра в режиме просмотра" src="tests/screenshots/html_snippet_game_runtime.png" /> — та же игра в режиме просмотра</li>
 </ul>
 </section>
 <section class="case severity-high" id="case-10">
@@ -416,7 +417,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li><img alt="страница 404 с перекрывающим логотипом" src="tests/screenshots/store_docs.png" /> — страница 404, текст перекрыт логотипом DKC</li>
 </ul>
 </section>
-<h2 class="section-title" id="section-дополнительные">Дополнительные</h2>
 <section class="case severity-medium" id="case-12">
 <h3>Кейс 12. Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</h3>
 <p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>

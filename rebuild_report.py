@@ -24,8 +24,34 @@ for m in pattern.finditer(md_text):
 # Фильтруем: убираем 12 (AggreGate), 14 (/web/* JSON 404), 15 (документация из SPA)
 filtered = [c for c in cases if c['old_num'] not in (12, 14, 15)]
 
-# Перенумеровываем
-for i, c in enumerate(filtered, start=1):
+# Задаём порядок и группы по старой нумерации:
+# Сообщённые Агрегейту: 2, 3, 4, 6, 7, 9
+# Новые баги: 1, 5, 8, 10, 11, 13, 16, 17
+order_and_groups = [
+    (2, "Сообщённые Агрегейту"),
+    (3, "Сообщённые Агрегейту"),
+    (4, "Сообщённые Агрегейту"),
+    (6, "Сообщённые Агрегейту"),
+    (7, "Сообщённые Агрегейту"),
+    (9, "Сообщённые Агрегейту"),
+    (1, "Новые баги"),
+    (5, "Новые баги"),
+    (8, "Новые баги"),
+    (10, "Новые баги"),
+    (11, "Новые баги"),
+    (13, "Новые баги"),
+    (16, "Новые баги"),
+    (17, "Новые баги"),
+]
+case_map = {c['old_num']: c for c in filtered}
+ordered = []
+for old_num, group in order_and_groups:
+    if old_num in case_map:
+        case_map[old_num]['group'] = group
+        ordered.append(case_map[old_num])
+
+# Перенумеровываем сквозной нумерацией
+for i, c in enumerate(ordered, start=1):
     c['new_num'] = i
 
 # Статусы по кейсам
@@ -51,10 +77,12 @@ def get_severity(body_md):
     m = re.search(r'\*\*Серьёзность:\*\*\s*(\w+)', body_md)
     return m.group(1) if m else "Medium"
 
-for c in filtered:
+for c in ordered:
     c['severity'] = get_severity(c['body_md'])
     c['status'] = statuses.get(c['old_num'], "Подтверждён")
-    c['group'] = "Основные" if c['new_num'] <= 11 else "Дополнительные"
+
+filtered = ordered
+for c in filtered:
     # Убираем строки серьёзности и типа из тела, т.к. они уже в meta
     c['body_md'] = re.sub(r'\*\*Серьёзность:\*\*\s*\w+\s*\n', '', c['body_md'])
     c['body_md'] = re.sub(r'\*\*Тип:\*\*\s*[^\n]+\s*\n', '', c['body_md'])
@@ -77,7 +105,7 @@ for c in filtered:
 # Конвертируем тела кейсов в HTML
 md = markdown.Markdown(extensions=['fenced_code', 'tables'])
 
-sections_html = {"Основные": [], "Дополнительные": []}
+sections_html = {"Сообщённые Агрегейту": [], "Новые баги": []}
 for c in filtered:
     # Конвертируем body
     body_html = md.convert(c['body_md'])
@@ -104,10 +132,10 @@ summary_table = '''<table class="summary-table">
 </tbody></table>'''
 
 body_html = (
-    '<h2 class="section-title" id="section-основные">Основные</h2>\n'
-    + "\n".join(sections_html["Основные"])
-    + '\n<h2 class="section-title" id="section-дополнительные">Дополнительные</h2>\n'
-    + "\n".join(sections_html["Дополнительные"])
+    '<h2 class="section-title" id="section-сообщённые">Сообщённые Агрегейту</h2>\n'
+    + "\n".join(sections_html["Сообщённые Агрегейту"])
+    + '\n<h2 class="section-title" id="section-новые">Новые баги</h2>\n'
+    + "\n".join(sections_html["Новые баги"])
 )
 
 final_html = f'''<!DOCTYPE html>
