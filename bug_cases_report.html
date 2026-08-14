@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Отчёт по баг-кейсам RatioT SCADA</title>
+<style>
+:root { --text:#1f2328; --muted:#59636e; --border:#d1d9e0; --bg:#f6f8fa; --accent:#0969da; --danger:#cf222e; --warn:#9a6700; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); line-height: 1.55; margin: 0; padding: 0; background:#fff; }
+.container { max-width: 980px; margin: 0 auto; padding: 32px 24px; }
+header { border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; }
+header h1 { font-size: 1.8rem; margin: 0 0 12px; }
+.pdf-button { display: inline-block; padding: 12px 24px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 1.05rem; }
+.pdf-button:hover { background: #0550ae; }
+.summary-table { width: 100%; border-collapse: collapse; margin: 16px 0 32px; font-size: 0.95rem; }
+.summary-table th, .summary-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+.summary-table th { background: var(--bg); font-weight: 600; }
+.summary-table tr:nth-child(even) { background: #fafafa; }
+.summary-table a { color: var(--text); text-decoration: none; }
+.summary-table a:hover { text-decoration: underline; color: var(--accent); }
+.group-tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.82rem; font-weight: 600; }
+.g-submitted { background:#ddf4ff; color:#0969da; }
+.g-new { background:#fff8c5; color:#9a6700; }
+.g-extra { background:#fbefff; color:#8250df; }
+.g-excluded { background:#ffebe9; color:#cf222e; }
+.section-title { margin-top: 40px; padding-bottom: 8px; border-bottom: 2px solid var(--border); font-size: 1.4rem; }
+.case { margin: 28px 0; padding: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+.case h3 { margin-top: 0; font-size: 1.2rem; color: var(--text); }
+.case h4 { font-size: 1rem; color: var(--muted); margin: 16px 0 6px; text-transform: uppercase; letter-spacing: 0.02em; }
+.case .meta { margin: 4px 0 12px; color: var(--muted); font-size: 0.95rem; }
+.case .severity { font-weight: 600; margin-right: 16px; }
+.severity-critical { color: #cf222e; }
+.severity-high { color: #cf222e; }
+.severity-medium { color: #9a6700; }
+.severity-low { color: #59636e; }
+.case p, .case li { margin: 6px 0; }
+.case ul, .case ol { margin: 6px 0; padding-left: 22px; }
+.case img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; margin: 6px 0; }
+.case code { background: var(--bg); padding: 2px 4px; border-radius: 3px; font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, monospace; font-size: 0.9em; }
+.case pre { background: var(--bg); padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.9em; }
+.case blockquote { margin: 8px 0; padding: 8px 14px; border-left: 4px solid var(--accent); background: var(--bg); color: var(--text); }
+.case blockquote p { margin: 0; }
+@media print {
+  .pdf-button { display: none; }
+  body { font-size: 10pt; }
+  .case { break-inside: avoid; border: none; padding: 8px 0; }
+  .case img { max-height: 60vh; }
+  .summary-table { font-size: 9pt; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09</h1>
+<a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
+</header>
+<h2>Сводная таблица</h2>
+<table class="summary-table">
+<thead><tr><th>№</th><th>Название кейса</th><th>Группа</th><th>Примечание</th></tr></thead>
+<tbody>
+<tr><td>2</td><td><a href="#case-2">Режимы лицензирования free / trial не описаны в документации</a></td><td><span class="group-tag g-submitted">Предъявленные</span></td><td>Тикет в системе АГ</td></tr>
+<tr><td>3</td><td><a href="#case-3">Инсталлятор запрашивает перезапись собственных файлов</a></td><td><span class="group-tag g-submitted">Предъявленные</span></td><td></td></tr>
+<tr><td>4</td><td><a href="#case-4">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td><span class="group-tag g-submitted">Предъявленные</span></td><td></td></tr>
+<tr><td>6</td><td><a href="#case-6">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td><span class="group-tag g-submitted">Предъявленные</span></td><td>Тикет в системе АГ</td></tr>
+<tr><td>7</td><td><a href="#case-7">Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</a></td><td><span class="group-tag g-submitted">Предъявленные</span></td><td>Тикет в системе АГ</td></tr>
+<tr><td>9</td><td><a href="#case-9">Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</a></td><td><span class="group-tag g-submitted">Предъявленные</span></td><td></td></tr>
+<tr><td>12</td><td><a href="#case-12">В дистрибутиве остался логотип и брендинг AggreGate</a></td><td><span class="group-tag g-submitted">Предъявленные</span></td><td></td></tr>
+<tr><td>1</td><td><a href="#case-1">Ошибки создания ресурсов при первом запуске сервера</a></td><td><span class="group-tag g-new">Новые</span></td><td>Оставлен в отчёте, вес снижен со среднего на незначительный</td></tr>
+<tr><td>5</td><td><a href="#case-5">Настройки колонок компонента eventLog сбрасываются при поступлении событий</a></td><td><span class="group-tag g-new">Новые</span></td><td></td></tr>
+<tr><td>8</td><td><a href="#case-8">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td><span class="group-tag g-new">Новые</span></td><td></td></tr>
+<tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td><span class="group-tag g-new">Новые</span></td><td></td></tr>
+<tr><td>11</td><td><a href="#case-11">Вёрстка страницы 404</a></td><td><span class="group-tag g-new">Новые</span></td><td></td></tr>
+<tr><td>13</td><td><a href="#case-13">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td><span class="group-tag g-extra">Дополнительно</span></td><td></td></tr>
+<tr><td>16</td><td><a href="#case-16">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td><span class="group-tag g-extra">Дополнительно</span></td><td></td></tr>
+<tr><td>17</td><td><a href="#case-17">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td><span class="group-tag g-extra">Дополнительно</span></td><td></td></tr>
+<tr><td>14</td><td>Несуществующие страницы `/web/*` возвращают JSON вместо HTML 404</td><td><span class="group-tag g-excluded">Исключены</span></td><td>Не входит в отчёт</td></tr>
+<tr><td>15</td><td>Ссылки на справку из веб-клиента ведут на маркетинговый сайт вместо документации</td><td><span class="group-tag g-excluded">Исключены</span></td><td>Пока исключён: ссылки ведут на сайт буфлаба</td></tr>
+</tbody></table>
+<h2 class="section-title" id="section-предъявленные">Предъявленные Объединению</h2>
+<section class="case severity-medium" id="case-2">
+<h3>Кейс 2. Режимы лицензирования free / trial не описаны в документации</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Тип:</strong> Документация / лицензирование</span></p>
+<h4>Описание</h4>
+<p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами на <strong>этапе установки</strong>:</p>
+<ul>
+<li><strong>Пробная лицензия (30 дней)</strong>
+</li>
+<li><strong>Бесплатная лицензия на 100 тэгов</strong>
+</li>
+</ul>
+<blockquote><strong>Важно:</strong> режим с ограничением в 100 тегов устанавливается исключительно через инсталлятор при первой установке. В самом веб-интерфейсе RatioT SCADA и в документации нет управления или описания этого режима.</blockquote>
+<p>Однако в официальной документации (<code>licensing.htm</code>, <code>ls_license_server.htm</code>, <code>ls_config_license_server.htm</code>, <code>ls_requirements.htm</code>) описаны только именные лицензии, привязанные к инсталляции, и централизованный сервер лицензий. Пробный и бесплатный режимы не упоминаются.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Запустить установку <code>RatioT SCADA 6.41.09</code>.
+</li>
+<li>На шаге «Выберите тип лицензии» увидеть два варианта: «Пробная лицензия (30 дней)» и «Бесплатная лицензия на 100 тэгов».
+</li>
+<li>Открыть <code>https://localhost:8443/static/docs/licensing.htm</code>.
+</li>
+<li>Убедиться, что раздел описывает только именные лицензии и активационный ключ.
+</li>
+<li>Проверить <code>ls_license_server.htm</code> и <code>ls_config_license_server.htm</code> — там также нет описания free/trial.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>Документация должна содержать раздел о бесплатном и пробном режимах: какие ограничения, как переключаться, что происходит по истечении срока/при превышении лимита тегов, можно ли использовать в продакшене.</p>
+
+<h4>Фактический результат</h4>
+<p>Пользователь видит в инсталляторе режимы, о которых в документации ни слова. Непонятно:</p>
+<ul>
+<li>чем отличаются free и trial;
+</li>
+<li>что будет после 30 дней или после 100 тегов;
+</li>
+<li>можно ли перейти с free/trial на полную лицензию без переустановки.
+</li>
+</ul>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/install_overwrite_1.png" alt="диалог выбора лицензии в инсталляторе" loading="lazy"> — диалог выбора лицензии в инсталляторе
+</li>
+</ul>
+
+<h4>Ссылки на документацию</h4>
+<ul>
+<li><code>admin/custom/templates/docs/licensing.htm</code>
+</li>
+<li><code>admin/custom/templates/docs/ls_license_server.htm</code>
+</li>
+<li><code>admin/custom/templates/docs/ls_config_license_server.htm</code>
+</li>
+</ul>
+
+</section>
+<section class="case severity-low" id="case-3">
+<h3>Кейс 3. Инсталлятор запрашивает перезапись собственных файлов</h3>
+<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Тип:</strong> Установка / UX</span></p>
+<h4>Описание</h4>
+<p>При установке RatioT SCADA 6.41.09 инсталлятор выдаёт диалог «Файл уже существует. Вы хотите, чтобы программа установки заменила его?» для файлов внутри <code>C:\Program Files\RatioTScada\admin\custom\templates\docs_ru\wizard_1.png</code> и <code>wizard_2.png</code>. Это создаёт впечатление, что установка повторяется поверх существующей, или что инсталлятор не может корректно управлять своими же файлами.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Запустить установку RatioT SCADA 6.41.09.
+</li>
+<li>Пройти шаги до копирования файлов.
+</li>
+<li>Дождаться диалога с предложением заменить <code>docs_ru\wizard_1.png</code>.
+</li>
+<li>Нажать «Да для всех».
+</li>
+<li>Через некоторое время появится аналогичный диалог для <code>docs_ru\wizard_2.png</code>.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>На чистой установке инсталлятор не должен спрашивать о перезаписи собственных файлов. Если это обновление — должен быть единый диалог «Заменить все» или тихая перезапись без лишних подтверждений.</p>
+
+<h4>Фактический результат</h4>
+<p>Пользователь вынужден несколько раз вручную подтверждать перезапись файлов, которые только что были скопированы установщиком. Это выглядит как ошибка упаковки инсталлятора: одни и те же файлы попадают в разные компоненты/директории и конфликтуют при распаковке.</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/install_overwrite_2.png" alt="диалог перезаписи <code>wizard_1.png</code>" loading="lazy"> — диалог перезаписи <code>wizard_1.png</code>
+</li>
+<li><img src="tests/screenshots/install_overwrite_3.png" alt="диалог перезаписи <code>wizard_2.png</code>" loading="lazy"> — диалог перезаписи <code>wizard_2.png</code>
+</li>
+</ul>
+
+<h4>Примечание</h4>
+<p>Скриншоты предоставлены в файле <code>incoming/скрины.docx</code>.</p>
+
+</section>
+<section class="case severity-high" id="case-4">
+<h3>Кейс 4. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h3>
+<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Тип:</strong> Импорт / экспорт данных</span></p>
+<h4>Описание</h4>
+<p>При создании пустого Modbus-устройства и импорте регистров из ранее экспортированных файлов CSV/XML теряются имя, описание, адрес, размер и другие поля. Импорт того же файла в формате <code>.tbl</code> работает корректно. Кроме того, окно экспорта не содержит кнопки закрытия — чтобы выйти, пользователь вынужден что-то экспортировать. При экспорте регистров с русскими именами/описаниями в CSV в полученном файле русский текст отображается кракозябрами.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть <code>https://localhost:8443</code> и войти под <code>admin / admin</code>.
+</li>
+<li>Перейти в дереве: <strong>Устройства → modbus → Конфигурация → Регистры устройства</strong>.
+</li>
+<li>Создать несколько регистров с именами и описаниями на русском языке.
+</li>
+<li>Нажать кнопку экспорта и сохранить файл в форматах <code>.csv</code>, <code>.xml</code>, <code>.tbl</code>.
+</li>
+<li>Удалить все регистры или создать новое пустое Modbus-устройство.
+</li>
+<li>Импортировать сохранённые <code>.csv</code> и <code>.xml</code>.
+</li>
+<li>Сравнить заполненность полей с исходными данными и с импортом <code>.tbl</code>.
+</li>
+<li>Открыть экспортированный <code>.csv</code> в Excel/Notepad++ и проверить кодировку русских строк.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<ul>
+<li>CSV и XML импортируют все поля аналогично <code>.tbl</code>.
+</li>
+<li>Диалог экспорта можно закрыть без выполнения экспорта.
+</li>
+<li>CSV-файл содержит корректную UTF-8 / Windows-1251 кодировку для русских символов.
+</li>
+</ul>
+
+<h4>Фактический результат</h4>
+<ul>
+<li>После импорта CSV/XML поля <strong>Имя</strong>, <strong>Описание</strong>, <strong>Десятичный адрес</strong>, <strong>Размер</strong> остаются пустыми.
+</li>
+<li>Диалог экспорта нельзя закрыть без экспорта.
+</li>
+<li>CSV-файл содержит нечитаемые символы вместо русского текста.
+</li>
+</ul>
+
+<h4>Уточнение по лицензированию</h4>
+<p>При проверке на текущей trial-лицензии (<code>Trial License</code>, 0/100 устройств) в диалоге добавления устройства драйвер <strong>Modbus</strong> отсутствует. В списке доступны IEC-104, Агент, BACnet, DNP3 и др., но Modbus нет. Это не позволяет лично воспроизвести импорт/экспорт регистров в данном контуре. Скриншоты самого бага (пустые поля, кодировка) предоставлены коллегами с полноценной лицензией.</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/modbus_import_empty.png" alt="пустое устройство modbus перед импортом" loading="lazy"> — пустое устройство modbus перед импортом
+</li>
+<li><img src="tests/screenshots/modbus_import_csv_empty_fields.png" alt="после импорта CSV: пустые имена/описания и адреса" loading="lazy"> — после импорта CSV: пустые имена/описания и адреса
+</li>
+<li><img src="tests/screenshots/modbus_import_tbl_ok.png" alt="после импорта TBL: данные на месте" loading="lazy"> — после импорта TBL: данные на месте
+</li>
+<li><img src="tests/screenshots/modbus_export_dialog.png" alt="диалог экспорта без кнопки закрыть" loading="lazy"> — диалог экспорта без кнопки закрыть
+</li>
+<li><img src="tests/screenshots/modbus_csv_encoding.png" alt="CSV с искажённой кодировкой" loading="lazy"> — CSV с искажённой кодировкой
+</li>
+<li><img src="tests/screenshots/case8_modbus_empty.png" alt="драйвер Modbus отсутствует в trial-версии" loading="lazy"> — драйвер Modbus отсутствует в списке доступных драйверов (trial-лицензия)
+</li>
+</ul>
+
+<h4>Источник</h4>
+<p>Материалы коллег из <code>incoming/Баги с импортом и экспортом Modbus регистров в форматах csv и xml.docx</code>.</p>
+
+</section>
+<section class="case severity-medium" id="case-6">
+<h3>Кейс 6. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Тип:</strong> UX / дерево тегов / документация</span></p>
+<h4>Описание</h4>
+<p>На вебинаре по RatioT SCADA 6.4 озвучивалось, что при привязке тегов цифрового двойника в дереве тегов источником можно выбирать не только устройство, но и абсолютную модель. В текущей версии такой возможности нет, а в документации описание отсутствует.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть <strong>Дерево тегов</strong>.
+</li>
+<li>Попытаться настроить источник для тега цифрового двойника.
+</li>
+<li>В диалоге выбора источника проверить список доступных вариантов.
+</li>
+</ol>
+
+<h4>Уточнение по лицензированию</h4>
+<p>При проверке на trial-версии раздел <strong>Дерево тегов</strong> в системном дереве и в поиске отсутствует. Это не позволяет лично воспроизвести диалог выбора источника в данном контуре. Скриншоты с отсутствием абсолютной модели предоставлены коллегами с полноценной лицензией.</p>
+
+<h4>Ожидаемый результат</h4>
+<ul>
+<li>Дерево тегов доступно в лицензии.
+</li>
+<li>В диалоге выбора источника доступен выбор абсолютной модели.
+</li>
+<li>Функция описана в документации.
+</li>
+</ul>
+
+<h4>Фактический результат</h4>
+<ul>
+<li>В trial-версии раздел &quot;Дерево тегов&quot; отсутствует.
+</li>
+<li>Скриншоты коллег показывают, что выбор источника ограничен устройствами; абсолютная модель не доступна.
+</li>
+</ul>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/tagtree_source_empty.png" alt="диалог выбора источника, список пуст/отсутствует абсолютная модель" loading="lazy"> — диалог выбора источника, список пуст/отсутствует абсолютная модель
+</li>
+<li><img src="tests/screenshots/case10_tag_tree.png" alt="поиск &quot;тег&quot; в системном дереве не находит раздел &quot;Дерево тегов&quot;" loading="lazy"> — поиск &quot;тег&quot; не находит раздел &quot;Дерево тегов&quot; в trial-версии
+</li>
+</ul>
+
+<h4>Источник</h4>
+<p>Тикет <code>ASD-6418</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
+
+</section>
+<section class="case severity-critical" id="case-7">
+<h3>Кейс 7. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h3>
+<p class="meta"><span class="severity severity-critical"><strong>Серьёзность:</strong> Critical</span> <span class="type"><strong>Тип:</strong> Хранилище / конфигурация сервера</span></p>
+<h4>Описание</h4>
+<p>В настройках сервера, раздел <strong>Хранилище → База данных</strong>, пункт <strong>Хранилище событий</strong> по умолчанию отключён. Если выбрать <strong>NoSQL-хранилище</strong>, сервер уходит в перезапуск и больше не восстанавливается. Утилита <code>configurator</code> для версии 6.41 отсутствует, что не позволяет восстановить конфигурацию.</p>
+
+<h4>Воспроизведение</h4>
+<blockquote>⚠️ Выполнять только на тестовом контуре с возможностью переустановки.</blockquote>
+<ol>
+<li>Открыть <strong>Настройки → Хранилище → База данных</strong>.
+</li>
+<li>Для пункта <strong>Хранилище событий</strong> выбрать <strong>NoSQL-хранилище</strong>.
+</li>
+<li>Сохранить конфигурацию.
+</li>
+<li>Наблюдать перезапуск сервера.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>Сервер перезапускается и продолжает работать с выбранным хранилищем; либо операция блокируется с понятным сообщением о неподдерживаемой конфигурации.</p>
+
+<h4>Фактический результат</h4>
+<p>Сервер не восстанавливается; конфигурация может быть потеряна; отсутствует утилита для ручного восстановления.</p>
+
+<h4>Уточнение</h4>
+<p>При проверке на trial-версии вкладка <strong>Хранилище → База данных</strong> доступна, и в ней видно, что <strong>Хранилище событий</strong> по умолчанию <strong>Отключено</strong>. Рядом расположен выпадающий список с вариантом <strong>NoSQL хранилище</strong>. Само переключение не производилось, чтобы не вывести сервер из строя.</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/storage_nosql_dropdown.png" alt="вкладка «Хранилище» с выпадающим списком хранилищ" loading="lazy"> — скриншот коллег: выпадающий список хранилищ
+</li>
+<li><img src="tests/screenshots/case11_storage.png" alt="вкладка Хранилище в trial-версии" loading="lazy"> — вкладка <strong>Хранилище → База данных</strong>, &quot;Хранилище событий&quot; = &quot;Отключено&quot;
+</li>
+</ul>
+
+<h4>Источник</h4>
+<p>Тикет <code>ASD-6392</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
+
+</section>
+<section class="case severity-high" id="case-9">
+<h3>Кейс 9. Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</h3>
+<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Тип:</strong> Установка / лицензирование</span></p>
+<h4>Описание</h4>
+<p>При установке RatioT SCADA в папку, отличную от предыдущей, инсталлятор всё равно запрашивает согласие на копирование/перезапись файлов. После замены файла лицензии в новой папке программа продолжает сообщать об отсутствии лицензии. Служба сервера запускается и перезапускается, но веб-сервер не отвечает. В итоге требуется полное удаление всех версий; при новой установке генерируется новый activation key, и старая лицензия не принимается.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Установить RatioT SCADA в папку A (например, <code>C:\Program Files\RatioTScada</code>).
+</li>
+<li>Получить и сохранить файл лицензии для activation key A.
+</li>
+<li>Установить ту же или новую версию RatioT SCADA в папку B (например, другой диск или подпапку).
+</li>
+<li>На шаге копирования согласиться с перезаписью/копированием файлов.
+</li>
+<li>Подменить файл лицензии в папке B файлом от папки A.
+</li>
+<li>Запустить сервер.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<ul>
+<li>Инсталлятор корректно определяет новую директорию и не запрашивает перезапись.
+</li>
+<li>Замена файла лицензии приводит к её активации, либо в интерфейсе есть понятная инструкция, как обновить ключ.
+</li>
+<li>Веб-сервер становится доступен после запуска службы.
+</li>
+</ul>
+
+<h4>Фактический результат</h4>
+<ul>
+<li>Инсталлятор требует подтверждения копирования даже при разных папках.
+</li>
+<li>Лицензия не активируется; сервер не отвечает по вебу.
+</li>
+<li>После удаления и переустановки генерируется новый activation key, и старая лицензия не подходит.
+</li>
+</ul>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/case13_server_info.png" alt="страница «Информация о сервере»" loading="lazy"> — в веб-интерфейсе открыта страница <strong>Информация о сервере</strong>
+</li>
+<li><img src="tests/screenshots/case13_license_info.png" alt="лицензионная информация: Trial License, 30 дней, 100 устройств" loading="lazy"> — вкладка <strong>Лицензионная информация</strong> показывает <code>Trial License</code>, оставшееся время 29 дней, максимальное количество устройств 100
+</li>
+</ul>
+
+<h4>Источник</h4>
+<p>Переписка <code>Re: Минимальные/рекомендуемые системные требования к RatioT SCADA.msg</code>.</p>
+
+</section>
+<section class="case severity-medium" id="case-12">
+<h3>Кейс 12. В дистрибутиве остался логотип и брендинг AggreGate</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Тип:</strong> Брендинг / UI / документация</span></p>
+<h4>Описание</h4>
+<p>Продукт позиционируется и поставляется как <strong>DKC RatioT SCADA</strong>: логотип DKC на странице логина, заголовки и документация именуют продукт <strong>RatioT</strong>. Однако в дистрибутиве остались графические и текстовые артефакты предыдущего бренда <strong>AggreGate</strong>, включая полноценный логотип «AggreGate Control Center».</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть каталог установки <code>C:\Program Files\RatioTScada\admin\web\static\images\</code>.
+</li>
+<li>Найти файл <code>cc_aggregate_logo_420.svg</code>.
+</li>
+<li>Открыть его в браузере или текстовом редакторе — убедиться, что это логотип <strong>AggreGate Control Center</strong>.
+</li>
+<li>Дополнительно проверить:
+<ul>
+<li><code>admin/web/static/js/res_ru.js</code> / <code>res_en.js</code> — строки <code>AggreGate</code>, <code>AggreGate Client</code>, <code>AggreGate Server</code>, <code>aggregate.digital</code>.
+</li>
+<li><code>admin/web/static/js/aggregate-ts-sdk.d.ts</code> и <code>agg-app-component-common-containers-login-page.js</code> — имена файлов.
+</li>
+<li><code>admin/web/WEB-INF/classes/.../exception/AggreGateAccountLockedException.kt</code> — имя исключения.
+</li>
+</ul>
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<ul>
+<li>В дистрибутиве отсутствуют логотипы, имена файлов, строки интерфейса и исключения, содержащие бренд <strong>AggreGate</strong>.
+</li>
+<li>Вся документация и ссылки поддержки ведут на ресурсы <strong>DKC / RatioT</strong>.
+</li>
+</ul>
+
+<h4>Фактический результат</h4>
+<ul>
+<li>В <code>admin/web/static/images/</code> присутствует файл <code>cc_aggregate_logo_420.svg</code> — логотип <strong>AggreGate Control Center</strong>.
+</li>
+<li>В пользовательских ресурсах Web UI остались строки и ссылки на <code>aggregate.digital</code>.
+</li>
+<li>В именах файлов и в исходном коде сервера встречается <code>AggreGate</code> / <code>aggregate</code>.
+</li>
+</ul>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/case17_aggregate_logo.png" alt="логотип AggreGate Control Center в файлах дистрибутива" loading="lazy"> — файл <code>cc_aggregate_logo_420.svg</code>, найденный в <code>admin/web/static/images/</code>
+</li>
+</ul>
+
+<h4>Источник</h4>
+<ul>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\images\cc_aggregate_logo_420.svg</code>
+</li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js</code>, <code>res_en.js</code>
+</li>
+<li><code>C:\Program Files\RatioTScada\admin\web\static\js\aggregate-ts-sdk.d.ts</code>
+</li>
+<li><code>C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\...\AggreGateAccountLockedException.kt</code>
+</li>
+<li>Встроенная документация: <code>admin/custom/templates/docs/*.htm</code>
+</li>
+</ul>
+
+</section>
+<h2 class="section-title" id="section-новые">Новые баги</h2>
+<section class="case severity-low" id="case-1">
+<h3>Кейс 1. Ошибки создания ресурсов при первом запуске сервера</h3>
+<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low (незначительный)</span> <span class="type"><strong>Тип:</strong> Ошибка инициализации</span></p>
+<h4>Описание</h4>
+<p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Установить RatioT SCADA 6.41.09 на чистую Windows.
+</li>
+<li>Запустить <code>C:\Program Files\RatioTScada\RatioT_server_console.exe</code>.
+</li>
+<li>Дождаться строки <code>Starting web server</code>.
+</li>
+<li>Открыть <code>C:\Program Files\RatioTScada\logs\server.log</code>.
+</li>
+<li>Найти строки с <code>ERROR ag.context</code>.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>Первый запуск завершается без ERROR/FATAL.</p>
+
+<h4>Фактический результат</h4>
+<pre><code>13.08.2026 12:47:25,471 ERROR ag.context
+  Error creating resource 'users.admin.models.avatarManagement':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
+
+13.08.2026 12:47:25,733 ERROR ag.context
+  Error creating resource 'users.admin.reports.maintenance':
+  Контекст недоступен: users.admin.reports
+
+13.08.2026 12:47:26,509 ERROR ag.context
+  Error creating resource 'users.admin.models.workflowModel':
+  Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null</code></pre>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/case1_server_log_errors.png" alt="ERROR в server.log при первом запуске" loading="lazy"> — фрагмент <code>server.log</code> с ошибками инициализации ресурсов
+</li>
+<li>Лог-файл: см. <code>C:\Program Files\RatioTScada\logs\server.log</code>
+</li>
+<li>Автотест фиксирует проблему: <code>tests/test_ui_ux.py</code> → <code>test_log_errors()</code>
+</li>
+</ul>
+
+</section>
+<section class="case severity-high" id="case-5">
+<h3>Кейс 5. Настройки колонок компонента eventLog сбрасываются при поступлении событий</h3>
+<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Тип:</strong> Web UI / дашборды / компонент eventLog</span></p>
+<h4>Описание</h4>
+<p>В дашборде добавлен элемент <strong>Журнал событий (eventLog)</strong>. В расширенных настройках на вкладке <strong>Колонки</strong> включена опция «Ширина колонок настроена вручную», задан порядок колонок, их ширина и видимость. Настройки применяются, пока событий нет; как только поступает событие, таблица возвращается к дефолтному виду и отображаются все колонки, включая скрытые.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть дашборд (например, <code>АВР.Главный экран</code>).
+</li>
+<li>Добавить или отредактировать компонент <strong>Журнал событий</strong>.
+</li>
+<li>В разделе <strong>Расширенные → Колонки</strong> включить «Ширина колонок настроена вручную».
+</li>
+<li>Скрыть колонки <strong>Подтверждение</strong> и <strong>Обогащение</strong>, задать порядок и ширину остальных.
+</li>
+<li>Сохранить дашборд.
+</li>
+<li>Дождаться/сгенерировать событие (например, переключение режима работы).
+</li>
+<li>Убедиться, что таблица вернулась к стандартному набору колонок.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>Настроенные колонки сохраняются независимо от наличия событий.</p>
+
+<h4>Фактический результат</h4>
+<p>При поступлении события отображаются все колонки, настройки не применены.</p>
+
+<h4>Уточнение по лицензированию</h4>
+<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен (нет кнопки/раздела для добавления/редактирования компонентов), поэтому лично воспроизвести настройку колонок eventLog в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/eventlog_columns_editor.png" alt="редактор дашборда с выделенным eventLog" loading="lazy"> — редактор дашборда с выделенным eventLog
+</li>
+<li><img src="tests/screenshots/eventlog_columns_nodata.png" alt="настройки колонок без данных" loading="lazy"> — настройки колонок без данных
+</li>
+<li><img src="tests/screenshots/eventlog_columns_list.png" alt="список полей eventLog" loading="lazy"> — список полей eventLog
+</li>
+<li><img src="tests/screenshots/eventlog_with_event.png" alt="журнал с событием: видны все колонки" loading="lazy"> — журнал с событием: видны все колонки
+</li>
+<li><img src="tests/screenshots/eventlog_empty_after_event.png" alt="после события настройки не восстановились" loading="lazy"> — после события настройки не восстановились
+</li>
+</ul>
+
+<h4>Источник</h4>
+<p>Тикет <code>ASD-6406</code> из <code>incoming/Тикеты в АГ от ДИР.docx</code>.</p>
+
+</section>
+<section class="case severity-medium" id="case-8">
+<h3>Кейс 8. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Тип:</strong> Web UI / HTML-сниппеты / визуализация</span></p>
+<h4>Описание</h4>
+<p>При добавлении на дашборд компонента <strong>HTML-сниппет</strong> с произвольным HTML/CSS происходит сдвиг всего layout дашборда вниз. После обновления страницы (F5) дашборд возвращается к стандартному виду, но при повторном открытии редактора сдвиг появляется снова.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть редактор дашборда.
+</li>
+<li>Добавить компонент <strong>HTML-сниппет</strong>.
+</li>
+<li>Вставить код, содержащий <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;body&gt;</code> и стили.
+</li>
+<li>Сохранить дашборд.
+</li>
+<li>Перейти к визуализации — убедиться, что элементы дашборда съехали ниже.
+</li>
+<li>Обновить страницу — layout вернулся к норме.
+</li>
+<li>Снова открыть редактор — сдвиг воспроизводится.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>HTML-сниппет отображается внутри выделенной области без влияния на остальную вёрстку дашборда. Состояние сохраняется после обновления страницы.</p>
+
+<h4>Фактический результат</h4>
+<p>Визуализация дашборда сдвигается вниз; после F5 временно восстанавливается.</p>
+
+<h4>Уточнение по лицензированию</h4>
+<p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен: нет кнопки &quot;Редактировать&quot; для существующих дашбордов и нет возможности добавить HTML-сниппет. Попытки открыть URL <code>/.../edit</code> приводят к странице 404 (см. кейс 16). Поэтому лично воспроизвести сдвиг layout в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/html_snippet_editor.png" alt="редактор с добавленным HTML-сниппетом" loading="lazy"> — редактор с добавленным HTML-сниппетом
+</li>
+<li><img src="tests/screenshots/html_snippet_code.png" alt="фрагмент вставленного HTML/CSS" loading="lazy"> — фрагмент вставленного HTML/CSS
+</li>
+<li><img src="tests/screenshots/html_snippet_layout_shift.png" alt="дашборд съехал вниз" loading="lazy"> — дашборд съехал вниз
+</li>
+<li><img src="tests/screenshots/html_snippet_dashboard.png" alt="визуализация после обновления страницы" loading="lazy"> — визуализация после обновления страницы
+</li>
+<li><img src="tests/screenshots/html_snippet_game_editor.png" alt="второй пример: HTML-игра в редакторе" loading="lazy"> — второй пример: HTML-игра в редакторе
+</li>
+<li><img src="tests/screenshots/html_snippet_game_runtime.png" alt="та же игра в режиме просмотра" loading="lazy"> — та же игра в режиме просмотра
+</li>
+</ul>
+
+<h4>Источник</h4>
+<p><code>incoming/отчет о проблеме с html.docx</code>.</p>
+
+</section>
+<section class="case severity-high" id="case-10">
+<h3>Кейс 10. Локальный магазин приложений отсутствует в веб-клиенте</h3>
+<p class="meta"><span class="severity severity-high"><strong>Серьёзность:</strong> High</span> <span class="type"><strong>Тип:</strong> Установка / плагины / UX</span></p>
+<h4>Описание</h4>
+<p>В дистрибутиве RatioT SCADA присутствует локальный файл магазина приложений <code>C:\Program Files\RatioTScada\store\store.xml</code>. Документация (<code>ls_store.htm</code>) описывает магазин приложений как способ распространения модулей и решений, а также указывает, что в системном дереве должен быть доступен плагин <strong>Магазин</strong> под разделом <strong>Драйверы и расширения</strong>. Однако в веб-клиенте отсутствует какой-либо раздел или плагин «Магазин приложений». Если пользователь удалит приложение/модуль, восстановить его из локального магазина через веб-интерфейс невозможно.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Установить RatioT SCADA 6.41.09.
+</li>
+<li>Убедиться, что файл <code>C:\Program Files\RatioTScada\store\store.xml</code> существует.
+</li>
+<li>Открыть <code>https://localhost:8443</code> и войти под <code>admin / admin</code>.
+</li>
+<li>В системном дереве слева раскрыть <strong>Драйверы и расширения</strong>.
+</li>
+<li>В поле поиска ввести <strong>Магазин</strong>.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<ul>
+<li>В системном дереве доступен плагин <strong>Магазин приложений</strong> (Store Client).
+</li>
+<li>Через него можно просматривать, устанавливать и восстанавливать модули из локального или публичного магазина.
+</li>
+</ul>
+
+<h4>Фактический результат</h4>
+<ul>
+<li>В системном дереве нет плагина <strong>Магазин приложений</strong>.
+</li>
+<li>Поиск по слову <strong>Магазин</strong> не возвращает результатов.
+</li>
+<li>Локальный <code>store.xml</code> существует, но недоступен через UI.
+</li>
+<li>Удалённые приложения/модули нельзя восстановить через веб-клиент.
+</li>
+</ul>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/store_tree_search.png" alt="поиск &quot;Магазин&quot; в системном дереве не находит раздел" loading="lazy"> — поиск &quot;Магазин&quot; в дереве не находит раздел
+</li>
+</ul>
+
+<h4>Пруф из документации</h4>
+<p>В <code>admin/custom/templates/docs/ls_store.htm</code> сказано:</p>
+<blockquote>«Магазин приложений — это особый RatioT Server, на котором работает модуль &quot;marketplace&quot; (Store Server), и который предоставляет решения и модули для других серверов RatioT SCADA. Другие экземпляры RatioT Server могут подключиться к Магазину и загрузить предлагаемые решения и модули при помощи модуля Store Client. ... Функционал Магазина обеспечивается плагином <strong>Store Client</strong>, который скачивает решения и модули с серверов Магазина приложений...»</blockquote>
+<p>То есть документация декларирует наличие плагина <strong>Store Client</strong> для загрузки/восстановления модулей, но в веб-клиенте он отсутствует.</p>
+
+<h4>Источник</h4>
+<ul>
+<li>Локальный файл: <code>C:\Program Files\RatioTScada\store\store.xml</code>
+</li>
+<li>Документация: <code>admin/custom/templates/docs/ls_store.htm</code>
+</li>
+</ul>
+
+</section>
+<section class="case severity-low" id="case-11">
+<h3>Кейс 11. Вёрстка страницы 404</h3>
+<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Тип:</strong> Web UI / вёрстка</span></p>
+<h4>Описание</h4>
+<p>При обращении к несуществующей странице (например, через внутреннюю навигацию SPA) отображается страница 404 с огромным логотипом DKC, который перекрывает центр экрана. Текст «404 — Страница не найдена» и ссылка «На главную» накладываются на красный круг логотипа, что делает сообщение трудночитаемым.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Войти в веб-интерфейс RatioT SCADA.
+</li>
+<li>Перейти по URL, который не существует (например, открыть несуществующий путь внутри SPA).
+</li>
+<li>Убедиться, что отображается страница 404 с логотипом DKC.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>Страница 404 содержит чёткое, центрированное сообщение об ошибке без перекрытия текстом логотипа. Логотип либо отсутствует, либо расположен так, чтобы не мешать чтению.</p>
+
+<h4>Фактический результат</h4>
+<p>Логотип DKC занимает большую часть экрана, а текст ошибки наложен на красный фон логотипа. Визуально выглядит некорректно.</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/store_docs.png" alt="страница 404 с перекрывающим логотипом" loading="lazy"> — страница 404, текст перекрыт логотипом DKC
+</li>
+</ul>
+
+</section>
+<h2 class="section-title" id="section-дополнительно">Дополнительно</h2>
+<section class="case severity-medium" id="case-13">
+<h3>Кейс 13. Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Тип:</strong> Web UI / навигация / локализация</span></p>
+<h4>Описание</h4>
+<p>В системном дереве веб-клиента присутствует раздел <strong>«Драйвера и расширения»</strong> (уже с грамматической ошибкой: правильно «Драйверы и расширения»). При его открытии справа загружается контейнер с тем же названием, но содержимое представляет собой корень системного дерева: <strong>Устройства</strong>, <strong>Группы устройств</strong>, <strong>Пользователи</strong>, <strong>Приложения</strong>, <strong>Модели</strong> и т.д. — то есть общий список ресурсов сервера, а не драйверы/плагины. Tooltip раздела на английском языке: <code>plugins (pluginsGlobalConf)</code>.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Войти в веб-клиент <code>https://localhost:8443</code> под <code>admin / admin</code>.
+</li>
+<li>В системном дереве слева найти и открыть раздел <strong>Драйвера и расширения</strong>.
+</li>
+<li>Обратить внимание на заголовок и содержимое правой панели.
+</li>
+<li>Навести курсор на раздел в дереве — появится tooltip.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<ul>
+<li>Раздел называется <strong>«Драйверы и расширения»</strong>.
+</li>
+<li>В правой панели отображаются установленные драйверы, плагины и расширения.
+</li>
+<li>Tooltip локализован на русский язык.
+</li>
+</ul>
+
+<h4>Фактический результат</h4>
+<ul>
+<li>Название раздела содержит ошибку: <strong>«Драйвера и расширения»</strong>.
+</li>
+<li>В контейнере отображаются корневые ресурсы сервера, а не драйверы/плагины.
+</li>
+<li>Tooltip содержит английский технический текст <code>plugins (pluginsGlobalConf)</code>.
+</li>
+</ul>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/smoke_06_drivers.png" alt="раздел Драйвера и расширения открывает корень системного дерева" loading="lazy"> — раздел открывает общий контейнер ресурсов, tooltip на английском
+</li>
+</ul>
+
+</section>
+<section class="case severity-low" id="case-16">
+<h3>Кейс 16. Вкладки «Информации о сервере» обрезаются и не переносятся</h3>
+<p class="meta"><span class="severity severity-low"><strong>Серьёзность:</strong> Low</span> <span class="type"><strong>Тип:</strong> Web UI / вёрстка</span></p>
+<h4>Описание</h4>
+<p>На странице <strong>Информация о сервере</strong> в правой части расположена строка вкладок: <strong>Сервер</strong>, <strong>Хранилище</strong>, <strong>Статистика контекстов</strong>, <strong>Статистика выражений</strong>, <strong>Статистика устройств</strong>, <strong>Лицензионная информация</strong>, <strong>Активные расширения</strong>, <strong>Установленные расширения</strong> и др. При стандартной ширине окна часть вкладок обрезается и не помещается в строку. Нет ни горизонтальной прокрутки, ни переноса вкладок, ни выпадающего меню «Ещё».</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Войти в веб-клиент.
+</li>
+<li>Открыть <strong>Информация о сервере</strong>.
+</li>
+<li>Обратить внимание на строку вкладок в правой части.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>Все вкладки доступны: переносятся на следующую строку, прокручиваются или сворачиваются в меню.</p>
+
+<h4>Фактический результат</h4>
+<p>Последние вкладки обрезаются (например, «Активные расширения» видно частично, «Установленные расширения» скрыта).</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/smoke_03_server_info.png" alt="обрезанные вкладки Информации о сервере" loading="lazy"> — вкладки не помещаются в строку
+</li>
+</ul>
+
+</section>
+<section class="case severity-medium" id="case-17">
+<h3>Кейс 17. Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Серьёзность:</strong> Medium</span> <span class="type"><strong>Тип:</strong> Web UI / навигация</span></p>
+<h4>Описание</h4>
+<p>В системном дереве веб-клиента раздел <strong>Пользователи</strong> при открытии загружает контейнер с тем же названием, но внутри отображает не учётные записи пользователей, а корневые ресурсы сервера: <strong>Устройства</strong>, <strong>Группы устройств</strong>, <strong>Пользователи</strong>, <strong>Приложения</strong>, <strong>Модели</strong> и т.д. То есть раздел не выполняет свою функцию.</p>
+
+<h4>Воспроизведение</h4>
+<ol>
+<li>Войти в веб-клиент под <code>admin / admin</code>.
+</li>
+<li>В системном дереве слева открыть <strong>Пользователи</strong>.
+</li>
+<li>Посмотреть содержимое правой панели.
+</li>
+</ol>
+
+<h4>Ожидаемый результат</h4>
+<p>В правой панели отображается список пользователей сервера (admin, testuser02 и др.) с возможностью их редактирования.</p>
+
+<h4>Фактический результат</h4>
+<p>В правой панели отображается корень системного дерева, а не пользователи.</p>
+
+<h4>Скриншоты</h4>
+<ul>
+<li><img src="tests/screenshots/smoke_05_users.png" alt="раздел Пользователи открывает корень системного дерева" loading="lazy"> — вместо списка пользователей показаны системные ресурсы
+</li>
+</ul>
+
+</section>
+</div>
+</body>
+</html>
