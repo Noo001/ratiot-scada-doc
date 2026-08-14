@@ -63,7 +63,7 @@ for c in filtered:
 table_rows = []
 for c in filtered:
     table_rows.append(
-        f'<tr><td>{c["new_num"]}</td><td><a href="#case-{c["new_num"]}">{c["new_num"]}. {c["title"]}</a></td>'
+        f'<tr><td>{c["new_num"]}</td><td><a href="#case-{c["new_num"]}">{c["title"]}</a></td>'
         f'<td>{c["severity"]}</td><td>{c["status"]}</td></tr>'
     )
 
