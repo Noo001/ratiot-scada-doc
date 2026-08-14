@@ -187,6 +187,7 @@ aside h2 {{ font-size: 1.1rem; margin: 0 0 16px; }}
 aside nav {{ display: flex; flex-direction: column; gap: 4px; }}
 aside a {{ color: var(--text); text-decoration: none; font-size: 0.9rem; line-height: 1.35; padding: 4px 8px; border-radius: 4px; overflow-wrap: break-word; word-break: break-word; hyphens: auto; }}
 aside a:hover {{ background: var(--bg); color: var(--accent); }}
+aside a.active {{ background: var(--bg); color: var(--accent); font-weight: 600; }}
 aside a.group-link {{ font-weight: 700; margin-top: 10px; color: var(--accent); }}
 main {{ flex: 1; padding: 32px 24px; max-width: 900px; min-width: 0; }}
 header {{ border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 24px; }}
@@ -236,6 +237,20 @@ header h1 {{ font-size: 1.8rem; margin: 0 0 12px; }}
 {aside_html}
 {main_html}
 </div>
+<script>
+  const sections = document.querySelectorAll('section[id], h2[id]');
+  const links = document.querySelectorAll('aside nav a[href^="#"]');
+  const observer = new IntersectionObserver((entries) => {{
+    entries.forEach(entry => {{
+      if (entry.isIntersecting) {{
+        links.forEach(link => link.classList.remove('active'));
+        const active = document.querySelector('aside nav a[href="#" + entry.target.id]');
+        if (active) active.classList.add('active');
+      }}
+    }});
+  }}, {{ rootMargin: '-20% 0px -60% 0px' }});
+  sections.forEach(section => observer.observe(section));
+</script>
 </body>
 </html>
 '''
