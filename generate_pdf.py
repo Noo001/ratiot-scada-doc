@@ -1,7 +1,7 @@
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-html_path = Path("bug_cases_print.html").resolve()
+html_path = Path("bug_cases_report.html").resolve()
 pdf_path = Path("RatioT_SCADA_Bug_Cases.pdf").resolve()
 
 with sync_playwright() as p:
