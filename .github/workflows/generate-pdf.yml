@@ -1,14 +1,6 @@
 name: Generate PDF report
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'tests/BUG_CASES.md'
-      - 'rebuild_report.py'
-      - 'generate_pdf.py'
-      - 'bug_cases_report.html'
-      - 'tests/screenshots/**'
   workflow_dispatch:
 
 permissions:
