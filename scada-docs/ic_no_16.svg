@@ -1,0 +1,15 @@
+<svg id="ic_no_16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #788fa5;
+      }
+    </style>
+  </defs>
+  <rect id="backplate" class="cls-1" width="16" height="16"/>
+  <path id="icon" class="cls-2" d="M309.414,276l3.293-3.293a1,1,0,0,0-1.414-1.414L308,274.586l-3.293-3.293a1,1,0,0,0-1.414,1.414L306.586,276l-3.293,3.293a1,1,0,0,0,1.414,1.414L308,277.414l3.293,3.293a1,1,0,0,0,1.414-1.414Z" transform="translate(-300 -268)"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="24" height="24" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="ic_component_24" clip-path="url(#clip-path)">
+    <rect id="backplate" width="24" height="24" fill="none"/>
+    <path id="icon" d="M80,428v-5a1,1,0,0,0-1-1H74a3,3,0,0,0-6,0H63a1,1,0,0,0-1,1v5a3,3,0,0,1,0,6v5a1,1,0,0,0,1,1h5a3,3,0,0,1,6,0h5a1,1,0,0,0,1-1v-5a3,3,0,0,0,0-6Z" transform="translate(-60 -418)" fill="#41505e"/>
+  </g>
+</svg>
