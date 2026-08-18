@@ -23,6 +23,8 @@ C:/repos/doc/
 │   ├── index.html
 │   ├── ux.html
 │   └── style.css
+├── product/                   # Продукт, экосистема, лицензирование, бизнес-процессы
+│   └── index.html
 ├── bug_cases.html             # Баг-кейсы
 ├── bug_cases_print.html       # Версия для печати
 ├── bug_cases_report.html      # Отчёт по багам для руководителя

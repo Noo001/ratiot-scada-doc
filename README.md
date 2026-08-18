@@ -20,6 +20,8 @@
 │   ├── index.html           # База знаний по RatioT SCADA
 │   ├── ux.html              # Руководство пользователя по интерфейсу
 │   └── style.css            # Стили раздела
+├── product/
+│   └── index.html           # Продукт, экосистема, лицензирование, бизнес-процессы
 ├── bug_cases.html           # Баг-кейсы
 ├── bug_cases_print.html     # Версия для печати
 ├── bug_cases_report.html    # Сводный отчёт по багам
