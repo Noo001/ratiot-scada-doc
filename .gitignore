@@ -27,3 +27,9 @@ public/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Office temporary files
+~$*
+
+# Source materials (kept locally, not versioned)
+sources/
