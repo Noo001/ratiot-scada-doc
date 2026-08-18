@@ -7,7 +7,10 @@
       if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
         var pwd = prompt('Доступ к документации. Введите пароль:');
         if (pwd !== '111') {
-          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
+          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p>  <script>
+    document.querySelector('.tiles').classList.remove('tiles-hidden');
+  </script>
+</body>';
           throw new Error('Access denied');
         }
         localStorage.setItem('ratiot-doc-auth', 'ok');
@@ -74,6 +77,7 @@
       opacity: .6;
       pointer-events: none;
     }
+    .tiles-hidden { display: none !important; }
     footer.landing-footer {
       margin-top: 60px;
       color: var(--muted);
@@ -86,7 +90,7 @@
     <h1>Документация</h1>
     <p class="lead">Централизованная база знаний по проектам. Выбирай раздел — переходи к документации.</p>
 
-    <div class="tiles">
+    <div class="tiles tiles-hidden">
       <a class="tile" href="scada/index.html">
         <h2>RatioT SCADA</h2>
         <p>Архитектура, развёртывание, Web UI, пользовательский опыт, протоколы, HMI и скрипты.</p>
@@ -112,5 +116,8 @@
       Внутренняя документация. Последнее обновление: 13 августа 2026.
     </footer>
   </div>
+  <script>
+    document.querySelector('.tiles').classList.remove('tiles-hidden');
+  </script>
 </body>
 </html>
