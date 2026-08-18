@@ -1,5 +1,29 @@
+# Python
 .venv/
-incoming/
-incoming_extracted/
-*.json
 __pycache__/
+*.pyc
+*.pyo
+
+# Temporary extraction files
+tmp_*.htm
+tmp_*.html
+tmp_*.txt
+*.tmp
+
+# GitLab Pages build output
+public/
+
+# JSON dumps (generated during extraction)
+*.json
+
+# Environment / secrets
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

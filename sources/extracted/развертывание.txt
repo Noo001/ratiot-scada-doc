@@ -1,0 +1,2636 @@
+                              
+     
+
+                            RatioT SCADA.
+                           «»
+
+                                                   2026 .
+                                                    ..
+ «»
+
+  
+1.   ....................................................................................................................4
+2. ,    ..................................................................................4
+3.  ..........................................................................................................5
+
+  3.1.   ................................................................................................................... 5
+  3.2.  ............................................................................................................. 5
+  3.3.     ................................................................. 5
+  3.4.   ........................................................................................................................ 6
+4.    ............................................................................................................6
+  4.1.  .............................................................................................................................................. 6
+  4.2.    .................................................................................................. 7
+5.   RatioT SCADA...........................................................................................7
+  5.1.    ............................................................................................................... 7
+  5.2.   (GUI)  ......................................................................................... 7
+  5.3.   ............................................................................................................................ 7
+  5.4.   Docker ( )................................................................................ 8
+6.      ...........................................................8
+  6.1.    ............................................................................................. 8
+  6.2.     .......................................................................................................... 9
+  6.3.    ........................................................................................................... 9
+7.  ..................................................................................................................9
+8.     .................................................................................................9
+  8.1.   ............................................................................................................................. 9
+  8.2.  ....................................................................................................................................10
+  8.3.   ..........................................................................................................................10
+9.   ...........................................................................................................10
+  9.1.   ...................................................................................10
+  9.2.    ...................................................................................................................11
+  9.3.  ...........................................................................................................................11
+  9.4.   ......................................................................................................................11
+  9.5.     JVM........................................................................11
+  9.6.   ................................................................................................................................11
+  9.7  Web UI...................................................................................................................12
+  9.8  Web UI.....................................................................................................................................14
+10.    RatioT SCADA .......................................................................16
+
+                                                               2
+ «»
+
+10.1   .......................................................................................................23
+  10.1.1.       ....................................... 23
+  10.1.2.  SVG- .......................................................................... 32
+  10.1.3      ...................................41
+  10.1.4     ................................................................................. 47
+  10.1.5    ............................................................................................................ 55
+  10.1.6     ....................................................................... 57
+  10.1.7    ............................................................................................... 73
+  10.1.8     ................................................................................................... 84
+  10.1.9     ......................................................................................... 87
+
+11.     .......................................................................95
+  11.1.     .................................................. 95
+  11.2.    ....................................................................................... 95
+  11.3.     .............................................................................. 96
+  11.4.     .................................................................................... 96
+
+12.    .......................................................................................................96
+  12.1.  ..................................................................................................................................... 96
+  12.2.  ............................................................................................................... 97
+  12.3.  ............................................................................................................................... 97
+
+ .    ..............................................................................97
+ .   ,    ...............................98
+
+                                                               3
+ «»
+
+1.  
+1.1.     ,   
+       RatioT
+SCADA ( - ),     .
+
+1.2.    ,    
+,      ,  
+     RatioT SCADA.
+
+1.3. RatioT SCADA Server    RatioT SCADA   
+   ,  -,   ,
+,     .
+
+1.4.          
+   ;    
+    .
+
+1.5.  ,           
+.          ,
+    .
+
+1.6.     Linux       root. 
+  root        sudoers  
+ .
+
+sudo bash
+1.7  /opt/download        
+    .
+
+1.8   RatioT SCADA Server     /opt/RatioT SCADA. 
+    ,   .
+
+1.9        .   
+ %LS_BINARY%   ,    
+.
+
+  ,     RatioT SCADA Server  
+   .     
+  ,  ,  ,     
+     .
+
+2. ,   
+
+                     
+RatioT SCADA Server    RatioT SCADA,  ,
+JVM                     .
+RDBMS                  Java,    .
+                       - Java 17.
+                         , 
+                        .
+
+                                              4
+ «»                
+                     Apache Cassandra,  RatioT SCADA 
+                         .
+   NoSQL            ,   
+                    RatioT SCADA Server.
+   server.license     RatioT SCADA Server,  
+   Net Admin        .
+                     RatioT SCADA Server, 
+   Web UI            6440.
+                        Windows   daemon-
+                    Linux.
+                       ,  
+                      RatioT SCADA.
+
+3.  
+3.1.  
+RatioT SCADA      Java.   
+     Windows  Linux    Java. 
+   Windows 7, 10, 11, Windows Server 2016/2019,   32-  64-
+  Linux   Java.
+
+       64- , 
+     32- .
+
+3.2.  
+ Java Virtual Machine:   Java 17. JVM     
+
+        .
+  :   RDBMS.      ;
+
+         RDBMS   NoSQL .
+   RDBMS: MySQL, PostgreSQL, Oracle, Microsoft SQL Server, Firebird
+
+       .
+ SMTP-         
+
+    .
+ DNS-,   RFC-2136,     
+
+     DNS.
+3.3.     
+      , 
+  ,  ,  , , ,  
+,      .   
+     ,  
+,     .
+
+                   5
+ «»
+
+                                 
+
+ ,  100  CPU 3 , 2 , 2  RAM, 7   
+                                  64-
+                                  .
+                                   
+                                  
+                                    .
+
+ ,  100  CPU 3 , 4 , 4  RAM,     
+         70                       64-
+                                  .
+                                 , 
+                                  
+                                  
+                                 .
+
+ NoSQL   SSD 50    RatioT          
+         SCADA Server              
+                                   .
+                                  
+                                   
+                                 NoSQL - 12-16 .
+
+         ,
+          
+  ,  CPU, RAM     .
+        
+      .
+
+3.4.  
+
+   ,   RatioT SCADA Server 
+
+,    TCP/UDP-   . 
+
+     6460, 8080 / 8443,   6440  
+
+Net Admin.       .
+
+ 6460 -  -  API.
+ 6440 -  Net Admin.
+ 8080 -  - HTTP.
+ 8443 -  - HTTPS.
+ 162/UDP -  SNMP-,   SNMP.
+ 6470/6480 -     ,   
+
+      .
+
+4.   
+4.1. 
+        :
+   Windows ( «RatioT_SCADA_full_6.34.07_windows-x64.exe»)
+   Linux ( «RatioT_SCADA_full_6.34.07_unix-x64.sh»)
+  ,       .
+        ""  ,
+  .
+
+                                                               6
+ «»
+
+4.2.   
+1.       .
+2. ,  ,  ,   .
+3.          
+
+         .
+4.     JVM Java 17,      JVM.
+5.     ,    .
+6.  Linux/Mac OS ,       
+
+         1024,  UDP 162  SNMP-.
+
+5.   RatioT SCADA
+5.1.   
+ RatioT SCADA Server       :
+
+                   
+          
+(GUI)              
+       .  (GUI)      
+                  .
+           
+       ,  Linux.    
+                   -c.
+                    
+        .          -q; 
+                  
+                  
+                  response.varfile.
+
+5.2.   (GUI) 
+1.       .
+
+2.       Linux.
+
+3.   .
+
+4.     .  Linux   - /opt/RatioT SCADA; 
+     Windows -  Program Files/RatioT SCADA,      
+     .
+
+5.         .
+
+6.   .   RatioT SCADA  NoSQL  Apache Cassandra
+          ;      
+        NoSQL    .
+
+7.           RatioT SCADA.
+
+8.            .
+
+5.3.  
+         
+ response.varfile.         
+ RatioT SCADA/.install4j/response.varfile.
+
+        7
+ «»
+
+ :
+
+1.         response.varfile
+        RatioT SCADA.
+
+2.  response.varfile  ,  .
+
+3.  Linux  : ./installer.sh -q -varfile response.varfile.
+
+4.  Windows  : installer.exe -q -varfile response.varfile.
+
+5.     RatioT SCADA.
+
+     response.varfile     RatioT
+  SCADA.         
+    ,    .
+
+5.4.   Docker ( )
+
+     , 
+
+ Docker-     RatioT SCADA.  :
+
+ Docker,   RatioT SCADA,    , 
+
+Dockerfile,    docker build -t RatioT_SCADA .,   
+
+ docker run RatioT_SCADA.
+
+ Dockerfile    ,    . 
+       6460, 8080  6480,  
+  xvfb-run --auto-servernum ./ag_server -r.
+
+6.      
+RatioT SCADA   ,      ,
+   RatioT SCADA Server.  ,   
+,    , 
+  .
+
+     ,  
+    ,     
+(     100 ).
+
+       
+  RatioT SCADA     
+ .
+
+6.1.   
+1.  RatioT SCADA Server.
+2.       RatioT SCADA Server   .
+3.   "  ".
+4.  "   ".
+5.      «»     
+ .
+
+                           8
+ «»
+
+6.2.    
+        activation.txt   
+RatioT SCADA Server.   ,        
+   Linux.
+
+1.  RatioT SCADA Server    .
+2.   activation.txt      .
+3.          .
+6.3.   
+1.     server.license.
+2.  RatioT SCADA Server,   .
+3.  server.license    RatioT SCADA Server,   
+
+     ,   .
+4.    RatioT SCADA Server.
+5.       .
+
+7.  
+        
+ .
+
+             
+             RatioT SCADA Server   
+ Web UI     .
+ /API       -   HTTP 8080 / HTTPS 8443,
+ Net Admin     .
+             -  API   
+            6460.
+             Net Admin    6440,  
+              .
+                ,  
+             .
+                , 
+            /,   .
+                  ;
+                 .
+
+8.    
+8.1.  
+        .   
+  ,         
+.
+
+  Windows    Start > Control Panel > Administration > Services 
+      "".
+
+  Linux    daemon-.    
+     upstart  systemd.
+
+                                                               9
+ «»
+
+  systemd    systemctl enable %LS_BINARY%.service,
+      - systemctl restart %LS_BINARY%.service,   - systemctl
+    status %LS_BINARY%_service.service -l.
+
+  Linux-    start, stop, restart, status.
+
+8.2.  
+      ,   .
+   : RatioT_server   ,
+%LS_BINARY%_console       , %LS_BINARY%_service 
+   .
+
+ Windows:    ""     .   
+      %LS_BINARY%_console.exe.
+
+ Linux:  %LS_BINARY%_console       
+     ;  daemon-  %LS_BINARY%_service start  service
+    %LS_BINARY%_service start.
+
+8.3.  
+      :
+
+  RatioT Client    :     
+       " ";
+
+  Web UI    ;
+    ,       ;
+   Net Admin   6440:  S  ,  R 
+
+    ;
+    Windows/Linux,      ;
+        .
+
+     ag_server, %LS_BINARY%_service,
+  %LS_BINARY%_console  java       
+    .     Java- 
+  .
+
+9.  
+9.1.   
+        :
+
+      RatioT SCADA Server;
+   Web UI, API,    Net Admin 
+
+      ;
+     , ,   
+
+     ;
+        ;
+     ,  ,  SQL-
+
+        .
+
+     10
+ «»
+
+9.2.   
+      ,      .
+     RatioT SCADA Server,   ,
+  ,   ,    
+.        .
+
+9.3.  
+      ,    
+   ,    .   
+      -a.
+
+      ,   
+,    ,    ,  
+,   ,    ,
+       .
+
+9.4.  
+         .
+   "  "  " 
+"   .
+
+      ,  
+,  ;      
+    .    
+     ,   ,  
+  "", API-   , -
+    "".
+
+9.5.     JVM
+  JVM    *.vmoptions,   
+    .  : ag_server.vmoptions,
+%LS_BINARY%_console.vmoptions, %LS_BINARY%_service.vmoptions.
+
+     -Duser.language=X.
+      JVM   -Xms  -Xmx.
+  proxy    -Dhttp.proxyHost, -Dhttp.proxyPort, -
+
+    Dhttps.proxyHost, -Dhttps.proxyPort, -Dsocks.proxyHost, -Dsocks.proxyPort  
+     .
+   JVM     , 
+      UDP-.
+
+    JVM     
+        *.vmoptions .
+    -Xmx      JVM -
+      .
+
+9.6.  
+RatioT SCADA Server      SQL-  .
+    -e <filename>, SQL- -  -s
+<filename>. SQL-    ,    
+   .
+
+                                                              11
+ «»
+
+9.7  Web UI
+
+RatioT SCADA Web UI -      ,  
+    RatioT SCADA    ,   
+  . , ,     Web UI,
+:
+
+ ,    RatioT SCADA Server,   
+     ,         
+
+ , ,     ,   
+    
+
+ ,          
+  ,        
+
+      RatioT SCADA
+   ,     
+
+ Web UI     .
+
+  Web UI -       React
+(,         ),  
+   .      RatioT SCADA Server  
+   .       RatioT
+SCADA Server     .
+
+       , .  
+ .
+
+
+
+   Web UI       ,  
+   .
+
+       -:
+
+ Google Chrome
+ Mozilla Firefox
+
+   Web UI
+
+    Web UI, ,  RatioT SCADA Server   
+   .
+
+  web UI    
+
+      Web UI    , 
+ RatioT SCADA Server:
+
+   RatioT SCADA Server   .
+      .
+   Open RatioT SCADA Server Web UI.
+
+                                                              12
+ «»
+
+   web UI
+      Web UI   :
+  -,   Google Chrome  Mozilla Firefox.
+     https://xxx.xxx.xxx.xxx:8443/web,  xxx.xxx.xxx.xxx - IP   
+
+     RatioT SCADA Server (     ,  localhost).
+       ,     
+
+      .
+
+                     
+             -,      Web UI  
+                URL:
+             http://xxx.xxx.xxx.xxx:8080/web
+              RatioT SCADA Server    
+             ( / )     -,
+               Web UI    URL  .   :
+                     RatioT SCADA Server.
+                      URL   
+
+                     .
+
+  URL   .      
+      web UI.
+/  
+      Web UI   ,     ,
+       RatioT SCADA Server.
+           ,  
+     Web UI.
+
+                                                              13
+ «»
+
+      admin/admin
+                    RatioT
+             SCADA Server,      
+              .
+
+
+       ,   
+ .
+   ,     
+ ,     .    
+    .
+  
+   Web UI,        .
+      .
+9.8  Web UI
+  ,  Web UI       
+   .
+       - Default Dashboard. 
+     :
+  
+
+                                                              14
+ «»
+
+      
+
+  Web UI   :
+  RatioT SCADA .
+  Home.      .
+  Logout.      Web UI   
+
+      .      .
+
+
+
+  
+  -   ,     
+ ,        .
+      Web UI.
+       :  ,
+, , ,   .
+    :
+     
+   ,   
+
+                                                              15
+ «»
+
+     
+
+10.    RatioT SCADA
+
+       ,  
+  , ,    ,  
+       - 
+    ,   RatioT SCADA.
+
+    
+
+     SCADA,  RatioT SCADA SCADA/HMI  
+,    , ,    .
+         .
+
+  - RatioT SCADA Server.      ,
+     , HMI-,  PLC,
+   ,      .
+
+   ,     
+    .      , 
+,  ,    ,   ,
+RatioT SCADA SCADA/HMI     ,  
+     .
+
+ 
+
+ RatioT SCADA SCADA/HMI  .   , 
+    "" .    
+,         , 
+ HMI,    PLC,     .  
+  ,        
+.  ,       
+ ,   :
+
+        (, HMI, ,
+)
+
+   
+
+  
+
+      
+
+   .
+
+         RatioT SCADA.
+
+                                                              16
+ «»
+
+ -  
+
+  RatioT SCADA SCADA/HMI,  - ()  
+ (  ).      , 
+ .
+
+   ,   
+ RatioT SCADA,    - (),  ,
+    .       RatioT
+SCADA SCADA/HMI,       , (
+  ,    ).  ,  
+        
+      .
+
+ 
+
+ SCADA-     , 
+      
+.   RatioT SCADA     "".  
+ ,   ,    , 
+ ,      . 
+,       , :
+
+ :       ,  Git,
+      ,        
+    .
+
+ :      
+     ,      
+    ,        
+        ,      .
+
+ :       
+      ,       RatioT
+    SCADA.
+
+ :  ,    (),
+       ,   
+     .
+
+  ,       
+   ""  SCADA,     , 
+      SCADA.
+
+ 
+
+   ,          
+     SCADA ,     .    
+
+                                                              17
+ «»
+
+RatioT   ,       
+SCADA    SCADA.
+
+                  RatioT
+         SCADA.       
+           (    ) 
+            .  
+          ,      .   
+             RatioT SCADA,    
+            .     
+          .prs    .
+
+         . 
+       ,  
+    ,     .
+
+        , 
+   .   ,    
+.        RatioT SCADA,   
+    .  OK,    .
+
+   
+
+                   SCADA,   , , HMI  ,  
+                     .      
+
+                     .    
+    SCADA
+                    ,     ,
+                    .
+
+RatioT         ,
+SCADA      . 
+            ,   
+         .     , 
+          .       ,
+          ,       
+        ,  , ,   .  
+         ,         
+          .
+
+      , 
+  .      
+,     .
+
+     ,    .  
+    ,   ,    
+ :
+
+:    ,     .
+                                                              18
+ «»
+
+:   ,      
+    .
+
+ :  ,   ,   
+     .
+
+:        
+    .
+
+:     .
+
+/ :  ,       
+    .
+
+:  ,    .
+
+:  ,     .
+
+ 
+
+SCADA-     ,  .  
+   ,   ,   
+.      ,   
+,   , ,    HMI. RatioT SCADA 
+        , 
+     SCADA.
+
+      SCADA    RatioT SCADA.
+ ,          
+   SCADA  RatioT SCADA.     RatioT
+SCADA    ,    
+,         .
+
+ SCADA  RatioT SCADA                           
+
+        /                  RatioT SCADA  ,
+/ /                         ,
+                           
+                          Device.  
+                          ()    
+                           /  
+                           SCADA-.
+
+HMI                        HMI  RatioT SCADA
+
+                             
+
+                          ,  
+
+                            
+
+                             .
+
+                      19
+ «»
+
+                              RatioT SCADA   
+                                  
+                              ,    
+                                ,  
+                                 .
+
+                                RatioT SCADA 
+                                  
+                                
+                               ,   
+                                .
+
+            RatioT SCADA      RatioT SCADA Server -  
+/          Server               RatioT SCADA,
+                                ,  
+                               .
+
+RTU/PLC                        RTU  ,  
+                              RatioT SCADA,   
+                                  .
+
+                              RatioT SCADA  
+                                  
+           ,                      ,
+                               
+                                 .
+
+Historian                     RatioT SCADA  
+           ,                       
+                                  .
+
+                              RatioT SCADA  
+                               ,
+                               , NoSQL, 
+                                  .
+
+/ ,                               
+                                RatioT SCADA 
+                                 
+                               / , 
+                                ,   
+                               ,   Java 
+                              Python.
+
+                                RatioT SCADA 
+                              ,   ,
+                               , 
+
+                          20
+ «»
+
+              
+             .
+
+ 
+
+                      ,       
+
+
+                    ( ),    ,  
+    SCADA
+
+                      .
+
+RatioT         :  
+SCADA   ,     .      
+          ,    
+          .
+
+   
+
+                   SCADA-      
+   .    
+
+    SCADA    ,      SCADA-
+                  .
+
+RatioT         
+SCADA       RatioT SCADA ( .jar).   
+              RatioT SCADA   
+         ,        
+          .
+
+          
+RatioT SCADA ( .jar).         
+   .
+
+  
+
+                   ,       ,   
+
+
+                           
+    SCADA
+
+                   .
+
+RatioT         
+SCADA   (.prs)      RatioT SCADA.  , 
+         ,   , ,  ,
+        ,    . .,    
+         .prs.  ,  application.properties  
+         ,      ,  
+        .       
+        (, Git, Mercurial, SVN  . .)    
+            RatioT SCADA.
+
+        21
+ «»
+
+          
+ RatioT SCADA.         
+    .
+
+ 
+
+                     ,      
+                         , 
+
+                    ,     
+    SCADA
+                    ,     ,   
+                   SCADA.
+
+RatioT         
+SCADA      RatioT SCADA, , 
+          , ,   ..
+               
+        ,    .    
+            True,  ,   ,
+             ,   
+         ,  . ,   
+         ,    
+        ,      .  
+            .
+
+          , 
+     .    
+:
+
+   :  ,   
+    ,     .
+
+ :  ,    .
+
+  :    true,   ( 
+       ,     ) 
+       .
+
+        ,
+  ,    .
+
+ 
+                       SCADA   
+
+ 
+                       ,     
+
+     SCADA
+                         .
+
+        22
+ «»
+
+RatioT         .
+SCADA         :
+                  RatioT
+        SCADA     .  ,  
+          ,    
+         .     
+               .
+
+        ,  
+.     ,   
+:
+
+ :    ,     
+    : ,   -,     
+    RatioT SCADA.
+
+  :      
+    : ,     .
+
+ 
+
+                        SCADA  
+    .  
+
+    SCADA       ,  
+                   ,       .
+
+RatioT   RatioT SCADA       ,
+SCADA      ,  , 
+         .  ,     
+          .       
+            ,     
+         .       
+           ,    .
+
+10.1  
+
+         RatioT SCADA
+    - ,    
+,    Web UI RatioT SCADA.
+
+10.1.1.      
+
+        
+.        
+ ,        .
+
+        23
+ «»
+
+  
+    (),        
+  ().        .
+
+          
+ .
+
+ Web UI Builder
+    ,    
+()     ().
+
+                                                              24
+ «»
+
+     -   ,     
+ .    OK      
+    .
+
+  ,       ()  
+   .
+
+                                                              25
+ «»
+
+   
+   ()        
+      .     ,   - 
+    .
+
+    ,      
+.        ()   
+ .
+
+                                                              26
+ «»
+
+  
+  
+    label0 (1)     (2)     Random
+Value:
+
+   label2  Refresh      button0  0.
+  
+    CSS     , 
+,          .
+    lable0      .   
+ CSS   CSS  ,        :
+
+                                                              27
+ «»
+
+{
+font-size: 1.5em;
+margin-left: 20%;
+}
+
+,     CSS    label1:
+{
+
+  font-size: 1.5em;
+  margin-left: 20%;
+}
+     button0    :
+{ font-size: 1.5em; }
+   (1)       (2)
+
+                                                              28
+ «»
+
+      ,   :
+
+ 
+            
+.       .   
+    ,    
+ Random Value,      Waves.   
+    .        
+   .
+  ,       ,
+   (1),    (2), 
+  (3) , ,    (4).
+
+     (1),    (2)  ,  
+    (). ,      (3).
+
+         1.  
+  (1),   label1 (2)     (3):
+
+                                                              29
+ «»
+
+ ,       - form/label1:text (1),   
+  (2).
+
+   ,     .    
+         . 
+     (1),    (2), 
+ (3) , ,    {>}   (4),    
+ .     Random - {users.admin.devices.virtual:random}.
+     ,   
+ 10*users.admin.devices.virtual:random}.
+ ,    round(),     , 
+    :
+round(10*{users.admin.devices.virtual:random})
+
+                                                              30
+ «»
+
+ ,          .
+   ,      .   
+   (1),   button0 (2) , ,
+   (3).     - form/button0:mouseClicked@.
+
+ ,        
+ ,   ,   OK:
+
+                                                              31
+ «»
+
+     ,    
+ Random     :
+
+10.1.2.  SVG-
+ RatioT SCADA     SVG (Scalable Vector Graphics).
+     ,  ,  , 
+ (,    . .)  .  SVG- 
+,      .
+      SVG- 
+  .    
+      : , 
+,   . .
+  ,   SVG-    
+   .     
+       SVG-:  
+.
+
+  
+    ,    
+   ()       
+  ()   .    
+   svgManipulation,   SVG
+Manipulation,   Web    .
+
+                                                              32
+ «»
+
+    SVG Manipulation     
+ ,   .
+
+   
+      "",     .
+   (1)     (2)   .
+
+                                                              33
+ «»
+
+    (1),     Fan ,
+     ,     (2):
+
+                                                              34
+ «»
+
+   images>scada>control>fan.svg   .  
+,      .    , 
+  (1),      SVG.
+
+ ,      ,    
+:
+x="0px" y="0px" width="100%x" height="100%"
+
+  SVG-  ,     ,  
+     (1),    ,  
+   ,    .
+
+                                                              35
+ «»
+
+    "  "    
+ .   
+ images>scada>control>glass_button.svg   ,   . 
+    Indicator.
+
+ 
+      .   
+SVG     Fan   State,   
+  .
+
+                                                              36
+ «»
+
+      State  Fan  ,  
+        .
+     (1),    (2)  ,
+   (3),     (4).
+
+       (1)     (2). 
+ ,    ,   .
+
+
+  -  ,       . 
+       ,   [...].  
+  (1),   Fan (2),    SVG (3)  
+
+                                                              37
+ «»
+
+ State (4).    ,   : form/Fan:state.  OK,
+ ,      .
+
+
+         [...] , 
+   (1),     State (2)    SVG.
+     State    {>}  
+    {form/Fan:state}.
+     ""  "",  
+  {form/Fan:state} == "on" ? 'off' : 'on' ,     OK.
+
+                                                              38
+ «»
+
+
+     [...],    . 
+   (1)      (2).  
+  OK.          
+.
+
+ 
+   ,       
+.           ,
+   :
+ form/Indicator:color
+   {form/fan:state} == 'on' ? color(255,0,0) :color(0,255,0)
+ form/:mouseClicked@
+
+                  color,     
+              ,   .      
+                , 
+
+                                                              39
+ «»
+
+                  .   
+               .
+
+    
+  (1),    ,      ,
+    (2).
+
+   SVG Manipulation      , 
+     :
+
+      :
+                                                              40
+ «»
+
+   ,        SVG-
+.         
+    .
+10.1.3      
+         . 
+    ,      . 
+       ,     
+    .
+  
+    ,      
+ .      ,  
+           .
+  
+        . 
+   ,     .
+
+                                                              41
+ «»
+
+     (1),     
+,      (2),      
+ .
+
+                                                              42
+ «»
+
+   
+       . 
+         
+ .         .  
+  ,       - 
+  .
+
+   
+       . 
+  (1)         
+  (2).         (3)
+.  ,    ,     
+    .
+
+                                                              43
+ «»
+
+    (1),     (2) , ,
+   (3).
+
+     ,      
+    .   (1),      (2)
+    .
+
+       (1),   LineChart0 (2), 
+  (3) , ,    (4).  ,  
+   .  OK  .
+
+                                                              44
+ «»
+
+    ,    >
+>  >      (1)
+    ,    {>}.  ,
+ {users.admin.devices.virtual:table}    (2).   , 
+  ,     (3).
+
+ ,         ,  , 
+     .
+
+  OK    .      (1) 
+      (2).  , 
+ ,       .  
+  
+       ,     Series 
+
+        : "".
+,            "string" , 
+
+         {string}.
+                                                              45
+ «»
+
+    ,    Values  
+     {int}, ,          "int".
+
+          .
+
+  
+       .     
+     . ,     
+    ,   ,   
+,     ,  .   ,  
+, -   .        
+   ,    .    
+-  ,      .
+      ,   
+        .
+
+                                                              46
+ «»
+
+10.1.4     
+RatioT SCADA       
+,           .
+  -    ,      
+,      ,   ,   ,
+  .    , 
+    .  ,  
+  .    virtual.
+      ,   
+   .    , 
+          .
+
+           
+ OK.      ,   
+.
+
+     ,     
+       .   
+ ,    ,   .
+
+                                                              47
+ «»
+
+  
+    ,    
+     .       ,
+        .  
+  errorReport     .  
+ (1),         (2), 
+       (3) , , 
+   (4).
+
+                                                              48
+ «»
+
+        :  (1),  
+    ,   (2),  
+.
+
+        ,     
+ .   (1)       " "(2),
+
+  ,   .  ,  
+       .
+
+                                                              49
+ «»
+
+    ,      
+ ,     . 
+    1 (event1)   , 
+ OK.
+
+                                                              50
+ «»
+
+,        ,   (1)  
+      (2).
+
+   ""    ,   
+ ,  ,   .
+
+       
+         , 
+,       RatioT SCADA    
+    .    , 
+      .  
+ virtual2.
+  
+    ,        , 
+       Data Table .  
+ ,    ,     
+    .
+ 
+
+                                                              51
+ «»
+
+       Data Table,  
+     .      
+  .     (1) 
+   (2),     .
+   (3)      (4).
+
+        (1),    ,  
+         (2).
+
+  
+    :       Data Table 
+ .         (1), 
+ Data Table       (2).  
+    .  ,     
+      .    ,
+ OK.
+
+                                                              52
+ «»
+
+    
+    "   1"   
+ .      
+:
+      :   ,  
+
+     ,   ,    ,   
+      .          ,
+        "users.admin.devices.*".
+ : ,    , - "event1".
+ Get events:  {events:get(  , )} 
+                .
+ Subtable:  subtable(,  [, ])  
+             ,  
+     .
+   ,    :
+subtable( {events:get( "users.admin.devices.virtual", "event1" )}, "eCreationtime", "eLeve
+         , 
+,      .
+
+                                                              53
+ «»
+
+    ,     ,  ,
+       .
+
+  OK,      .
+   
+       ,     , 
+   ,    .
+
+                                                              54
+ «»
+
+   
+  ,        
+.  ,         
+,        .
+
+10.1.5   
+    ,     ,  
+   . ,  ,    
+  80%       .
+          SLA.
+     ,      
+          
+ .       ,  
+      SLA.
+  ,    ,   ,   
+             
+  20 .
+  
+ ,           
+.
+
+                                                              55
+ «»
+
+         
+   ,       
+    :
+  ,     ,  
+   - hrProcessorTable.     , 
+   ,      .  
+   ,    - {hrProcessorTable}  
+    ,    .
+     ,  .   
+    .
+
+ 
+ ,        .
+    (      SMS).
+    ,      :
+ : users.admin.devices.criticalServer ( ,    
+
+    )
+: hrProcessorTable (   )
+: select(select({.:statistics}, "statistics", "name", "cpuLoad"), "average", "period", 3) >
+
+    select(select({.:statistics}, "statistics", "name", "cpuLoad"), "average", "period", 6) + 20
+                                                              56
+ «»
+
+  (/)
+: 0 
+      ,     SLA 
+  -   .     
+   .
+
+            
+       .
+    select(select({.:statistics}, "statistics", "name", "cpuLoad"),
+"average", "period", 3). -, select({.:statistics}, "statistics", "name", "cpuLoad") 
+    cpuLoad    statistics. -,
+ select(statistics, "average", "period", 3)      (
+)   .
+
+                   3    .
+
+           .
+,           
+  20%  ,      true,   
+.
+10.1.6    
+  ,    ,  
+,        
+.
+          
+  .     
+         
+.         
+
+                                                              57
+ «»
+
+      . 
+ ,    ,   
+      ,   
+  .
+
+     :
+
+      :   
+           
+            
+    .
+
+ :      ,   
+           , 
+        .
+
+ :    ,  
+         ,    
+     .
+
+ () ,      ,
+     ,   
+      .
+
+                       
+              .        
+             .
+
+ 
+
+  ,     
+,        
+ .
+
+      
+
+        
+"    ".     
+,          
+   .
+
+      .
+
+                                                              58
+ «»
+
+     .
+
+,  ,    , ,
+       .
+     
+      panel0,    
+.
+
+                                                              59
+ «»
+
+   ,    
+        .
+
+ ,        label  ,
+  ,        
+.
+
+                                                              60
+ «»
+
+   ,      
+ .          
+.        :
+
+                                             
+       form/panel0:dynamicContentsSource
+
+ table("<<text><S><D=Text><F=N><M=1>>","First","Second","Third")
+
+  True
+
+  False
+
+ OK,   .   ,  
+    :
+
+   Text
+ First
+ Second
+ Third
+
+         
+
+ ,        
+ ,    .
+
+                                                              61
+ «»
+
+     (1),  ,   
+      .  
+  (2).
+
+     :
+
+     text,  String   Text.   (1), 
+   (2):
+
+                                                              62
+ «»
+
+ OK,  . ,     
+ ,        .
+   .
+
+         
+ Text.         First, Second  Third.
+
+                                                              63
+ «»
+
+       :
+   Text
+
+ First
+ Second
+ Third
+     
+          .
+        text.    , 
+           Text . 
+         ,  
+.          , {text},  
+     .     ,  ,
+   label  text   "First", "Second"  "Third".
+    label      Text.
+
+                                                              64
+ «»
+
+   ,    .
+
+          
+       form/label0:text
+
+ {text}
+
+  True
+
+  True
+
+    "First"      
+, "Second"      .     
+ Text.  OK ,   .
+
+                                                              65
+ «»
+
+     ,  
+   ,       
+,   :
+
+{ border-style: solid; border-color: black; font-size: 2em; text-align: center; }
+
+   ,  ,  
+ 
+   ,    :
+
+  ,         
+     s:
+
+       
+         
+   .     , 
+   ,     
+.
+  Button    ,    .
+ ,       .
+
+      s ,  
+   >    >  
+ .
+
+                                                              66
+ «»
+
+          . 
+        " ".
+
+ Activator ,        
+ ,     Mouse Clicked  Button.
+
+                                    
+       form/panel0:dynamicContentsSource
+
+       table("<<text><S><D=Text><F=N><M=1>>", "First", "Second", "Third", "Button Clicked")
+
+ form/button0:mouseClicked@
+
+  False
+
+  True
+
+                             67
+ «»
+
+ OK,   .
+
+     Text  label,    
+  label.
+
+ ,       
+,        
+   .
+
+                           
+       form/label0:text
+
+ {}
+
+ form/panel0:dynamicContentsRefreshed@
+
+  
+
+  True
+
+ OK,   .
+        
+        :
+
+                                                              68
+ «»
+
+        :
+
+
+
+    ,   «  
+»,   «   »   
+ «   »    
+,     "" .
+
+   ,        
+     .
+
+ ,   ,     
+ : .
+
+                                                     
+                                        2
+
+  «   »                                 True
+
+  «   »                                  
+
+   «                                      
+»                                       .
+
+                                    69
+ «»
+
+   ,  ,  
+       :
+
+        :
+
+ div  
+  id  html div,    , - 
+       .
+, label1, label2, label3   .     
+
+                                                              70
+ «»
+
+  div    .   
+      ,   
+  ,    div.
+         "_clone_"+{#row}
++ {text},       div.   HTML-
+      div:
+
+ 
+ ""      ,
+    Column  Row  label   
+,         .
+        .
+
+       
+     1,       
+.
+
+                                                              71
+ «»
+
+             
+   ,   .  {#row}*75 
+ {#row},    ,    , 
+   75.       (0,0),   -  
+(75,75),   -   (150,150),   .
+
+                                        
+       form/label0:gridx    form/label0:gridy  
+
+ {#row}*75
+
+ form/panel0:dynamicContentsRefreshed@
+
+  True
+
+  True
+
+ OK,   .   
+ ,     .
+
+                                                              72
+ «»
+
+   ,    
+  ,         
+.       (,   ,
+)   .
+,         
+       .
+
+10.1.7   
+  RatioT SCADA     
+        
+ .      
+,      .   
+      ,     
+    .
+       :
+    .
+         .
+
+  
+    ,   
+        ,
+     .  ,   
+      ,   
+.
+         ,
+   .        
+ (1),      (2),  , 
+ ,      (4)     (5), 
+  ,      .
+
+                                                              73
+ «»
+
+       (1):
+
+      ,    :
+ -    .
+ -   (,   ).
+ -  ,       
+ -  ,       
+ -   
+
+                                                              74
+ «»
+
+ ,        :
+
+,         .  
+       :
+
+                                                              75
+ «»
+
+         (1),  
+      (2).
+
+       ,  ,  , 
+  .
+
+                                                              76
+ «»
+
+,     ,    , 
+         .
+    
+        
+  .    , 
+   ,      
+.        Dispenser Slot,  
+  Dispenser template     .
+  
+      .  
+     dispenser_slot1 (1),   Dispenser
+Slot1   Absolute (2).   ,        
+         ,   
+ .
+
+   ,   OK,     ,
+       .
+
+                                                              77
+ «»
+
+       (1)  
+  (2)         .
+
+,     ,   ,    (1) 
+   (2).
+
+                                                              78
+ «»
+
+    ,      
+ .
+
+        
+ ,      .
+        , 
+  (1)         (2). 
+   CSS,          
+  .
+
+                                                              79
+ «»
+
+       CSS-:
+
+{ display: flex; justify-content: center; align-items: center; font-size: 3em; }
+
+    font-size: 3em;     
+.
+
+    
+
+     ,     
+      , ,   .
+
+     ,   ""   
+     .
+
+     /:
+     select({users.admin.models.contents:contents}, "product", "slot",
+     "slot1")
+     -
+     -
+      
+
+       .   
+     .
+
+                                                              80
+ «»
+
+ 
+,         ,    
+ ,   .     , 
+   .
+
+ ,       dispenser_slot2, dispenser_slot3  
+,          .  
+       2-6,    .
+
+                                                              81
+ «»
+
+     
+ dispenser_slot<number>.  ,      
+ : select({users.admin.models.contents:contents}, "product", "slot", "slot1").
+       . 
+ dispenser_slot2    select({users.admin.models.contents:contents},
+"product", "slot", "slot2")        .
+    
+      "",   
+    .       
+ .
+        ,    
+    .    
+,   machine_layout          2
+       .  :
+      Label,     
+
+      .
+   6       ,  
+
+     ,      .
+     :
+
+                                                              82
+ «»
+
+    
+
+ ,      , 
+   .  ,    , 
+    Sub-    
+ .      :
+
+     form/slot1:reference
+     'users.admin.dashboards.dispenser_' + select(
+     {users.admin.models.snackMachine:}, "slot", "slot", "slot1")
+
+     -
+     -
+      
+
+
+
+
+
+       , 
+  slot1,       . 
+   ,      
+  .      
+ (users.admin.dashboards.dispenser_)     ,
+   .
+
+       2  6:
+
+     83
+ «»
+
+  
+,          
+  ,     (1)   
+  (2):
+
+   ,  ,       
+ :
+
+10.1.8    
+   ,    
+  .     :
+ 
+    
+    
+
+                                                              84
+ «»
+
+   
+
+       ,    
+      RatioT SCADA Server   
+  .          
+,       .
+
+           :
+
+   RatioT SCADA
+
+  RatioT SCADA
+
+         
+              SQL
+
+     :
+
+           SQL
+         
+           
+           
+ (, ,
+/  .)    
+ 
+           
+         
+           
+           
+           
+
+  :
+
+       (100000  ), 
+     SQL
+
+   ,   ,  
+     RatioT SCADA
+
+      
+
+      RatioT SCADA
+
+      ,  
+     .  / , 
+,        .
+
+                                                              85
+ «»
+
+  ,      
+ john.        
+  ,    (  
+),        :
+
+ ,    ( ) ,   
+    NULL.
+
+{events:get("users", "login", "{username} == 'john'")}
+
+      RatioT SCADA
+
+       ,     
+   ( ),      
+.     RatioT SCADA      
+ ,    SQL.
+
+  ,       
+ john (. ):
+
+SELECT
+
+*
+
+FROM
+
+events:get("users", "login") as logins
+
+WHERE
+
+logins.get$username = 'john'
+
+         ,
+  :
+
+{:executeQuery("SELECT * FROM events:get('users', 'login') as logins WHERE logins.get$username =
+'john'")}
+
+    SQL
+
+  ,    ,    
+   ,     .   ,  SQL,
+  :
+
+   ,      
+        ,   .  
+      .
+
+                                                              86
+ «»
+
+  ,     ,  ,
+      
+
+       SQL    
+
+   ( , URL,  ,   .)  
+      RatioT SCADA Server .
+
+      SQL-    ,
+   ,    .
+
+,   ,  SQL,    
+  :
+
+{users.admin.devices.linkserver_database:executeQuery("SELECT * FROM logins WHERE username =
+'john'")}
+
+10.1.9    
+
+  ,       
+    .    
+////   
+ :
+
+    (-)
+
+ ( )
+
+   ()
+
+     
+
+      ,  
+,     .
+
+    ,       
+   .   ,  
+,      ,  
+ : , ,   .
+
+  
+
+      ,   
+         ///.
+
+ ,     .      
+ .       
+
+                                                              87
+ «»
+
+     ,     (1) 
+      (2).
+  energy_consumption   ,   , 
+     (3).     (4).
+
+           . 
+    ,    
+   (..    ).   
+  .        
+  0  10 .    :
+round({.:random$value}*10)
+    :
+     value{.:random$value}.
+  ,       {.:random$value}*10
+   round(),    .
+       .  
+,       ,    
+    {.:random$value}*1000. ,    
+    .     ,   
+  60 ,        
+"-"     -,    (1
+ / 60 ),    {.:random$value} / 60
+      ,     
+  .       ,
+          .   
+           
+ " " ,       . 
+         .
+  ,      :
+
+                                                              88
+ «»
+
+ ,      ,  
+ ,       
+.         : 
+   (    60 ),   
+   .
+         
+       .   
+         .   
+  :
+SELECT
+stats.statistics$context as "Device Context",
+stats.statistics$end as "Period",
+stats.statistics$average * 60 as "Average kW per hour"
+FROM
+utilities:statistics("users.admin.devices.virtual", "energy_consumption", null, "hour") as stats
+
+                                                              89
+ «»
+
+         
+    .      
+ :
+"users.admin.devices.virtual" -    ,
+"energy_consumption" -    ,
+"null" -  ,     ,
+"hour" -   (   ,    
+
+         ,      
+          "").
+      :
+stats.statistics$context -  ,
+stats.statistics$end -      ,
+stats.statistics$average * 60 -    ,   60 
+      .
+    :
+
+    ,    ,    
+ .
+
+                                                              90
+ «»
+
+     .
+
+     
+          .
+   ,       
+     .       .
+
+                                                              91
+ «»
+
+         
+  .    , 
+        
+.
+
+       (1)  
+        (2).     
+ (3)    ,      .
+
+,        ,     
+     .     (1)  
+   (2).     , 
+
+                                                              92
+ «»
+
+   .    (3)   
+ (4).
+
+     (1)    " " (2)   
+   .        
+  (3)         (4), 
+      ,    .
+
+ 
+        (1),        
+   .    DataTableEditor0 (2),
+     . ,     
+ (dataTable) (3)   ,       .
+
+                                                              93
+ «»
+
+ 
+           ,  
+      .  , 
+       ,   {>} .    
+    .
+{users.admin.queries.energy_consumption:execute()}
+    ,  ,      
+.   ,   OK.
+
+                                                              94
+ «»
+
+ ,    (1)      
+   (2) .
+
+     ,   .   
+ ,       . 
+        , 
+    .
+
+11.    
+ RatioT SCADA      , 
+       ,
+  ,  SQL-   .
+11.1.     
+        ,  
+    .     , 
+,       .
+11.2.   
+      ,  :
+   RatioT SCADA Server;
+   server.xml;
+
+                                                              95
+ «»
+
+   /statistics,    ;
+      /db,    ;
+   ,     Apache Cassandra, MySQL, Oracle, PostgreSQL
+
+       .
+
+        ,  
+         .  
+     .      
+     .
+
+11.3.    
+1.  RatioT SCADA Server.
+
+2.   /db        
+     .
+
+3.     /db;     
+       5-10 .
+
+4.  , ,        .
+
+11.4.    
+           
+  .  PostgreSQL  MySQL    
+ :
+
+PostgreSQL,  : pg_dump -U USER -W PASSWORD DATABASE > database.sql
+
+PostgreSQL, : psql -U USER -W PASSWORD DATABASE < database.sql
+
+MySQL,  : mysqldump -u USER -p PASSWORD --skip-lock-tables DATABASE >
+database.sql
+
+   MySQL-    
+ag_properties, ag_events, ag_data, ag_alert,      
+   .
+
+12.   
+12.1. 
+ RatioT SCADA Server     . :
+
+1.   -.
+2.  RatioT SCADA Server    Windows/Linux.
+3.     .
+4.      RatioT SCADA Server.
+5.       .
+6.      .
+7.  RatioT SCADA Server.
+8.            .
+
+     96
+ «»
+
+     (, ,   )  
+ .       "
+"   .
+
+12.2.  
+        
+  .   ,   ,
+  " "   ,  , 
+      .
+
+                 ,   
+             ,   .   RAM  
+                 .
+
+12.3. 
+
+1.  RatioT SCADA Server.
+
+2.    uninstall    RatioT SCADA Server.
+
+3.    ,     .
+
+4.    ,      
+     .
+
+     ,     
+   : ,  ,    
+  .
+
+ .   
+
+             
+6460          -  API
+6440         Net Admin
+8443          - HTTPS
+8080          - HTTP
+162          SNMP-
+6420            
+6430            
+2055         NetFlow
+6343         sFlow
+514          Syslog
+6450           
+6480          RatioT SCADA
+50000-60000  ,    
+21           FTP
+22           SSH
+69           TFTP
+5001              
+9042           NoSQL  
+47808        BACnet
+7800         Heartbeat
+53            DNS-
+
+                                                97
+ «»
+
+      
+389   Active Directory / LDAP
+143   IMAP
+110   POP3
+25    SMTP
+1812  RADIUS
+
+ .   ,   
+
+ /                              
+installer -c                      .
+installer -q                      .
+installer -q -varfile               .
+response.varfile
+%LS_BINARY%_service              Linux- RatioT SCADA Server.
+start|stop|restart|status
+service %LS_BINARY%_service       Linux  init-.
+stop
+systemctl enable                  systemd.
+%LS_BINARY%.service
+systemctl restart                  systemd-.
+%LS_BINARY%.service
+systemctl status                  systemd-.
+%LS_BINARY%_service.service -l     .
+-a                                  .
+-e <filename>                    SQL-  .
+-s <filename>                        .
+-p <user> <pass>                  .
+-c                                   .
+-u
+
+                                98
+

@@ -1,0 +1,19 @@
+# Временно публикуем через GitLab Pages.
+# Когда в контуре появится виртуальная машина с веб-сервером,
+# заменить этот job на SSH/rsync-деплой на ВМ.
+pages:
+  stage: deploy
+  script:
+    - mkdir public
+    - cp index.html style.css ux.html public/
+    - cp bug_cases.html bug_cases_print.html bug_cases_report.html public/
+    - cp RatioT_SCADA_Bug_Cases.pdf public/
+    - cp screenshot_*.png public/
+    - cp -r scada public/
+  artifacts:
+    paths:
+      - public
+  tags:
+    - shell
+  only:
+    - main
