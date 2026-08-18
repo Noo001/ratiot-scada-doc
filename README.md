@@ -24,13 +24,15 @@
 ├── bug_cases_print.html     # Версия для печати
 ├── bug_cases_report.html    # Сводный отчёт по багам
 ├── RatioT_SCADA_Bug_Cases.pdf
+├── build_bug_cases.py       # Генерация bug_cases.html из tests/BUG_CASES.md
+├── build_pdf.py             # Сборка PDF (старая версия)
+├── generate_pdf.py          # Генерация PDF через Playwright
+├── rebuild_report.py        # Перегенерация bug_cases_report.html
+├── extract_*.py             # Скрипты извлечения текста из PDF/HTML
 ├── tests/                   # Автотесты, отчёты, Markdown-источники
-├── sources/                 # Исходные материалы
-│   ├── incoming/            # PDF-руководства
-│   ├── extracted/           # Извлечённые тексты
-│   ├── site/                # Локальная копия сайта
-│   └── wiki/                # Архив Markdown Wiki
-└── build/rebuild-скрипты    # build_bug_cases.py, rebuild_report.py и др.
+└── sources/                 # Исходные материалы
+    ├── incoming/            # PDF-руководства
+    └── extracted/           # Извлечённые тексты
 ```
 
 ## Как вносить изменения
@@ -59,10 +61,6 @@ python -m http.server 8765
 ```
 
 или
-
-```bash
-perl sources/server.pl
-```
 
 После этого сайт доступен по адресу `http://localhost:8765/`.
 

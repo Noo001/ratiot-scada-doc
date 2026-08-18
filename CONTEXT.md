@@ -28,14 +28,15 @@ C:/repos/doc/
 ├── bug_cases_report.html      # Отчёт по багам для руководителя
 ├── RatioT_SCADA_Bug_Cases.pdf # PDF-версия отчёта по багам
 ├── tests/                     # Автотесты, отчёты, кейсы
-├── sources/                   # Исходные материалы
-│   ├── incoming/              # PDF-руководства
-│   ├── extracted/             # Извлечённые тексты
-│   ├── site/                  # Локальная копия сайта
-│   ├── wiki/                  # Архив GitLab Wiki
-│   ├── new_sections.html
-│   └── server.pl              # Локальный сервер
-└── build/rebuild-скрипты      # build_bug_cases.py, rebuild_report.py и др.
+├── build_bug_cases.py         # Генерация bug_cases.html из tests/BUG_CASES.md
+├── build_pdf.py               # Сборка PDF (старая версия)
+├── generate_pdf.py            # Генерация PDF через Playwright
+├── rebuild_report.py          # Перегенерация bug_cases_report.html
+├── extract_*.py               # Скрипты извлечения текста из PDF/HTML
+├── tests/                     # Автотесты, отчёты, кейсы
+└── sources/                   # Исходные материалы
+    ├── incoming/              # PDF-руководства
+    └── extracted/             # Извлечённые тексты
 ```
 
 ## Цель

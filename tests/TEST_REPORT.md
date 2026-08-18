@@ -113,5 +113,4 @@
 ## 5. Артефакты
 
 - `tests/test_ui_ux.py` — автоматические smoke-тесты.
-- `screenshot_login.png` — страница входа.
-- `screenshot_dashboard.png` — попытка открыть дашборд по токену (показывает логин).
+- `tests/screenshots/01_login.png` — страница входа.

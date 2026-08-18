@@ -8,7 +8,6 @@ pages:
     - cp index.html style.css ux.html public/
     - cp bug_cases.html bug_cases_print.html bug_cases_report.html public/
     - cp RatioT_SCADA_Bug_Cases.pdf public/
-    - cp screenshot_*.png public/
     - cp -r scada public/
   artifacts:
     paths:
