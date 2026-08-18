@@ -186,9 +186,16 @@ C:/repos/doc/
 - **Руководство по развёртыванию:** 98 страниц, ~2600 строк.
   - Основные разделы: требования, установка, лицензирование, запуск, архитектура SCADA/HMI, базовые примеры dashboard, события/SLA, резервное копирование, обновление/удаление.
 
+### Внешние источники по платформе AggreGate
+
+- **Changelog AggreGate (рус.):** `https://aggregate.digital/ru/changelog.html`
+  - Официальный лог изменений базовой платформы AggreGate, на которой работает RatioT SCADA.
+  - Используется для перекрёстной проверки: исправлены ли зафиксированные в `tests/BUG_CASES.md` проблемы в новых версиях ядра.
+
 ## GitLab-проект для документации
 
 - Проект: `https://gitlab.dkc.ru/ratiot/doc` (переименован из `ratiot/ratiot-scada-doc`).
+- **Дистрибутивы RatioT SCADA:** `https://drive.google.com/drive/folders/1oetjGm66MAspkpMmon9lTHDiiOtep2Mu`
 - Текущая роль пользователя: **Maintainer/Owner**.
 - Репозиторий содержит портал документации:
   - `index.html` — главная страница с плитками проектов.
