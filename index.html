@@ -7,10 +7,7 @@
       if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
         var pwd = prompt('Доступ к документации. Введите пароль:');
         if (pwd !== '111') {
-          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p>  <script>
-    document.querySelector('.tiles').classList.remove('tiles-hidden');
-  </script>
-</body>';
+          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
           throw new Error('Access denied');
         }
         localStorage.setItem('ratiot-doc-auth', 'ok');
@@ -118,7 +115,7 @@
     </div>
 
     <footer class="landing-footer">
-      Внутренняя документация. Последнее обновление: 13 августа 2026.
+      Внутренняя документация. Последнее обновление: 19 августа 2026.
     </footer>
   </div>
   <script>
