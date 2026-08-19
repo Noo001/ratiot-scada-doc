@@ -252,7 +252,7 @@ C:/repos/doc/
    - После разархивации новых архивов в `sources/incoming/` нужно создать связные разделы базы знаний.
 4. **GitLab и GitHub:**
    - GitHub Pages уже защищены паролем «111» и публикуют актуальную базу знаний.
-   - GitLab (`origin`) требует SSH-ключа для синхронизации; ключ `~/.ssh/ratiot_scada_doc_deploy` используется для GitHub.
+   - GitLab (`origin`) и GitHub (`github`) синхронизированы с `main`; для GitLab используется ключ `~/.ssh/ratiot_scada_doc_deploy`, для GitHub — тот же ключ.
 
 ## Открытые вопросы
 
