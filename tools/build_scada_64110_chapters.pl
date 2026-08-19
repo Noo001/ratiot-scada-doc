@@ -510,6 +510,10 @@ sub page_template {
     aside nav { max-height: calc(100vh - 140px); overflow-y: auto; }
     aside nav a { white-space: normal; }
     pre { overflow-x: auto; }
+    .breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
+    .breadcrumbs a { color: var(--accent); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    .breadcrumbs span[aria-current="page"] { color: var(--text); font-weight: 500; }
   </style>
 </head>
 <body>
@@ -518,13 +522,20 @@ sub page_template {
       <h1>RatioT SCADA</h1>
       <div class="subtitle">Справка 6.41.10</div>
       <nav>
-        <a href="index.html">← Оглавление</a>
-        <a href="../index.html">← База знаний</a>
+        <a href="index.html">← Оглавление справки</a>
+        <a href="../index.html">← Главная</a>
 $nav
       </nav>
     </aside>
 
     <main>
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="../index.html">Главная</a>
+        <span aria-hidden="true">→</span>
+        <a href="index.html">Оглавление справки</a>
+        <span aria-hidden="true">→</span>
+        <span aria-current="page">@{[ escape_html($heading) ]}</span>
+      </nav>
       <section id="intro">
         <h1>@{[ escape_html($heading) ]}</h1>
       </section>
