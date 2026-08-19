@@ -77,9 +77,10 @@ C:/repos/doc/
 9. Скачан и распарсен changelog базовой платформы AggreGate (`sources/incoming/changelog.html` → `sources/extracted/changelog/changelog_parsed.tsv`).
 10. Выполнено сравнение changelog с 17 баг-кейсами RatioT; отчёт сохранён в `sources/extracted/changelog/changelog_bug_cases_report.md`.
 11. Скрипты для повторного парсинга и сопоставления размещены в `tools/parse_changelog.pl` и `tools/match_changelog_cases.pl`.
-12. Из GitHub-репозитория получена встроенная справка RatioT SCADA 6.41.10 (`scada-docs`, 949 МБ, 1996 htm-файлов).
+12. Извлечена встроенная справка RatioT SCADA 6.41.10 (1996 htm-файлов).
 13. Справка сконвертирована в Markdown: `sources/extracted/scada-docs-6.41.10-md/` (1996 md-файлов + `index.md`).
 14. Сделано сопоставление разделов справки с 17 баг-кейсами: `sources/extracted/scada-docs-6.41.10-md/case_matches.md`.
+15. Создана HTML-страница `scada/docs-6.41.10.html` (карта справки 6.41.10 по 17 баг-кейсам с выдержками) и генератор `tools/build_scada_64110_page.pl`. Страница связана из `scada/index.html` и `scada/ux.html`.
 
 ## Ключевые инструменты
 
@@ -242,29 +243,16 @@ C:/repos/doc/
 
 ## Требуется для продолжения работы
 
-1. **Анализ встроенной справки 6.41.10:**
-   - Изучить ключевые разделы, найденные для каждого кейса (`sources/extracted/scada-docs-6.41.10-md/case_matches.md`).
-   - Сравнить с текущей базой знаний (`scada/index.html`, `scada/ux.html`) и дополнить/исправить её.
-   - Особенно важны разделы:
-     - `ls_drivers_modbus.md` — кейс 4 (Modbus CSV/XML).
-     - `ls_wui_components_event_log.md`, `ls_ui_procedure_event_log.md` — кейс 5 (eventLog).
-     - `ls_database_nosql_embedded.md`, `ls_config_storage_nosql.md` — кейс 7 (NoSQL).
-     - `ls_wui_components_html_snippet.md` — кейс 8 (HTML-сниппет).
-     - `ls_store.md` — кейс 10 (магазин приложений).
-     - `ls_conref_users.md` — кейс 17 (пользователи).
-2. **Проверка отчёта по changelog:**
+1. **Проверка отчёта по changelog:**
    - Файл `sources/extracted/changelog/changelog_bug_cases_report.md` требует ручной проверки найденных совпадений.
    - По платформенным кейсам (4, 5, 7, 8, 14, 15) нужно подтвердить, относятся ли пункты changelog к нашим багам.
-3. **Обновление bug_cases_report.html:**
+2. **Обновление bug_cases_report.html:**
    - По запросу пользователя — перенести результаты сравнения changelog и справки 6.41.10 в `bug_cases_report.html`.
-4. **Документация по новым файлам из `sources/incoming/`:**
+3. **Документация по новым файлам из `sources/incoming/`:**
    - После разархивации новых архивов в `sources/incoming/` нужно создать связные разделы базы знаний.
-5. **Удаление `scada-docs` с GitHub:**
-   - Папка `scada-docs` (949 МБ) запушена в GitHub-репозиторий с другого компьютера.
-   - Локально её нет; push недоступен из-за отсутствия SSH-ключа. Требуется либо удалить вручную на GitHub, либо предоставить HTTPS-токен/доступ.
-6. **Решение по GitHub Pages:**
-   - Сайт `https://noo001.github.io/ratiot-scada-doc/scada/index.html` временно недоступен; требуется диагностика (проверить workflow, ветку, настройки репозитория).
-   - Парольная защита «111» для GitHub Pages уже реализована на главной странице (`index.html`).
+4. **GitLab и GitHub:**
+   - GitHub Pages уже защищены паролем «111» и публикуют актуальную базу знаний.
+   - GitLab (`origin`) требует SSH-ключа для синхронизации; ключ `~/.ssh/ratiot_scada_doc_deploy` используется для GitHub.
 
 ## Открытые вопросы
 
