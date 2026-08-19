@@ -1,0 +1,2107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <script>
+    (function () {
+      if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
+        var pwd = prompt('Доступ к документации. Введите пароль:');
+        if (pwd !== '111') {
+          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
+          throw new Error('Access denied');
+        }
+        localStorage.setItem('ratiot-doc-auth', 'ok');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RatioT SCADA 6.41.10 — оглавление справки</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .letter-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .letter-nav a { display: inline-block; padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; text-decoration: none; color: var(--text); }
+    .letter-nav a:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+    section h2 { margin-top: 0; }
+    section ul { columns: 1; }
+    @media (min-width: 700px) { section ul { columns: 2; } }
+    section li { break-inside: avoid; margin-bottom: 6px; font-size: .92rem; }
+    aside nav { max-height: calc(100vh - 140px); overflow-y: auto; }
+  </style>
+</head>
+<body id="top">
+  <div class="layout">
+    <aside>
+      <h1>RatioT SCADA</h1>
+      <div class="subtitle">Справка 6.41.10 — оглавление</div>
+      <nav>
+        <a href="../index.html">← База знаний</a>
+<a href="#top">↑ Наверх</a>
+<a href="#group-en-65">A-Z</a>
+<a href="#group-ru-1040">А-Я</a>
+<a href="#group-other">…</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section id="intro">
+        <h2>Оглавление встроенной справки RatioT SCADA 6.41.10</h2>
+        <p>Всего разделов: <strong>1996</strong>. Содержимое отсортировано по алфавиту и сгруппировано по первой букве названия.</p>
+        <div class="letter-nav">
+<a href="#group-en-65">A-Z</a>
+<a href="#group-ru-1040">А-Я</a>
+<a href="#group-other">…</a>
+        </div>
+      </section>
+
+<section id="group-en-65">
+<h2>A-Z</h2>
+<ul>
+<li><code>ls_internals_events_action_added.md</code> — Actionadded (добавлено действие)</li>
+<li><code>ls_internals_events_action_removed.md</code> — Actionremoved (удалено действие)</li>
+<li><code>ls_internals_variables_actions.md</code> — Actions (действия контекста)</li>
+<li><code>ls_internals_variables_active_alerts.md</code> — activeAlerts (активные тревоги)</li>
+<li><code>int_dot_net_api.md</code> — API для .NET</li>
+<li><code>int_cpp_api.md</code> — API для C/C++</li>
+<li><code>int_js_ts_api.md</code> — API для JavaScript/TypeScript</li>
+<li><code>int_api.md</code> — API сервера</li>
+<li><code>ls_drivers_asterisk.md</code> — Asterisk</li>
+<li><code>int_rest_api_reference_auth.md</code> — Auth</li>
+<li><code>ls_drivers_bacnet.md</code> — Bacnet</li>
+<li><code>ls_internals_events_change.md</code> — Change (изменение переменной)</li>
+<li><code>ls_internals_events_child_added.md</code> — Childadded (добавлен контекст-потомок)</li>
+<li><code>ls_internals_events_child_removed.md</code> — Childremoved (удален контекст-потомок)</li>
+<li><code>ls_internals_variables_children.md</code> — Children (потомки контекста)</li>
+<li><code>ls_drivers_coap.md</code> — CoAP (Constrained Application Protocol)</li>
+<li><code>int_rest_api_reference_context.md</code> — Context</li>
+<li><code>ls_internals_variables_context_status.md</code> — Contextstatus (статус контекста)</li>
+<li><code>ls_drivers_corba.md</code> — CORBA</li>
+<li><code>ls_drivers_cwmp.md</code> — CWMP</li>
+<li><code>ls_internals_functions_delete.md</code> — Delete (удалить)</li>
+<li><code>ls_drivers_dlms_cosem.md</code> — DLMS/COSEM</li>
+<li><code>ls_drivers_dnp3.md</code> — DNP3</li>
+<li><code>ls_email.md</code> — E-mail сообщения</li>
+<li><code>ls_drivers_ethernet_ip.md</code> — Ethernet/ip</li>
+<li><code>int_rest_api_reference_evaluate.md</code> — Evaluate</li>
+<li><code>ls_internals_events_evaluation.md</code> — Evaluation (вычисление)</li>
+<li><code>ls_internals_events_evaluation_error.md</code> — Evaluationerror (ошибка вычисления)</li>
+<li><code>ls_internals_events_event_added.md</code> — Eventadded (добавлено событие)</li>
+<li><code>ls_internals_events_event_removed.md</code> — Eventremoved (удалено событие)</li>
+<li><code>int_rest_api_reference_events.md</code> — Events</li>
+<li><code>ls_internals_variables_events.md</code> — Events (события контекста)</li>
+<li><code>ls_drivers_ip_host_expect.md</code> — Expect-скрипты</li>
+<li><code>cl_ide_components_fbd.md</code> — FBD компоненты</li>
+<li><code>ls_internals_functions_fire_event.md</code> — fireEvent (Запустить событие)</li>
+<li><code>ls_drivers_flexible.md</code> — Flexible драйвер</li>
+<li><code>int_rest_api_reference_function.md</code> — Function</li>
+<li><code>ls_internals_events_function_added.md</code> — Functionadded (добавлена функция)</li>
+<li><code>ls_internals_events_function_removed.md</code> — Functionremoved (удалена функция)</li>
+<li><code>int_rest_api_reference_functions.md</code> — Functions</li>
+<li><code>ls_internals_variables_functions.md</code> — Functions (функции контекста)</li>
+<li><code>ls_internals_variables_group_membership.md</code> — Groupmembership (членство в группах)</li>
+<li><code>ls_widgets_html_area.md</code> — HTML область</li>
+<li><code>int_http_server.md</code> — HTTP сервер</li>
+<li><code>ds_plugins_http_proxy.md</code> — Http-прокси</li>
+<li><code>ls_drivers_http.md</code> — HTTP/HTTPS</li>
+<li><code>ls_drivers_iec104.md</code> — IEC-104</li>
+<li><code>ls_drivers_iec104_server.md</code> — IEC-104 server</li>
+<li><code>nm_monitoring_email_imap.md</code> — Imap-мониторинг</li>
+<li><code>ls_internals_variables_info.md</code> — Info (информация о контексте)</li>
+<li><code>ls_internals_events_info.md</code> — Info (Информация)</li>
+<li><code>ls_internals_events_action_state_changed.md</code> — Infochanged (изменена информация)</li>
+<li><code>ls_internals_events_info_changed.md</code> — Infochanged (изменена информация)</li>
+<li><code>ls_drivers_ipmi.md</code> — IPMI</li>
+<li><code>ls_scripts_java.md</code> — Java скрипты</li>
+<li><code>ls_drivers_jmx.md</code> — JMX (java расширения для сетевого управления)</li>
+<li><code>ls_drivers_kafka.md</code> — Kafka</li>
+<li><code>ls_internals_permissions_kerberos.md</code> — Kerberos</li>
+<li><code>cl_ide_components_ld.md</code> — LD компоненты</li>
+<li><code>ls_internals_permissions_ldap.md</code> — LDAP-аутентификация (active directory)</li>
+<li><code>basics_low_code.md</code> — Low-code разработка и devops</li>
+<li><code>ls_internals_functions_make_copy.md</code> — Makecopy (копировать)</li>
+<li><code>mes.md</code> — MES</li>
+<li><code>ls_drivers_message_stream.md</code> — Message Stream</li>
+<li><code>ls_drivers_meterbus.md</code> — Meter bus (m-bus)</li>
+<li><code>ls_drivers_modbus.md</code> — Modbus</li>
+<li><code>ls_drivers_mqtt.md</code> — MQTT</li>
+<li><code>ls_netadmin.md</code> — Net admin</li>
+<li><code>ls_drivers_nmea.md</code> — NMEA 0183</li>
+<li><code>ls_config_db_nosql.md</code> — NoSQL хранилище</li>
+<li><code>ls_config_storage_nosql.md</code> — NoSQL хранилище</li>
+<li><code>ls_internals_permissions_oauth.md</code> — Oauth</li>
+<li><code>mes_oee_quick_start.md</code> — OEE: Быстрый старт</li>
+<li><code>ls_drivers_omron_fins.md</code> — Omron FINS</li>
+<li><code>ls_drivers_opc.md</code> — OPC (OLE для управления процессами)</li>
+<li><code>ls_drivers_opcua.md</code> — OPC UA (единая архитектура OPC)</li>
+<li><code>sh_opc_server.md</code> — OPC сервер</li>
+<li><code>nm_monitoring_email_pop3.md</code> — Pop3-мониторинг</li>
+<li><code>sh_pc.md</code> — Process management</li>
+<li><code>ls_drivers_ip_host_radius.md</code> — Radius мониторинг</li>
+<li><code>cl_ide.md</code> — RatioT IDE</li>
+<li><code>mes_core.md</code> — RatioT MES Core</li>
+<li><code>mes_oee.md</code> — RatioT MES Performance and OEE</li>
+<li><code>mes_ps.md</code> — RatioT MES Planning and Scheduling</li>
+<li><code>mes_track_and_trace.md</code> — RatioT MES Track and Trace</li>
+<li><code>sh_scada_tags.md</code> — RatioT SCADA Теги</li>
+<li><code>server.md</code> — RatioT Server</li>
+<li><code>troubleshooting_server_not_responding.md</code> — RatioT Server не отвечает</li>
+<li><code>int_rest_api_reference_refresh.md</code> — Refresh</li>
+<li><code>cl_ide_components_ld_reset_coil.md</code> — Reset катушка</li>
+<li><code>int_rest_api.md</code> — REST/HTTP сервер API</li>
+<li><code>ru_docs_64.md</code> — RU-docs-6.4</li>
+<li><code>scada_hmi.md</code> — SCADA/HMI</li>
+<li><code>int_agent_sdk.md</code> — SDK агента</li>
+<li><code>int_web_application_sdk.md</code> — SDK веб-приложения</li>
+<li><code>int_widget_component_sdk.md</code> — SDK компонента виджет</li>
+<li><code>int_plugin_sdk.md</code> — SDK плагинов</li>
+<li><code>search.md</code> — Search in Documentation</li>
+<li><code>cl_ide_components_ld_set_coil.md</code> — SET катушка</li>
+<li><code>cl_ide_components_sfc.md</code> — SFC компоненты</li>
+<li><code>ls_drivers_siemens_s7.md</code> — Siemens S7</li>
+<li><code>ls_drivers_sip.md</code> — SIP</li>
+<li><code>ls_drivers_samba.md</code> — SMB/CIFS (мониторинг совместно используемого ресурса)</li>
+<li><code>ls_drivers_smis.md</code> — SMI-S (storage management initiative &amp;ndash; specification)</li>
+<li><code>ls_drivers_smpp.md</code> — SMPP (Simple Message Peer-to-Peer)</li>
+<li><code>ls_sms.md</code> — SMS сообщения</li>
+<li><code>nm_monitoring_email_smtp.md</code> — Smtp-мониторинг</li>
+<li><code>ls_drivers_snmp.md</code> — SNMP (простой протокол сетевого управления)</li>
+<li><code>ls_drivers_ip_host_snmp.md</code> — SNMP мониторинг</li>
+<li><code>nm_snmp_polling.md</code> — Snmp-опрос</li>
+<li><code>nm_events_traps.md</code> — Snmp-уведомления</li>
+<li><code>nm_control_snmp.md</code> — Snmp-управление</li>
+<li><code>ls_drivers_soap.md</code> — SOAP (web-сервисы)</li>
+<li><code>int_web_service.md</code> — SOAP веб-сервис</li>
+<li><code>space.md</code> — Space Root</li>
+<li><code>ls_internals_events_context_status_changed.md</code> — Statuschanged (изменен статус)</li>
+<li><code>int_rest_api_stomp.md</code> — STOMP API</li>
+<li><code>nm_syslog.md</code> — Syslog</li>
+<li><code>nm_syslog_monitoring_alerts.md</code> — Syslog-тревоги</li>
+<li><code>ls_internals_variables_templates.md</code> — Templates (Шаблоны)</li>
+<li><code>ls_drivers_tps.md</code> — TPS (BUFFLAB Project System)</li>
+<li><code>ls_conref_ui_component.md</code> — UI компонент</li>
+<li><code>ls_conref_ui_components.md</code> — UI компоненты</li>
+<li><code>ls_workflows_functional_blocks_ui_procedure.md</code> — UI процедура</li>
+<li><code>ls_internals_ui_procedures.md</code> — UI процедуры</li>
+<li><code>ls_internals_events_updated.md</code> — Updated (обновление переменной)</li>
+<li><code>ls_internals_functions_update_variable.md</code> — Updatevariable (обновить переменную)</li>
+<li><code>ls_wui_routing.md</code> — URL и маршрутизация</li>
+<li><code>ls_internals_variables_validity.md</code> — Validity (пригодность)</li>
+<li><code>int_rest_api_reference_variable_get.md</code> — Variable (GET)</li>
+<li><code>int_rest_api_reference_variable_patch.md</code> — Variable (PATCH)</li>
+<li><code>int_rest_api_reference_variable_put.md</code> — Variable (PUT)</li>
+<li><code>ls_internals_events_variable_added.md</code> — Variableadded (добавлена переменная)</li>
+<li><code>ls_internals_events_variable_removed.md</code> — Variableremoved (удалена переменная)</li>
+<li><code>int_rest_api_reference_variables.md</code> — Variables</li>
+<li><code>ls_internals_variables_variables.md</code> — Variables (переменные контекста)</li>
+<li><code>ls_internals_events_visible_child_added.md</code> — Visiblechildadded (добавлен видимый контекст-потомок)</li>
+<li><code>ls_internals_events_visible_child_removed.md</code> — Visiblechildremoved (удален видимый контекст-потомок)</li>
+<li><code>ls_drivers_vmware.md</code> — Vmware</li>
+<li><code>nm_wol.md</code> — Wake-on-lan</li>
+<li><code>ls_wui.md</code> — Web UI</li>
+<li><code>ls_drivers_mq.md</code> — Websphere MQ</li>
+<li><code>ls_drivers_wmi.md</code> — WMI (инструментарий управления windows)</li>
+<li><code>nm_wmi.md</code> — WMI (инструментарий управления windows)</li>
+<li><code>ls_drivers_ip_host_wmi.md</code> — WMI мониторинг</li>
+<li><code>ls_drivers_xmpp.md</code> — XMPP (расширяемый протокол обмена сообщениями о присутствии)</li>
+<li><code>ls_widgets_charts_line_xy.md</code> — Xy-диаграмма</li>
+<li><code>ls_widgets_charts_area_xy.md</code> — Xy-диаграмма с областями</li>
+<li><code>ls_widgets_charts_combined_range_xy.md</code> — Xy-диаграмма с общей осью значений</li>
+<li><code>ls_widgets_charts_combined_domain_xy.md</code> — Xy-диаграмма с общей осью параметров</li>
+<li><code>ls_widgets_charts_bar_xy.md</code> — Xy-столбчатая диаграмма</li>
+</ul>
+</section>
+
+
+<section id="group-ru-1040">
+<h2>А-Я</h2>
+<ul>
+<li><code>ls_wui_layouts_absolute.md</code> — Абсолютное позиционирование</li>
+<li><code>ls_drivers_avatar.md</code> — Аватар</li>
+<li><code>ls_autorun.md</code> — Автозапуск</li>
+<li><code>ls_conref_autorun.md</code> — Автозапуск</li>
+<li><code>ls_autorun_distributed.md</code> — Автозапуск в распределенной архитектуре</li>
+<li><code>ls_alerts_automatic_actions.md</code> — Автоматические корректирующие действия</li>
+<li><code>nm_discovery_automatic.md</code> — Автоматическое обнаружение</li>
+<li><code>nm_syslog_monitoring_autodiscovery.md</code> — Автоматическое обнаружение источника syslog-сообщения</li>
+<li><code>nm_snmp_traps_autodiscovery.md</code> — Автоматическое обнаружение источников snmp-ловушек</li>
+<li><code>ls_drivers_snmp_global_settings_trap_autodiscovery.md</code> — Автоматическое обнаружение источников уведомлений SNMP</li>
+<li><code>nm_ccm_backups_on_changes.md</code> — Автоматическое резервное копирование при изменениях</li>
+<li><code>cl_gui_builder_standalone.md</code> — Автономная версия</li>
+<li><code>ls_web_standalone_server.md</code> — Автономный веб сервер</li>
+<li><code>cl_st_server_auto_connection.md</code> — Автоподключение к локальному серверу</li>
+<li><code>ls_drivers_agent.md</code> — Агент</li>
+<li><code>sh_opc_agent.md</code> — Агент OPC (нативный клиент OPC)</li>
+<li><code>agent.md</code> — Агенты</li>
+<li><code>ls_conref_aggregation.md</code> — Агрегация</li>
+<li><code>nm_netflow_aggregation.md</code> — Агрегирование данных потока</li>
+<li><code>ls_internals_statistics_server_vs_device_agg.md</code> — Агрегирование сервера и устройств</li>
+<li><code>ls_internals_events_aggregation.md</code> — Агрегирование событий</li>
+<li><code>ls_wui_uib_styles_responsive_styles.md</code> — Адаптивные стили</li>
+<li><code>ls_conref_administration.md</code> — Администрирование</li>
+<li><code>nm_config_local_administer.md</code> — Администрирование устройств и сервисов</li>
+<li><code>ls_internals_bindings_server_activator.md</code> — Активатор привязки</li>
+<li><code>ls_widgets_bindings_activator.md</code> — Активатор привязки</li>
+<li><code>ls_wui_bindings_activator.md</code> — Активатор привязки</li>
+<li><code>nm_snmp_enabling_linux.md</code> — Активирование snmp-агента на системах linux</li>
+<li><code>nm_snmp_enabling_solaris.md</code> — Активирование snmp-агента на системах solaris</li>
+<li><code>ls_config_active_plugins.md</code> — Активные плагины</li>
+<li><code>ls_alerts_active.md</code> — Активные экземпляры</li>
+<li><code>ls_devices_assets.md</code> — Активы устройств</li>
+<li><code>ls_machine_learning_algorithms.md</code> — Алгоритмы</li>
+<li><code>nm_topology_discovery_algorithms.md</code> — Алгоритмы обнаружения топологии сети</li>
+<li><code>sh_pc_sfc_alter_branch.md</code> — Альтернативные ветви</li>
+<li><code>ls_internals_events_root_cause_analysis.md</code> — Анализ первопричин</li>
+<li><code>ls_workflows_analyze.md</code> — Анализ процессов</li>
+<li><code>ls_wui_uib_styles_animated_transitions.md</code> — Анимированные переходы стилей</li>
+<li><code>ls_widgets_charts_category_pointer_annotation.md</code> — Аннотация с указателем</li>
+<li><code>ls_widgets_charts_xy_title_annotation.md</code> — Аннотация-заголовок</li>
+<li><code>ls_widgets_charts_xy_image_annotation.md</code> — Аннотация-изображение</li>
+<li><code>ls_widgets_charts_xy_data_image_annotation.md</code> — Аннотация-изображение в координатах графика</li>
+<li><code>ls_widgets_charts_xy_legend_annotation.md</code> — Аннотация-легенда</li>
+<li><code>ls_widgets_charts_xy_polygon_annotation.md</code> — Аннотация-многоугольник</li>
+<li><code>ls_widgets_charts_xy_pointer_annotation.md</code> — Аннотация-указатель</li>
+<li><code>ls_widgets_charts_xy_shape_annotation.md</code> — Аннотация-форма</li>
+<li><code>ls_machine_learning_arguments.md</code> — Аргументы функций обучаемого модуля</li>
+<li><code>cluster_coordinator_architecture_permissions.md</code> — Арендаторы</li>
+<li><code>int_plugin_archive.md</code> — Архив плагина</li>
+<li><code>cluster_coordinator_architecture.md</code> — Архитектура</li>
+<li><code>sh_architecture.md</code> — Архитектура</li>
+<li><code>nm_tools_plugins.md</code> — Архитектура RatioT Network Manager</li>
+<li><code>int_rest_api_authenticating.md</code> — Аутентификация</li>
+<li><code>ls_config_auth.md</code> — Аутентификация</li>
+<li><code>ls_database_nosql.md</code> — База данных NoSQL</li>
+<li><code>ls_drivers_database.md</code> — База данных SQL</li>
+<li><code>ls_config_db.md</code> — Базы данных</li>
+<li><code>ls_config_storage_db.md</code> — Базы данных</li>
+<li><code>ls_config_security.md</code> — Безопасность</li>
+<li><code>sh_security.md</code> — Безопасность SCADA</li>
+<li><code>nm_snmp_basics_security.md</code> — Безопасность SNMP</li>
+<li><code>ls_widgets_security.md</code> — Безопасность виджетов</li>
+<li><code>ls_internals_expressions_security.md</code> — Безопасность выражений</li>
+<li><code>ls_groups_security.md</code> — Безопасность групп</li>
+<li><code>ls_trackers_security.md</code> — Безопасность датчиков</li>
+<li><code>ls_jobs_security.md</code> — Безопасность задач</li>
+<li><code>ls_internals_permissions.md</code> — Безопасность и контроль доступа</li>
+<li><code>ls_dashboards_security.md</code> — Безопасность инструментальных панелей</li>
+<li><code>ls_models_security.md</code> — Безопасность моделей</li>
+<li><code>ls_reports_security.md</code> — Безопасность отчетов</li>
+<li><code>ls_workflows_security.md</code> — Безопасность процесса</li>
+<li><code>ls_scripts_security.md</code> — Безопасность скриптов</li>
+<li><code>ls_alerts_security.md</code> — Безопасность тревог</li>
+<li><code>ls_password_security.md</code> — Безопасность учетных данных внешних систем</li>
+<li><code>ls_safe_mode.md</code> — Безопасный режим</li>
+<li><code>sh_symbol_library.md</code> — Библиотека символов</li>
+<li><code>cl_ide_components_fbd_block.md</code> — Блок</li>
+<li><code>cl_ide_components_ld_block.md</code> — Блок</li>
+<li><code>ls_workflows_blocks.md</code> — Блоки</li>
+<li><code>ls_widgets_charts_xy_box_annotation.md</code> — Блочная аннотация</li>
+<li><code>ls_widgets_charts_block.md</code> — Блочная диаграмма</li>
+<li><code>cl_device_browser.md</code> — Браузер устройств</li>
+<li><code>mes_core_quick_start.md</code> — Быстрый старт</li>
+<li><code>ls_config_validators.md</code> — Валидаторы</li>
+<li><code>introduction.md</code> — Введение</li>
+<li><code>ls_widgets_web_player.md</code> — Веб виджет плеер</li>
+<li><code>ls_drivers_web_transaction.md</code> — Веб-транзакция</li>
+<li><code>cl_logging.md</code> — Ведение журнала</li>
+<li><code>ls_widgets_charts_vector.md</code> — Векторная диаграмма</li>
+<li><code>ls_widgets_vector_drawing.md</code> — Векторное изображение</li>
+<li><code>ls_wui_components_vector_drawing.md</code> — Векторное изображение</li>
+<li><code>nm_snmp_basics_versions.md</code> — Версии SNMP</li>
+<li><code>basics_versions.md</code> — Ветви и версии</li>
+<li><code>cl_ide_components_ld_branch.md</code> — Ветвление</li>
+<li><code>ls_workflows_control_flow_blocks_if.md</code> — Ветвление</li>
+<li><code>cl_ide_components_sfc_branch.md</code> — Ветвь</li>
+<li><code>ag_comms.md</code> — Взаимодействие агента и RatioT Serverа</li>
+<li><code>int_programming_protocol.md</code> — Взаимодействие по протоколу RatioT SCADA</li>
+<li><code>nm_concepts_interactions.md</code> — Взаимодействия управления</li>
+<li><code>ls_widgets_video_player.md</code> — Видеопроигрыватель</li>
+<li><code>ls_conref_widget.md</code> — Виджет</li>
+<li><code>ls_queries_executor.md</code> — Виджет исполнитель запросов</li>
+<li><code>ls_conref_widgets.md</code> — Виджеты</li>
+<li><code>ls_widgets.md</code> — Виджеты</li>
+<li><code>nm_monitoring_virtualization_widgets.md</code> — Виджеты виртуализации</li>
+<li><code>ls_internals_contexts_tree_differences.md</code> — Видимое и действительное дерево контекстов</li>
+<li><code>ls_wui_components_charts_dataset_variable_types.md</code> — Виды серий данных</li>
+<li><code>ls_wui_components_charts_common_properties_visualization.md</code> — Визуализация</li>
+<li><code>ls_visualization.md</code> — Визуализация данных</li>
+<li><code>nm_netflow_visualization.md</code> — Визуализация потоков трафика</li>
+<li><code>nm_visualization.md</code> — Визуализация сети</li>
+<li><code>ls_advanced_structures.md</code> — Визуализация структуры приложения</li>
+<li><code>ls_widgets_topology.md</code> — Визуализация топологии</li>
+<li><code>ls_drivers_virtual.md</code> — Виртуальное устройство</li>
+<li><code>ls_wui_containers_tabbed_panel_tab.md</code> — Вкладка</li>
+<li><code>nm_snmp_enabling_windows.md</code> — Включение snmp-агента на системе windows</li>
+<li><code>ls_wui_containers_subdashboard.md</code> — Вложенная панель</li>
+<li><code>ls_drivers_application.md</code> — Внешнее приложение/скрипт</li>
+<li><code>ls_internals_permissions_external_auth.md</code> — Внешняя аутентификация</li>
+<li><code>sh_pc_sfc_internal.md</code> — Внутренние переменные шага</li>
+<li><code>ls_machine_learning_filters.md</code> — Внутренние фильтры</li>
+<li><code>cl_ide_components_fbd_return.md</code> — Возврат</li>
+<li><code>cl_ide_components_ld_return.md</code> — Возврат</li>
+<li><code>ag_event_generation.md</code> — Возникновение события</li>
+<li><code>ac_conref_timezone.md</code> — Временная зона</li>
+<li><code>ls_widgets_charts_value_axis_date.md</code> — Временная ось</li>
+<li><code>ls_users_suspending.md</code> — Временное отключение учетных записей</li>
+<li><code>ac_conref_timezones.md</code> — Временные зоны</li>
+<li><code>ls_devices_variables_quality_timestamps.md</code> — Временные метки значений переменных и качество</li>
+<li><code>ls_internals_datatables_quality_timestamps.md</code> — Временные метки и качество таблицы данных</li>
+<li><code>ls_wui_components_time_picker.md</code> — Время</li>
+<li><code>ls_wui_component_properties_common_tooltip.md</code> — Всплывающая подсказка</li>
+<li><code>ls_wui_components_charts_common_properties_tooltip.md</code> — Всплывающая подсказка</li>
+<li><code>ls_wui_alert_popups.md</code> — Всплывающие окна тревог</li>
+<li><code>ls_wui_uib_styles_tooltips.md</code> — Всплывающие подсказки</li>
+<li><code>ls_trackers_built_in.md</code> — Встроенные датчики</li>
+<li><code>ls_reports_built_in.md</code> — Встроенные отчеты</li>
+<li><code>ls_event_filters_built_in.md</code> — Встроенные фильтры</li>
+<li><code>ls_web.md</code> — Встроенный веб сервер</li>
+<li><code>cl_ide_components_fbd_input.md</code> — Вход</li>
+<li><code>ls_wui_login.md</code> — Вход/выход из системы</li>
+<li><code>ls_workflows_input_blocks.md</code> — Входные блоки</li>
+<li><code>ls_widgets_input_parameters.md</code> — Входные параметры виджета</li>
+<li><code>tut_events.md</code> — Выбор и обработка событий</li>
+<li><code>ls_ui_procedure_select_entities.md</code> — Выбрать объекты</li>
+<li><code>ls_wui_containers_drawer.md</code> — Выдвижная панель</li>
+<li><code>ls_actions_call_function.md</code> — Вызов функции</li>
+<li><code>int_programming_functions.md</code> — Вызов функций</li>
+<li><code>int_server_shutdown.md</code> — Выключение сервера</li>
+<li><code>ls_wui_components_dropdown_tree.md</code> — Выпадающее дерево</li>
+<li><code>ls_wui_components_dropdown_menu.md</code> — Выпадающее меню</li>
+<li><code>ls_wui_components_dropdown_list.md</code> — Выпадающий список</li>
+<li><code>int_programming_executing_actions.md</code> — Выполнение действий программно</li>
+<li><code>ls_wui_bindings_performance.md</code> — Выполнение привязок</li>
+<li><code>nm_control_actions_ssh.md</code> — Выполнить удаленный скрипт</li>
+<li><code>cl_ide_components_properties_expression.md</code> — Выражение</li>
+<li><code>ls_workflows_functional_blocks_expression.md</code> — Выражение</li>
+<li><code>ls_reports_source_data_expression.md</code> — Выражение исходных данных</li>
+<li><code>ls_internals_bindings_server_expression.md</code> — Выражение привязки</li>
+<li><code>ls_widgets_bindings_expression.md</code> — Выражение привязки</li>
+<li><code>ls_wui_bindings_expression.md</code> — Выражение привязки</li>
+<li><code>ls_validity_expression.md</code> — Выражение пригодности</li>
+<li><code>ls_config_expressions.md</code> — Выражения</li>
+<li><code>ls_internals_expressions.md</code> — Выражения</li>
+<li><code>ls_event_filters_expressions.md</code> — Выражения фильтра</li>
+<li><code>cl_ide_components_fbd_output.md</code> — Выход</li>
+<li><code>ls_workflows_control_flow_blocks_exit.md</code> — Выход</li>
+<li><code>ls_widgets_charts_category_tool_tip_generator.md</code> — Генератор всплывающих подсказок</li>
+<li><code>ls_widgets_charts_xy_tool_tip_generator.md</code> — Генератор всплывающих подсказок</li>
+<li><code>ls_widgets_charts_category_item_label_generator.md</code> — Генератор меток элементов</li>
+<li><code>ls_widgets_charts_xy_item_label_generator.md</code> — Генератор меток элементов</li>
+<li><code>ls_reports_template_generation.md</code> — Генерация шаблонов отчета</li>
+<li><code>ls_geofences.md</code> — Геозоны</li>
+<li><code>ls_wui_responsive.md</code> — Гибкий дизайн</li>
+<li><code>ls_machine_learning_hyperparameters.md</code> — Гиперпараметры алгоритмов</li>
+<li><code>cl_gui_builder_main_menu.md</code> — Главное меню</li>
+<li><code>cl_main_menu.md</code> — Главное меню</li>
+<li><code>cl_main_window.md</code> — Главное окно</li>
+<li><code>ls_config_devices_global_config.md</code> — Глобальная конфигурация устройств</li>
+<li><code>nm_snmp_configure_driver.md</code> — Глобальная настройка SNMP</li>
+<li><code>ls_config_global.md</code> — Глобальные конфигурационные опции</li>
+<li><code>ls_wui_uib_styles_global_styles.md</code> — Глобальные стили</li>
+<li><code>cluster_coordinator.md</code> — Горизонтальный кластер</li>
+<li><code>ls_config_cluster_horizontal_cluster.md</code> — Горизонтальный кластер</li>
+<li><code>ap_hotkeys.md</code> — Горячие клавиши Платформы</li>
+<li><code>ls_widgets_border.md</code> — Граница</li>
+<li><code>ls_internals_granulation.md</code> — Грануляция</li>
+<li><code>ls_models_granulation.md</code> — Грануляция</li>
+<li><code>ls_widgets_graph.md</code> — Граф</li>
+<li><code>ls_wui_components_graph.md</code> — Граф</li>
+<li><code>ls_widgets_charts.md</code> — Графики</li>
+<li><code>nm_availability_charting.md</code> — Графики доступности</li>
+<li><code>ls_widgets_charts_category.md</code> — Графики категорий</li>
+<li><code>ls_widgets_primitives.md</code> — Графические примитивы</li>
+<li><code>ls_drivers_graphdb.md</code> — Графовая база данных</li>
+<li><code>ls_wui_components_button_group.md</code> — Группа кнопок</li>
+<li><code>ls_conref_group.md</code> — Группа устройств</li>
+<li><code>ls_wui_components_check_box_group.md</code> — Группа флаговых кнопок</li>
+<li><code>ls_widgets_button_group.md</code> — Группа чекбоксов</li>
+<li><code>ls_internals_actions_grouping.md</code> — Группировка действий</li>
+<li><code>cl_dte_grouping.md</code> — Группировка рядов</li>
+<li><code>ls_groups_batch_operations.md</code> — Групповые операции</li>
+<li><code>ls_groups.md</code> — Группы</li>
+<li><code>ls_groups_distributed.md</code> — Группы в распределенной архитектуре</li>
+<li><code>ls_conref_groups.md</code> — Группы устройств</li>
+<li><code>ls_widgets_date_time_picker.md</code> — Дата/время</li>
+<li><code>ls_wui_components_date_time_picker.md</code> — Дата/время</li>
+<li><code>ls_conref_tracker.md</code> — Датчик</li>
+<li><code>cl_trackers.md</code> — Датчики</li>
+<li><code>ls_conref_trackers.md</code> — Датчики</li>
+<li><code>ls_trackers.md</code> — Датчики</li>
+<li><code>ls_trackers_distributed.md</code> — Датчики в распределенной архитектуре</li>
+<li><code>cl_uninstallation.md</code> — Деинсталляция</li>
+<li><code>ls_uninstallation.md</code> — Деинсталляция</li>
+<li><code>ls_workflows_functional_blocks_action.md</code> — Действие</li>
+<li><code>ls_conref_autorun_action.md</code> — Действие автозапуск</li>
+<li><code>nm_config_local_tools_setupmonitoring.md</code> — Действие настройка мониторинга</li>
+<li><code>nm_config_local_tools_setupmonitoringprofile.md</code> — Действие настройка профиля мониторинга</li>
+<li><code>cl_ide_actions.md</code> — Действия</li>
+<li><code>ls_config_actions.md</code> — Действия</li>
+<li><code>ls_internals_actions.md</code> — Действия</li>
+<li><code>sh_pc_sfc_actions.md</code> — Действия</li>
+<li><code>ls_internals_actions_dnd.md</code> — Действия перетаскивания</li>
+<li><code>nm_control_actions.md</code> — Действия сетевого управления</li>
+<li><code>ls_internals_actions_variable.md</code> — Действия, относящиеся к переменным</li>
+<li><code>ls_internals_actions_event.md</code> — Действия, относящиеся к событиям</li>
+<li><code>sh_demos.md</code> — Демонстрационные мнемосхемы</li>
+<li><code>sh_demos_filter_plant.md</code> — Демонстрация работы фильтровальной станции</li>
+<li><code>ls_wui_components_custom_tree.md</code> — Дерево</li>
+<li><code>ls_wui_uib_component_tree.md</code> — Дерево компонентов</li>
+<li><code>int_plugin_descriptor.md</code> — Дескриптор плагина</li>
+<li><code>client.md</code> — Десктопное клиентское приложение</li>
+<li><code>nm_ip_sla_jitter.md</code> — Джиттер</li>
+<li><code>ls_system_diagnostics.md</code> — Диагностика системы</li>
+<li><code>ls_widgets_charts_line.md</code> — Диаграмма</li>
+<li><code>ls_widgets_charts_gantt.md</code> — Диаграмма ганта</li>
+<li><code>ls_wui_components_gantt_chart.md</code> — Диаграмма Ганта</li>
+<li><code>mes_core_dashboards_schedule_gantt_chart.md</code> — Диаграмма Ганта расписания</li>
+<li><code>ls_widgets_charts_interval.md</code> — Диаграмма интервалов</li>
+<li><code>ls_wui_components_interval_chart.md</code> — Диаграмма интервалов</li>
+<li><code>nm_monitoring_vmware_chart_cpu.md</code> — Диаграмма использования процессора виртуальной машиной</li>
+<li><code>ls_widgets_charts_deviation.md</code> — Диаграмма отклонений</li>
+<li><code>ls_wui_components_deviation_chart.md</code> — Диаграмма отклонений</li>
+<li><code>nm_monitoring_network_snmp_errors_chart.md</code> — Диаграмма ошибок сетевого интерфейса</li>
+<li><code>ls_widgets_charts_error.md</code> — Диаграмма погрешностей</li>
+<li><code>nm_monitoring_process_instance_count_chart.md</code> — Диаграмма подсчет экземляров процесса</li>
+<li><code>ls_widgets_charts_area.md</code> — Диаграмма с областями</li>
+<li><code>ls_wui_components_area_chart.md</code> — Диаграмма с областями</li>
+<li><code>ls_widgets_charts_combined_range_category.md</code> — Диаграмма с общей осью значений</li>
+<li><code>ls_widgets_charts_combined_domain_category.md</code> — Диаграмма с общей осью параметров</li>
+<li><code>nm_monitoring_network_snmp_discards_chart.md</code> — Диаграмма сбросов сетевого интерфейса</li>
+<li><code>nm_monitoring_network_snmp_traffic_chart.md</code> — Диаграмма трафика сетевого интерфейса</li>
+<li><code>ls_wui_components_candlestick_chart.md</code> — Диаграмма японских свечей</li>
+<li><code>ls_wui_components_charts.md</code> — Диаграммы</li>
+<li><code>nm_monitoring_vmware_charts.md</code> — Диаграммы vmware</li>
+<li><code>nm_monitoring_vmware_chart_memory.md</code> — Диаграммы использования памяти виртуальной машины</li>
+<li><code>nm_monitoring_vmware_chart_hdd.md</code> — Диаграммы производительности диска виртуальной машины</li>
+<li><code>nm_monitoring_vmware_chart_network.md</code> — Диаграммы производительности сети виртуальной машины</li>
+<li><code>ls_widgets_charts_data_variables.md</code> — Диаграммы, основанные на переменной</li>
+<li><code>ls_widgets_charts_data_event.md</code> — Диаграммы, основанные на событии</li>
+<li><code>cl_error_dialog.md</code> — Диалоговое окно сообщения об ошибке</li>
+<li><code>ls_dynamic_dns.md</code> — Динамическая система доменных имен (DNS)</li>
+<li><code>ls_groups_dynamic.md</code> — Динамические группы</li>
+<li><code>ds_plugins_ddns.md</code> — Динамический DNS</li>
+<li><code>ls_drivers_snmp_global_settings_mibs.md</code> — Директория mib-файлов</li>
+<li><code>tut_full_cycle_app_adding_device_data.md</code> — Добавление данных об устройствах в инструментальные панели</li>
+<li><code>tut_custom_properties.md</code> — Добавление дополнительных свойств</li>
+<li><code>ls_wui_uib_styles_plain_css.md</code> — Добавление простых свойств CSS</li>
+<li><code>int_plugin_resources.md</code> — Добавление ресурсов к плагинам</li>
+<li><code>ls_config_security_trusted_root_certificates.md</code> — Доверенные корневые сертификаты ЦС</li>
+<li><code>low_code_best_practices_documentation.md</code> — Документация</li>
+<li><code>ls_logging_biblio.md</code> — Документация к библиотеке журналирования</li>
+<li><code>ls_event_filters_additional_fields.md</code> — Дополнительные видимые поля</li>
+<li><code>ls_database_nosql_external_advanced_cassandra.md</code> — Дополнительные действия Cassandra</li>
+<li><code>ls_dashboards_additional_headers.md</code> — Дополнительные заголовки HTTP</li>
+<li><code>ls_smsl_config_advanced.md</code> — Дополнительные настройки SMS</li>
+<li><code>ls_email_config_advanced.md</code> — Дополнительные настройки почты</li>
+<li><code>ls_reports_additional_parameters.md</code> — Дополнительные параметры отчета</li>
+<li><code>ls_applications_import_export_rules.md</code> — Дополнительные правила экспорта/импорта</li>
+<li><code>ls_wui_component_properties_common_advanced.md</code> — Дополнительные свойства</li>
+<li><code>int_programming_advanced.md</code> — Дополнительные темы</li>
+<li><code>int_accessing_rest_api.md</code> — Доступ к REST API</li>
+<li><code>ls_history_acquiring_aggregated.md</code> — Доступ к агрегированным историческим данным</li>
+<li><code>int_web_service_accessing.md</code> — Доступ к веб-сервису</li>
+<li><code>ls_history_acquiring_raw.md</code> — Доступ к сырым историческим данным</li>
+<li><code>ls_drivers.md</code> — Драйверы устройств</li>
+<li><code>ls_internals_expressions_functions_other.md</code> — Другие функции</li>
+<li><code>ls_widgets_arc_gauge.md</code> — Дуговой индикатор</li>
+<li><code>cl_operation_modes.md</code> — Единая консоль оператора</li>
+<li><code>basics_data_model.md</code> — Единая модель данных</li>
+<li><code>ls_unified_search.md</code> — Единый поиск</li>
+<li><code>ls_classes_configuration_lifecycles.md</code> — Жизненные циклы</li>
+<li><code>ls_classes_lifecycles.md</code> — Жизненные циклы</li>
+<li><code>ls_wui_dashboards_lifecycle.md</code> — Жизненный цикл</li>
+<li><code>int_server.md</code> — Жизненный цикл RatioT Server</li>
+<li><code>ls_models_lifecycle.md</code> — Жизненный цикл модели</li>
+<li><code>ls_workflows_lifecycle.md</code> — Жизненный цикл процесса</li>
+<li><code>ls_internals_events_lifecycle.md</code> — Жизненный цикл событий</li>
+<li><code>ls_alerts_lifecycle.md</code> — Жизненный цикл тревог</li>
+<li><code>cl_event_log.md</code> — Журнал событий</li>
+<li><code>ls_widgets_event_log.md</code> — Журнал событий</li>
+<li><code>ls_wui_components_event_log.md</code> — Журнал событий</li>
+<li><code>ls_widgets_log.md</code> — Журнал событий виджета</li>
+<li><code>int_programming_logging.md</code> — Журналирование</li>
+<li><code>ls_wui_uib_logging.md</code> — Журналирование операций UI</li>
+<li><code>ls_logging.md</code> — Журналирование событий</li>
+<li><code>ls_widgets_radio_button.md</code> — Зависимая кнопка</li>
+<li><code>ls_applications_dependencies.md</code> — Зависимости</li>
+<li><code>ls_wui_component_sdk_dependencies.md</code> — Зависимости UI компонентов</li>
+<li><code>ls_widgets_charts_data_dependent_charts.md</code> — Зависимые графики</li>
+<li><code>ls_internals_rules_dependent.md</code> — Зависимый набор правил</li>
+<li><code>ls_widgets_charts_title.md</code> — Заголовок</li>
+<li><code>int_server_startup.md</code> — Загрузка сервера</li>
+<li><code>ls_wui_components_uploader.md</code> — Загрузчик</li>
+<li><code>ls_groups_member_master_properties.md</code> — Заданные значения свойств членов группы</li>
+<li><code>nm_concepts_tasks.md</code> — Задачи управления</li>
+<li><code>nm_ip_sla_latency.md</code> — Задержка</li>
+<li><code>ls_widgets_paint.md</code> — Заливка</li>
+<li><code>ls_wui_uib_styles_root_panel_styles.md</code> — Запись стилей в корневую панель</li>
+<li><code>ls_conref_job.md</code> — Запланированная задача</li>
+<li><code>tut_scheduler.md</code> — Запланированная отправка отчета по email</li>
+<li><code>ls_conref_query.md</code> — Запрос</li>
+<li><code>ls_conref_queries.md</code> — Запросы</li>
+<li><code>ls_queries.md</code> — Запросы</li>
+<li><code>ls_workflows_input_blocks_startup.md</code> — Запуск</li>
+<li><code>ls_widgets_launching.md</code> — Запуск виджетов</li>
+<li><code>cl_startup.md</code> — Запуск и остановка</li>
+<li><code>ls_startup.md</code> — Запуск и остановка</li>
+<li><code>ls_reports_launching.md</code> — Запуск отчетов</li>
+<li><code>ls_ui_procedure_show_guide.md</code> — Запустить интерактивное руководство</li>
+<li><code>ls_wui_components_charts_common_properties_visualization_area.md</code> — Зона</li>
+<li><code>cl_favourites.md</code> — Избранное</li>
+<li><code>ls_conref_favourite.md</code> — Избранное</li>
+<li><code>ls_conref_favourites.md</code> — Избранное</li>
+<li><code>ls_favourites.md</code> — Избранное</li>
+<li><code>ls_favourites_distributed.md</code> — Избранное в распределенной архитектуре</li>
+<li><code>ls_wui_components_dte_editing_data.md</code> — Изменение данных</li>
+<li><code>ls_users_password_recovery.md</code> — Изменение пароля учетной записи пользователя</li>
+<li><code>ls_deployment_modifiable_files_directories.md</code> — Изменяемые файлы и директории в установке сервера RatioT SCADA</li>
+<li><code>ls_widgets_meter.md</code> — Измеритель</li>
+<li><code>ls_widgets_image.md</code> — Изображение</li>
+<li><code>ls_wui_components_image.md</code> — Изображение</li>
+<li><code>ls_widgets_device_images.md</code> — Изображения устройства</li>
+<li><code>ls_memory_usage.md</code> — Изучение использования памяти</li>
+<li><code>ls_wui_containers_implant.md</code> — Имплант</li>
+<li><code>tut_implant.md</code> — Имплант инструментальных панелей</li>
+<li><code>ls_actions_import.md</code> — Импорт</li>
+<li><code>ls_scripts_python_import_objects.md</code> — Импорт объектов из Python-скриптов</li>
+<li><code>ac_organizations_setup_import.md</code> — Импорт сотрудников</li>
+<li><code>ta_organizations_setup_import.md</code> — Импорт сотрудников</li>
+<li><code>cl_dte_export_import.md</code> — Импорт/экспорт данных</li>
+<li><code>nm_ip_sla_importing.md</code> — Импортирование существующих тестов</li>
+<li><code>cl_ide_components_ld_negated_coil.md</code> — Инверсная катушка</li>
+<li><code>ls_wui_components_gauge.md</code> — Индикатор</li>
+<li><code>ls_widgets_progress_bar.md</code> — Индикатор выполнения</li>
+<li><code>ls_wui_components_progress_bar.md</code> — Индикатор выполнения</li>
+<li><code>ls_wui_components_liquid_gauge.md</code> — Индикатор уровня жидкости</li>
+<li><code>ls_widgets_counter_gauge.md</code> — Индикатор-счетчик</li>
+<li><code>ls_widgets_gauges.md</code> — Индикаторы</li>
+<li><code>cl_installation.md</code> — Инсталляция</li>
+<li><code>ls_conref_dashboard.md</code> — Инструментальная панель</li>
+<li><code>nm_monitoring_web_apache_dashboard.md</code> — Инструментальная панель apache</li>
+<li><code>cl_dashboard.md</code> — Инструментальные панели</li>
+<li><code>ls_conref_dashboards.md</code> — Инструментальные панели</li>
+<li><code>ls_dashboards.md</code> — Инструментальные панели</li>
+<li><code>ls_wui_dashboards.md</code> — Инструментальные панели</li>
+<li><code>mes_core_dashboards.md</code> — Инструментальные панели</li>
+<li><code>mes_oee_dashboards.md</code> — Инструментальные панели</li>
+<li><code>mes_ps_dashboards.md</code> — Инструментальные панели</li>
+<li><code>mes_tt_dashboards.md</code> — Инструментальные панели</li>
+<li><code>nm_ip_sla_dashboards.md</code> — Инструментальные панели IP SLA</li>
+<li><code>nm_monitoring_virtualization_dashboards.md</code> — Инструментальные панели виртуализации</li>
+<li><code>ls_dashboards_web.md</code> — Инструментальные панели для веб</li>
+<li><code>ls_dashboards_desktop.md</code> — Инструментальные панели для десктопа</li>
+<li><code>ls_wui_dashboards_printable.md</code> — Инструментальные панели для печати</li>
+<li><code>ds_tools.md</code> — Инструменты</li>
+<li><code>mes_core_tools.md</code> — Инструменты</li>
+<li><code>nm_tools.md</code> — Инструменты сетевого управления</li>
+<li><code>nm_helpdesk.md</code> — Интеграция с helpdesk / системами поддержки клиентов</li>
+<li><code>tut_kafka_integration.md</code> — Интеграция с KAFKA</li>
+<li><code>tut_rabbitmq_integration.md</code> — Интеграция с RabbitMQ</li>
+<li><code>ls_internals_datatables_copy.md</code> — Интеллектуальное копирование таблиц</li>
+<li><code>nm_discovery_interactive_multiple.md</code> — Интерактивное обнаружение множества устройств</li>
+<li><code>nm_discovery_interactive_single.md</code> — Интерактивное обнаружение одного устройства</li>
+<li><code>ls_internals_actions_interactive.md</code> — Интерактивные действия</li>
+<li><code>ls_alerts_interactive_actions.md</code> — Интерактивные коректирующие действия</li>
+<li><code>cl_interactive_guide.md</code> — Интерактивный самоучитель</li>
+<li><code>ls_users_ui.md</code> — Интерфейс пользователя</li>
+<li><code>nm_monitoring_vmware_widget_info.md</code> — Информационный виджет vmware</li>
+<li><code>nm_monitoring_printer_widget_info.md</code> — Информационный виджет принтера</li>
+<li><code>ta_cardholder_exceptions.md</code> — Исключение посещений</li>
+<li><code>ls_wui_uib_styles_css_variables.md</code> — Использование CSS-переменных</li>
+<li><code>sh_using_historian.md</code> — Использование Historian</li>
+<li><code>nm_netflow.md</code> — Использование netflow для анализа трафика</li>
+<li><code>nm_snmp_usage.md</code> — Использование SNMP в RatioT Network Manager</li>
+<li><code>tut_subdashboards.md</code> — Использование вложенных панелей</li>
+<li><code>nm_snmp_process_data.md</code> — Использование данных SNMP</li>
+<li><code>tut_external_database_management.md</code> — Использование классов для управления базами данных</li>
+<li><code>ls_wui_uib_styles_media_library.md</code> — Использование медиа библиотеки</li>
+<li><code>ls_wui_uib_styles_media_queries.md</code> — Использование медиа-запросов</li>
+<li><code>nm_discovery_use.md</code> — Использование обнаружения</li>
+<li><code>ls_failover_database_none.md</code> — Использование общей базы данных</li>
+<li><code>ls_common_data_uses.md</code> — Использование общих таблиц</li>
+<li><code>ls_widgets_map_offline.md</code> — Использование офлайн карт</li>
+<li><code>tut_using_custom_images_on_maps.md</code> — Использование пользовательских изображений на картах</li>
+<li><code>ls_wui_uib_styles_font_face.md</code> — Использование правила font-face</li>
+<li><code>ls_wui_uib_styles_keyframes.md</code> — Использование правила keyframes</li>
+<li><code>ls_wui_uib_styles_pseudo_classes.md</code> — Использование псевдоклассов</li>
+<li><code>ls_wui_uib_styles_pseudo_elements.md</code> — Использование псевдоэлементов</li>
+<li><code>ls_wui_uib_styles_font_family.md</code> — Использование свойства font-family</li>
+<li><code>ls_wui_uib_styles_transition.md</code> — Использование свойства transition</li>
+<li><code>ls_wui_uib_styles_selectors.md</code> — Использование селекторов</li>
+<li><code>ls_scripts_in_expressions.md</code> — Использование скриптов в выражениях</li>
+<li><code>ls_wui_uib_styles_resolution_breakpoints.md</code> — Использование Точек остановов разрешения</li>
+<li><code>tut_templates.md</code> — Использование шаблонов ресурсов и устройств</li>
+<li><code>ls_models_instantiable.md</code> — Использование экземплярных моделей</li>
+<li><code>ls_wui_components_charts_dataset_variable.md</code> — История переменной</li>
+<li><code>ls_internals_variables_history.md</code> — История переменных</li>
+<li><code>cl_el_event_history.md</code> — История событий</li>
+<li><code>ls_internals_events_history.md</code> — История событий</li>
+<li><code>ls_wui_components_charts_dataset_event.md</code> — История событий</li>
+<li><code>ls_wui_components_el_event_history.md</code> — История событий</li>
+<li><code>cl_dte_data_sources.md</code> — Источники данных</li>
+<li><code>ls_drivers_flexible_connections.md</code> — Исходящие и входящие соединения с устройством</li>
+<li><code>tut_stomp.md</code> — Как подписаться на событие с помощью STOMP</li>
+<li><code>ls_widgets_map.md</code> — Карта</li>
+<li><code>ls_wui_components_map.md</code> — Карта</li>
+<li><code>ls_widgets_maps.md</code> — Карта устройств</li>
+<li><code>nm_mapping.md</code> — Карты сети</li>
+<li><code>ls_wui_containers_carousel.md</code> — Карусель</li>
+<li><code>basics_customization.md</code> — Кастомизация платформы и приложений</li>
+<li><code>ls_logging_categories.md</code> — Категории журналирования</li>
+<li><code>cl_ide_components_ld_coil.md</code> — Катушка</li>
+<li><code>cl_ide_components_ld_negative_transition_sensing_coil.md</code> — Катушка по спаду</li>
+<li><code>cl_ide_components_ld_positive_transition_sensing_coil.md</code> — Катушка по фронту</li>
+<li><code>mes_core_employees_qualifications.md</code> — Квалификации</li>
+<li><code>ls_wui_component_properties_common_kebab.md</code> — Кебаб меню</li>
+<li><code>ls_conref_class.md</code> — Класс</li>
+<li><code>ls_wui_components_class_data_table.md</code> — Классовая таблица данных</li>
+<li><code>ls_classes.md</code> — Классы</li>
+<li><code>ls_conref_classes.md</code> — Классы</li>
+<li><code>mes_tt_classes.md</code> — Классы</li>
+<li><code>ag_concepts.md</code> — Ключевые принципы агента</li>
+<li><code>ls_widgets_button.md</code> — Кнопка</li>
+<li><code>ls_wui_components_button.md</code> — Кнопка</li>
+<li><code>ap_properties_xml_encoding.md</code> — Кодирование свойств в формате XML</li>
+<li><code>ap_data_tables_encoding.md</code> — Кодирование таблиц данных</li>
+<li><code>ap_data_tables_xml_encoding.md</code> — Кодирование таблиц данных в формате XML</li>
+<li><code>ap_quality_codes.md</code> — Коды качества переменных</li>
+<li><code>ls_wui_components_charts_common_properties_visualization_bar.md</code> — Колонка</li>
+<li><code>ls_widgets_charts_ring.md</code> — Кольцевая диаграмма</li>
+<li><code>nm_ccm_scripts.md</code> — Командные и конфигурационные скрипты</li>
+<li><code>nm_ccm_conref.md</code> — Командные и конфигурационные события</li>
+<li><code>ls_internals_expressions_syntax_comments.md</code> — Комментарии</li>
+<li><code>sh_pc_common_comments.md</code> — Комментарии</li>
+<li><code>ta_reports_comments.md</code> — Комментарии к отчету</li>
+<li><code>int_http_communications.md</code> — Коммуникации на основе HTTP/HTTPS</li>
+<li><code>ls_widgets_compass.md</code> — Компас</li>
+<li><code>tut_full_cycle_app-274915000359.md</code> — Комплексная разработка IoT-приложений</li>
+<li><code>tut_full_cycle_app-276465269048.md</code> — Комплексная разработка IoT-приложений</li>
+<li><code>tut_full_cycle_app.md</code> — Комплексная разработка приложений IoT</li>
+<li><code>int_sdk.md</code> — Комплект разработчика (SDК) для RatioT SCADA</li>
+<li><code>cl_ide_components.md</code> — Компоненты</li>
+<li><code>ls_widgets_components.md</code> — Компоненты</li>
+<li><code>ls_wui_components.md</code> — Компоненты</li>
+<li><code>ls_widgets_layout_absolute.md</code> — Компоновка Абсолютное позиционирование</li>
+<li><code>ls_widgets_layout.md</code> — Компоновка виджета</li>
+<li><code>ls_wui_layouts.md</code> — Компоновка контейнеров</li>
+<li><code>ls_widgets_layout_grid.md</code> — Компоновка Сетка</li>
+<li><code>ls_database_converter.md</code> — Конвертор базы данных</li>
+<li><code>ls_widgets_connectors.md</code> — Коннекторы</li>
+<li><code>nm_events.md</code> — Консолидация и мониторинг событий</li>
+<li><code>nm_syslog_monitoring.md</code> — Консолидация и мониторинг событий syslog</li>
+<li><code>cl_ide_console.md</code> — Консоль</li>
+<li><code>ls_wui_ui_builder.md</code> — Конструктор web UI</li>
+<li><code>ls_wui_components_expression_builder.md</code> — Конструктор выражений</li>
+<li><code>cl_ide_components_ld_negative_transition_sensing_contact.md</code> — Контакт по спаду</li>
+<li><code>cl_ide_components_ld_positive_transition_sensing_contact.md</code> — Контакт по фронту</li>
+<li><code>ls_wui_uib_styles_component_container.md</code> — Контейнера компонента</li>
+<li><code>ls_widgets_containers.md</code> — Контейнеры</li>
+<li><code>tut_dynamic_content.md</code> — Контейнеры с динамическим содержимым</li>
+<li><code>ls_models_configuration_default_context.md</code> — Контекст модели по умолчанию</li>
+<li><code>ls_widgets_default_context.md</code> — Контекст по умолчанию виджета</li>
+<li><code>ls_internals_storage_context.md</code> — Контекст хранилища</li>
+<li><code>cl_dte_context_menu.md</code> — Контекстное меню</li>
+<li><code>cl_el_context_menu.md</code> — Контекстное меню</li>
+<li><code>cl_st_context_menu.md</code> — Контекстное меню</li>
+<li><code>ls_wui_components_dte_context_menu.md</code> — Контекстное меню</li>
+<li><code>ls_wui_components_el_context_menu.md</code> — Контекстное меню</li>
+<li><code>ls_wui_components_spreadsheet_context_menu.md</code> — Контекстное меню электронной таблицы</li>
+<li><code>ls_queries_context_references.md</code> — Контекстные ссылки</li>
+<li><code>ds_contexts.md</code> — Контексты</li>
+<li><code>ls_internals_contexts.md</code> — Контексты</li>
+<li><code>ag_contexts.md</code> — Контексты агента</li>
+<li><code>access_control.md</code> — Контроль доступа</li>
+<li><code>ls_distributed_permissions.md</code> — Контроль доступа в распределенной среде</li>
+<li><code>nm_wmi_usecases_services.md</code> — Контроль сервисов windows</li>
+<li><code>ls_config_configurator.md</code> — Конфигуратор сервера</li>
+<li><code>ls_drivers_wmi_mass_enabling_script.md</code> — Конфигурационный скрипт WMI</li>
+<li><code>ls_conref_config.md</code> — Конфигурация</li>
+<li><code>nm_start_configure.md</code> — Конфигурация</li>
+<li><code>ls_autorun_properties.md</code> — Конфигурация автозапуска</li>
+<li><code>ls_widgets_properties.md</code> — Конфигурация виджета</li>
+<li><code>ls_groups_configuration.md</code> — Конфигурация группы</li>
+<li><code>ls_trackers_configuration.md</code> — Конфигурация датчика</li>
+<li><code>ls_classes_configuration.md</code> — Конфигурация классов</li>
+<li><code>cluster_coordinator_configuration.md</code> — Конфигурация координатора кластера</li>
+<li><code>ls_reports_configuration.md</code> — Конфигурация отчета</li>
+<li><code>int_plugin_config.md</code> — Конфигурация плагина</li>
+<li><code>cl_ide_program_editor.md</code> — Конфигурация программы</li>
+<li><code>ls_workflows_configuration.md</code> — Конфигурация процессов</li>
+<li><code>cl_st_workspace_config.md</code> — Конфигурация рабочего пространства</li>
+<li><code>sh_opc_server_configuring_the_server.md</code> — Конфигурация сервера</li>
+<li><code>ls_scripts_properties.md</code> — Конфигурация скрипта</li>
+<li><code>ls_alerts_configuration.md</code> — Конфигурация тревоги</li>
+<li><code>cluster_coordinator_configuration_primary_node_storage.md</code> — Конфигурация узла</li>
+<li><code>ls_users_configuration.md</code> — Конфигурация учетной записи пользователя</li>
+<li><code>ls_event_filters_configuration.md</code> — Конфигурация фильтра событий</li>
+<li><code>ls_history_storage.md</code> — Конфигурация хранилища</li>
+<li><code>ls_config.md</code> — Конфигурирование</li>
+<li><code>nm_netflow_configuring_resolution.md</code> — Конфигурирование DNS и разрешения netbios</li>
+<li><code>ls_models_configuration.md</code> — Конфигурирование модели</li>
+<li><code>nm_netflow_configuring.md</code> — Конфигурирование обработки потоков</li>
+<li><code>ls_machine_learning_configuration.md</code> — Конфигурирование обучаемого модуля</li>
+<li><code>nm_netflow_configuring_plugin.md</code> — Конфигурирование плагина netflow</li>
+<li><code>nm_ccm_compliance_configuration.md</code> — Конфигурирование политик соответствия</li>
+<li><code>ls_applications_configuration.md</code> — Конфигурирование приложений</li>
+<li><code>nm_ip_sla_configuring.md</code> — Конфигурирование тестов IP SLA</li>
+<li><code>nm_netflow_configuring_sensors.md</code> — Конфигурирование учетных записей устройств для датчиков netflow</li>
+<li><code>ls_actions_configure.md</code> — Конфигурировать</li>
+<li><code>nm_ip_sla_concepts.md</code> — Концепции мониторинга IP SLA</li>
+<li><code>nm_concepts.md</code> — Концепции сетевого управления</li>
+<li><code>ls_widgets_charts_plot_xy.md</code> — Координатная область построения</li>
+<li><code>ls_widgets_charts_xy.md</code> — Координатные (X,Y) графики</li>
+<li><code>ls_widgets_charts_renderer_xy_line.md</code> — Координатный линейный отрисовщик</li>
+<li><code>ls_widgets_charts_renderer_xy.md</code> — Координатный отрисовщик</li>
+<li><code>cluster_coordinator_architecture_cc.md</code> — Координатор кластера</li>
+<li><code>cluster_coordinator_configuration_cc.md</code> — Координатор кластера</li>
+<li><code>tut_copy.md</code> — Копирование объектов между пользовательскими учетными записями</li>
+<li><code>ls_actions_replicate_to_children.md</code> — Копировать в дочерние контексты</li>
+<li><code>ls_widgets_root_panel.md</code> — Корневая панель</li>
+<li><code>ls_wui_containers_root_panel.md</code> — Корневая панель</li>
+<li><code>ls_conref_root.md</code> — Корневой контекст</li>
+<li><code>ls_alerts_corrective_actions.md</code> — Корректирующие действия</li>
+<li><code>ls_conref_event_correlator.md</code> — Коррелятор событий</li>
+<li><code>ls_conref_event_correlators.md</code> — Корреляторы событий</li>
+<li><code>ls_correlators.md</code> — Корреляторы событий</li>
+<li><code>ls_internals_events_correlation.md</code> — Корреляция событий</li>
+<li><code>ls_widgets_charts_pie.md</code> — Круговая диаграмма</li>
+<li><code>ls_wui_components_pie_chart.md</code> — Круговая диаграмма</li>
+<li><code>ls_widgets_radial_bargraph_gauge.md</code> — Круговой гистограммный индикатор</li>
+<li><code>ls_widgets_radial_gauge.md</code> — Круговой индикатор</li>
+<li><code>ls_wui_dashboards_caching.md</code> — Кэширование</li>
+<li><code>int_programming_format_caching.md</code> — Кэширование формата</li>
+<li><code>ls_widgets_charts_legend.md</code> — Легенда</li>
+<li><code>ls_wui_components_charts_common_properties_legend.md</code> — Легенда</li>
+<li><code>ls_widgets_charts_spider.md</code> — Лепестковая диаграмма</li>
+<li><code>ls_wui_components_spider_chart.md</code> — Лепестковая диаграмма</li>
+<li><code>ls_widgets_charts_category_line_annotation.md</code> — Линейная аннотация</li>
+<li><code>ls_widgets_charts_xy_line_annotation.md</code> — Линейная аннотация</li>
+<li><code>ls_wui_components_line_chart.md</code> — Линейная диаграмма</li>
+<li><code>ls_widgets_linear_bargraph_gauge.md</code> — Линейный гистограммный индикатор</li>
+<li><code>ls_widgets_linear_gauge.md</code> — Линейный индикатор</li>
+<li><code>ls_wui_components_linear_gauge.md</code> — Линейный индикатор</li>
+<li><code>ls_wui_components_charts_common_properties_visualization_line.md</code> — Линия</li>
+<li><code>ls_internals_expressions_syntax_literals.md</code> — Литералы</li>
+<li><code>sh_pc_common_literals.md</code> — Литералы</li>
+<li><code>licensing.md</code> — Лицензирование</li>
+<li><code>ls_widgets_charts_value_axis_log.md</code> — Логарифмическая ось</li>
+<li><code>ls_config_logger.md</code> — Логирование</li>
+<li><code>ls_applications_text_resources.md</code> — Локализация</li>
+<li><code>ls_drivers_local_folder.md</code> — Локальная папка</li>
+<li><code>ls_drivers_local_system.md</code> — Локальная система</li>
+<li><code>ds_external_device_servers.md</code> — Локальные серверы устройств</li>
+<li><code>ls_drivers_agent_connector.md</code> — Локальный агент</li>
+<li><code>ls_drivers_local_file.md</code> — Локальный файл</li>
+<li><code>ls_widgets_polyline.md</code> — Ломаная линия</li>
+<li><code>low_code_best_practices.md</code> — Лучшие практики low code разработки</li>
+<li><code>ls_wui_uib_styles_css_best_practices.md</code> — Лучшие практики использования CSS</li>
+<li><code>ls_config_store.md</code> — Магазин</li>
+<li><code>ls_store.md</code> — Магазин приложений</li>
+<li><code>int_programming_data_tables_manipulation.md</code> — Манипулирование</li>
+<li><code>tut_manipulating_svg.md</code> — Манипулирование SVG-изображениями</li>
+<li><code>int_programming_variables.md</code> — Манипулирование переменными</li>
+<li><code>ls_widgets_charts_marker.md</code> — Маркер</li>
+<li><code>ls_widgets_charts_value_marker.md</code> — Маркер значений</li>
+<li><code>ls_widgets_charts_interval_marker.md</code> — Маркер интервалов</li>
+<li><code>ls_widgets_charts_category_marker.md</code> — Маркер категорий</li>
+<li><code>ls_groups_masks.md</code> — Маски контекста членов группы</li>
+<li><code>ls_internals_masks.md</code> — Маски контекстов</li>
+<li><code>ls_internals_events_masking.md</code> — Маскировка событий</li>
+<li><code>nm_event_masking.md</code> — Маскировка событий и зависимости устройств</li>
+<li><code>ls_drivers_wmi_mass_enabling.md</code> — Массовый удаленный доступ к WMI</li>
+<li><code>ls_widgets_geofence_alert_wizard.md</code> — Мастер настройки тревог</li>
+<li><code>sh_application_generation_wizard.md</code> — Мастер создания приложений</li>
+<li><code>ls_alerts_alert_wizard.md</code> — Мастер тревог</li>
+<li><code>ls_devices_master_settings.md</code> — Мастер-значения настроек устройства</li>
+<li><code>ls_common_data_group_member_properties.md</code> — Мастер-свойства членов группы</li>
+<li><code>ls_wui_components_charts_common_properties_zoom.md</code> — Масштаб</li>
+<li><code>ls_conref_machine_learning.md</code> — Машинное обучение</li>
+<li><code>ls_machine_learning.md</code> — Машинное обучение</li>
+<li><code>ls_media_library_server.md</code> — Медиа библиотека сервера</li>
+<li><code>mes_tt_classes_events_manager.md</code> — Менеджер классов и событий</li>
+<li><code>mes_ps_schedule_manager.md</code> — Менеджер расписания</li>
+<li><code>mes_tt_state_manager.md</code> — Менеджер состояния</li>
+<li><code>mes_ps_schedule_managers.md</code> — Менеджеры расписаний</li>
+<li><code>ls_systray.md</code> — Меню в системном трее</li>
+<li><code>ls_wui_components_navigation_menu.md</code> — Меню навигации</li>
+<li><code>ls_groups_location.md</code> — Местоположение</li>
+<li><code>ls_devices_metadata.md</code> — Метаданные устройства</li>
+<li><code>cl_ide_components_fbd_label.md</code> — Метка</li>
+<li><code>ls_widgets_label.md</code> — Метка</li>
+<li><code>ls_internals_parametrizer.md</code> — Механизм параметризации</li>
+<li><code>tut_multi_tenant_access_control.md</code> — Многопользовательский контроль доступа</li>
+<li><code>ls_widgets_layered_panel.md</code> — Многослойная панель</li>
+<li><code>ls_widgets_polygon.md</code> — Многоугольник</li>
+<li><code>ls_conref_models.md</code> — Модели</li>
+<li><code>ls_models.md</code> — Модели</li>
+<li><code>mes_tt_models.md</code> — Модели</li>
+<li><code>nm_monitoring_virtualization_models.md</code> — Модели визуализации</li>
+<li><code>nm_asset_management_models.md</code> — Модели инвентаризации</li>
+<li><code>ls_conref_model.md</code> — Модель</li>
+<li><code>nm_monitoring_virtualization_model_virtualization_monitoring.md</code> — Модель "мониторинг виртуализации"</li>
+<li><code>nm_monitoring_virtualization_model_virtualization_overview.md</code> — Модель "обзор виртуализации"</li>
+<li><code>mes_tt_traceability_graph.md</code> — Модель граф прослеживаемости</li>
+<li><code>ls_wui_dashboards_data_model.md</code> — Модель данных</li>
+<li><code>ls_widgets_data_model.md</code> — Модель данных виджетов</li>
+<li><code>ls_drivers_modem.md</code> — Модем</li>
+<li><code>mes_modules.md</code> — Модули</li>
+<li><code>ls_devices_cache.md</code> — Моментальные снимки устройств (кэш настроек)</li>
+<li><code>nm_start_monitoring.md</code> — Мониторинг</li>
+<li><code>nm_dot_net.md</code> — Мониторинг .NET</li>
+<li><code>nm_active_directory.md</code> — Мониторинг active directory</li>
+<li><code>nm_monitoring_ldap.md</code> — Мониторинг active directory (LDAP)</li>
+<li><code>nm_voip_asterisk.md</code> — Мониторинг asterisk</li>
+<li><code>ls_drivers_ip_host_dhcp.md</code> — Мониторинг DHCP</li>
+<li><code>nm_monitoring_dhcp.md</code> — Мониторинг dhcp-сервера</li>
+<li><code>ls_drivers_ip_host_dns.md</code> — Мониторинг DNS сервера</li>
+<li><code>nm_monitoring_dns.md</code> — Мониторинг dns-сервера</li>
+<li><code>nm_monitoring_email.md</code> — Мониторинг e-mail сервера</li>
+<li><code>nm_monitoring_email_exchange.md</code> — Мониторинг exchange</li>
+<li><code>ls_drivers_ip_host_ftp.md</code> — Мониторинг FTP сервера</li>
+<li><code>nm_monitoring_app_glassfish.md</code> — Мониторинг glassfish</li>
+<li><code>ls_drivers_ip_host_http.md</code> — Мониторинг HTTP сервера</li>
+<li><code>ls_drivers_ip_host_imap.md</code> — Мониторинг IMAP сервера</li>
+<li><code>nm_ip_sla.md</code> — Мониторинг IP SLA</li>
+<li><code>nm_monitoring_app_jboss.md</code> — Мониторинг jboss</li>
+<li><code>ls_drivers_ip_host_ldap.md</code> — Мониторинг LDAP</li>
+<li><code>nm_monitoring_web_iis.md</code> — Мониторинг microsoft IIS</li>
+<li><code>nm_databases_ms_sql.md</code> — Мониторинг microsoft SQL server</li>
+<li><code>nm_monitoring_app_sharepoint.md</code> — Мониторинг miscrosoft sharepoint</li>
+<li><code>nm_databases_mysql.md</code> — Мониторинг mysql</li>
+<li><code>nm_databases_oracle.md</code> — Мониторинг oracle</li>
+<li><code>ls_drivers_ip_host_pop3.md</code> — Мониторинг POP3 сервера</li>
+<li><code>nm_monitoring_email_postfix.md</code> — Мониторинг postfix</li>
+<li><code>nm_databases_postgresql.md</code> — Мониторинг postgresql</li>
+<li><code>nm_monitoring_radius.md</code> — Мониторинг radius-сервера</li>
+<li><code>ls_drivers_ip_host_smtp.md</code> — Мониторинг SMTP сервера</li>
+<li><code>ls_drivers_snmp_traps.md</code> — Мониторинг SNMP уведомлений</li>
+<li><code>ls_drivers_ip_host_ssh.md</code> — Мониторинг SSH сервера</li>
+<li><code>nm_monitoring_ssh.md</code> — Мониторинг ssh-сервера</li>
+<li><code>nm_monitoring_app_tomcat.md</code> — Мониторинг tomcat</li>
+<li><code>nm_monitoring_vmware_3x.md</code> — Мониторинг vmware</li>
+<li><code>nm_voip_monitoring.md</code> — Мониторинг voip, видео и IPTV</li>
+<li><code>nm_monitoring_web_apache.md</code> — Мониторинг web-сервера apache</li>
+<li><code>nm_monitoring_app_weblogic.md</code> — Мониторинг weblogic</li>
+<li><code>nm_monitoring_mq.md</code> — Мониторинг websphere MQ</li>
+<li><code>nm_databases.md</code> — Мониторинг баз данных</li>
+<li><code>nm_monitoring_wireless.md</code> — Мониторинг беспроводных устройств</li>
+<li><code>nm_monitoring_web_transaction.md</code> — Мониторинг веб-приложений</li>
+<li><code>nm_monitoring_web.md</code> — Мониторинг веб-сервера</li>
+<li><code>nm_monitoring_web_http.md</code> — Мониторинг веб-страниц</li>
+<li><code>nm_monitoring_virtualization.md</code> — Мониторинг виртуальной инфраструктуры</li>
+<li><code>nm_availability.md</code> — Мониторинг доступности</li>
+<li><code>nm_wmi_usecases_windows_event_log.md</code> — Мониторинг журнала событий windows через WMI</li>
+<li><code>sh_monitoring_alerts.md</code> — Мониторинг и Тревоги</li>
+<li><code>nm_jmx.md</code> — Мониторинг и управление java</li>
+<li><code>nm_snmp.md</code> — Мониторинг и управление по SNMP</li>
+<li><code>nm_monitoring_file.md</code> — Мониторинг локального файла</li>
+<li><code>nm_monitoring_folder.md</code> — Мониторинг локальной папки</li>
+<li><code>nm_voip_call_managers.md</code> — Мониторинг менеджера унифицированных коммуникаций (callmanager)</li>
+<li><code>nm_monitoring_pdu.md</code> — Мониторинг модуля распределения питания</li>
+<li><code>nm_monitoring_cpu.md</code> — Мониторинг нагрузки на центральный процессор</li>
+<li><code>nm_performance_generic.md</code> — Мониторинг общей производительности сервиса</li>
+<li><code>nm_monitoring_email_roundtrip.md</code> — Мониторинг отправки письма с возвратом</li>
+<li><code>tut_chart.md</code> — Мониторинг параметров устройства с помощью диаграммы</li>
+<li><code>nm_snmp_monitoring.md</code> — Мониторинг по SNMP</li>
+<li><code>ls_drivers_ip_host_ping.md</code> — Мониторинг при помощи ping</li>
+<li><code>ls_drivers_ip_host_traceroute.md</code> — Мониторинг при помощи трассировки</li>
+<li><code>nm_monitoring_printer.md</code> — Мониторинг принтеров</li>
+<li><code>nm_performance.md</code> — Мониторинг производительности</li>
+<li><code>nm_monitoring_middleware.md</code> — Мониторинг промежуточного ПО</li>
+<li><code>nm_monitoring_process.md</code> — Мониторинг процессов</li>
+<li><code>nm_monitoring_ftp.md</code> — Мониторинг сервера FTP</li>
+<li><code>nm_monitoring_app.md</code> — Мониторинг сервера приложений</li>
+<li><code>nm_monitoring_applications.md</code> — Мониторинг сервисов/приложений</li>
+<li><code>nm_monitoring_ups.md</code> — Мониторинг систем бесперебойного электроснабжения</li>
+<li><code>nm_monitoring_storage.md</code> — Мониторинг систем хнанения данных</li>
+<li><code>ls_status.md</code> — Мониторинг состояния сервера</li>
+<li><code>ls_drivers_ip_host_tcp.md</code> — Мониторинг типовых служб TCP</li>
+<li><code>ls_drivers_ip_host_udp.md</code> — Мониторинг типовых служб UDP</li>
+<li><code>nm_topology.md</code> — Мониторинг топологии сети</li>
+<li><code>nm_monitoring_network.md</code> — Мониторинг трафика и пропускной способности</li>
+<li><code>nm_monitoring_log_files.md</code> — Мониторинг файла журнала</li>
+<li><code>nm_filesystem.md</code> — Мониторинг файловой системы</li>
+<li><code>int_ddk.md</code> — Набор для разработки драйверов (DDK)</li>
+<li><code>ls_models_configuration_rule_sets.md</code> — Наборы правил</li>
+<li><code>ls_wui_components_breadcrumbs.md</code> — Навигационная цепочка</li>
+<li><code>ls_wui_components_navigation.md</code> — Навигация</li>
+<li><code>ls_users_role_based.md</code> — Наследование прав доступа</li>
+<li><code>ls_config_event_writers.md</code> — Настраиваемые самописцы событий</li>
+<li><code>ap_enabling_dcom.md</code> — Настройка DCOM для удаленного доступа</li>
+<li><code>int_http_server_configuration.md</code> — Настройка HTTP сервера</li>
+<li><code>nm_config_local_manual_jmx.md</code> — Настройка JMX</li>
+<li><code>nm_config_global_netflow.md</code> — Настройка netflow</li>
+<li><code>nm_config.md</code> — Настройка RatioT Network Manager</li>
+<li><code>int_rest_api_configuring.md</code> — Настройка REST API</li>
+<li><code>nm_config_global_snmp.md</code> — Настройка SNMP</li>
+<li><code>nm_snmp_configure.md</code> — Настройка SNMP</li>
+<li><code>nm_snmp_configure_agnm.md</code> — Настройка SNMP в RatioT Network Manager</li>
+<li><code>nm_snmp_configuring_linux.md</code> — Настройка snmp-агента на системах linux</li>
+<li><code>nm_snmp_configuring_windows.md</code> — Настройка snmp-агента на системах windows</li>
+<li><code>nm_snmp_configuring_solaris.md</code> — Настройка snmp-агента на системе solaris</li>
+<li><code>nm_snmp_configure_agents.md</code> — Настройка snmp-агентов</li>
+<li><code>nm_snmp_configure_device.md</code> — Настройка SNMP-устройств</li>
+<li><code>nm_config_global_syslog.md</code> — Настройка syslog</li>
+<li><code>ls_history_aggregation.md</code> — Настройка агрегации исторических данных</li>
+<li><code>nm_config_local_manual_database.md</code> — Настройка базы данных SQL</li>
+<li><code>ls_web_server_configuration.md</code> — Настройка веб сервера</li>
+<li><code>tut_full_cycle_app_external_cassandra.md</code> — Настройка внешней БД Cassandra</li>
+<li><code>ls_dynamic_dns_config.md</code> — Настройка динамической DNS</li>
+<li><code>ls_drivers_flexible_configuration.md</code> — Настройка драйвера</li>
+<li><code>ls_conref_plugin_config.md</code> — Настройка драйвера/расширения</li>
+<li><code>nm_config_global.md</code> — Настройка драйверов и плагинов</li>
+<li><code>ls_conref_plugins_config.md</code> — Настройка драйверов/расширений</li>
+<li><code>ls_jobs_configuration.md</code> — Настройка задач</li>
+<li><code>ls_queries_properties.md</code> — Настройка запроса</li>
+<li><code>ls_configuration.md</code> — Настройка и решение проблем</li>
+<li><code>ls_config_client.md</code> — Настройка из клиента</li>
+<li><code>ls_favourites_properties.md</code> — Настройка избранного</li>
+<li><code>ls_dashboards_configuration.md</code> — Настройка инструментальной панели</li>
+<li><code>tut_full_cycle_app_source_control.md</code> — Настройка контроля версий исходных файлов</li>
+<li><code>nm_config_local_manual_file.md</code> — Настройка локального файла</li>
+<li><code>nm_config_local_manual_folder.md</code> — Настройка локальной папки</li>
+<li><code>nm_config_global_discovery.md</code> — Настройка обнаружения</li>
+<li><code>nm_discovery_search_how.md</code> — Настройка обнаружения</li>
+<li><code>ls_common_data_configuration.md</code> — Настройка общей таблицы</li>
+<li><code>cl_startup_properties.md</code> — Настройка параметров java VM</li>
+<li><code>cl_dockable.md</code> — Настройка плавающих окон</li>
+<li><code>ls_distributed_providers_config.md</code> — Настройка поставщиков</li>
+<li><code>ls_distributed_consumers_config.md</code> — Настройка потребителей</li>
+<li><code>ls_database_performance.md</code> — Настройка производительности базы данных</li>
+<li><code>ls_distributed_config.md</code> — Настройка распределённой архитектуры</li>
+<li><code>tut_configure_failover.md</code> — Настройка серверов для активно-резервного элемента</li>
+<li><code>nm_config_environment.md</code> — Настройка среды</li>
+<li><code>ls_wui_login_custom.md</code> — Настройка страницы входа в систему</li>
+<li><code>ac_organizations_setup.md</code> — Настройка структуры организации</li>
+<li><code>ta_organizations_setup.md</code> — Настройка структуры организации</li>
+<li><code>ls_drivers_wmi_enabling.md</code> — Настройка удаленного доступа к WMI</li>
+<li><code>nm_config_environment_wmi.md</code> — Настройка устройств WMI</li>
+<li><code>nm_config_environment_snmp.md</code> — Настройка устройства SNMP</li>
+<li><code>nm_config_local_manual_nethost.md</code> — Настройка устройства сетевого хоста</li>
+<li><code>ls_database_nosql_config.md</code> — Настройка хранилища NoSQL</li>
+<li><code>ls_config_file.md</code> — Настройка через файлы</li>
+<li><code>nm_netflow_configuring_exporters.md</code> — Настройка экспортеров netflow</li>
+<li><code>nm_config_local_devices.md</code> — Настройка/администрирование устройств и сервисов</li>
+<li><code>ls_wui_settings.md</code> — Настройки</li>
+<li><code>ls_drivers_ip_host_dns_settings.md</code> — Настройки DNS службы</li>
+<li><code>mes_oee_settings.md</code> — Настройки OEE</li>
+<li><code>ls_config_security_ssl_tls_settings.md</code> — Настройки SSL/TLS</li>
+<li><code>nm_ccm_configuration_baseline.md</code> — Настройки базовой конфигурации</li>
+<li><code>ls_alerts_notifications_properties.md</code> — Настройки оповещений</li>
+<li><code>ls_drivers_ip_host_snmp_polling_settings.md</code> — Настройки опроса SNMP</li>
+<li><code>ls_drivers_ip_host_snmp_polling__table_filter.md</code> — Настройки опроса таблиц SNMP</li>
+<li><code>ls_drivers_snmp_global_settings_advanced_table_polling.md</code> — Настройки опроса таблиц SNMP (драйвер)</li>
+<li><code>ls_config_password.md</code> — Настройки паролей</li>
+<li><code>ls_drivers_ip_host_ping_settings.md</code> — Настройки пинга</li>
+<li><code>ls_email_config.md</code> — Настройки плагина E-Mail</li>
+<li><code>ls_event_filters_history_settings.md</code> — Настройки просмотра истории</li>
+<li><code>ls_config_self_registration_settings.md</code> — Настройки саморегистрации</li>
+<li><code>ls_drivers_ip_host_pop3_settings.md</code> — Настройки сервиса POP3</li>
+<li><code>ls_drivers_ip_host_dhcp_settings.md</code> — Настройки службы DHCP</li>
+<li><code>ls_drivers_ip_host_ftp_settings.md</code> — Настройки службы FTP</li>
+<li><code>ls_drivers_ip_host_imap_settings.md</code> — Настройки службы IMAP</li>
+<li><code>ls_drivers_ip_host_ldap_settings.md</code> — Настройки службы LDAP</li>
+<li><code>ls_drivers_ip_host_radius_settings.md</code> — Настройки службы radius</li>
+<li><code>ls_drivers_ip_host_smtp_settings.md</code> — Настройки службы SMTP</li>
+<li><code>ls_drivers_ip_host_ssh_settings.md</code> — Настройки службы SSH</li>
+<li><code>ls_drivers_ip_host_email_roundtrip_settings.md</code> — Настройки службы прохождения электронной почты</li>
+<li><code>ls_drivers_ip_host_traceroute_settings.md</code> — Настройки службы трассировки</li>
+<li><code>ls_drivers_ip_host_tcp_settings.md</code> — Настройки типовой TCP службы</li>
+<li><code>ls_drivers_ip_host_udp_settings.md</code> — Настройки типовой UDP службы</li>
+<li><code>ls_users_account_settings.md</code> — Настройки учетной записи пользователя</li>
+<li><code>ls_alerts_escalation_properties.md</code> — Настройки эскалации</li>
+<li><code>int_programming_finding_data.md</code> — Нахождение и оценка произвольных данных</li>
+<li><code>nm_start.md</code> — Начало работы</li>
+<li><code>sh_getting_started.md</code> — Начало работы</li>
+<li><code>ls_internals_actions_headless.md</code> — Неинтерактивные действия</li>
+<li><code>cl_st_custom_nodes.md</code> — Нестандартные узлы</li>
+<li><code>cl_ide_components_ld_normally_closed_contact.md</code> — Нормально замкнутый контакт</li>
+<li><code>cl_ide_components_ld_normally_open_contact.md</code> — Нормально разомкнутый контакт</li>
+<li><code>about_company.md</code> — О BUFFLAB</li>
+<li><code>copyright.md</code> — Об авторских правах</li>
+<li><code>ac_overview.md</code> — Обзор</li>
+<li><code>ta_overview.md</code> — Обзор</li>
+<li><code>ls_wui_overview.md</code> — Обзор web UI</li>
+<li><code>nm_monitoring_virtualization_dashboard_virtualization_overview.md</code> — Обзор виртуализации</li>
+<li><code>cluster_coordinator_config_overview.md</code> — Обзор настроек</li>
+<li><code>basics.md</code> — Обзор платформы</li>
+<li><code>nm_monitoring_virtualization_dashboard_virtualization_server_details.md</code> — Обзор сервера виртуализации</li>
+<li><code>ls_widgets_charts_plot.md</code> — Области построения графиков</li>
+<li><code>cl_ide_variables_area.md</code> — Область переменных</li>
+<li><code>ls_widgets_charts_plot_category.md</code> — Область построения категорий</li>
+<li><code>nm_conref_discovery.md</code> — Обнаружение</li>
+<li><code>nm_discovery_search.md</code> — Обнаружение в стадии поиска</li>
+<li><code>sh_opc_discovery.md</code> — Обнаружение серверов OPC</li>
+<li><code>nm_topology_discovery.md</code> — Обнаружение топологии сети</li>
+<li><code>nm_config_local_discovery.md</code> — Обнаружение устройств и сервисов</li>
+<li><code>ls_upgrade.md</code> — Обновление</li>
+<li><code>nm_ip_sla_updating.md</code> — Обновление тестов</li>
+<li><code>ls_internals_events_enrichment.md</code> — Обогащение событий</li>
+<li><code>ls_drivers_flexible_asynchronous_commands.md</code> — Обработка асинхронных команд</li>
+<li><code>int_ddk_async_updates.md</code> — Обработка асинхронных обновлений переменных</li>
+<li><code>ls_drivers_flexible_incoming_stream.md</code> — Обработка входящего потока данных</li>
+<li><code>nm_how_metrics.md</code> — Обработка данных</li>
+<li><code>ls_analytics.md</code> — Обработка данных и аналитика</li>
+<li><code>ta_attendance_data_processing.md</code> — Обработка данных посещений</li>
+<li><code>ls_alerts_corrective_action_parameters.md</code> — Обработка параметров действий</li>
+<li><code>ls_jobs_parameter_processing.md</code> — Обработка параметров действий</li>
+<li><code>nm_discovery_results.md</code> — Обработка результатов обнаружения</li>
+<li><code>ls_drivers_flexible_synchronous_replies.md</code> — Обработка синхронных ответов</li>
+<li><code>ls_config_event_processing.md</code> — Обработка событий</li>
+<li><code>ls_workflows_control_flow_blocks_catch.md</code> — Обработчик исключений (Catch)</li>
+<li><code>feedback.md</code> — Обратная связь</li>
+<li><code>ls_wui_uib_styles_backward_compatibility.md</code> — Обратная совместимость стилей</li>
+<li><code>ls_conref_trainable_unit.md</code> — Обучаемый модуль</li>
+<li><code>ag_genetic_info.md</code> — Общая информация об агенте</li>
+<li><code>ls_drivers_snmp_global_settings_traps.md</code> — Общая конфигурация мониторинга уведомлений SNMP</li>
+<li><code>ls_conref_common_table.md</code> — Общая таблица данных</li>
+<li><code>ls_common_data.md</code> — Общие данные</li>
+<li><code>ls_internals_common_actions.md</code> — Общие действия</li>
+<li><code>ap_constants.md</code> — Общие константы</li>
+<li><code>ls_config_general.md</code> — Общие настройки</li>
+<li><code>ls_drivers_snmp_global_settings.md</code> — Общие настройки SNMP</li>
+<li><code>ls_internals_variables_common.md</code> — Общие переменные</li>
+<li><code>low_code_best_practices_general.md</code> — Общие рекомендации</li>
+<li><code>ls_wui_components_dte_properties.md</code> — Общие свойства</li>
+<li><code>ls_wui_components_charts_common_properties.md</code> — Общие свойства графиков</li>
+<li><code>ls_widgets_charts_properties.md</code> — Общие свойства диаграмм</li>
+<li><code>ls_widgets_gauges_properties.md</code> — Общие свойства индикатора</li>
+<li><code>ls_wui_component_properties_common.md</code> — Общие свойства компонентов</li>
+<li><code>ls_wui_component_properties_container.md</code> — Общие свойства контейнеров</li>
+<li><code>ls_widgets_gauges_properties_radial.md</code> — Общие свойства кругового индикатора</li>
+<li><code>ls_devices_generic_properties.md</code> — Общие свойства устройств</li>
+<li><code>ls_internals_events_common.md</code> — Общие события</li>
+<li><code>ls_wui_components_dte_events.md</code> — Общие события</li>
+<li><code>ls_wui_components_spreadsheet_public_events.md</code> — Общие события</li>
+<li><code>ls_widgets_charts_events.md</code> — Общие события графиков</li>
+<li><code>ls_wui_component_events_common.md</code> — Общие события компонентов</li>
+<li><code>ls_wui_container_events_common.md</code> — Общие события контейнеров</li>
+<li><code>ls_conref_common_data.md</code> — Общие таблицы</li>
+<li><code>ls_internals_functions_common.md</code> — Общие функции</li>
+<li><code>ls_wui_components_dte_functions.md</code> — Общие функции</li>
+<li><code>ls_wui_components_spreadsheet_public_functions.md</code> — Общие функции</li>
+<li><code>sh_pc_common.md</code> — Общие элементы</li>
+<li><code>nm_monitoring_tcp.md</code> — Общий мониторинг tcp-сервиса</li>
+<li><code>nm_monitoring_genericudp.md</code> — Общий мониторинг udp-сервиса</li>
+<li><code>int_programming_defining_entities.md</code> — Объявление переменных, функций, событий и действий</li>
+<li><code>index.md</code> — Оглавление встроенной справки RatioT SCADA 6.41.10</li>
+<li><code>ls_wui_component_properties_common_constraints.md</code> — Ограничения</li>
+<li><code>nm_desktop_windows_limitations.md</code> — Ограничения TCP/IP настольных версий Windows</li>
+<li><code>mes_oee_dashboards_oee.md</code> — ОЕЕ</li>
+<li><code>ls_alerts_pending.md</code> — Ожидающие экземпляры</li>
+<li><code>cl_gui_builder_resources_window.md</code> — Окно ресурсов</li>
+<li><code>ls_internals_expressions_syntax_operators.md</code> — Операторы</li>
+<li><code>sh_pc_st_exit.md</code> — Операторы прерывания итераций</li>
+<li><code>ls_drivers_ip_host_ldap_operations.md</code> — Операции LDAP</li>
+<li><code>nm_snmp_basics_operations.md</code> — Операции SNMP</li>
+<li><code>ls_drivers_ip_host_ssh_operations.md</code> — Операции SSH</li>
+<li><code>cl_gui_builder_dnd.md</code> — Операции перетаскивания мышью</li>
+<li><code>cl_st_dnd.md</code> — Операции перетаскивания мышью</li>
+<li><code>ls_drivers_ip_host_tcp_operations.md</code> — Операции типовой TCP службы</li>
+<li><code>nm_control.md</code> — Операции управления</li>
+<li><code>cl_st_copy_paste.md</code> — Операция копировать-вставить</li>
+<li><code>tut_full_cycle_app_describing_application.md</code> — Описание приложения</li>
+<li><code>ls_alerts_notifications.md</code> — Оповещения</li>
+<li><code>nm_discovery_search_where.md</code> — Определение адресов хостов</li>
+<li><code>int_programming_defining_actions.md</code> — Определение и реализация действий</li>
+<li><code>int_programming_defining_variables.md</code> — Определение и реализация переменных</li>
+<li><code>int_programming_defining_events.md</code> — Определение и реализация событий</li>
+<li><code>int_programming_defining_functions.md</code> — Определение и реализация функций</li>
+<li><code>ls_drivers_ip_host_snmp_polling.md</code> — Опрос сетевого хоста SNMP</li>
+<li><code>ls_internals_disk_usage_optimization.md</code> — Оптимизация загрузки диска</li>
+<li><code>ls_internals_memory_usage_optimization.md</code> — Оптимизация использования памяти</li>
+<li><code>ls_internals_bandwidth_usage_optimization.md</code> — Оптимизация использования пропускной способности</li>
+<li><code>troubleshooting_performance.md</code> — Оптимизация общей производительности</li>
+<li><code>ls_internals_performance_optimization.md</code> — Оптимизация производительности</li>
+<li><code>nm_netflow_optimizing.md</code> — Оптимизация производительности обработки NetFlow</li>
+<li><code>ls_groups_replication_options.md</code> — Опции репликации</li>
+<li><code>ls_config_default_sync_options.md</code> — Опции синхронизации по умолчанию</li>
+<li><code>ap_csv_options.md</code> — Опции экспорта/импорта CSV</li>
+<li><code>ac_conref_organisations.md</code> — Организации</li>
+<li><code>ta_conref_organizations.md</code> — Организации</li>
+<li><code>ac_conref_organisation.md</code> — Организация</li>
+<li><code>ta_conref_organization.md</code> — Организация</li>
+<li><code>ls_widgets_charts_axis.md</code> — Оси</li>
+<li><code>ls_wui_components_charts_common_properties_axes.md</code> — Оси X и Y</li>
+<li><code>ls_event_filters_primary_fields.md</code> — Основные видимые поля</li>
+<li><code>int_programming_classes.md</code> — Основные классы и интерфейсы</li>
+<li><code>int_programming_basics.md</code> — Основные концепции</li>
+<li><code>nm_basics.md</code> — Основные концепции RatioT Network Manager</li>
+<li><code>ls_wui_component_properties_common_basic.md</code> — Основные свойства</li>
+<li><code>cluster_coordinator_architecture_primary_nodes.md</code> — Основные узлы</li>
+<li><code>cluster_coordinator_configuration_primary_nodes.md</code> — Основные узлы</li>
+<li><code>nm_netflow_basics.md</code> — Основы netflow</li>
+<li><code>nm_snmp_basics.md</code> — Основы SNMP</li>
+<li><code>ls_shutdown.md</code> — Остановка сервера</li>
+<li><code>ls_widgets_charts_value_axis.md</code> — Ось значений</li>
+<li><code>ls_widgets_charts_category_axis.md</code> — Ось категорий</li>
+<li><code>ac_conref_department.md</code> — Отдел</li>
+<li><code>ta_conref_department.md</code> — Отдел</li>
+<li><code>ac_conref_departments.md</code> — Отделы</li>
+<li><code>ta_conref_departments.md</code> — Отделы</li>
+<li><code>ls_failover_server.md</code> — Отказоустойчивость RatioT Server</li>
+<li><code>ls_failover_database.md</code> — Отказоустойчивость базы данных</li>
+<li><code>sh_fault_tolerant_scada_solutions.md</code> — Отказоустойчивые решения SCADA</li>
+<li><code>ls_config_cluster.md</code> — Отказоустойчивый кластер</li>
+<li><code>ls_failover.md</code> — Отказоустойчивый кластер</li>
+<li><code>ls_dashboards_opening.md</code> — Открытие инструментальных панелей</li>
+<li><code>ls_ui_procedure_browse.md</code> — Открыть в браузере</li>
+<li><code>ls_internals_expressions_debugging.md</code> — Отладка выражений</li>
+<li><code>ls_widgets_charts_debugging.md</code> — Отладка диаграмм</li>
+<li><code>ls_queries_debugging.md</code> — Отладка запросов</li>
+<li><code>ls_drivers_flexible_debugging.md</code> — Отладка подключений устройств</li>
+<li><code>cl_ide_debuger.md</code> — Отладчик</li>
+<li><code>ls_classes_configuration_m2m_relations.md</code> — Отношения многие ко многим</li>
+<li><code>ls_wui_components_data_display.md</code> — Отображение данных</li>
+<li><code>nm_control_actions_trap.md</code> — Отправить snmp-ловушку</li>
+<li><code>nm_control_actions_syslog.md</code> — Отправить syslog-сообщение</li>
+<li><code>ls_sms_config.md</code> — Отправка SMS</li>
+<li><code>nm_snmp_sending_traps.md</code> — Отправка snmp-ловушек и сообщений</li>
+<li><code>nm_syslog_sending.md</code> — Отправка syslog-сообщений</li>
+<li><code>ls_widgets_charts_renderer_category.md</code> — Отрисовщик категорий</li>
+<li><code>ls_widgets_charts_renderer_category_line.md</code> — Отрисовщик линейных категорий</li>
+<li><code>ls_widgets_charts_renderer_category_bar.md</code> — Отрисовщик столбцов категорий</li>
+<li><code>ls_widgets_charts_renderer.md</code> — Отрисовщики графиков</li>
+<li><code>nm_ccm_change_alerting.md</code> — Отслеживание и оповещение об изменении конфигураций</li>
+<li><code>ls_devices_location.md</code> — Отслеживание местоположения устройства</li>
+<li><code>ls_widgets_charts_rectangle_insets.md</code> — Отступы</li>
+<li><code>ls_conref_report.md</code> — Отчет</li>
+<li><code>nm_monitoring_network_snmp_traffic_summary_report.md</code> — Отчет о трафике интерфейса</li>
+<li><code>nm_discovery_results_status.md</code> — Отчет об обнаружении</li>
+<li><code>ls_conref_reports.md</code> — Отчеты</li>
+<li><code>ls_reports.md</code> — Отчеты</li>
+<li><code>nm_monitoring_vmware_reports.md</code> — Отчеты vmware</li>
+<li><code>nm_availability_reporting.md</code> — Отчеты доступности</li>
+<li><code>nm_monitoring_network_snmp_bandwidth_top_reports.md</code> — Отчеты о 10 и 50 интерфейсах с наибольшим использованием пропускной способности</li>
+<li><code>ta_reports.md</code> — Отчеты о рабочем времени</li>
+<li><code>nm_monitoring_network_snmp_traffic_top_reports.md</code> — Отчеты о топ 10 и 50 интерфейсов по трафику интерфейсов</li>
+<li><code>nm_monitoring_network_snmp_bandwidth_reports.md</code> — Отчеты об использовании пропускной способности интерфейса более чем на 50% и 90%</li>
+<li><code>int_sdk_error_reporting.md</code> — Отчеты об ошибках</li>
+<li><code>troubleshooting_client_runtime_errors.md</code> — Ошибки во время работы RatioT Client</li>
+<li><code>troubleshooting_runtime_errors.md</code> — Ошибки во время работы RatioT Server</li>
+<li><code>ls_wui_uib_styles_pagination.md</code> — Пагинация</li>
+<li><code>ls_applications_packing.md</code> — Пакет ресурсов</li>
+<li><code>cl_gui_builder_component_palette.md</code> — Палитра компонентов</li>
+<li><code>cl_ide_component_palette.md</code> — Палитра компонентов</li>
+<li><code>ls_wui_uib_palette.md</code> — Палитра компонентов</li>
+<li><code>ls_widgets_panel.md</code> — Панель</li>
+<li><code>ls_wui_containers_tabbed_panel.md</code> — Панель вкладок</li>
+<li><code>cl_ide_imports.md</code> — Панель импортов</li>
+<li><code>cl_dte_toolbar.md</code> — Панель инструментов</li>
+<li><code>cl_gui_builder_toolbar.md</code> — Панель инструментов</li>
+<li><code>cl_ide_toolbar.md</code> — Панель инструментов</li>
+<li><code>ls_widgets_tabbed_panel.md</code> — Панель с вкладками</li>
+<li><code>ls_widgets_split_panel.md</code> — Панель с разделителем</li>
+<li><code>ls_wui_containers_stepper.md</code> — Панель с шагами</li>
+<li><code>ls_workflows_control_flow_blocks_fork.md</code> — Параллельная задача</li>
+<li><code>sh_pc_sfc_parallel_branch.md</code> — Параллельные ветви</li>
+<li><code>ls_queries_parameterized.md</code> — Параметризованные запросы</li>
+<li><code>ls_reports_parameterized.md</code> — Параметризованные отчеты</li>
+<li><code>ls_event_filters_parameterized.md</code> — Параметризованные фильтры</li>
+<li><code>ls_wui_dashboards_parameters.md</code> — Параметры</li>
+<li><code>int_http_server_parameters.md</code> — Параметры HTTP сервера</li>
+<li><code>ls_machine_learning_filter_parameters.md</code> — Параметры внутренних фильтров</li>
+<li><code>ls_internals_actions_parameters.md</code> — Параметры выполнения</li>
+<li><code>cl_params.md</code> — Параметры командной строки</li>
+<li><code>ls_command_line.md</code> — Параметры командной строки</li>
+<li><code>nm_discovery_default_settings.md</code> — Параметры обнаружения по умолчанию</li>
+<li><code>ls_devices_settings_sync_options.md</code> — Параметры синхронизации настроек</li>
+<li><code>ls_drivers_ip_host_snmp_polling_read_status.md</code> — Параметры чтения таблиц SNMP</li>
+<li><code>ls_internals_events_parameters.md</code> — Параметры экземпляров событий</li>
+<li><code>ls_wui_components_toggle_button.md</code> — Переключательа</li>
+<li><code>ls_workflows_control_flow_blocks_switch.md</code> — Переключение (Switch)</li>
+<li><code>ls_database_firebird.md</code> — Переключение базы данных на firebird</li>
+<li><code>ls_database_ms_sql.md</code> — Переключение базы данных на microsoft SQL server</li>
+<li><code>ls_database_mysql.md</code> — Переключение базы данных на mysql</li>
+<li><code>ls_database_oracle.md</code> — Переключение базы данных на oracle</li>
+<li><code>ls_database_postgresql.md</code> — Переключение базы данных на postgresql</li>
+<li><code>ls_database_switching.md</code> — Переключение на другой движок баз данных</li>
+<li><code>ls_internals_variables.md</code> — Переменные</li>
+<li><code>sh_pc_common_variables.md</code> — Переменные</li>
+<li><code>ls_wui_component_sdk_variables.md</code> — Переменные UI компонента</li>
+<li><code>ls_applications_context_variables.md</code> — Переменные контекстов</li>
+<li><code>ls_models_configuration_variables.md</code> — Переменные модели</li>
+<li><code>ls_devices_variables.md</code> — Переменные устройств (настройки)</li>
+<li><code>ls_devices_event_based_variables.md</code> — Переменные, основанные на событиях</li>
+<li><code>ls_widgets_moving.md</code> — Перемещение виджетов между серверами</li>
+<li><code>ls_moving.md</code> — Перемещение инсталляции RatioT Server</li>
+<li><code>cl_st_node_reordering.md</code> — Переупорядочивание узлов</li>
+<li><code>cl_ide_components_fbd_jump.md</code> — Переход</li>
+<li><code>cl_ide_components_ld_jump.md</code> — Переход</li>
+<li><code>cl_ide_components_sfc_transition.md</code> — Переход</li>
+<li><code>sh_pc_sfc_jump.md</code> — Переход на произвольный шаг</li>
+<li><code>sh_pc_sfc_transitions.md</code> — Переходы</li>
+<li><code>ls_widgets_charts_value_axis_period.md</code> — Периодическая ось</li>
+<li><code>ls_wui_layouts_dockable.md</code> — Плавающая компоновка</li>
+<li><code>ls_event_correlator_plugin.md</code> — Плагин коррелятора событий</li>
+<li><code>ls_plugins.md</code> — Плагины</li>
+<li><code>int_plugin_auth.md</code> — Плагины внешней аутентификации</li>
+<li><code>int_plugin_context.md</code> — Плагины контекста</li>
+<li><code>int_plugin_persistence.md</code> — Плагины постоянного хранения данных</li>
+<li><code>ds_plugins.md</code> — Плагины серверов устройств</li>
+<li><code>ls_architecture.md</code> — Планирование архитектуры</li>
+<li><code>tut_downtime.md</code> — Планирование времени простоя для устройства</li>
+<li><code>tut_full_cycle_app_planning_design.md</code> — Планирование и верхнеуровневая архитектура</li>
+<li><code>nm_ccm_scheduling.md</code> — Планирование резервного копирования конфигураций</li>
+<li><code>mes_ps_quick_start.md</code> — Планирование: Быстрый старт</li>
+<li><code>ls_conref_jobs.md</code> — Планировщик</li>
+<li><code>ls_jobs.md</code> — Планировщик задач</li>
+<li><code>nm_discovery_rediscover.md</code> — Повторное обнаружение сервисов устройства</li>
+<li><code>edge.md</code> — Пограничные шлюзы</li>
+<li><code>ls_widgets_subwidget.md</code> — Подвиджет</li>
+<li><code>nm_ip_sla_preparing.md</code> — Подготовка к мониторингу IP SLA</li>
+<li><code>ap_web_widgets_on_headless_linux.md</code> — Подготовка сервера linux без графического интерфейса пользователя для веб-виджетов</li>
+<li><code>nm_netflow_versions.md</code> — Поддерживаемые версии netflow</li>
+<li><code>ap_supported_charsets.md</code> — Поддерживаемые наборы символов</li>
+<li><code>ls_widgets_touchscreen_support.md</code> — Поддержка сенсорного дисплея</li>
+<li><code>ls_widgets_charts_image_subtitle.md</code> — Подзаголовок изображения</li>
+<li><code>ls_wui_uib_styles_external_css.md</code> — Подключение внешних CSS-файлов</li>
+<li><code>sh_connecting_controllers.md</code> — Подключение к ПЛК</li>
+<li><code>int_plugin_context_hooking.md</code> — Подключение к серверу дерева контекста</li>
+<li><code>ls_internals_serial_comm.md</code> — Подключение коммуникаций через последовательный порт</li>
+<li><code>sh_connecting_devices.md</code> — Подключение устройств и источников данных</li>
+<li><code>ta_connecting_time_recorders.md</code> — Подключение устройств учета рабочего времени</li>
+<li><code>ls_reports_subreports.md</code> — Подотчеты</li>
+<li><code>ls_wui_components_label.md</code> — Подпись</li>
+<li><code>ac_conref_division.md</code> — Подразделение</li>
+<li><code>ta_conref_division.md</code> — Подразделение</li>
+<li><code>ac_conref_divisions.md</code> — Подразделения</li>
+<li><code>ta_conref_divisions.md</code> — Подразделения</li>
+<li><code>ls_ui_procedure_confirm.md</code> — Подтвердить</li>
+<li><code>cl_el_ack.md</code> — Подтверждение событий</li>
+<li><code>ls_internals_events_acknowledgement.md</code> — Подтверждение событий</li>
+<li><code>ls_wui_components_el_ack.md</code> — Подтверждение событий</li>
+<li><code>ls_alerts_acknowledgement.md</code> — Подтверждение тревоги</li>
+<li><code>troubleshooting.md</code> — Поиск и устранение неисправностей</li>
+<li><code>cl_st_node_filtering.md</code> — Поиск и фильтрация узлов</li>
+<li><code>ls_actions_search_filter.md</code> — Поиск/фильтрация</li>
+<li><code>nm_metrics.md</code> — Показатели</li>
+<li><code>nm_metrics_availability.md</code> — Показатели доступности и работоспособности</li>
+<li><code>mes_oee_dashboards_production_entity_oee.md</code> — Показатели ОЕЕ производственной сущности</li>
+<li><code>nm_metrics_performance.md</code> — Показатели производительности</li>
+<li><code>ls_ui_procedure_show_system_tree.md</code> — Показать cистемное дерево</li>
+<li><code>ls_ui_procedure_event_log.md</code> — Показать журнал событий</li>
+<li><code>ls_ui_procedure_show_dashboard.md</code> — Показать инструментальную панель</li>
+<li><code>ls_ui_procedure_show_diff.md</code> — Показать отличия</li>
+<li><code>ls_ui_procedure_show_report.md</code> — Показать отчет</li>
+<li><code>ls_ui_procedure_show_error.md</code> — Показать ошибку</li>
+<li><code>ls_ui_procedure_show_message.md</code> — Показать сообщение</li>
+<li><code>ls_actions_view_status.md</code> — Показать статус</li>
+<li><code>ls_widgets_password_field.md</code> — Поле ввода пароля</li>
+<li><code>ls_widgets_formatted_text_field.md</code> — Поле с форматированием</li>
+<li><code>ls_widgets_combo_box.md</code> — Поле со списком</li>
+<li><code>ls_wui_uib_styles_browser_tools.md</code> — Полезные инструменты для браузера</li>
+<li><code>ac_conref_access_policy.md</code> — Политика доступа</li>
+<li><code>nm_conref_compliance_policy.md</code> — Политика соответствия</li>
+<li><code>ls_config_event_storages_policy.md</code> — Политика хранения событий</li>
+<li><code>ac_conref_access_policies.md</code> — Политики доступа</li>
+<li><code>nm_conref_compliance_policies.md</code> — Политики соответствия</li>
+<li><code>ls_widgets_charts_item_label_position.md</code> — Положение меток элементов серий</li>
+<li><code>ls_internals_window_location.md</code> — Положение окна</li>
+<li><code>ls_widgets_half_round_gauge.md</code> — Полукруглый индикатор</li>
+<li><code>nm_snmp_traps.md</code> — Получение snmp-ловушек и сообщений</li>
+<li><code>ls_wui_accessing.md</code> — Получение доступа к web UI</li>
+<li><code>nm_winlog.md</code> — Получение событий журнала windows</li>
+<li><code>ls_conref_users.md</code> — Пользователи</li>
+<li><code>ls_users.md</code> — Пользователи</li>
+<li><code>ls_users_distributed.md</code> — Пользователи в распределенной архитектуре</li>
+<li><code>nm_wmi_usecases_operating_system_users.md</code> — Пользователи операционной системы</li>
+<li><code>ls_conref_user.md</code> — Пользователь</li>
+<li><code>cl_re_custom_pdf_fonts.md</code> — Пользовательские PDF шрифты</li>
+<li><code>ls_wui_component_sdk.md</code> — Пользовательские UI компоненты</li>
+<li><code>ls_widgets_charts_data_custom.md</code> — Пользовательские данные</li>
+<li><code>ls_common_data_custom_properties.md</code> — Пользовательские свойства</li>
+<li><code>ls_common_data_custom_properties_config.md</code> — Пользовательские свойства</li>
+<li><code>ls_widgets_component_properties_custom.md</code> — Пользовательские свойства</li>
+<li><code>ls_wui_containers_root_panel_custom_properties.md</code> — Пользовательские свойства корневой панели</li>
+<li><code>ls_wui_uib_styles_custom_fonts.md</code> — Пользовательские шрифты</li>
+<li><code>ls_common_data_storage.md</code> — Пользовательское хранилище данных</li>
+<li><code>ls_event_filters_custom_highlighting.md</code> — Пользовательское цветовое выделение</li>
+<li><code>ls_classes_configuration_fields.md</code> — Поля</li>
+<li><code>ls_classes_fields.md</code> — Поля</li>
+<li><code>ls_common_data_fields.md</code> — Поля общей таблицы</li>
+<li><code>ls_widgets_charts_polar.md</code> — Полярная диаграмма</li>
+<li><code>ls_wui_components_polar_chart.md</code> — Полярная диаграмма</li>
+<li><code>nm_ip_sla_understanding.md</code> — Понимание технологии IP SLA</li>
+<li><code>nm_ip_sla_frequency.md</code> — Понимание частоты опроса</li>
+<li><code>ls_distributed_concepts.md</code> — Понятия распределенной архитектуры</li>
+<li><code>nm_ip_sla_test_thresholds.md</code> — Пороги тревог IP SLA</li>
+<li><code>cl_ide_components_properties_step.md</code> — Порядковый номер</li>
+<li><code>ta_conref_attendance.md</code> — Посещаемость</li>
+<li><code>nm_ccm_sequences.md</code> — Последовательности резервного копирования и восстановления</li>
+<li><code>ls_internals_permissions_auth_sequence.md</code> — Последовательность аутентификации и авторизации</li>
+<li><code>ls_internals_statistics_processing.md</code> — Последовательность обработки данных</li>
+<li><code>sh_pc_sfc.md</code> — Последовательные функциональные схемы (SFC)</li>
+<li><code>ls_internals_rules_sequential.md</code> — Последовательный набор правил</li>
+<li><code>ls_internals_statistics_chars.md</code> — Построение графиков на основе статистики</li>
+<li><code>ls_widgets_charts_dataset.md</code> — Построение массива данных графика</li>
+<li><code>ls_internals_datatables_from_list.md</code> — Построение таблицы из списка параметров</li>
+<li><code>nm_ip_sla_packet_loss.md</code> — Потеря пакетов</li>
+<li><code>ap_threads_pools.md</code> — Потоки и пулы потоков RatioT Server</li>
+<li><code>ls_users_permissions.md</code> — Права доступа</li>
+<li><code>ls_config_anonymous_permissions.md</code> — Права доступа для анонимного пользователя</li>
+<li><code>ls_common_data_record_permissions.md</code> — Права доступа к записям общей таблицы</li>
+<li><code>ls_classes_configuration_permissions.md</code> — Права доступа к экземплярам</li>
+<li><code>ls_classes_permissions.md</code> — Права доступа к экземплярам</li>
+<li><code>ls_models_spreadsheets_permissions.md</code> — Права доступа к электронным таблицам</li>
+<li><code>ls_config_default_permissions.md</code> — Права доступа по умолчанию</li>
+<li><code>ls_internals_permissions_role_based.md</code> — Права на основе ролей</li>
+<li><code>nm_ccm_compliance_rules.md</code> — Правила</li>
+<li><code>ls_models_rules.md</code> — Правила модели</li>
+<li><code>ls_validity_update_rules.md</code> — Правила обновления пригодности</li>
+<li><code>ls_config_event_processing_rules.md</code> — Правила обработки событий</li>
+<li><code>cluster_coordinator_configuration_allocation_rules.md</code> — Правила распределения</li>
+<li><code>mes_core_production_entities_maintenance_rules.md</code> — Правила технического обслуживания</li>
+<li><code>ls_event_filters_rules.md</code> — Правила фильтра</li>
+<li><code>tutorials.md</code> — Практические примеры</li>
+<li><code>ls_wui_uib_preview.md</code> — Предварительный просмотр инструментальной панели</li>
+<li><code>nm_event_filters.md</code> — Преднастроенные фильтры событий</li>
+<li><code>tut_permissions.md</code> — Предоставление разрешения пользователю к объектам другого пользователя</li>
+<li><code>ag_device_representation.md</code> — Представление устройств в агенте</li>
+<li><code>ls_classes_configuration_views.md</code> — Представления</li>
+<li><code>ls_classes_views.md</code> — Представления</li>
+<li><code>ls_sql_views.md</code> — Представления на основе SQL</li>
+<li><code>ls_wui_component_properties_common_preloader.md</code> — Прелоадер</li>
+<li><code>ls_devices_event_variable_conversion.md</code> — Преобразование событий в переменные</li>
+<li><code>ls_internals_bindings.md</code> — Привязки</li>
+<li><code>ls_models_configuration_bindings.md</code> — Привязки</li>
+<li><code>ls_widgets_bindings.md</code> — Привязки</li>
+<li><code>ls_wui_bindings.md</code> — Привязки</li>
+<li><code>ls_wui_component_properties_common_bindings.md</code> — Привязки</li>
+<li><code>ls_models_bindings.md</code> — Привязки модели</li>
+<li><code>ls_internals_bindings_server.md</code> — Привязки сервера</li>
+<li><code>ls_internals_datatables_bindings.md</code> — Привязки таблиц</li>
+<li><code>ls_classes_bindings.md</code> — Привязки экземпляра класса</li>
+<li><code>ls_classes_configuration_bindings.md</code> — Привязки экземпляров класса</li>
+<li><code>ls_validity.md</code> — Пригодность ресурсов</li>
+<li><code>ls_conref_application.md</code> — Приложение</li>
+<li><code>appendixes.md</code> — Приложения</li>
+<li><code>ls_applications.md</code> — Приложения</li>
+<li><code>ls_conref_applications.md</code> — Приложения</li>
+<li><code>ls_wui_uib_styles_css.md</code> — Применение CSS к компонентам</li>
+<li><code>nm_discovery_results_apply.md</code> — Применение результатов обнаружения</li>
+<li><code>ls_wui_graph_custom_topology.md</code> — Пример пользовательской топологии</li>
+<li><code>int_http_server_examples.md</code> — Примеры HTTP сервера</li>
+<li><code>int_web_service_examples.md</code> — Примеры веб-сервиса</li>
+<li><code>ls_widgets_examples.md</code> — Примеры виджетов</li>
+<li><code>ls_internals_expressions_examples.md</code> — Примеры выражений</li>
+<li><code>ls_trackers_examples.md</code> — Примеры датчиков</li>
+<li><code>ls_queries_examples.md</code> — Примеры запросов</li>
+<li><code>nm_wmi_usecases.md</code> — Примеры использования WMI</li>
+<li><code>ls_internals_statistics_examples.md</code> — Примеры конфигурации статистики</li>
+<li><code>ls_widgets_bindings_examples.md</code> — Примеры привязок</li>
+<li><code>ls_wui_bindings_examples.md</code> — Примеры привязок</li>
+<li><code>ls_alerts_examples.md</code> — Примеры тревог</li>
+<li><code>troubleshooting_server_startup.md</code> — Проблемы запуска RatioT Server</li>
+<li><code>troubleshooting_install.md</code> — Проблемы установки RatioT Server</li>
+<li><code>ls_internals_permissions_checking.md</code> — Проверка прав доступа</li>
+<li><code>tut_sla_breakdown.md</code> — Прогнозирование нарушений SLA</li>
+<li><code>sh_pc_common_program.md</code> — Программы</li>
+<li><code>mes_core_products.md</code> — Продукты</li>
+<li><code>products.md</code> — Продукты на основе платформы RatioT SCADA</li>
+<li><code>ls_products_plugins_resources.md</code> — Продукты, плагины и ресурсы</li>
+<li><code>ds_plugins_link_service.md</code> — Прозрачная маршрутизация данных (link service)</li>
+<li><code>ls_widgets_player.md</code> — Проигрыватель виджетов</li>
+<li><code>ls_wui_performance.md</code> — Производительность</li>
+<li><code>ls_widgets_performance.md</code> — Производительность виджетов</li>
+<li><code>ls_internals_expressions_performance.md</code> — Производительность выражений</li>
+<li><code>ls_groups_performance.md</code> — Производительность групп</li>
+<li><code>ls_trackers_performance.md</code> — Производительность датчиков</li>
+<li><code>ls_jobs_performance.md</code> — Производительность задач</li>
+<li><code>ls_queries_performance.md</code> — Производительность запросов</li>
+<li><code>ls_models_performance.md</code> — Производительность моделей</li>
+<li><code>ls_common_data_performance.md</code> — Производительность общих таблиц</li>
+<li><code>ls_reports_performance.md</code> — Производительность отчетов</li>
+<li><code>ls_internals_variables_performance.md</code> — Производительность переменных</li>
+<li><code>ls_internals_bindings_performance.md</code> — Производительность привязок</li>
+<li><code>ls_widgets_bindings_performance.md</code> — Производительность привязок</li>
+<li><code>ls_workflows_performance.md</code> — Производительность процесса</li>
+<li><code>ls_internals_events_performance.md</code> — Производительность событий</li>
+<li><code>ls_alerts_performance.md</code> — Производительность тревог</li>
+<li><code>ls_devices_performance.md</code> — Производительность устройства</li>
+<li><code>ls_internals_functions_performance.md</code> — Производительность функций</li>
+<li><code>mes_core_production_entities.md</code> — Производственные сущности</li>
+<li><code>mes_tt_quick_start.md</code> — Прослеживаемость: Быстрый старт</li>
+<li><code>int_programming_events.md</code> — Прослушивание и обработка событий</li>
+<li><code>cl_report_viewer.md</code> — Просмотр отчетов</li>
+<li><code>ls_reports_viewing.md</code> — Просмотр отчетов</li>
+<li><code>nm_discovery_results_review.md</code> — Просмотр результатов обнаружения</li>
+<li><code>ls_actions_monitorevents.md</code> — Просмотр событий</li>
+<li><code>nm_netflow_statistics.md</code> — Просмотр статистики обработки netflow</li>
+<li><code>nm_ip_sla_browsing.md</code> — Просмотр статуса и статистики IP SLA</li>
+<li><code>nm_topology_browsing.md</code> — Просмотр топологии сети</li>
+<li><code>ls_wui_containers_panel.md</code> — Простая панель</li>
+<li><code>ls_jobs_simple_schedule.md</code> — Простое расписание</li>
+<li><code>ls_widgets_simple_arc_gauge.md</code> — Простой дуговой индикатор</li>
+<li><code>ls_widgets_simple_gauge.md</code> — Простой индикатор</li>
+<li><code>cl_simple_mode.md</code> — Простой режим</li>
+<li><code>ap_protocol.md</code> — Протокол связи RatioT SCADA</li>
+<li><code>nm_technologies.md</code> — Протоколы и технологии</li>
+<li><code>ls_conref_workflow.md</code> — Процесс</li>
+<li><code>nm_discovery_process.md</code> — Процесс обнаружения</li>
+<li><code>basics_app_development.md</code> — Процесс разработки приложений</li>
+<li><code>ls_conref_workflows.md</code> — Процессы</li>
+<li><code>ls_workflows.md</code> — Процессы</li>
+<li><code>ls_widgets_charts_other.md</code> — Прочие графики</li>
+<li><code>cl_ide_components_sfc_jump.md</code> — Прыжок</li>
+<li><code>ls_widgets_rectangle.md</code> — Прямоугольник</li>
+<li><code>ls_store_publishing_modules.md</code> — Публикация модулей и решений</li>
+<li><code>ls_widgets_charts_bubble.md</code> — Пузырьковая диаграмма</li>
+<li><code>ls_wui_components_bubble_chart.md</code> — Пузырьковая диаграмма</li>
+<li><code>ls_installation_running_in_docker_container.md</code> — Работа в контейнере docker</li>
+<li><code>ls_time_zones.md</code> — Работа в нескольких временных зонах</li>
+<li><code>int_programming_distributed.md</code> — Работа в распределенной архитектуре</li>
+<li><code>ls_widgets_execution.md</code> — Работа виджета</li>
+<li><code>int_ddk_assets.md</code> — Работа с активами устройства</li>
+<li><code>ls_database_nosql_external.md</code> — Работа с внешней базой данных Cassandra</li>
+<li><code>int_programming_expressions.md</code> — Работа с выражениями</li>
+<li><code>sh_trending.md</code> — Работа с графиками и трендами</li>
+<li><code>ls_history.md</code> — Работа с историческими данными/значениями</li>
+<li><code>ls_internals_statistics_keys.md</code> — Работа с ключами</li>
+<li><code>int_programming_contexts.md</code> — Работа с контекстами</li>
+<li><code>ls_drivers_flexible_metadata.md</code> — Работа с метаданными</li>
+<li><code>ls_drivers_flexible_streams.md</code> — Работа с потоками данных</li>
+<li><code>int_programming_bindings.md</code> — Работа с привязками</li>
+<li><code>int_programming_data_tables.md</code> — Работа с таблицами данных</li>
+<li><code>ls_database_nosql_embedded.md</code> — Работа со встроенной базой данных Cassandra</li>
+<li><code>ls_wui_uib_work_area.md</code> — Рабочая область</li>
+<li><code>ta_conref_shift.md</code> — Рабочая смена</li>
+<li><code>cl_gui_builder_work_form.md</code> — Рабочая форма</li>
+<li><code>cl_ide_work_form.md</code> — Рабочая форма</li>
+<li><code>mes_core_work_orders.md</code> — Рабочие заказы</li>
+<li><code>cl_workspaces_and_server_connections.md</code> — Рабочие пространства и соединения с сервером</li>
+<li><code>mes_core_shifts.md</code> — Рабочие смены</li>
+<li><code>ta_conref_shifts.md</code> — Рабочие смены</li>
+<li><code>ls_wui_components_radio_button.md</code> — Радиокнопка</li>
+<li><code>ls_deployment.md</code> — Развертывание и администрирование</li>
+<li><code>ls_devops.md</code> — Развертывание приложений и devops</li>
+<li><code>ls_wui_uib_styles_panels_markup.md</code> — Разметка панелей</li>
+<li><code>ls_wui_components_charts_dataset_variable_propagation.md</code> — Размножение серии</li>
+<li><code>ls_widgets_charts_data_variables_propagation.md</code> — Размножение серий переменных</li>
+<li><code>tut_full_cycle_app_dashboards-274914705974.md</code> — Разработка инстументальных панелей операторa</li>
+<li><code>tut_full_cycle_app_dashboards-276465272372.md</code> — Разработка инстументальных панелей операторa</li>
+<li><code>tut_full_cycle_app_ui_development.md</code> — Разработка пользовательского интерфейса</li>
+<li><code>tut_full_cycle_app_dashboards.md</code> — Разработка приборных панелей операторов</li>
+<li><code>ls_users_configuration_permissions_role_based.md</code> — Разрешения на основе ролей</li>
+<li><code>ls_wui_exposing_apps.md</code> — Раскрытие приложений</li>
+<li><code>nm_ip_sla_test_schedule.md</code> — Расписание тестирования IP SLA</li>
+<li><code>ls_wui_component_location.md</code> — Расположение компонента</li>
+<li><code>ls_distributed.md</code> — Распределенные операции</li>
+<li><code>integration.md</code> — Расширение и интеграция платформы</li>
+<li><code>ls_widgets_charts_category_axis_extended.md</code> — Расширенная ось категорий</li>
+<li><code>ls_jobs_advanced_schedule.md</code> — Расширенное расписание</li>
+<li><code>ls_config_storage_advanced.md</code> — Расширенные настройки хранения</li>
+<li><code>ls_config_additional_permissions.md</code> — Расширенные права доступа для новых пользователей</li>
+<li><code>ls_advanced.md</code> — Расширенные функции</li>
+<li><code>int_programming_data_tables_implementations.md</code> — Реализации таблиц данных</li>
+<li><code>int_agent_sdk_implementing.md</code> — Реализация java agent</li>
+<li><code>int_web_application_implementing.md</code> — Реализация веб-приложения</li>
+<li><code>int_ddk_implementing.md</code> — Реализация драйвера</li>
+<li><code>int_widget_component_sdk_implementing.md</code> — Реализация компонента виджет</li>
+<li><code>tut_full_cycle_app_data_models.md</code> — Реализация моделей данных</li>
+<li><code>int_plugin_context_implementing.md</code> — Реализация новых контекстов</li>
+<li><code>ls_widgets_slider.md</code> — Регулятор</li>
+<li><code>ls_wui_components_slider.md</code> — Регулятор</li>
+<li><code>ls_widgets_range_slider.md</code> — Регулятор диапазона</li>
+<li><code>cl_gui_builder_editing_layout_absolute.md</code> — Редактирование абсолютного позиционирования</li>
+<li><code>ls_wui_uib_editing_layout_absolute.md</code> — Редактирование абсолютной компоновки</li>
+<li><code>cl_dte_editing_data.md</code> — Редактирование данных</li>
+<li><code>ls_wui_uib_editing_layout_dockable.md</code> — Редактирование плавающей компоновки</li>
+<li><code>cl_dte_editing_bindings.md</code> — Редактирование привязок</li>
+<li><code>cl_gui_builder_editing_layout.md</code> — Редактирование разметки виджета</li>
+<li><code>ls_wui_uib_editing_layout.md</code> — Редактирование расположения компонентов</li>
+<li><code>cl_gui_builder_editing_layout_grid.md</code> — Редактирование сетки</li>
+<li><code>ls_wui_uib_editing_layout_grid.md</code> — Редактирование сетки</li>
+<li><code>nm_topology_editing.md</code> — Редактирование топологии сети</li>
+<li><code>ls_ui_procedure_edit_expression.md</code> — Редактировать выражение</li>
+<li><code>ls_ui_procedure_edit_data.md</code> — Редактировать данные</li>
+<li><code>ls_actions_edit_additional_properties.md</code> — Редактировать дополнительные свойства</li>
+<li><code>ls_ui_procedure_edit_dashboard.md</code> — Редактировать инструментальную панель</li>
+<li><code>ls_ui_procedure_edit_code.md</code> — Редактировать код</li>
+<li><code>ls_actions_editperms.md</code> — Редактировать права доступа</li>
+<li><code>ls_ui_procedure_edit_properties.md</code> — Редактировать свойства</li>
+<li><code>ls_ui_procedure_edit_text.md</code> — Редактировать текст</li>
+<li><code>ls_queries_editable_results.md</code> — Редактируемые результаты запроса</li>
+<li><code>ls_wui_uib_styles_css_editor.md</code> — Редактор CSS</li>
+<li><code>ls_wui_components_vector_drawing_editor.md</code> — Редактор SVG</li>
+<li><code>ls_wui_components_html_snippet_wswg_editor.md</code> — Редактор WYSIWYG</li>
+<li><code>cl_gui_builder.md</code> — Редактор виджетов</li>
+<li><code>cl_expression_builder.md</code> — Редактор выражений</li>
+<li><code>ls_widgets_geofence_editor.md</code> — Редактор геозон</li>
+<li><code>cl_code_editor.md</code> — Редактор кода</li>
+<li><code>cl_report_editor.md</code> — Редактор отчетов</li>
+<li><code>cl_properties_editor.md</code> — Редактор свойств</li>
+<li><code>ls_wui_components_properties_editor.md</code> — Редактор свойств</li>
+<li><code>ls_wui_uib_component_properties.md</code> — Редактор свойств компонентов</li>
+<li><code>ls_wui_uib_styles_component_properties_editor.md</code> — Редактор свойств компонентов</li>
+<li><code>cl_data_table_editor.md</code> — Редактор таблиц данных</li>
+<li><code>ls_widgets_data_table_editor.md</code> — Редактор таблицы данных</li>
+<li><code>mes_core_dashboards_schedule_editor_viewer.md</code> — Редактор/Просмотрщик расписания</li>
+<li><code>ls_internals_datatables_editors.md</code> — Редакторы/отрисовщики</li>
+<li><code>cl_modes.md</code> — Режим администратора</li>
+<li><code>ls_maintenance_mode.md</code> — Режим обслуживания</li>
+<li><code>ls_service.md</code> — Режим сервиса операционной системы</li>
+<li><code>cl_dte_modes.md</code> — Режимы</li>
+<li><code>ls_internals_actions_modes.md</code> — Режимы выполнения действий</li>
+<li><code>ls_backups.md</code> — Резервное копирование и восстановление данных</li>
+<li><code>nm_ccm_configuration.md</code> — Резервное копировние и восстановление конфигурации</li>
+<li><code>ls_drivers_ip_host_dns_results.md</code> — Результаты DNS мониторинга</li>
+<li><code>ls_drivers_ip_host_ftp_results.md</code> — Результаты FTP мониторинга</li>
+<li><code>ls_drivers_ip_host_dhcp_results.md</code> — Результаты мониторинга DHCP</li>
+<li><code>ls_drivers_ip_host_imap_results.md</code> — Результаты мониторинга IMAP</li>
+<li><code>ls_drivers_ip_host_ldap_results.md</code> — Результаты мониторинга LDAP</li>
+<li><code>ls_drivers_ip_host_pop3_results.md</code> — Результаты мониторинга POP3</li>
+<li><code>ls_drivers_ip_host_radius_results.md</code> — Результаты мониторинга radius</li>
+<li><code>ls_drivers_ip_host_smtp_results.md</code> — Результаты мониторинга SMTP</li>
+<li><code>ls_drivers_ip_host_ssh_results.md</code> — Результаты мониторинга SSH</li>
+<li><code>ls_drivers_ip_host_ping_results.md</code> — Результаты мониторинга пинга</li>
+<li><code>ls_drivers_ip_host_email_roundtrip_results.md</code> — Результаты мониторинга прохождения электронной почты</li>
+<li><code>ls_drivers_ip_host_tcp_results.md</code> — Результаты мониторинга типовой TCP службы</li>
+<li><code>ls_drivers_ip_host_udp_results.md</code> — Результаты мониторинга типовой UDP службы</li>
+<li><code>ls_drivers_ip_host_traceroute_results.md</code> — Результаты мониторинга трассировки</li>
+<li><code>ls_drivers_ip_host_snmp_polling_results.md</code> — Результаты опроса SNMP</li>
+<li><code>sh_pc_ld.md</code> — Релейные диаграммы (LD)</li>
+<li><code>ls_config_db_relational.md</code> — Реляционная база данных</li>
+<li><code>ls_config_storage_relational.md</code> — Реляционная база данных</li>
+<li><code>ls_database_relational.md</code> — Реляционная база данных</li>
+<li><code>ls_failover_database_ag.md</code> — Репликация базы данных средствами RatioT SCADA</li>
+<li><code>ls_internals_contexts_copy.md</code> — Репликация данных контекста</li>
+<li><code>ls_groups_replication.md</code> — Репликация свойств члена группы</li>
+<li><code>ls_actions_replicate.md</code> — Реплицировать</li>
+<li><code>ls_applications_resources.md</code> — Ресурсы</li>
+<li><code>ls_reports_resources.md</code> — Ресурсы</li>
+<li><code>ls_resources.md</code> — Ресурсы</li>
+<li><code>ls_users_resources.md</code> — Ресурсы</li>
+<li><code>mes_core_recipes.md</code> — Рецепты</li>
+<li><code>cl_gui_builder_drawing_primitives.md</code> — Рисование графических примитивов</li>
+<li><code>ls_conref_roles.md</code> — Роли</li>
+<li><code>ls_conref_role.md</code> — Роль</li>
+<li><code>ls_migration.md</code> — Руководство по миграции</li>
+<li><code>ls_migration_data_migration_guide.md</code> — Руководство по переносу данных</li>
+<li><code>int_programming.md</code> — Руководство по разработке</li>
+<li><code>nm_config_local_manual.md</code> — Ручное добавление и настройка устройств и сервисов</li>
+<li><code>ls_startup_manual.md</code> — Ручной запуск</li>
+<li><code>mes_ps_dashboards_manual_schedule_manager.md</code> — Ручной менеджер расписания</li>
+<li><code>ls_drivers_flexible_manual_exchange.md</code> — Ручной обмен командами</li>
+<li><code>ls_users_self_registration.md</code> — Саморегистрация пользователей</li>
+<li><code>ls_wui_components_charts_dataset.md</code> — Сборка данных диаграммы</li>
+<li><code>ls_widgets_led_display.md</code> — Светодиодное табло</li>
+<li><code>ls_users_properties.md</code> — Свойства</li>
+<li><code>nm_ccm_compliance_properties.md</code> — Свойства</li>
+<li><code>ls_startup_jsse_properties.md</code> — Свойства JSSE</li>
+<li><code>ls_wui_component_sdk_properties.md</code> — Свойства UI компонентов</li>
+<li><code>ls_groups_properties.md</code> — Свойства группы</li>
+<li><code>ls_trackers_properties.md</code> — Свойства датчика</li>
+<li><code>ls_jobs_properties.md</code> — Свойства задач</li>
+<li><code>ls_wui_uib_styles_style_properties_bindings.md</code> — Свойства и привязки стилей</li>
+<li><code>ls_dashboards_properties.md</code> — Свойства инструментальной панели</li>
+<li><code>ls_classes_properties.md</code> — Свойства класса</li>
+<li><code>ls_widgets_component_properties.md</code> — Свойства компонента</li>
+<li><code>cl_gui_builder_component_properties.md</code> — Свойства компонентов</li>
+<li><code>cl_ide_components_properties.md</code> — Свойства компонентов</li>
+<li><code>ls_wui_component_properties.md</code> — Свойства компонентов</li>
+<li><code>ls_workflows_connector_properties.md</code> — Свойства коннекторов</li>
+<li><code>ls_wui_component_properties_common_container.md</code> — Свойства контейнера</li>
+<li><code>ls_wui_uib_styles_container_properties.md</code> — Свойства контейнера</li>
+<li><code>ls_models_properties.md</code> — Свойства модели</li>
+<li><code>ls_machine_learning_properties.md</code> — Свойства обучаемого модуля</li>
+<li><code>ls_common_data_properties.md</code> — Свойства общей таблицы</li>
+<li><code>ls_reports_properties.md</code> — Свойства отчета</li>
+<li><code>ls_internals_bindings_properties.md</code> — Свойства привязок</li>
+<li><code>ls_applications_properties.md</code> — Свойства приложений</li>
+<li><code>ls_workflows_properties.md</code> — Свойства процессов</li>
+<li><code>ls_internals_statistics_channel_properties.md</code> — Свойства статистического канала</li>
+<li><code>ls_wui_graph_node_link_style.md</code> — Свойства стилизации узлов и связей</li>
+<li><code>ls_wui_graph_topology.md</code> — Свойства топологии</li>
+<li><code>ls_alerts_properties.md</code> — Свойства тревоги</li>
+<li><code>ls_event_filters_properties.md</code> — Свойства фильтра</li>
+<li><code>ls_wui_components_vector_element_properties.md</code> — Свойства элемента</li>
+<li><code>ls_wui_uib_styles_custom_classes.md</code> — Свойство "Пользовательские классы&amp;rdquo;</li>
+<li><code>ls_classes_relations.md</code> — Связи</li>
+<li><code>ls_connectivity.md</code> — Связь и сбор данных</li>
+<li><code>cl_ide_generated_code.md</code> — Сгенерированный код</li>
+<li><code>ls_conref_segment.md</code> — Сегмент</li>
+<li><code>ls_conref_segments.md</code> — Сегменты</li>
+<li><code>mes_core_segments.md</code> — Сегменты</li>
+<li><code>ls_widgets_charts_plot_pie.md</code> — Секторная область построения</li>
+<li><code>cl_entity_selector.md</code> — Селектор объектов</li>
+<li><code>cl_gui_builder_entity_selector.md</code> — Селектор объектов</li>
+<li><code>ls_wui_components_entity_selector.md</code> — Селектор объектов</li>
+<li><code>cl_st_server.md</code> — Сервер</li>
+<li><code>ls_drivers_opc_ua_server.md</code> — Сервер OPC UA</li>
+<li><code>ls_conref_external_device_server.md</code> — Сервер внешних устройств</li>
+<li><code>ls_config_license_server.md</code> — Сервер лицензий</li>
+<li><code>ls_license_server.md</code> — Сервер лицензий</li>
+<li><code>ls_conref_device_server.md</code> — Сервер устройств</li>
+<li><code>ls_conref_external_device_servers.md</code> — Серверы внешних устройств</li>
+<li><code>cluster_coordinator_architecture_login_server.md</code> — Серверы входа в систему</li>
+<li><code>cluster_coordinator_architecture_application_server.md</code> — Серверы приложений</li>
+<li><code>cluster_coordinator_configuration_application_servers.md</code> — Серверы приложений</li>
+<li><code>ds_device_servers.md</code> — Серверы устройств</li>
+<li><code>ls_conref_device_servers.md</code> — Серверы устройств</li>
+<li><code>ds_difference.md</code> — Серверы устройств, аккаунты серверов устройств, аккаунты внешних серверов устройств</li>
+<li><code>ds_http_proxy.md</code> — Сервис http-прокси</li>
+<li><code>ds_ddns.md</code> — Сервис динамический DNS</li>
+<li><code>ds_link_service.md</code> — Сервис связи</li>
+<li><code>ls_widgets_charts_data_variables_statistics.md</code> — Серии, основанные на статистике и гранулах</li>
+<li><code>ls_wui_components_charts_dataset_variable_statistics.md</code> — Серия на основе статистики</li>
+<li><code>ls_config_security_client_certificates.md</code> — Сертификаты клиентов</li>
+<li><code>int_sessions.md</code> — Сессии и переменные сессии</li>
+<li><code>nm_discovery.md</code> — Сетевое обнаружение</li>
+<li><code>ls_drivers_wmi_mass_enabling_scanning.md</code> — Сетевое сканирование WMI</li>
+<li><code>nm_conref_netmanagement.md</code> — Сетевое управление</li>
+<li><code>network_management.md</code> — Сетевое управление и мониторинг</li>
+<li><code>ls_config_virtual_networks.md</code> — Сети виртуальных устройств</li>
+<li><code>ls_devices_virtual_networks.md</code> — Сети виртуальных устройств</li>
+<li><code>ls_wui_layouts_grid.md</code> — Сетка</li>
+<li><code>ls_wui_components_charts_common_properties_cogrid.md</code> — Сетка координат</li>
+<li><code>cl_ide_components_ld_power_rail.md</code> — Силовая линия</li>
+<li><code>ls_widgets_charts_value_axis_symbol.md</code> — Символьная ось</li>
+<li><code>ls_internals_expressions_syntax.md</code> — Синтаксис</li>
+<li><code>ap_regular_expressions.md</code> — Синтаксис регулярных выражений</li>
+<li><code>ls_queries_syntax.md</code> — Синтаксис языка запроса</li>
+<li><code>int_ddk_sync.md</code> — Синхронизация</li>
+<li><code>ls_devices_synchronization.md</code> — Синхронизация</li>
+<li><code>nm_ip_sla_synchronizing.md</code> — Синхронизирование тестов</li>
+<li><code>cl_system_tree.md</code> — Системное дерево</li>
+<li><code>ls_widgets_system_tree.md</code> — Системное дерево</li>
+<li><code>ls_wui_components_system_tree.md</code> — Системное дерево</li>
+<li><code>nm_netflow_requirements.md</code> — Системные требования</li>
+<li><code>nm_discovery_scan.md</code> — Сканирование</li>
+<li><code>ls_internals_statistics_rates.md</code> — Скорость изменения, нормализация и консолидация</li>
+<li><code>ls_conref_script.md</code> — Скрипт</li>
+<li><code>ls_workflows_functional_blocks_script.md</code> — Скрипт</li>
+<li><code>ls_conref_scripts.md</code> — Скрипты</li>
+<li><code>ls_scripts.md</code> — Скрипты</li>
+<li><code>ls_scripts_python.md</code> — Скрипты Python</li>
+<li><code>ls_widgets_scripts.md</code> — Скрипты виджетов</li>
+<li><code>ls_startup_scripts.md</code> — Скрипты запуска</li>
+<li><code>ls_event_correlator_scripts.md</code> — Скрипты коррелятора событий</li>
+<li><code>ls_scripts_r.md</code> — Скрипты на языке R</li>
+<li><code>ls_widgets_map_layer.md</code> — Слой карты</li>
+<li><code>ls_drivers_ip_host_email_roundtrip.md</code> — Служба мониторинга прохождения электронной почты</li>
+<li><code>ls_internals_events_listeners.md</code> — Слушатели событий</li>
+<li><code>ls_widgets_charts_mixed_xy.md</code> — Смешанная xy-диаграмма</li>
+<li><code>ls_widgets_charts_mixed_category.md</code> — Смешанная диаграмма</li>
+<li><code>ls_widgets_charts_composite.md</code> — Смешанные диаграммы</li>
+<li><code>ls_wui_components_html_snippet.md</code> — Сниппет HTML</li>
+<li><code>ap_dumps.md</code> — Снятие дампов памяти (heap) и потоков</li>
+<li><code>ls_workflows_input_blocks_event.md</code> — Событие</li>
+<li><code>ls_alerts_event.md</code> — Событие тревоги</li>
+<li><code>ls_conref_events.md</code> — События</li>
+<li><code>ls_internals_events.md</code> — События</li>
+<li><code>ls_wui_component_properties_common_events.md</code> — События</li>
+<li><code>ls_wui_component_sdk_events.md</code> — События UI компонентов</li>
+<li><code>nm_events_wmi.md</code> — События WMI</li>
+<li><code>nm_monitoring_virtualization_event_filter.md</code> — События виртуализации</li>
+<li><code>nm_events_winlogs.md</code> — События журнала windows</li>
+<li><code>ls_widgets_key_event.md</code> — События клавиатуры</li>
+<li><code>ls_widgets_component_events.md</code> — События компонента</li>
+<li><code>ls_wui_component_events.md</code> — События компонентов</li>
+<li><code>ls_models_configuration_events.md</code> — События модели</li>
+<li><code>ls_widgets_mouse_event.md</code> — События мыши</li>
+<li><code>ls_devices_events.md</code> — События устройства (нотификации)</li>
+<li><code>ls_models_spreadsheets_events.md</code> — События электронных таблиц</li>
+<li><code>nm_ipv6.md</code> — Совместимость с ipv6</li>
+<li><code>low_code_best_practices_naming_conventions.md</code> — Соглашения об именовании</li>
+<li><code>ls_common_data_contents.md</code> — Содержание общей таблицы</li>
+<li><code>ls_dashboards_head_content.md</code> — Содержимое тега HEAD</li>
+<li><code>int_programming_data_tables_creation.md</code> — Создание</li>
+<li><code>sh_creating_hmis.md</code> — Создание HMI</li>
+<li><code>ls_widgets_creating.md</code> — Создание виджетов</li>
+<li><code>ls_wui_components_vector_drawing_dynamic.md</code> — Создание динамических векторных рисунков</li>
+<li><code>tut_kiosk.md</code> — Создание инструментальной панели-киоска в WEB</li>
+<li><code>tut_full_cycle_app_creating_dashboards.md</code> — Создание инструментальных панелей</li>
+<li><code>nm_ip_sla_creating.md</code> — Создание новых тестов</li>
+<li><code>cl_dte_reports.md</code> — Создание отчета</li>
+<li><code>ls_wui_components_dte_reports.md</code> — Создание отчета</li>
+<li><code>tut_report.md</code> — Создание отчета о статусе устройства</li>
+<li><code>tut_consumption.md</code> — Создание отчетов о потреблении</li>
+<li><code>tut_widget.md</code> — Создание приборной панели для мониторинга устройства</li>
+<li><code>tut_full_cycle_app_machine_learning.md</code> — Создание прогнозов с помощью модуля машинного обучения</li>
+<li><code>ls_actions_create.md</code> — Создать</li>
+<li><code>ls_actions_copy.md</code> — Создать копию</li>
+<li><code>ls_actions_create_from_template.md</code> — Создать на основе шаблона</li>
+<li><code>cl_dte_filtering.md</code> — Сортировка и фильтрация</li>
+<li><code>ls_wui_components_dte_filtering.md</code> — Сортировка и фильтрация</li>
+<li><code>ls_alerts_states.md</code> — Состояния тревоги</li>
+<li><code>ac_conref_cardholder.md</code> — Сотрудник</li>
+<li><code>ta_conref_cardholder.md</code> — Сотрудник</li>
+<li><code>ac_conref_cardholders.md</code> — Сотрудники</li>
+<li><code>mes_core_employees.md</code> — Сотрудники</li>
+<li><code>ta_conref_cardholders.md</code> — Сотрудники</li>
+<li><code>tut_storing_history_to_external.md</code> — Сохранение истории во внешней базе данных</li>
+<li><code>tut_change_history.md</code> — Сохранение истории изменений объекта</li>
+<li><code>ls_wui_components_charts_dataset_custom.md</code> — Специальные данные</li>
+<li><code>ls_wui_special_references.md</code> — Специальные ссылки Web UI</li>
+<li><code>ap_specification.md</code> — Спецификация RatioT SCADA</li>
+<li><code>ls_widgets_list.md</code> — Список</li>
+<li><code>ls_netadmin_commands.md</code> — Список команд и скриптов запуска</li>
+<li><code>ls_wui_components_context_list.md</code> — Список контекстов</li>
+<li><code>ls_wui_components_class_field_list.md</code> — Список полей класса</li>
+<li><code>int_rest_api_reference.md</code> — Справочник REST API</li>
+<li><code>nm_conref.md</code> — Справочник для контекста сетевого управления</li>
+<li><code>ac_context_reference.md</code> — Справочник по контекстам</li>
+<li><code>ls_conref.md</code> — Справочник по контекстам</li>
+<li><code>ta_conref.md</code> — Справочник по контекстам</li>
+<li><code>ls_email_conref.md</code> — Справочник по контекстам e-mail</li>
+<li><code>ls_dynamic_dns_conref.md</code> — Справочник по контекстам динамической DNS</li>
+<li><code>ls_geofences_conref.md</code> — Справочник по контексту геозоны</li>
+<li><code>mes_core_reference_books.md</code> — Справочники</li>
+<li><code>ls_drivers_tracker.md</code> — Спутниковый контроль транспорта</li>
+<li><code>ls_wui_containers_implant_subdashboard_comparison.md</code> — Сравнение Имплантов и Вложенных панелей</li>
+<li><code>ls_internals_expressions_environment.md</code> — Среда вычисления</li>
+<li><code>nm_ip_sla_mos.md</code> — Средняя оценка качества передачи (MOS)</li>
+<li><code>nm_config_local_tools.md</code> — Средства администрирования RatioT Network Manager</li>
+<li><code>ls_conref_cluster_coordinator.md</code> — Ссылка на контекст координатора кластера</li>
+<li><code>ls_sms_conref.md</code> — Ссылка на контексты SMS</li>
+<li><code>ls_internals_references.md</code> — Ссылки</li>
+<li><code>ls_models_rule_set_referring.md</code> — Ссылки на наборы правил</li>
+<li><code>ls_queries_field_references.md</code> — Ссылки на поля</li>
+<li><code>ls_internals_references_environment.md</code> — Ссылки среды</li>
+<li><code>ls_machine_learning_stages.md</code> — Стадии работы</li>
+<li><code>ls_internals_references_standard.md</code> — Стандартные ссылки</li>
+<li><code>int_ddk_toolkit.md</code> — Стандартный набор инструментов драйвера</li>
+<li><code>ls_config_statistics.md</code> — Статистика</li>
+<li><code>ls_internals_statistics.md</code> — Статистика</li>
+<li><code>ls_internals_variables_statistics.md</code> — статистика (Статистика)</li>
+<li><code>ls_trackers_statistics.md</code> — Статистика датчика</li>
+<li><code>ls_devices_statistics.md</code> — Статистика настройки устройства</li>
+<li><code>ls_widgets_charts_statistical.md</code> — Статистическая диаграмма</li>
+<li><code>ls_wui_components_statistical_chart.md</code> — Статистическая диаграмма</li>
+<li><code>ls_models_statistics.md</code> — Статистические каналы</li>
+<li><code>ls_groups_properties_status.md</code> — Статус группы</li>
+<li><code>ls_groups_status.md</code> — Статус группы</li>
+<li><code>ls_trackers_status.md</code> — Статус датчика</li>
+<li><code>ls_distributed_status.md</code> — Статус распределенных серверов</li>
+<li><code>ls_devices_settings_sync_status.md</code> — Статус синхронизации настроек</li>
+<li><code>ls_devices_status.md</code> — Статус устройства</li>
+<li><code>ls_users_status.md</code> — Статус учетной записи пользователя</li>
+<li><code>cl_steady_state_mode.md</code> — Стационарный режим</li>
+<li><code>ls_wui_component_properties_common_element_style.md</code> — Стили</li>
+<li><code>ls_wui_uib_styles_interaction_states.md</code> — Стили интерактивного состояния элементов</li>
+<li><code>tut_full_cycle_app_styling_components.md</code> — Стилизация компонентов инструментальной панели</li>
+<li><code>ls_wui_uib_styles.md</code> — Стилизация пользовательского интерфейса</li>
+<li><code>ls_wui_uib_styles_element_style.md</code> — Стиль элемента</li>
+<li><code>ls_widgets_charts_bar.md</code> — Столбчатая диаграмма</li>
+<li><code>ls_wui_components_bar_chart.md</code> — Столбчатая диаграмма</li>
+<li><code>ls_widgets_charts_interval_bar.md</code> — Столбчатая диаграмма интервалов</li>
+<li><code>ls_wui_components_interval_bar.md</code> — Столбчатая диаграмма интервалов</li>
+<li><code>ls_widgets_arrow.md</code> — Стрелка</li>
+<li><code>cl_status_bar.md</code> — Строка состояния</li>
+<li><code>ls_conref_structure.md</code> — Структура</li>
+<li><code>ls_wui_uib_styles_components_structure.md</code> — Структура веб-компонентов</li>
+<li><code>nm_snmp_basics_management_information.md</code> — Структура данных управления</li>
+<li><code>basics_structure.md</code> — Структура платформы</li>
+<li><code>sh_pc_st.md</code> — Структурированный текст (ST)</li>
+<li><code>ls_models_spreadsheets_data_structures.md</code> — Структуры данных в электронных таблицах</li>
+<li><code>nm_concepts_subjects.md</code> — Субъекты управления</li>
+<li><code>ls_database_structure.md</code> — Схема и взаимодействие базы данных</li>
+<li><code>ls_nosql_database_structure.md</code> — Схема и взаимодействие базы данных nosql</li>
+<li><code>ls_widgets_spinner.md</code> — Счетчик</li>
+<li><code>ls_wui_components_dte.md</code> — Таблица данных</li>
+<li><code>ls_drivers_snmp_global_settings_users.md</code> — Таблица пользователей SNMP</li>
+<li><code>ls_internals_permissions_table.md</code> — Таблица прав доступа</li>
+<li><code>ls_internals_permissions_default_table.md</code> — Таблица прав доступа по умолчанию</li>
+<li><code>ls_internals_dashboard_properties.md</code> — Таблица свойств инструментальной панели</li>
+<li><code>ls_trackers_status_table.md</code> — Таблица статусов</li>
+<li><code>ls_wui_components_tables.md</code> — Таблицы</li>
+<li><code>ls_internals_datatables.md</code> — Таблицы данных</li>
+<li><code>ls_workflows_input_blocks_timer.md</code> — Таймер</li>
+<li><code>ls_wui_components_timer.md</code> — Таймер</li>
+<li><code>ls_widgets_charts_category_text_annotation.md</code> — Текстовая аннотация</li>
+<li><code>ls_widgets_charts_xy_text_annotation.md</code> — Текстовая аннотация</li>
+<li><code>ls_widgets_text_area.md</code> — Текстовая область</li>
+<li><code>ls_wui_components_text_area.md</code> — Текстовая область</li>
+<li><code>ls_widgets_text_field.md</code> — Текстовое поле</li>
+<li><code>ls_wui_components_text_field.md</code> — Текстовое поле</li>
+<li><code>cl_text_editor.md</code> — Текстовый редактор</li>
+<li><code>cl_el_current_events.md</code> — Текущие события</li>
+<li><code>ls_wui_components_el_current_events.md</code> — Текущие события</li>
+<li><code>nm_conref_ipsla.md</code> — Тест IP SLA</li>
+<li><code>nm_ip_sla_test_history.md</code> — Тестовая история IP SLA</li>
+<li><code>nm_ip_sla_test_statistics.md</code> — Тестовая статистика IP SLA</li>
+<li><code>nm_ip_sla_test_topology.md</code> — Тестовая топология</li>
+<li><code>nm_ip_sla_groups.md</code> — Тестовые группы IP SLA</li>
+<li><code>nm_ip_sla_test_reactions.md</code> — Тестовые реакции IP SLA</li>
+<li><code>nm_ip_sla_test_properties.md</code> — Тестовые свойства IP SLA</li>
+<li><code>nm_ip_sla_test_types.md</code> — Тестовые типы IP SLA</li>
+<li><code>nm_conref_ipslas.md</code> — Тесты IP SLA</li>
+<li><code>cl_requirements.md</code> — Технические требования</li>
+<li><code>ls_requirements.md</code> — Технические требования</li>
+<li><code>sh_opc_server_technical_specification.md</code> — Технические характеристики</li>
+<li><code>ls_internals_statistics_rrd.md</code> — Технология RRD</li>
+<li><code>ls_internals_sso_authorization.md</code> — Технология единого входа: OAuth</li>
+<li><code>sh_maintenance.md</code> — Техобслуживание</li>
+<li><code>ls_widgets_types.md</code> — Типы виджетов</li>
+<li><code>ls_groups_types.md</code> — Типы групп</li>
+<li><code>sh_pc_common_data_types.md</code> — Типы данных</li>
+<li><code>ls_internals_expressions_types.md</code> — Типы данных и конвертация типов</li>
+<li><code>ls_dashboards_types.md</code> — Типы инструментальных панелей</li>
+<li><code>ls_internals_statistics_channel_types.md</code> — Типы каналов</li>
+<li><code>ls_models_types.md</code> — Типы моделей</li>
+<li><code>ls_internals_rules_types.md</code> — Типы наборов правил</li>
+<li><code>ls_reports_types.md</code> — Типы отчетов</li>
+<li><code>ls_widgets_charts_data_variables_types.md</code> — Типы серий переменных</li>
+<li><code>ls_installation_details_silent_installer.md</code> — Тихая установка</li>
+<li><code>nm_discovery_headless.md</code> — Тихое обнаружение одного и множества устройств</li>
+<li><code>nm_monitoring_virtualization_dashboard_virtualization_top10.md</code> — Топ 10 систем виртуализации</li>
+<li><code>ls_groups_topology.md</code> — Топология</li>
+<li><code>ls_wui_components_charts_common_properties_visualization_point.md</code> — Точка</li>
+<li><code>ls_widgets_pin_points.md</code> — Точки прикрепления</li>
+<li><code>mes_core_transport.md</code> — Транспортная модель</li>
+<li><code>mes_core_transport_work_orders.md</code> — Транспортные рабочие заказы</li>
+<li><code>nm_topology_route_tracing.md</code> — Трассировка маршрута сети</li>
+<li><code>ls_wui_requirements.md</code> — Требования</li>
+<li><code>nm_monitoring_printer_alert_state.md</code> — Тревги состояния принтера</li>
+<li><code>ls_conref_alert.md</code> — Тревога</li>
+<li><code>nm_monitoring_network_snmp_adminshutdown_alert.md</code> — Тревога административное отключение сетевого интерфейса</li>
+<li><code>nm_monitoring_vmware_alert_cpu.md</code> — Тревога загрузки процессора виртуальной машины</li>
+<li><code>nm_monitoring_network_snmp_state_change_alert.md</code> — Тревога изменеие состояния сетевого интерфейса</li>
+<li><code>nm_monitoring_network_snmp_utilization_alert.md</code> — Тревога использование сетевого интерфейса</li>
+<li><code>nm_monitoring_printer_alert_marker.md</code> — Тревога о состоянии краски в принтере</li>
+<li><code>nm_monitoring_printer_alert_cover.md</code> — Тревога о статусе крышки принтера</li>
+<li><code>nm_monitoring_network_snmp_down_alert.md</code> — Тревога сетевой интерфейс отключен</li>
+<li><code>nm_monitoring_vmware_alert_hdd_write.md</code> — Тревога скорости записи на жесткие диски виртуальной машины</li>
+<li><code>nm_monitoring_vmware_alert_hdd_read.md</code> — Тревога скорости чтения с жестких дисков виртуальной машины</li>
+<li><code>nm_monitoring_vmware_alert_state.md</code> — Тревога состояния виртуальной машины</li>
+<li><code>nm_monitoring_vmware_alert_memory_volume.md</code> — Тревога утилизации абсолютной памяти виртуальной машины</li>
+<li><code>nm_monitoring_vmware_alert_memory_percentage.md</code> — Тревога утилизации относительной памяти виртуальной машины</li>
+<li><code>ls_alerts.md</code> — Тревоги</li>
+<li><code>ls_conref_alerts.md</code> — Тревоги</li>
+<li><code>ls_users_alerts.md</code> — Тревоги</li>
+<li><code>nm_ip_sla_alerts.md</code> — Тревоги IP SLA</li>
+<li><code>nm_monitoring_vmware_alerts.md</code> — Тревоги vmware</li>
+<li><code>ls_alerts_distributed.md</code> — Тревоги в распределенной архитектуре</li>
+<li><code>nm_availability_alerting.md</code> — Тревоги доступности</li>
+<li><code>nm_monitoring_web_apache_alerts.md</code> — Тревоги сервера apache</li>
+<li><code>nm_events_traps_alerts.md</code> — Тревожные сообщения SNMP</li>
+<li><code>ls_widgets_charts_data_trending.md</code> — Тренды</li>
+<li><code>ls_widgets_toggle_button.md</code> — Триггерная кнопка</li>
+<li><code>ls_jobs_triggers.md</code> — Триггеры задач</li>
+<li><code>ls_alerts_variable_trigger_properties.md</code> — Триггеры на основе переменных</li>
+<li><code>ls_alerts_event_trigger_properties.md</code> — Триггеры на основе событий</li>
+<li><code>ls_alerts_variable_triggers.md</code> — Триггеры переменной</li>
+<li><code>ls_alerts_event_triggers.md</code> — Триггеры события</li>
+<li><code>ls_wui_toolbar.md</code> — Тулбар</li>
+<li><code>ls_wui_uib_toolbar.md</code> — Тулбар</li>
+<li><code>ls_wui_components_spreadsheet_toolbar.md</code> — Тулбар электронной таблицы</li>
+<li><code>ls_wui_uib_styles_toolbars.md</code> — Тулбары</li>
+<li><code>nm_ip_sla_deleting.md</code> — Удаление тестов</li>
+<li><code>nm_control_ssh.md</code> — Удаленное выполнение скрипта</li>
+<li><code>ls_remote_upgrade.md</code> — Удаленное обновление</li>
+<li><code>ls_actions_delete.md</code> — Удалить</li>
+<li><code>cl_st_servers.md</code> — Узел серверов</li>
+<li><code>tut_baseline_alerts.md</code> — Умные базовые тревоги</li>
+<li><code>nm_start_controlling.md</code> — Управление</li>
+<li><code>nm_ipam.md</code> — Управление IP-адресами</li>
+<li><code>nm_snmp_configure_mibs.md</code> — Управление MIB-файлами</li>
+<li><code>nm_asset_management.md</code> — Управление активами</li>
+<li><code>ls_wui_components_input_controls.md</code> — Управление вводом</li>
+<li><code>ac_managing_timezones.md</code> — Управление временными зонами</li>
+<li><code>int_ddk_incoming.md</code> — Управление входящими соединениями устройств</li>
+<li><code>ls_internals_permissions_access_control.md</code> — Управление доступом пользователей</li>
+<li><code>nm_ccm_configuration_managing.md</code> — Управление историей конфигураций</li>
+<li><code>nm_service_management.md</code> — Управление ИТ-услугами</li>
+<li><code>nm_ccm_configurations.md</code> — Управление конфигурациями</li>
+<li><code>nm_ccm.md</code> — Управление конфигурациями и соответствием стандартам</li>
+<li><code>nm_control_wmi.md</code> — Управление по WMI</li>
+<li><code>ac_managing_access_policies.md</code> — Управление правами доступа</li>
+<li><code>int_programming_permissions.md</code> — Управление правами доступа</li>
+<li><code>cl_gui_builder_managing_bindings.md</code> — Управление привязками</li>
+<li><code>sh_managing_applications.md</code> — Управление приложениями</li>
+<li><code>nm_wmi_usecases_printers.md</code> — Управление принтерами</li>
+<li><code>low_code_best_practices_project_management.md</code> — Управление проектами</li>
+<li><code>sh_managing_projects.md</code> — Управление проектами с помощью приложений</li>
+<li><code>device_servers.md</code> — Управление серверами устройств</li>
+<li><code>ta_managing_shifts.md</code> — Управление сменами</li>
+<li><code>ls_internals_events_management.md</code> — Управление событиями</li>
+<li><code>ta_managing_attendance_events.md</code> — Управление событиями посещений</li>
+<li><code>nm_ccm_compliance_policies.md</code> — Управление соответствием стандартам</li>
+<li><code>ac_managing_cardholders.md</code> — Управление сотрудниками</li>
+<li><code>ta_managing_cardholders.md</code> — Управление сотрудниками</li>
+<li><code>nm_snmp_managing.md</code> — Управление устройствами по SNMP</li>
+<li><code>ls_users_management.md</code> — Управление учетными записями пользователей</li>
+<li><code>ls_groups_managing_members.md</code> — Управление членами группы</li>
+<li><code>ac_managing_cards_badges.md</code> — Управление электронными картами доступа</li>
+<li><code>ta_managing_cards_badges.md</code> — Управление электронными картами доступа</li>
+<li><code>ac_managing_timezone_entries.md</code> — Управление элементами временной зоны</li>
+<li><code>ac_managing_access_entries.md</code> — Управление элементами доступа</li>
+<li><code>ls_workflows_control_flow_blocks.md</code> — Управляющие блоки</li>
+<li><code>ls_wui_simple_mode.md</code> — Упрощенный режим</li>
+<li><code>ls_internals_permissions_context_defaults.md</code> — Уровень прав доступа к контексту по умолчанию</li>
+<li><code>ls_logging_levels.md</code> — Уровни журналирования</li>
+<li><code>ls_internals_permissions_levels.md</code> — Уровни прав доступа</li>
+<li><code>ls_internals_events_levels.md</code> — Уровни событий</li>
+<li><code>ls_internals_bindings_server_condition.md</code> — Условие привязки</li>
+<li><code>ls_widgets_bindings_condition.md</code> — Условие привязки</li>
+<li><code>ls_wui_bindings_condition.md</code> — Условие привязки</li>
+<li><code>sh_pc_st_if.md</code> — Условные операторы</li>
+<li><code>ls_installation_details.md</code> — Установка</li>
+<li><code>nm_start_installation.md</code> — Установка RatioT Network Manager</li>
+<li><code>nm_snmp_setup_oracle.md</code> — Установка SNMP на серверах oracle</li>
+<li><code>nm_snmp_setup_lotus.md</code> — Установка SNMP на сервере lotus domino</li>
+<li><code>nm_snmp_setup_mssql.md</code> — Установка SNMP на сервере microsoft SQL</li>
+<li><code>nm_snmp_setup_linux.md</code> — Установка SNMP на системах linux</li>
+<li><code>nm_snmp_setup_solaris.md</code> — Установка SNMP на системах solaris</li>
+<li><code>nm_snmp_setup_windows.md</code> — Установка SNMP на системах windows</li>
+<li><code>nm_snmp_setup_cisco.md</code> — Установка SNMP на устройствах cisco</li>
+<li><code>ls_web_certificate.md</code> — Установка SSL сертификата для веб-приложений</li>
+<li><code>nm_discovery_search_what.md</code> — Установка и выбор сервиса</li>
+<li><code>ls_installation.md</code> — Установка и обновление</li>
+<li><code>ls_installation_arm_linux.md</code> — Установка на устройствах на базе arm linux</li>
+<li><code>nm_ccm_setup.md</code> — Установка управления конфигурациями</li>
+<li><code>ap_deprecated.md</code> — Устаревшие разделы</li>
+<li><code>ls_wui_uib_styles_troubleshooting_css.md</code> — Устранение неполадок с CSS</li>
+<li><code>ds_led_patterns.md</code> — Устранение проблем с подключением серверов устройств</li>
+<li><code>ls_config_devices.md</code> — Устройства</li>
+<li><code>ls_conref_devices.md</code> — Устройства</li>
+<li><code>ls_devices.md</code> — Устройства</li>
+<li><code>ls_conref_device.md</code> — Устройство</li>
+<li><code>ls_widgets_device.md</code> — Устройство</li>
+<li><code>nm_monitoring_network_snmp_bandwidth_chart.md</code> — Утилизация пропускной способности сетевого интерфейса</li>
+<li><code>ls_conref_utils.md</code> — Утилиты</li>
+<li><code>nm_concepts_participants.md</code> — Участники управления</li>
+<li><code>tut_flexible_driver_incoming.md</code> — Учебник по Flexible драйверу (Входящие данные)</li>
+<li><code>time_and_attendance.md</code> — Учет рабочего времени</li>
+<li><code>ls_users_default_admin.md</code> — Учетная запись администратора по умолчанию</li>
+<li><code>ls_users_default_operator.md</code> — Учетная запись оператора по умолчанию</li>
+<li><code>ls_failover_database_cluster_config_file.md</code> — Файл конфигурации баз данных кластера</li>
+<li><code>ls_logging_config.md</code> — Файл настроек журналирования</li>
+<li><code>ls_database_file.md</code> — Файловое хранилище</li>
+<li><code>ds_sdf.md</code> — Файлы настроек</li>
+<li><code>ls_launch_properties.md</code> — Файлы свойств Java VM</li>
+<li><code>ls_conref_event_filter.md</code> — Фильтр событий</li>
+<li><code>ls_internals_events_filtering.md</code> — Фильтрация событий</li>
+<li><code>ls_conref_event_filters.md</code> — Фильтры событий</li>
+<li><code>ls_event_filters.md</code> — Фильтры событий</li>
+<li><code>ls_event_filters_distributed.md</code> — Фильтры событий в распределенной архитектуре</li>
+<li><code>ls_classes_instance_filters.md</code> — Фильтры экземпляров</li>
+<li><code>ls_widgets_charts_financial.md</code> — Финансовая диаграмма</li>
+<li><code>ls_wui_components_check_box.md</code> — Флаговая кнопка</li>
+<li><code>ls_widgets_shape.md</code> — Форма</li>
+<li><code>ls_internals_datatables_format.md</code> — Формат таблицы</li>
+<li><code>ap_generic_formatting_patterns.md</code> — Форматирование произвольных объектов</li>
+<li><code>ls_dashboards_layouts.md</code> — Форматы инструментальных панелей</li>
+<li><code>ls_users_photo.md</code> — Фотография пользователя</li>
+<li><code>ls_widgets_charts_block_frame.md</code> — Фрейм</li>
+<li><code>ls_internals_expressions_functions.md</code> — Функции</li>
+<li><code>ls_internals_functions.md</code> — Функции</li>
+<li><code>sh_pc_common_functions.md</code> — Функции</li>
+<li><code>ls_wui_component_sdk_functions.md</code> — Функции UI компонентов</li>
+<li><code>int_web_service_functions.md</code> — Функции веб-сервиса</li>
+<li><code>ls_widgets_component_functions.md</code> — Функции компонента</li>
+<li><code>ls_wui_component_functions.md</code> — Функции компонентов</li>
+<li><code>ls_internals_expressions_functions_type.md</code> — Функции конвертации типов</li>
+<li><code>ls_models_configuration_functions.md</code> — Функции модели</li>
+<li><code>ls_internals_expressions_functions_datablock.md</code> — Функции обработки бинарных блоков</li>
+<li><code>ls_internals_expressions_functions_date_time.md</code> — Функции обработки даты/времени</li>
+<li><code>ls_internals_expressions_functions_string.md</code> — Функции обработки строк</li>
+<li><code>ls_internals_expressions_functions_datatable.md</code> — Функции обработки таблиц данных</li>
+<li><code>ls_internals_expressions_functions_color.md</code> — Функции обработки цветов</li>
+<li><code>ls_internals_expressions_functions_number.md</code> — Функции обработки чисел</li>
+<li><code>nm_ccm_functions.md</code> — Функции управления конфигурациями и соответствием стандартам</li>
+<li><code>ls_devices_functions.md</code> — Функции устройства (операции)</li>
+<li><code>ls_models_spreadsheets_functions.md</code> — Функции электронных таблиц</li>
+<li><code>ls_queries_functions.md</code> — Функции языка запроса</li>
+<li><code>ls_internals_expressions_functions_context.md</code> — Функции, относящиеся к контекстам</li>
+<li><code>ls_workflows_functional_blocks.md</code> — Функциональные блоки</li>
+<li><code>sh_pc_common_function_blocks.md</code> — Функциональные блоки</li>
+<li><code>sh_pc_fbd.md</code> — Функциональные блоковые диаграммы (FBD)</li>
+<li><code>ls_workflows_functional_blocks_function.md</code> — Функция</li>
+<li><code>ls_drivers_ip_host.md</code> — Хост сети</li>
+<li><code>ls_config_storage.md</code> — Хранение</li>
+<li><code>mes_core_storages.md</code> — Хранение</li>
+<li><code>ls_storage.md</code> — Хранение данных</li>
+<li><code>ls_database.md</code> — Хранилища данных</li>
+<li><code>ls_config_event_storages.md</code> — Хранилища событий</li>
+<li><code>cluster_coordinator_architecture_storage.md</code> — Хранилище</li>
+<li><code>ls_database_key_value.md</code> — Хранилище &amp;laquo;ключ-значение&amp;raquo;</li>
+<li><code>mes_sore_storage_n_lots.md</code> — Хранилище и лоты</li>
+<li><code>ls_config_db_key_value.md</code> — Хранилище ключ-значение</li>
+<li><code>ls_config_storage_key_value.md</code> — Хранилище ключ-значение</li>
+<li><code>ls_event_filters_highlighting.md</code> — Цветовое выделение событий</li>
+<li><code>ls_internals_bindings_server_target.md</code> — Цель привязки</li>
+<li><code>ls_widgets_bindings_target.md</code> — Цель привязки</li>
+<li><code>ls_wui_bindings_target.md</code> — Цель привязки</li>
+<li><code>ls_web_control_center.md</code> — Центр управления web</li>
+<li><code>ls_license_server_encryption.md</code> — Централизованное управление шифрованием</li>
+<li><code>sh_pc_st_cycle.md</code> — Циклы</li>
+<li><code>ls_widgets_check_box.md</code> — Чекбокс</li>
+<li><code>ls_widgets_quarter_round_gauge.md</code> — Четвертной индикатор</li>
+<li><code>ls_widgets_charts_value_axis_number.md</code> — Числовая ось</li>
+<li><code>ls_wui_components_number_field.md</code> — Числовое поле</li>
+<li><code>ls_widgets_template.md</code> — Шаблон виджета</li>
+<li><code>ls_reports_template.md</code> — Шаблон отчета</li>
+<li><code>ls_wui_dashboards_templates.md</code> — Шаблоны инструментальных панелей</li>
+<li><code>ap_date_time_formatting_patterns.md</code> — Шаблоны форматирования времени и даты</li>
+<li><code>ap_number_formatting_patterns.md</code> — Шаблоны форматирования чисел</li>
+<li><code>cl_ide_components_sfc_step.md</code> — Шаг</li>
+<li><code>ls_wui_containers_stepper_step_content.md</code> — Шаг</li>
+<li><code>sh_pc_sfc_steps.md</code> — Шаги</li>
+<li><code>ls_config_encryption.md</code> — Шифрование</li>
+<li><code>ls_widgets_font.md</code> — Шрифт</li>
+<li><code>ls_widgets_stroke.md</code> — Штрих</li>
+<li><code>ls_wui_dashboards_instances.md</code> — Экземпляры</li>
+<li><code>ls_actions_export.md</code> — Экспорт</li>
+<li><code>ls_actions_export_context.md</code> — Экспорт контекста</li>
+<li><code>cl_el_export.md</code> — Экспорт событий</li>
+<li><code>ls_wui_components_el_export.md</code> — Экспорт событий</li>
+<li><code>ls_wui_components_dte_export_import.md</code> — Экспорт/импорт данных</li>
+<li><code>ls_wui_components_spreadsheet.md</code> — Электронная таблица</li>
+<li><code>ls_models_configuration_model_spreadsheets.md</code> — Электронные таблицы</li>
+<li><code>ls_models_spreadsheets.md</code> — Электронные таблицы</li>
+<li><code>ls_wui_uib_styles_component_element.md</code> — Элемент компонента</li>
+<li><code>ls_widgets_charts_legend_item.md</code> — Элемент легенды</li>
+<li><code>ls_dashboards_element_properties.md</code> — Элементы инструментальной панели</li>
+<li><code>ls_dashboards_elements.md</code> — Элементы инструментальной панели</li>
+<li><code>ls_widgets_ellipse.md</code> — Эллипс</li>
+<li><code>ls_alerts_escalation.md</code> — Эскалация тревоги</li>
+<li><code>mdocsru.md</code> — Эти страницы были созданы после создания Space</li>
+<li><code>low_code_best_practices_code.md</code> — Эффективный и читабельный код</li>
+</ul>
+</section>
+
+
+<section id="group-other">
+<h2>…</h2>
+<ul>
+<li><code>ls_failover_database_native.md</code> — "родная" репликация базы данных</li>
+<li><code>ls_wui_containers.md</code> — ***Контейнеры***</li>
+</ul>
+</section>
+
+
+      <footer>
+        Оглавление построено из локальной копии встроенной справки RatioT SCADA 6.41.10.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('section[id^="group-"]');
+    const links = document.querySelectorAll('nav a[href^="#group-"]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => link.classList.remove('active'));
+          const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    sections.forEach(section => observer.observe(section));
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const id = link.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, null, '#' + id);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
