@@ -6,6 +6,7 @@
 
 - **GitHub Pages (временный хостинг):** `https://noo001.github.io/ratiot-scada-doc/`
 - **GitLab:** проект `ratiot/doc`. После появления виртуальной машины в контуре сайт будет опубликован на ней.
+- **Дистрибутивы RatioT SCADA:** `https://drive.google.com/drive/folders/1oetjGm66MAspkpMmon9lTHDiiOtep2Mu`
 
 ## Структура репозитория
 

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <script>
+    (function () {
+      if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
+        var pwd = prompt('Доступ к документации. Введите пароль:');
+        if (pwd !== '111') {
+          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
+          throw new Error('Access denied');
+        }
+        localStorage.setItem('ratiot-doc-auth', 'ok');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Базы данных, хранилище, история</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .chapter-toc { columns: 1; }
+    @media (min-width: 700px) { .chapter-toc { columns: 2; } }
+    .doc-section { margin-bottom: 64px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .doc-section:last-of-type { border-bottom: none; }
+    .md-table { font-size: .9rem; width: auto; }
+    .md-table th, .md-table td { padding: 8px 10px; }
+    .md-table tr:first-child td { font-weight: 600; background: #f0f4f8; }
+    .md-table th { font-weight: 600; background: #e2e8f0; }
+    aside nav { max-height: calc(100vh - 140px); overflow-y: auto; }
+    aside nav a { white-space: normal; }
+    pre { overflow-x: auto; }
+    .breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
+    .breadcrumbs a { color: var(--accent); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    .breadcrumbs span[aria-current="page"] { color: var(--text); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>RatioT SCADA</h1>
+      <div class="subtitle">Справка 6.41.10</div>
+      <nav>
+        <a href="index.html">← Оглавление справки</a>
+        <a href="../index.html">← Главная</a>
+<a href="intro.html">Введение и обзор платформы</a>
+<a href="install.html">Установка, запуск и обслуживание</a>
+<a href="architecture.html">Архитектура и конфигурация сервера</a>
+<a href="users.html">Пользователи, права и безопасность</a>
+<a href="model.html">Модель данных, контексты и классы</a>
+<a href="devices.html">Устройства, драйверы и протоколы</a>
+<a href="database.html" class="active">Базы данных, хранилище, история</a>
+<a href="webui.html">Web UI, HMI и дашборды</a>
+<a href="scripts.html">Скрипты, выражения и запросы</a>
+<a href="events.html">События, аварии и уведомления</a>
+<a href="cluster.html">Кластер, отказоустойчивость и распределённые вычисления</a>
+<a href="network.html">Сетевое управление</a>
+<a href="desktop.html">Десктопный клиент</a>
+<a href="integration.html">Интеграция, приложения и отчёты</a>
+<a href="tutorials.html">Учебники и устранение неполадок</a>
+      </nav>
+    </aside>
+
+    <main>
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="../index.html">Главная</a>
+        <span aria-hidden="true">→</span>
+        <a href="index.html">Оглавление справки</a>
+        <span aria-hidden="true">→</span>
+        <span aria-current="page">Базы данных, хранилище, история</span>
+      </nav>
+      <section id="intro">
+        <h1>Базы данных, хранилище, история</h1>
+      </section>
+
+<section id="intro"><h2>Оглавление главы</h2><ul><li><a href="#ls_database">Хранилища данных</a></li>
+<li><a href="#ls_database_converter">Конвертор базы данных</a></li>
+<li><a href="#ls_database_file">Файловое хранилище</a></li>
+<li><a href="#ls_database_firebird">Переключение базы данных на firebird</a></li>
+<li><a href="#ls_database_key_value">Хранилище &amp;laquo;ключ-значение&amp;raquo;</a></li>
+<li><a href="#ls_database_ms_sql">Переключение базы данных на microsoft SQL server</a></li>
+<li><a href="#ls_database_mysql">Переключение базы данных на mysql</a></li>
+<li><a href="#ls_database_nosql">База данных NoSQL</a></li>
+<li><a href="#ls_database_nosql_config">Настройка хранилища NoSQL</a></li>
+<li><a href="#ls_database_nosql_embedded">Работа со встроенной базой данных Cassandra</a></li>
+<li><a href="#ls_database_nosql_external">Работа с внешней базой данных Cassandra</a></li>
+<li><a href="#ls_database_nosql_external_advanced_cassandra">Дополнительные действия Cassandra</a></li>
+<li><a href="#ls_database_oracle">Переключение базы данных на oracle</a></li>
+<li><a href="#ls_database_performance">Настройка производительности базы данных</a></li>
+<li><a href="#ls_database_postgresql">Переключение базы данных на postgresql</a></li>
+<li><a href="#ls_database_relational">Реляционная база данных</a></li>
+<li><a href="#ls_database_structure">Схема и взаимодействие базы данных</a></li>
+<li><a href="#ls_database_switching">Переключение на другой движок баз данных</a></li>
+<li><a href="#ls_history">Работа с историческими данными/значениями</a></li>
+<li><a href="#ls_history_acquiring_aggregated">Доступ к агрегированным историческим данным</a></li>
+<li><a href="#ls_history_acquiring_raw">Доступ к сырым историческим данным</a></li>
+<li><a href="#ls_history_aggregation">Настройка агрегации исторических данных</a></li>
+<li><a href="#ls_history_storage">Конфигурация хранилища</a></li>
+<li><a href="#ls_logging">Журналирование событий</a></li>
+<li><a href="#ls_logging_biblio">Документация к библиотеке журналирования</a></li>
+<li><a href="#ls_logging_categories">Категории журналирования</a></li>
+<li><a href="#ls_logging_config">Файл настроек журналирования</a></li>
+<li><a href="#ls_logging_levels">Уровни журналирования</a></li>
+<li><a href="#ls_media_library_server">Медиа библиотека сервера</a></li>
+<li><a href="#ls_nosql_database_structure">Схема и взаимодействие базы данных nosql</a></li>
+<li><a href="#ls_storage">Хранение данных</a></li></ul></section>
+
+<section id="ls_database" class="doc-section">
+<h2>Хранилища данных</h2>
+<p>Сервер может использовать разные типы хранения для разных типов данных. Ниже представлено сравнение доступных типов хранения и их возможности:</p>
+<table class="md-table"><tr><td>Тип хранения</td><td>Применяется для</td><td>Плюсы</td><td>Минусы</td></tr><tr><td>База данных NoSQL</td><td>Конфигураций, Событий, Бинарных данных</td><td>Высокая производительность вставки и обновления. Расширяемость производительности хранения посредством кластеризации хранения. Поддерживается отказоустойчивая кластеризация.</td><td>Не может использоваться для хранения топологий.</td></tr><tr><td>Реляционная база данных</td><td>Конфигураций, Событий, Бинарных данных, Топологий</td><td>Работает из коробки. Данные доступны для сторонних приложений. Поддерживается нативная и отказоустойчивая кластеризация для RatioT Server.</td><td>Низкая производительность вставки и обновления данных.</td></tr><tr><td>Файловое хранилище</td><td>Конфигураций, Бинарных данных</td><td>Очень низкие затраты производительности системы.</td><td>Не поддерживается отказоустойчивая кластеризация.</td></tr><tr><td>Отключено</td><td>Событий, Бинарных данных</td><td>Нет затрат производительности.</td><td>Данные не хранятся постоянно. Все хронологические значения не сохраняются.</td></tr><tr><td>Кольцевая база данных</td><td>Статистики (совокупных временных рядов)</td><td>Постоянное отслеживание данных. Высочайшая производительность получения вставки/обновления.</td><td>Могут храниться только показатели временных рядов числовых значений.</td></tr><tr><td>Графовая база данных</td><td>Топологий</td><td>Высокопроизводительные специализированные инструменты для обработки графов.</td><td>Для больших топологий может потребоваться автономная коммерческая версия графовой базы данных.</td></tr><tr><td>База данных Key-Value (устаревшая)</td><td>Конфигураций, Бинарных данных</td><td>Очень высокая производительность вставки и обновления. Поддерживается отказоустойчивая кластеризация.</td><td>Не может использоваться как хранилище событий.</td></tr></table>
+<h3>Настройка хранения по умолчанию</h3>
+<p>По умолчанию RatioT Server настроен на хранение данных в Базе данных NoSQL в системах Unix и в прилагаемой пакетной Базе данных MySQL в установках Windows. Если пакетная база данных MySQL не была установлена, сервер будет полагаться на встроенный механизм реляционной базы данных, который не предназначен для использования в производстве.</p>
+<p>Раздел базы данных глобальной настройки сервера предоставляет возможность для независимого типа хранения изменений для каждого вида сохраненных данных.</p>
+</section>
+
+
+<section id="ls_database_converter" class="doc-section">
+<h2>Конвертор базы данных</h2>
+<p>Утилита конвертора базы данных (<code>db_converter</code>) находится в инсталляционной папке RatioT Server. Она используется для переноса данных из базы данных RatioT Serverа в другую. </p>
+<p>Файл с расширением <code>db_converter</code> принимает два аргумента: путь старого конфигурационного файла RatioT Server (содержащий конфигурацию старой базы данных) и путь нового конфигурационного файла. Итак, команда на исполнение выглядит следующим образом: <code>db_converter server_old.xml server.xml</code>.</p>
+<p>Конвертирование базы данных может занять значительное время.</p>
+</section>
+
+
+<section id="ls_database_file" class="doc-section">
+<h2>Файловое хранилище</h2>
+<p>Файловое хранилище позволяет RatioT Server хранить отдельные элементы данных, такие как элементы конфигурации и двоичные блоки в отдельных файлах внутри локальной файловой системы сервера.</p>
+<p>Так как конфигурация файлов и хранение двоичных данных создает минимальную нагрузку на систему, хранение файлов подходит для установок на системы с низкой производительностью, такие как Raspberry Pi, BeagleBone Black и другие одноплатные ПК на базе платформы ARM, работающие на операционной системе Linux.</p>
+<p>Файловое хранилище не поддерживает любые дополнительные параметры конфигурации.</p>
+<table class="md-table"><tr><td></td><td>Файловое хранилище не подходит для длительной промышленной эксплуатации! Использование файлового хранилища в промышленных установках с высокой нагрузкой может привести к потере данных. Как только система переключена на продуктивный режим, необходимо переключиться на любую БД уровня предприятия. Неожиданная остановка RatioT Server может вызвать нарушение БД.</td></tr></table>
+</section>
+
+
+<section id="ls_database_firebird" class="doc-section">
+<h2>Переключение базы данных на firebird</h2>
+<p>Чтобы переключиться на использование Firebird в качестве сервера баз данных RatioT Server'а, следуйте общим инструкциям из параграфа Переключение на другой движок базы данных. Ниже приводятся специфичные для этого SQL-сервера шаги.</p>
+<ul>
+<li>Скачайте драйвер <strong>Jaybird JCA/JDBC</strong>. В момент написания этой статьи он доступен на странице http://www.firebirdsql.org/index.php?op=devel&amp;sub=jdbc.</li>
+<li>Скопируйте файл <code>jaybird-full-X.X.X.jar</code> в подпапку <code>/lib</code> инсталляционной папки RatioT Server'a.</li>
+<li>В Общих Настройках Конфигурации установите значение переменной <code>Database Driver</code> в значение <code>org.firebirdsql.jdbc.FBDriver</code>. Это имя Java-класса для драйвера Firebird.</li>
+<li>Формат переменной <code>Database URL</code> для Firebird имеет следующий вид: <code>jdbc:firebirdsql:host[/port]:/path/to/db.fdb</code>, где <code>host</code> - IP-адрес или DNS-имя сервера, на котором запущен   Firebird (может быть пустой строкой или <code>localhost</code>), <code>port</code> - номер порта (опустите эту часть URL чтобы использовать значение по умолчанию), <code>/path/to/db.fdb</code> - путь к базе данных, содержащей данные RatioT Server'а. В качестве имени базы данных можно использовать <code>server</code>.</li>
+</ul>
+<p>Пример для Windows: если ваш сервер Firebird работает на локальном хосте на порту 3050, а данные RatioT Server находятся в <code>C:dbserver.fdb</code>, используйте следующий URL: <code>jdbc:firebirdsql:localhost/3050:C:\db\server.fdb</code>.</p>
+<ul>
+<li>Пример для Unix: если ваш сервер Firebird работает на локальном хосте на порту 3050, а данные RatioT Server находятся в <code>/var/lib/firebird/data/server.fdb</code>, используйте следующий URL: <code>jdbc:firebirdsql:localhost/3050:/var/lib/firebird/data/server.fdb</code>.</li>
+<li>Установите значение переменной <code>Database Dialect</code> в <code>FirebirdDialect</code>.</li>
+<li> Установите значение переменной <code>Batch Size</code> в нуль. Это необходимо, поскольку JDBC-драйвер Firebird не поддерживает пакетные вставки объектов, содержащих BLOB-поля.</li>
+</ul>
+</section>
+
+
+<section id="ls_database_key_value" class="doc-section">
+<h2>Хранилище &amp;laquo;ключ-значение&amp;raquo;</h2>
+<p>Хранилище "ключ-значение" управляется СУБД Berkeley, встроенной в RatioT Server и работающей внутри сервера. Она идеально подходит для сохранения конфигураций системы и устройств.</p>
+<table class="md-table"><tr><td></td><td>Использование хранилища &amp;ldquo;ключ-значение&amp;rdquo; в настоящий момент не рекомендуется. Вместо него используются более универсальное и гибкое хранилище типа NoSQL.</td></tr></table>
+<h3>Конфигурация хранилища "ключ-значение"</h3>
+<p>Отдельная группа настроек в разделе база данных общих настроек сервера, позволяет настраивать параметры производительности и отказоустойчивой кластеризации для хранилища "ключ-значение".</p>
+<p>Для активации хранилища "ключ-значение", измените свойство <strong>Хранилище конфигурации</strong> на <strong>хранилище ключ-значение</strong>. Как правило, дополнительных изменений конфигурации не требуется, если используется одна база данных без отказоустойчивого кластера.</p>
+<p>Чтобы хранилище "ключ-значение" в сценарии отказоустойчивого кластера:</p>
+<ul>
+<li>Настройте два или более экземпляра RatioT Server.</li>
+<li>Включите <strong>хранилище ключ-значение</strong> на обоих.</li>
+<li>Измените параметр конфигурации роли кластера для одного <strong>хранилища ключ-значение</strong> на <strong>Главный</strong>. Измените роль другого <strong>хранилища ключ-значение</strong> на <strong>Отказоустойчивый</strong>.</li>
+<li>Установите <strong>кластерные базы данных &amp;laquo;ключ-значение&amp;raquo;</strong> на каждом <strong>отказоустойчивом хранилище &amp;laquo;ключ-значение&amp;raquo;</strong>, чтобы они указывали на другие <strong>хранилища &amp;laquo;ключ-значение&amp;raquo;</strong> в кластере.</li>
+<li>Перезапустите все серверы.</li>
+</ul>
+<h3>Папка хранилища "ключ-значение"</h3>
+<p>Хранилище "ключ-значение" хранит данные в подпапке <code>/key_value_data</code> папки установки RatioT Server.</p>
+<p>Таким образом, для копирования конфигураций сервера с одной машины на другую необходимо скопировать папку <code>/key_value_data</code> на целевой сервер, заменив существующую папку.</p>
+</section>
+
+
+<section id="ls_database_ms_sql" class="doc-section">
+<h2>Переключение базы данных на microsoft SQL server</h2>
+<p>Чтобы переключиться на использование Microsoft SQL Server в качестве сервера баз данных, следуйте общим инструкциям из параграфа Переключение на другой движок базы данных. Ниже приводятся специфичные для этого SQL-сервера шаги.</p>
+<ul>
+<li>Скачайте и установите последнюю версию <strong>JDBC-</strong>драйвера для<strong> Microsoft SQL Server</strong>. В момент написания этого документа драйвер можно взять на странице http://msdn.microsoft.com/data/jdbc/.</li>
+<li>Скопируйте файл <code>sqljdbc4.jar</code> в подпапку <code>/lib</code> установочной папки RatioT Server.</li>
+<li>В Настройках Общей Конфигурации установите значение переменной RatioT Server'а <code>Database Driver</code> на <code>com.microsoft.sqlserver.jdbc.SQLServerDriver</code>. Это имя Java-класса для драйвера Microsoft SQL Server.</li>
+<li>Формат переменной <code>Database URL</code> для Microsoft SQL Server имеет следующий вид: <code>jdbc:sqlserver://[serverName[instanceName][:port]][;property=value[;property=value]]</code>, где <code>jdbc:sqlserver://</code> является константой и описывает подпротокол, <code>serverName</code> - DNS-имя или IP-адрес сервера (может быть <code>locahost</code>), <code>instanceName</code> - имя экземпляра сервера на удаленной машине (если не указано, то используется экземпляр по умолчанию), <code>portNumber</code> - номер порта для подключения (1433 по умолчанию). Например, если Ваш Microsoft SQL Server запущен на 192.168.0.1, на порту по умолчанию, используйте следующий URL для подключения к экземпляру по умолчанию: <code>jdbc:sqlserver://192.168.0.1:1433</code>. Можно также пропустить порт по умолчанию и использовать в качестве URL такую строку: <code>jdbc:sqlserver://192.168.0.1</code>.</li>
+<li>Пара свойств и значений<code>trustServerCertificate=true</code>включена по умолчанию. Если требуются другие стратегии безопасности, обратитесь к документации по драйверу Microsoft SQL Server JDBC Driver.</li>
+<li>Установите значение переменной <code>Database Dialect</code> в <code>SQLServerDialect</code>.</li>
+</ul>
+<h3>Настройка собственной аутентификации</h3>
+<p>В некоторых случаях вам следует использовать Собственную аутентификацию. Следуйте инструкциям для настройки:</p>
+<ul>
+<li>Загрузите и установите последнюю версию библиотеки <code>sqljdbc_auth.dll</code><strong> </strong>с сайта<strong> </strong>Microsoft.</li>
+<li>Поместите <code>sqljdbc_auth.dll</code> в папку, путь которой определен опцией <code>java.library.path</code> JVM.</li>
+<li>Используйте предыдущий пример URL, просто добавив  параметр <code>IntegratedSecurity</code>: <code>IntegratedSecurity=true</code>.</li>
+</ul>
+<p>Пример: <code>jdbc:sqlserver://192.168.0.1:1433;IntegratedSecurity=true</code></p>
+<h3>Настройка аутентификации домена</h3>
+<p><strong>Драйвер JDBC сервера Microsoft SQL </strong>не позволяет использовать аутентификацию доменов. Для того, чтобы редактировать подключения сервера Microsoft SQL, используя ваши доменные регистрационные данные, сделайте следующее:</p>
+<ul>
+<li>Загрузите последнюю версию <strong>jTDS JDBC Driver</strong>. В процессе написания, она доступна на сайте http://jtds.sourceforge.net/.</li>
+<li>Поместите <code>jtds-X.X.X.jar</code> в подпапку <code>/jar</code> папки установки RatioT Server.</li>
+<li>Установите <code>Database Driver</code> в Настройки общей конфигурации RatioT Server на <code>net.sourceforge.jtds.jdbc.Driver</code>.</li>
+<li>Настройка <code>Database URL</code> имеет следующий формат: <code>jdbc:jtds:sqlserver://[serverName[instanceName][:port]];domain=domainValue;user=userValue;password=passwordValue[;property=value[;property=value]]</code>, где часть <code>jdbc:jtds:sqlserver://</code> известна как подпротокол и является постоянной, <code>serverName</code> является именем DNS или IP-адресом сервера для подключения (может быть <code>locahost</code>), <code>instanceName</code> является экземпляром для подключения к <code>serverName</code> (если не определен, совершается подключение к экземпляру по умолчанию), <code>portNumber</code> является портом для подключения к <code>serverName</code> (По умолчанию &amp;ndash; 1433).</li>
+</ul>
+<p>Пример: <code>jdbc:jtds:sqlserver://192.168.0.1:1433;domain=COM;user=admin;password=pass</code></p>
+<table class="md-table"><tr><td></td><td>Для успешной аутентификации с использованием jTDS драйвера, RatioT Server должен работать на  Windows-машине, включенной в домен.</td></tr></table>
+<h3>Настройка сервера microsoft SQL</h3>
+<p>Для поддержания производительности сервера Microsoft SQL на определенном уровне необходимо:</p>
+<ul>
+<li>Определить фактор заполнения для индексов</li>
+<li>Настроить сжатие таблицы и индекса</li>
+</ul>
+<p>Рекомендуется определить значение фактора заполнения &amp;ndash; 70. Для этого откройте Microsoft SQL Server Management Studio и:</p>
+<ol>
+<li>Нажмите на подключение к базе данных. </li>
+<li>Выберите <strong>Свойства</strong> в конце списка.</li>
+<li>Нажмите на страницу <strong>Настройки Базы данных</strong> слева под <strong>Свойства сервера</strong>. </li>
+<li>Укажите <code>70</code> в качестве значения <strong>фактора заполнения индекса по умолчанию</strong>.</li>
+</ol>
+<p>Необходимо сделать это перед первым запуском RatioT Server, потому что конфигурация, описанная выше, применяется только к новым индексам (т.е. только что созданным таблицам).</p>
+<p>Однако, есть возможность изменения опции фактора заполнения для уже созданных индексов. Сделать это можно несколькими способами:</p>
+<p>http://technet.microsoft.com/en-us/library/ms177459(v=sql.110).aspx.aspx)</p>
+<p>Все советы производят один и тот же эффект &amp;ndash; реорганизацию индексов с новым значением фактора заполнения. </p>
+<p>Фактор заполнения помогает уменьшать коэффициент фрагментации индекса. Но при этом необходимо отслеживать уровень фрагментации и регулярно реорганизовывать/перестраивать индексы.</p>
+<p>Используйте следующий скрипт для поддержания фрагментации индекса на нужном уровне. Например, создайте Агент сервера Microsoft SQL для запуска скрипта планировщиком.</p>
+<p>USE ag;GOSET NOCOUNT ON;DECLARE @objectid int;DECLARE @indexid int;DECLARE @partitioncount bigint;DECLARE @schemaname nvarchar(130);DECLARE @objectname nvarchar(130);DECLARE @indexname nvarchar(130);DECLARE @partitionnum bigint;DECLARE @partitions bigint;DECLARE @frag float;DECLARE @command nvarchar(4000);DECLARE @dbid smallint;-- Choose indexes with fragmentation level more than 10%-- Define current databaseSET @dbid = DB_ID();SELECT    [object_id] AS objectid,    index_id AS indexid,    partition_number AS partitionnum,    avg_fragmentation_in_percent AS frag, page_countINTO #work_to_doFROM sys.dm_db_index_physical_stats (@dbid, NULL, NULL , NULL, N'LIMITED')WHERE avg_fragmentation_in_percent &gt; 10.0  AND index_id &gt; 0 -- ignore heap-- Declare a cursor for a processing partitions' list.DECLARE partitions CURSOR FOR SELECT objectid,indexid, partitionnum,frag FROM #work_to_do;OPEN partitions;-- Loop by partition WHILE (1=1)BEGINFETCH NEXTFROM partitionsINTO @objectid, @indexid, @partitionnum, @frag;IF @@FETCH_STATUS &lt; 0 BREAK;SELECT @objectname = QUOTENAME(o.name), @schemaname = QUOTENAME(s.name)FROM sys.objects AS oJOIN sys.schemas AS s ON s.schema_id = o.schema_idWHERE o.object_id = @objectid;SELECT @indexname = QUOTENAME(name)FROM sys.indexesWHERE object_id = @objectid AND index_id = @indexid;SELECT @partitioncount = count (*)FROM sys.partitionsWHERE object_id = @objectid AND index_id = @indexid;-- 30% is limit for index rebuilding  IF @frag &lt; 30.0    SET @command = N'ALTER INDEX ' + @indexname + N' ON ' + @schemaname + N'.' + @objectname + N' REORGANIZE';IF @frag &gt;= 30.0    SET @command = N'ALTER INDEX ' + @indexname + N' ON ' + @schemaname + N'.' + @objectname + N' REBUILD';IF @partitioncount &gt; 1    SET @command = @command + N' PARTITION=' + CAST(@partitionnum AS nvarchar(10));EXEC (@command);PRINT N'Executed: ' + @command;END;CLOSE partitions;DEALLOCATE partitions;-- delete temporary tableDROP TABLE #work_to_do;GOCopy to clipboardСжатие таблицы и индекса позволяет уменьшить количество логических прочтений. </p>
+<p>Также рекомендуется включить сжатие страницы для таблицы <code>ag_properties</code>. Для дополнительной информации смотрите http://msdn.microsoft.com/en-us/library/hh710070.aspx.</p>
+</section>
+
+
+<section id="ls_database_mysql" class="doc-section">
+<h2>Переключение базы данных на mysql</h2>
+<table class="md-table"><tr><td></td><td>Некоторые версии дистрибутива RatioT Server содержат пакет MySQL сервера. Если этот пакет был выбран для установки, сервер будет автоматически использовать базу данных MySQL, и выполнять ниже описанные этапы Вам не нужно. Если пакет MySQL был установлен, то его файлы находятся в подпапке mysql/ инсталляционной директории RatioT Server. База данных находится в подпапке mysql/data/. Инсталлятор настраивает MySQL для автозапуска во время загрузки ОС. Конфигурации RatioT Server и MySQL по умолчанию оптимизируются для получения максимальной  производительности. Имейте в виду,что пакет MySQL предварительно оптимизирован для производительности и требования к памяти у него довольно высокие. Вам, возможно, потребуется перенастроить инсталляцию MySQL, если ваш сервер имеет менее 4 Гб оперативной памяти.</td></tr></table>
+<p>Чтобы переключиться на использование MySQL в качестве сервера баз данных, следуйте общим инструкциям из параграфа Переключение на другой движок базы данных. Ниже приводятся специфичные для этого SQL-сервера шаги.</p>
+<ul>
+<li>JDBC-драйвер MySQL  (<strong>MySQL-connector</strong> для<strong> Java</strong>) уже включен в дистрибутив RatioT Server. Файл драйвера называется <code>MySQL-connector-java-5.X.XX-ga-bin.jar</code>, он находится в подпапке <code>/lib</code> в папке для инсталляции RatioT Server. Чтобы добиться лучшей производительности и совместимости с поздними версиями  MySQL, можно обновить JDBC-драйвер MySQL до самой последней версии. На момент написания документации, эта версия доступна на http://www.mysql.com/products/connector/j/. </li>
+<li>В Настройках Общей Конфигурации установите значение  переменной RatioT Server'а <code>Database Driver</code> в значение <code>com.mysql.jdbc.Driver</code>. Это имя Java-класса для драйвера MySQL. </li>
+<li>Формат переменной <code>Database URL</code> для MySQL имеет следующий вид: <code>jdbc:mysql://[host][:port][/database]</code>, где <code>host</code> - IP-адрес или DNS-имя сервера MySQL (может быть пустая строка или <code>localhost</code>), <code>port</code> - это номер порта, на котором запущен сервер MySQL (пропустите эту часть URL чтобы использовать значение по умолчанию), <code>database</code> - имя базы данных, содержащей данные RatioT Server'а. В качестве имени базы данных можно использовать <code>server</code>. Например, если Ваш MySQLSQL запущен на машине 192.168.0.1 с портом по умолчанию, используйте следующую строку в качестве URL: <code>jdbc:mysql://192.168.0.1/server</code>. </li>
+<li>Установите значение переменной <code>Database Dialect</code> в MySQL 5 (<code>MySQL5InnoDBDialect</code>), если Вы используете MySQL 5 или MySQL (<code>MySQLInnoDBDialect</code>) для старых версий. </li>
+</ul>
+<table class="md-table"><tr><td></td><td>Если вы хотите использовать символы не из Юникода, необходимо указать параметр characterEncoding. Это можно сделать двумя способами: Через URL базы данных: jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8 Через Дополнительные свойства: useUnicode = true, characterEncoding = UTF&amp;zwnj;-8</td></tr></table>
+<table class="md-table"><tr><td></td><td>Если вы используете MySQL 8, необходимо указать следующий параметр: useSSL=false в URL вашей базы данных или через Дополнительные свойства.</td></tr></table>
+<h3>Установка mysql</h3>
+<p>Для использования MySQL с RatioT SCADA требуется сделать несколько изменений в настройках MySQL. Обычно эти настройки производятся изменением конфигурационного файла MySQL (по умолчанию <code>my.ini</code>).</p>
+<ol>
+<li>Добавьте параметр <code>max_allowed_packet=100M</code>, чтобы разрешить большие запросы.</li>
+<li>Установите значение параметра <code>max_connections</code> больше, чем значение общих настроек переменной RatioT Server'а Минимальный размер пула соединений (например, <code>max_connections=1000</code>).</li>
+<li>Установите значение параметра <code>innodb_buffer_pool_size</code> в максимальное значение размера RAM, которое сервер MySQL может использовать. В случае выделенного сервера баз данных это значение стоит поставить в 80% от всей доступной в системе памяти.</li>
+<li>Установите значение параметра <code>innodb_log_file_size</code> в 25-50% от <code>innodb_buffer_pool_size</code>.</li>
+<li>Добавьте строки <code>character-set-server = utf8</code> и <code>collation-server = utf8_unicode_ci</code> к конфигурации.</li>
+</ol>
+<h5>Конфигурационный файл mysql</h5>
+<p>Ниже приведен пример конфигурационного файла MySQL 5.7, подходящего для больших инсталляций RatioT SCADA. </p>
+<p><code>[mysqld]</code></p>
+<p><code>port         = 3306</code></p>
+<p><code># Вы можете использовать настройки сокета из созданного автоматически файла конфигурации.</code></p>
+<p><code>socket = </code>/tmp/mysql.sock</p>
+<p><code>default-storage-engine = INNODB</code></p>
+<p><code>datadir = </code>/data/mysql</p>
+<p><code>max_connections = 1000</code></p>
+<p><code>max_allowed_packet = 100M</code></p>
+<p><code>innodb_flush_log_at_trx_commit = 0</code></p>
+<p><code>innodb_buffer_pool_size = </code>2G</p>
+<p><code>innodb_log_file_size = </code>500M</p>
+<p><code>innodb_log_buffer_size = 8M</code></p>
+<p><code>innodb_lock_wait_timeout = 1200</code></p>
+<p><code>innodb_file_per_table = 1</code></p>
+<p><code>sort_buffer_size = 20M</code></p>
+<p><code>query_cache_size = 100M</code></p>
+<p><code>table_open_cache = 10000</code></p>
+<p><code>table_definition_cache = 10000</code></p>
+<p><code>thread_cache_size = 32</code></p>
+<p><code>innodb_thread_concurrency = 0</code></p>
+<p><code>character-set-server = utf8</code></p>
+<p><code>collation-server = utf8_unicode_ci</code></p>
+<table class="md-table"><tr><td></td><td>Необходимо изменить /data/mysql на подлинный каталог данных для вашей инсталляции сервера MySQL. В Linux путь каталога файлов MySQL /var/lib/mysql.</td></tr></table>
+<h3>Изменение рамеров буфера</h3>
+<p>Инсталляция MySQL в пакете с RatioT Server для Windows конфигурируется для серверов высокой производительности. Если сервер установлен на низкопроизводителном устройстве (например, на ноутбуке), сервер MySQL может не запуститься из-за проблемы выделенной буферной памяти. В этом случае необходимо уменьшить размеры буфера:</p>
+<ul>
+<li>Проверьте, что <code>MySQL для RatioT SCADA</code> сервиса/процесса не запущен на сетевом компьютере или остановите его, если он запущен (вы можете контролировать сервис из <code>Control Panel &gt; Administration &gt; Services</code>) </li>
+<li>Поправьте файл <code>mysql/my.ini</code>, расположенный в дистрибутивной папке RatioT Server'а </li>
+<li>Уменьшите <code>innodb_buffer_pool_size</code>, например, установите его на <code>500M</code> </li>
+<li>Уменьшите <code>innodb_log_file_size</code> на 25-50% от <code>innodb_buffer_pool_size</code>, например, установите его на <code>200M</code> </li>
+<li>Удалите файл регистрации MySQL (<code>mysql/ib_logfile0</code> и <code>mysql/ib_logfile1)</code> </li>
+<li>Снова запустите <code>MySQL </code>для сервиса<code> RatioT SCADA</code></li>
+</ul>
+</section>
+
+
+<section id="ls_database_nosql" class="doc-section">
+<h2>База данных NoSQL</h2>
+<p>База данных NoSQL - это движок БД Apache Cassandra, который работает либо внутри сервера, либо как самостоятельное приложение (кластеризованное или некластеризованное). Cassandra является хранилищем больших массивов данных, которые обеспечивают очень высокую скорость вставки/обновления данных.</p>
+</section>
+
+
+<section id="ls_database_nosql_config" class="doc-section">
+<h2>Настройка хранилища NoSQL</h2>
+<p>Отдельная группа настроек в разделе базы данных глобальных настроек сервера позволяет конфигурировать опции производительности и кластеризации для хранилища NoSQL.</p>
+<p>Чтобы активировать базу данных NoSQL, измените свойство <strong>Хранилище событий</strong> на <strong>Хранилище NoSQL</strong>. Обычно не требуются дополнительные изменения конфигурации, если единственная база данных NoSQL используется без отказоустойчивого кластера. </p>
+<p>Чтобы использовать базу данных NoSQL при наличии отказоустойчивого кластера, нужно:</p>
+<ul>
+<li>Настроить два или более экземпляров RatioT Server</li>
+<li>Активировать в них хранилище NoSQL</li>
+<li>Установить <strong>Базы данных кластера NoSQL </strong>на каждый сервер, чтобы указывать на другие серверы в кластере</li>
+<li>Перезагрузить все серверы</li>
+</ul>
+<h3>Папка хранилища nosql</h3>
+<p>По умолчанию база данных NoSQL хранит данные в подпапке <code>/nosql_data</code> папки инсталляции RatioT Server.</p>
+<p>Поэтому чтобы передать все постоянные события из одного устройства на другое, необходимо будет скопировать папку <code>/nosql_data</code> в целевой сервер, заменяющий существующую папку.</p>
+</section>
+
+
+<section id="ls_database_nosql_embedded" class="doc-section">
+<h2>Работа со встроенной базой данных Cassandra</h2>
+<p>Встроенный сервис Cassandra, используемый сервером RatioT SCADA, достаточен для широкого круга случаев, но для исключительно больших или специализированных систем могут потребоваться уникальные конфигурации базы данных.</p>
+<p>Полное сравнение с внешней Cassandra см. в разделе Работа с внешней базой данных Cassandra.</p>
+<p>Если вы обновляете Cassandra с версии 3.x до 5.x, см. Руководство по миграции данных.</p>
+<h3>Модель конфигурации Cassandra во встроенном режиме</h3>
+<p>Встроенная Cassandra использует модель конфигурации, отличную от окружения внешней Cassandra.</p>
+<p>В встроенном режиме RatioT SCADA предоставляет поддержку двум вариантам конфигурации:</p>
+<p>(1) встроенная Cassandra с внутренними/стандартными настройками,</p>
+<p>(2) встроенная Cassandra с внешней тонкой настройкой YAML.</p>
+<p>Оба варианта выбираются на каждом узле RatioT SCADA на вкладке <strong>Конфигурация сервера</strong> / <strong>Хранилище</strong> / <strong>NoSQL хранилище</strong> с помощью свойств <strong>Использовать встроенную службу</strong> и <strong>Использовать внешний файл конфигурации YAML</strong> (включает настройку через <code>cassandra.yaml</code>, применимо только когда встроенная служба включена). Подробности см. раздел ниже. </p>
+<p>Полный список полей <strong>NoSQL хранилища</strong> и рекомендуемых значений (включая <strong>Адрес сервера базы данных</strong> и <strong>Порт</strong> против <strong>&amp;laquo;Сеeds/Contact Points&amp;raquo;</strong>, <strong>&amp;laquo;Коэффициент репликации</strong>&amp;raquo; и другие параметры настройки) см. в описании NoSQL хранилища.</p>
+<p>По умолчанию сервер RatioT SCADA настраивает встроенную службу Cassandra, применяя <code>databaseCassandra*</code> параметров из собственного файла конфигурации (<code>server.xml</code> по умолчанию), а также определённые внутренние значения по умолчанию.</p>
+<p>Файл <code>cassandra.yaml</code> поставляется вместе с сервером RatioT SCADA (расположен в директории для установки RatioT SCADA) и предназначен исключительно для использования со встроенным сервером Cassandra. Его цель &amp;mdash; предоставить администраторам дополнительную гибкость, выходящую за рамки встроенной модели конфигурации. </p>
+<p>Включение <code>cassandra.yaml</code> не превращает встроенную СУБД в внешнее или высокопроизводительное окружение Cassandra.</p>
+<p>Использование <code>cassandra.yaml</code> в встроенном режиме по-прежнему ограничено работой с одним узлом, управляемым RatioT SCADA. Для масштабируемости в производственной среде, кластеризации, отказоустойчивости и управления выделенными ресурсами необходимо использовать отдельно установленный внешний кластер Cassandra.</p>
+<h4><strong>Как вычисляются параметры</strong></h4>
+<p>Когда включен встроенный режим:</p>
+<ul>
+<li>По умолчанию RatioT Server считывает настройки, связанные с Cassandra, из <code>databaseCassandra*</code> параметров в <code>server.xml</code>.</li>
+<li>Настройки сети, хранилища, имени кластера, портов и памяти берутся из конфигурации сервера.</li>
+<li>Если <code>cassandra.yaml</code> используется для настройки встроенной версии, настройки сервера Cassandra берутся из этого файла.</li>
+</ul>
+<h4><strong>Рекомендации по редактированию cassandra.yaml</strong></h4>
+<p>Встроенный движок Cassandra интегрирован с системой управления жизненным циклом RatioT Server.Изменение параметров конфигурации Cassandra может стать причиной:</p>
+<ul>
+<li>несоответствие идентификатора узла</li>
+<li>неправильную привязку к сети</li>
+<li>сбой запуска</li>
+<li>проблем с членством в Кластере</li>
+<li>несоответствий схем файлов данных</li>
+</ul>
+<p>Если <code>cassandra.yaml</code> используется для настройки встроенной Cassandra, изменения конфигурации следует вносить осторожно и проверять после перезапуска.</p>
+<h4><strong>Сводка</strong></h4>
+<table class="md-table"><tr><td>Режим развертывания</td><td>Активная конфигурация</td><td>Игнорируемая конфигурация</td></tr><tr><td>Встроенная Cassandra</td><td>По умолчанию (внешний YAML отключен): server.xml (databaseCassandra* Параметры)Внешний YAML включен: cassandra.yaml (встроенная настройка)</td><td>По умолчанию (внешний YAML отключен): cassandra.yamlВнешний YAML включен: server.xml (databaseCassandra* Параметры)</td></tr></table>
+<p>Это обеспечивает согласованное поведение узла и надежную работу службы встроенной СУБД.</p>
+<h3>Включение вывода журнала во внешний файл</h3>
+<p>Чтобы вывести журналы встроенной Cassandra во внешний файл:</p>
+<ul>
+<li>Откройте файл настроек журналирования, который обычно представляет собой <code>logging.xml</code> в корневом каталоге вашей установки RatioT SCADA.</li>
+<li>В секции <code>&lt;Loggers&gt;...&lt;/Loggers&gt;</code> удалите следующие строки:</li>
+</ul>
+<p>&lt;Logger name="org.apache.cassandra.cql3.QueryProcessor" level="off"/&gt;&lt;Logger name="org.apache.cassandra.db.Memtable" level="off"/&gt;&lt;Logger name="org.apache.cassandra.io.sstable.SSTableDeletingTask" level="off"/&gt;Copy to clipboard</p>
+<ul>
+<li>В секции <code>&lt;Loggers&gt;...&lt;/Loggers&gt;</code> добавьте следующие строки:</li>
+</ul>
+<p>        &lt;Logger name="org.apache.cassandra" level="info" additivity="false"&gt;            &lt;AppenderRef ref="cassandra"/&gt;        &lt;/Logger&gt;Copy to clipboard</p>
+<ul>
+<li>В секции <code>&lt;Appenders&gt;...&lt;/Appenders&gt;</code> добавьте следующие строки:</li>
+</ul>
+<p>        &lt;File name="cassandra" fileName="logs/cassandra.log" append="false"&gt;            &lt;ThresholdFilter level="debug"/&gt;            &lt;PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss,SSS} %-5p %-25c %m    -    [%t] %C.%M (%F:%L)%n%throwable{full}"/&gt;        &lt;/File&gt;Copy to clipboard</p>
+<ul>
+<li><strong>Опционально</strong> настройте ротацию файлов журнала, добавив Log4J Rolling File Appender в файл <code>logging.xml</code>.</li>
+</ul>
+<h3>Использование cassandra.yaml для настройки Embedded Cassandra</h3>
+<p>Файл <code>cassandra.yaml</code> Файл в RatioT SCADA представляет собой модифицированную копию файла конфигурации автономной Cassandra по умолчанию.</p>
+<p>Все изменения сопровождаются заголовком комментария, например:</p>
+<p>########################################################################################################################NOTE########################################################################################################################This parameter was changed from default 'true' to 'false' according to internal config########################################################################################################################Copy to clipboardФайл расположен в директории для установки сервера RatioT SCADA.</p>
+<p>Дистрибутив RatioT SCADA также содержит файл резервной копии с именем <code>cassandra.default.yaml</code> , в котором сохранены все исходные значения. Этот файл не используется RatioT SCADA и может служить точкой отката в случае сбоя конфигурации.</p>
+<p>Не следует изменять имя кластера. Однако, если это неизбежно, можно добавить следующие опции JVM в файл <code>ag_server.vmoptions</code> (или в другой соответствующий файл):</p>
+<p>-Dcassandra.ignore_rack=true-Dcassandra.ignore_dc=trueCopy to clipboardЭто предотвращает сбой запуска сервера когда метаданные кластера не совпадают.</p>
+<p>Рекомендации по подключению и настройке отдельно развернутого экземпляра или кластера Cassandra см. в разделе Работа с внешней базой данных Cassandra.</p>
+<h5>Как включить конфигурацию из cassandra.yaml</h5>
+<p>Чтобы настроить встроенную Cassandra с помощью файла <code>cassandra.yaml</code> Файл:</p>
+<p>Установите флаг <strong>&amp;laquo;Использовать внешний YAML-файл конфигурации&amp;raquo;</strong> на вкладке <strong>&amp;laquo;Конфигурация сервера</strong>&amp;raquo; / вкладке <strong>&amp;laquo;Хранение&amp;raquo;</strong> / подвкладке <strong>&amp;laquo;NoSQL хранилище</strong>&amp;raquo; и перезапустите сервер RatioT SCADA.</p>
+<p>Когда эта опция включена:</p>
+<ul>
+<li>Встроенная служба Cassandra осуществляет чтение конфигурации из файла <code>cassandra.yaml</code>, расположенного в директории для установки сервера RatioT SCADA.</li>
+<li>Параметры <code>databaseCassandra*</code> параметры в <code>server.xml</code> игнорируются.</li>
+</ul>
+<p>Обратите внимание, что переключение источников конфигурации может вызвать проблемы с существующей базой данных. Например, если <code>cassandra.yaml</code> содержит другое значение для параметра <code>cluster_name</code> , сервер может не запуститься.</p>
+<p>Этот механизм позволяет точно настроить конфигурацию встроенной Cassandra.Он не преобразует встроенное окружение во внешний или многоузловой экземпляр Cassandra.</p>
+<h3>Устранение неполадок встроенной Cassandra с помощью Nodetool</h3>
+<p><code>nodetool</code> &amp;mdash; это встроенный инструмент Cassandra, предназначенный для получения различной аналитической информации с узлов Cassandra. Он может быть чрезвычайно полезен при поиске проблем с производительностью.</p>
+<p>Чтобы использовать <code>nodetool</code> со встроенной службой Cassandra RatioT SCADA:</p>
+<ul>
+<li>Загрузите пакет установки Cassandra, совместимый с версией Cassandra, входящей в состав вашей установки RatioT SCADA (Cassandra 3.x для AG 6.3, Cassandra 5.x для AG 6.4 и более поздних версий), и распакуйте его в любую папку.</li>
+<li>Убедитесь, что сервер RatioT SCADA работает с включенной встроенной службой Cassandra.</li>
+<li>Убедитесь, что в вашей переменной среде установлен подходящий Java Runtime <code>JAVA_HOME</code> переменной среды или соответствующий <code>java</code> исполняемый файл в <code>PATH</code> . Вы можете проверить наличие последней переменной, выполнив <code>java -version</code> Команда</li>
+<li>Перейдите в разархивированный <code>bin/</code> Директория и выполните следующую команду:</li>
+</ul>
+<p>$ ./nodetool --port 11111 statusCopy to clipboardПараметр <code>--port</code> относится к встроенному порту JMX Cassandra. Если вы запускаете <code>nodetool</code> с другого компьютера, вам также необходимо указать <code>--host</code> опцию с IP-адресом или именем хоста RatioT SCADA.</p>
+<p>Результат выполнения команды должен выглядеть следующим образом:</p>
+<p>Datacenter: datacenter1========================Status=Up/Down|/ State=Normal/Leaving/Joining/Moving-- Address    Load       Tokens       Owns (effective)  Host ID                               RackUN  127.0.0.1  1.35 MiB   256          100,0%            38512adb-b868-4ea1-9593-bf3b9950e687  rack1Copy to clipboardОсновные информационные команды <code>nodetool</code> - <code>status</code>, <code>version</code> и <code>info</code>. Существует множество других полезных команд, описанных в документации и в самом инструменте (просто запустите его без опций или с командой <code>help</code> Команда).</p>
+<h3>Непосредственный запрос к встроенной Cassandra с помощью CQLSH</h3>
+<p>Вы можете использовать утилиту <code>cqlsh</code> утилиту из дистрибутива Cassandra, совместимого с версией Cassandra, входящей в состав вашей установки RatioT SCADA.</p>
+<ul>
+<li>Убедитесь, что сервер RatioT SCADA работает с включенной встроенной Cassandra.</li>
+<li>Получите <code>cqlsh</code> инструмент из дистрибутива Cassandra, соответствующего вашей версии встроенной Cassandra (3.x для RatioT SCADA 6.3, 5.x для RatioT SCADA 6.4 и более поздних версий).</li>
+<li>Выполните:</li>
+</ul>
+<p>$ ./cqlsh localhost 9042Copy to clipboardЕсли включена аутентификация:</p>
+<p>$ ./cqlsh -u &lt;username&gt; -p &lt;password&gt;Copy to clipboardПосле подключения вы должны увидеть вывод, похожий на:</p>
+<p>Connected to &lt;cluster_name&gt; at 127.0.0.1:9042.cqlsh&gt;Copy to clipboardЧтобы протестировать простой запрос:</p>
+<p>cqlsh&gt; SELECT count(*) FROM aggregate.ag_events;Copy to clipboard</p>
+<table class="md-table"><tr><td></td><td>Дистрибутивы Cassandra 3.x обычно требуют Python 2.7.Дистрибутивы Cassandra 5.x используют Python 3.Убедитесь, что cqlsh версия соответствовала версии сервера Cassandra, чтобы избежать проблем с совместимостью протоколов.</td></tr></table>
+<p>Для получения более подробных подробностей <code>cqlsh</code> см. эту страницу документации. Синтаксис CQL описан здесь.</p>
+</section>
+
+
+<section id="ls_database_nosql_external" class="doc-section">
+<h2>Работа с внешней базой данных Cassandra</h2>
+<p>Встроенная служба Cassandra, используемая сервером RatioT SCADA, достаточна для широкого спектра случаев использования. Однако для производственных развертываний, требующих масштабируемости, кластеризации или выделенной инфраструктуры базы данных, следует использовать внешний экземпляр или кластер Cassandra.</p>
+<p>В RatioT SCADA предусмотрена возможность соединения с внешним экземпляром Cassandra, что дает администраторам детальный контроль над инфраструктурой базы данных.</p>
+<h3>Модель конфигурации Cassandra во внешнем режиме</h3>
+<p>Когда RatioT Server подключается к внешнему кластеру Cassandra, конфигурацией сервера Cassandra управляет исключительно сама Cassandra.Конфигурация сервера Cassandra определяется в <code>cassandra.yaml</code> и связанных файлах конфигурации, расположенных в директории для установки Cassandra.В этом режиме:</p>
+<ul>
+<li>RatioT Server не настраивает и не изменяет <code>cassandra.yaml</code>.</li>
+<li><code>databaseCassandra*</code> параметры в <code>server.xml</code> используются только для настройки соединения со стороны клиента из RatioT Server с Cassandra (хосты, учетные данные, пространство ключей и т. д.).</li>
+<li>Все рабочие настройки (имя кластера, топология, сетевая привязка, уплотнение, хранилище, лимиты памяти) определяются в конфигурации Cassandra.</li>
+</ul>
+<h4><strong>Как вычисляются параметры</strong></h4>
+<p>Когда происходит соединение с внешней Cassandra:</p>
+<ul>
+<li>Идентификатор узла, топология и имя кластера берутся из <code>cassandra.yaml</code>.</li>
+<li>Сетевые настройки, такие как <code>listen_address</code>, <code>broadcast_address</code>, а <code>rpc_address</code> должны быть определены в конфигурации внешней Cassandra.</li>
+<li>RatioT Server считывает только контактные точки, учетные данные и информацию о пространстве имен из неизменяемого состояния <code>server.xml</code> &amp;mdash; а не из операционных настроек Cassandra.</li>
+</ul>
+<h4><strong>Почему конфигурация сервера Cassandra не берется из файла server.xml</strong></h4>
+<p>Сервер RatioT Server не пытается переопределить или изменить конфигурацию внешнего экземпляра Cassandra.В внешнем режиме:</p>
+<ul>
+<li>конфигурация сервера Cassandra определяется исключительно в <code>cassandra.yaml</code>.</li>
+<li>Параметры <code>databaseCassandra</code>* параметры в <code>server.xml</code> используются только для настроек соединения.</li>
+</ul>
+<p>Внешний кластер Cassandra должен быть полностью настроен и готов к работе до подключения RatioT Server.</p>
+<p>Любые конфликты в конфигурациях (например, несовпадение имен кластеров) могут помешать RatioT Server установить соединение.</p>
+<h4><strong>Сводка</strong></h4>
+<table class="md-table"><tr><td>Режим развертывания</td><td>Активная конфигурация</td><td>Игнорируемая конфигурация</td></tr><tr><td>Внешняя Cassandra</td><td>Настройки сервера Cassandra: cassandra.yaml (рабочие настройки на хосте Cassandra) Настройкисоединения RatioT SCADA: server.xml (databaseCassandra* параметры, используемые RatioT SCADA для подключения)</td><td>RatioT SCADA не изменяет cassandra.yamlОперационные настройки Cassandra не берутся из server.xml (только настройки соединения)</td></tr></table>
+<p>Эта модель обеспечивает полную совместимость с многоузловыми производственными кластерами и позволяет избежать случайного переопределения конфигурации.</p>
+<p><strong>Обзор встроенной и внешней Cassandra</strong></p>
+<table class="md-table"><tr><td>Особенность</td><td>Встроенная Cassandra</td><td>Внешняя Cassandra</td></tr><tr><td>Конфигурация сервера Cassandra</td><td>Настройки RatioT Server (server.xml) и опциональный файл cassandra.yaml (настройка встроенной версии)</td><td>cassandra.yaml только (в собственной директории сервера Cassandra)</td></tr><tr><td>Развертывание с несколькими узлами</td><td>Нет</td><td>Да</td></tr><tr><td>Параметры JVM (включая ограничения памяти, такие как Xmx, Xss и т. д.)</td><td>Общее с процессом RatioT Server</td><td>Отдельно для каждого процесса Cassandra</td></tr><tr><td>Рекомендуемые случаи использования</td><td>Приступить к работе, создание прототипов, тестирование в изолированной среде, небольшое производственное развертывание</td><td>Развертывание в производственной среде, масштабирование, отказоустойчивость</td></tr></table>
+<p>Для тонкой настройки встроенной службы Cassandra, управляемой RatioT SCADA, см. раздел Работа со встроенной СУБД Cassandra.</p>
+<p>Настройки RatioT SCADA для внешней Cassandra настраиваются на каждом узле RatioT SCADA в <strong>разделе Конфигурация сервера</strong>, вкладка <strong>Хранение</strong>, подвкладка <strong>NoSQL хранилище</strong>.</p>
+<p>Полный список полей <strong>NoSQL хранилища</strong> и рекомендуемых значений (включая <strong>адрес сервера </strong>и <strong>порт базы данных</strong> по сравнению с <strong>семенами/Contact Points</strong>, <strong>коэффициентом репликации</strong> и другими параметрами настройки) см. в описании NoSQL хранилища.</p>
+<h3>Развертывание внешнего экземпляра Cassandra</h3>
+<p>Чтобы развернуть внешний экземпляр Cassandra:</p>
+<ul>
+<li> Установите Java 17 или JDK 17.</li>
+<li>Установите (распакуйте) последнюю версию Apache Cassandra.</li>
+<li>Отредактируйте <code>config/cassandra.yaml</code> </li>
+</ul>
+<p>Настройте <strong>каталог данных</strong> и <strong>путь к папке commitlog</strong> (желательно на разных физических дисках).</p>
+<ul>
+<li>Убедитесь, что включен нативный протокол (<code>start_native_transport</code>) и установлен порт нативного протокола (по умолчанию 9042).</li>
+<li>Укажите IP-адрес сервера Cassandra в <strong>seeds</strong>, <strong>listen_address</strong> и <strong>rpc_address</strong>. Если вы измените <strong>listen_address</strong> в файле <code>cassandra.yaml</code> на IP-адрес, отличный от <code>127.0.0.1</code>, вы также <strong>должны</strong> указать этот адрес в файле RatioT SCADA сервера <code>server.xml</code> со следующей опцией:</li>
+</ul>
+<p>databaseCassandraHost&gt;your_cassandra_ip_address&lt;/databaseCassandraHost&gt;Copy to clipboard</p>
+<ul>
+<li>Установите переменную окружения <code>JAVA_HOME</code> в корневую папку JRE/JDK.</li>
+<li>Установите переменную окружения <code>CASSANDRA_HOME</code> в папку установки Cassandra.</li>
+<li>Отредактируйте <code>bin/cassandra</code> </li>
+</ul>
+<p>Измените настройки <strong>Xms</strong> и <strong>Xmx</strong> на более высокое значение, оставив не менее 2-4 Гб оперативной памяти для операционной системы.</p>
+<ul>
+<li>Запустите <code>bin/cassandra</code> и убедитесь в том, что Cassandra начала прослушивание входящих соединений.</li>
+<li>Настройте настройки памяти (Xms, Xmx) в скриптах запуска Cassandra в соответствии с доступными системными ресурсами.</li>
+</ul>
+<p>Запустите Cassandra и убедитесь, что она прослушивает входящие соединения.</p>
+<h3>Оптимизация производительности Cassandra при работе с большими объемами записи</h3>
+<p>Нагрузка, связанная с записью, подразумевает большое количество операций вставки. Чем быстрее вы вставляете данные, тем быстрее вам нужно их уплотнять, чтобы поддерживать стабильный счетчик. Таким образом, вам нужно отредактировать следующие параметры в <code>cassandra.yaml</code>:</p>
+<ul>
+<li>Увеличить количество <strong>concurrent_compactors</strong>.</li>
+<li>Увеличьте значение <strong>compaction_throughput_mb_per_sec</strong> или отключите дросселирование, установив этот параметр на ноль.</li>
+</ul>
+<p>Также может потребоваться изменить стратегию уплотнения определенных таблиц. Возможно, потребуется изменить следующие параметры:</p>
+<ul>
+<li><strong>уплотнение</strong> - предпочтительной стратегией является <strong>TimeWindowCompactionStrategy. </strong>Она была специально визуализирована для временных рядов и рабочих нагрузок с истекающим TTL. Для ее настройки вам потребуется изменить только <strong>compaction_window_unit</strong> и <strong>compaction_window_size</strong>. Также необходимо установить значение <code>true</code> для параметра <strong>unchecked_tombstone_compaction</strong>, чтобы Cassandra отбрасывала истекшие sstables в режиме реального времени.</li>
+<li><strong>gc_grace_seconds </strong>- должно быть уменьшено или установлено на ноль (только если вы используете одноузловой кластер).</li>
+</ul>
+<p>Для изменения параметров уплотнения необходимо выполнить запрос с помощью интерактивного терминала CQL. Запустите <code>bin/cqlsh</code> для подключения к текущему узлу Cassandra:</p>
+<p>USE aggregate;ALTER TABLE &lt;table _name&gt;   WITH compaction = {'class' : 'TimeWindowCompactionStrategy', 'compaction_window_unit' : 'HOURS', 'compaction_window_size' : '1', 'unchecked_tombstone_compaction' : 'true'}   AND gc_grace_seconds = 0;Copy to clipboard</p>
+<table class="md-table"><tr><td></td><td>Перед настройкой базы данных с использованием перечисленных параметров ознакомьтесь с документацией по Apache Cassandra. В вашем конкретном случае настройка базы данных может отличаться.</td></tr></table>
+<h3>Настройки сетевого таймаута</h3>
+<p>Рассмотрите возможность изменения настроек таймаута, если вы планируете выполнять операции, требующие много времени. В противном случае вы можете получить <strong>TimedOutException</strong> при работе с базой данных. </p>
+<table class="md-table"><tr><td>Параметр</td><td>Описание</td></tr><tr><td>range_request_timeout_in_ms</td><td>Сколько времени координатор должен ждать завершения сканирования seq или index.</td></tr><tr><td>read_request_timeout_in_ms</td><td>Сколько времени координатор должен ждать завершения операций чтения.</td></tr><tr><td>write_request_timeout_in_ms</td><td>Сколько времени координатор должен ждать завершения операций записи.</td></tr><tr><td>таймаут<em>запроса</em>в_мс</td><td>Время ожидания выполнения операций по умолчанию для других, различных операций.</td></tr></table>
+<table class="md-table"><tr><td></td><td>Будьте внимательны при увеличении таймаута и учитывайте использование памяти и ЦП для выполняемых операций. Таймауты защищают клиентов от слишком долгого ожидания операций, которые никогда не завершаются из-за ошибки или нехватки ресурсов.</td></tr></table>
+<h3>Устранение неполадок с помощью Nodetool</h3>
+<p><code>nodetool</code> &amp;mdash; это встроенный инструмент Cassandra, позволяющий получать различную аналитическую информацию с узлов Cassandra. </p>
+<p>Используйте утилиту <code>nodetool</code>, поставляемую с вашей внешней установкой Cassandra. Запустите ее на узле Cassandra или с машины, имеющей доступ к интерфейсу JMX узла Cassandra.</p>
+<p>Список доступных команд см. в официальной документации Apache Cassandra.</p>
+<h3>Непосредственный запрос с помощью CQLSH</h3>
+<p><code>cqlsh</code> &amp;mdash; это интерактивный инструмент для запросов к узлу базы данных Cassandra.</p>
+<p>Используйте <code>cqlsh</code> утилиту, поставляемую с вашей внешней установкой Cassandra, для подключения к узлу или кластеру Cassandra.</p>
+<p>Для получения более подробных подробностей <code>cqlsh</code> см. эту страницу документации. Синтаксис CQL описан здесь.</p>
+</section>
+
+
+<section id="ls_database_nosql_external_advanced_cassandra" class="doc-section">
+<h2>Дополнительные действия Cassandra</h2>
+<p>Существует несколько действий для работы с базой данных Cassandra, которые можно найти в плагине NoSQL хранилище, в контексте Драйверы устройств / Плагины. Эти действия позволяют контролировать безопасность базы данных, а также помогают анализировать поврежденные контексты.</p>
+<h3>Создать пользователя Cassandra</h3>
+<p>Действие <em>Создать пользователя Cassandra</em> создает пользователя Cassandra, которому требуется пароль.</p>
+<p>Чтобы настроить RatioT SCADA для подключения к Cassandra с помощью вновь созданного пользователя, откройте подгруппу NoSQL Конфигурации в группе <strong>Хранилище</strong> в Глобальных свойствах конфигурации и настройте следующие свойства:</p>
+<ul>
+<li><strong>Использовать аутентификацию</strong> - Установите значение <code>True</code>.</li>
+<li><strong>Логин</strong> - Используйте <em>имя пользователя</em> нового пользователя.</li>
+<li><strong>Пароль</strong> - Используйте <em>пароль</em> нового пользователя. </li>
+</ul>
+<p>Перезапустите сервер, чтобы новая конфигурация вступила в силу.</p>
+<p>В качестве опции используйте действие <em>Удалить пользователя Cassandra</em>, чтобы удалить всех остальных пользователей.</p>
+<table class="md-table"><tr><td>Имя действия:</td><td>createCassandraUser</td></tr><tr><td>Неинтерактивный режим:</td><td>Не поддерживается</td></tr><tr><td>Права доступа:</td><td>Доступно на уровне прав доступа администратора</td></tr></table>
+<h3>Удалить пользователя Cassandra</h3>
+<p>Текущее действие облегчает удаление других пользователей. Пользователь Cassandra по умолчанию имеет имя пользователя <code>cassandra</code> и может быть удален после создания нового пользователя и настройки RatioT SCADA для доступа к базе данных NoSQL (как описано выше) с другим пользователем.</p>
+<table class="md-table"><tr><td>Имя действия:</td><td>dropCassandraUser</td></tr><tr><td>Неинтерактивный режим:</td><td>Не поддерживается</td></tr><tr><td>Права доступа:</td><td>Доступно на уровне прав администратора</td></tr></table>
+<h3>Найти поврежденные контексты</h3>
+<p>В случаях исчезновения или других поврежденных контекстов функция <em>Найти поврежденные контексты </em>позволяет найти поврежденные контексты в базе данных для дальнейшего анализа. </p>
+<table class="md-table"><tr><td>Имя действия:</td><td>findCorruptedContexts</td></tr><tr><td>Неинтерактивный режим:</td><td>Не поддерживается</td></tr><tr><td>Права доступа:</td><td>Доступно на уровне прав администратора</td></tr></table>
+<h4>Интерпретация результатов</h4>
+<p>При выполнении действия <em>Найти поврежденные контексты</em> драйвер NoSQL возвращает таблицу, в которой каждая строка представляет собой контекст, который был идентифицирован как потенциально поврежденный. Контекст включается в этот набор результатов, если одна или несколько критических проверок целостности не пройдены во время сканирования метаданных. Эти проверки подтверждают, что контекст может быть корректно восстановлен из хранилища и что его структурные метаданные остаются согласованными.</p>
+<h4>Критерии для выявления поврежденных контекстов</h4>
+<p>Контекст считается поврежденным, если выполняется одно или несколько из следующих условий:</p>
+<table class="md-table"><tr><td>Условие</td><td>Описание</td></tr><tr><td>Отсутствует или нечитаема запись метаданных</td><td>Запись Cassandra, хранящая определение контекста, недоступна для чтения или отсутствует.</td></tr><tr><td>Неверные или неполные определения сущностей</td><td>Из сохраненных метаданных невозможно восстановить одну или несколько переменных, функций, событий или действий.</td></tr><tr><td>Неверные или несогласованные форматы таблиц</td><td>В таблице данных, хранящейся для переменной или функции, могут содержаться структурные несоответствия (отсутствующие поля, недопустимые определения полей, некорректные маркеры версий).</td></tr><tr><td>Несоответствие контрольной суммы / версии</td><td>Информация о внутренних изменениях не соответствует ожидаемой версии, что указывает на частичную запись или неудачные обновления.</td></tr><tr><td>Ссылки на дочерний контекст-сироту</td><td>Контекст указывает на дочерние элементы, которые отсутствуют в хранилище или метаданные которых не могут быть загружены.</td></tr><tr><td>Недействительная ссылка на родительский элемент</td><td>Контекстная запись указывает на родительский элемент, который отсутствует или поврежден.</td></tr><tr><td>Ошибки десериализации</td><td>Любая ошибка при десериализации сохраненных метаданных в действительный объект Context.</td></tr></table>
+<h4>Диагностика поврежденных контекстов</h4>
+<p>Администраторы могут использовать следующие методы для диагностики первопричины:</p>
+<ul>
+<li><strong>Проверка логов сервера</strong> на наличие предупреждений, связанных с метаданными, и ошибок десериализации.</li>
+<li><strong>Проверка хранилища NoSQL</strong> на наличие отсутствующих или частично записанных записей.</li>
+<li><strong>Проверка недавних операций репликации</strong>, восстановления резервных копий или сбоев сервера, поскольку они могут приводить к несогласованности метаданных.</li>
+<li><strong>Осуществить попытку открыть контекст вручную</strong> через браузер <em>дерева контекстов</em>; нечитаемые контексты обычно не разворачиваются.</li>
+<li><strong>Сравнение с резервной копией</strong> для определения того, какие сегменты метаданных отличаются.</li>
+</ul>
+<h4>Рекомендуемые действия</h4>
+<p>В зависимости от степени и типа повреждения обычно используются следующие действия:</p>
+<ul>
+<li><strong>Восстановить контекст из резервной копии</strong>, если метаданные нечитаемы.</li>
+<li><strong>Удалить поврежденный контекст</strong>, если он представляет собой неиспользуемый или устаревший объект.</li>
+<li><strong>Повторно запустить репликацию</strong> для контекстов, которые не удалось скопировать.</li>
+<li><strong>Вручную исправить определения сущностей</strong> (формат таблицы данных или определения переменных), если затронута только часть контекста.</li>
+<li><strong>Обратиться в поддержку</strong>, если повреждение затрагивает основные системные контексты или обнаружено массовое повреждение.</li>
+</ul>
+<p>В результирующей таблице просто указано, что повреждение <em>обнаружено</em>; администратор должен предпринять дальнейшие действия в соответствии с диагностической информацией и системными логами.</p>
+</section>
+
+
+<section id="ls_database_oracle" class="doc-section">
+<h2>Переключение базы данных на oracle</h2>
+<p>Чтобы переключиться на использование Oracle в качестве сервера баз данных RatioT Server'а, следуйте общим инструкциям из параграфа Переключение на другой движок базы данных. Ниже приводятся специфичные для этого SQL-сервера шаги.</p>
+<ul>
+<li>Скачайте версию <strong>JDBC-</strong>драйвера из Java JDK 1.6 для<strong> Oracle</strong>. В момент написания этой статьи драйвер доступен для скачивания на странице http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/. </li>
+<li>Скопируйте файл <code>ojdbc.jar</code> в папку <code>/lib</code> установочной папки RatioT Server'а. </li>
+<li>В Настройках Общей Конфигурации установите значение переменной RatioT Server'а <code>Database Driver</code> в значение <code>oracle.jdbc.OracleDriver</code>. Это имя Java-класса для драйвера Oracle. </li>
+<li>Формат переменной <code>Database URL</code> для Oracle имеет следующий вид: <code>jdbc:oracle:thin:@host[:port]:database</code>, где <code>host</code> - IP-адрес или DNS-имя сервера Oracle (может быть пустым или <code>localhost</code>), <code>port</code> - порт, на котором запущен сервер (пропустите эту часть URL чтобы использовать значение по умолчанию), и <code>database</code> в качестве имени базы данных, содержащей данные RatioT Server'а. В качестве имени базы данных можно использовать <code>linkserver</code>. Например, если Ваш сервер Oracle запущен на машине 192.168.0.1 на порту по умолчанию, используйте следующую строку в качестве URL: <code>jdbc:oracle:thin://192.168.0.1:linkserver</code>. </li>
+<li>Установите значение переменной <code>Database Dialect</code> в <code>Oracle 10g/11g</code>. </li>
+</ul>
+<h3>Настройка oracle</h3>
+<p>RatioT SCADA требует внесения изменений в конфигурацию Oracle. Данные изменения обычно применяются на консоли Oracle.</p>
+<p><code>alter system set processes=</code>&lt;process_count&gt;<code> scope=spfile; </code></p>
+<p><code>alter system set sessions=&lt;</code>session_count<code>&gt; scope=spfile; </code></p>
+<p><code>alter system set transactions=&lt;</code>transaction_count<code>&gt; scope=spfile; </code></p>
+<p>Установите <code>process_count</code> в значение выше значения Максимального размера пула соединений в общих настройках конфигурации RatioT Serverа , напр. <strong>Maximum Connection Pool Size * 1.05</strong>.</p>
+<p>Установите <code>session_count</code> в <strong>(1.1 * process_count) + 5</strong>.</p>
+<p>Установите <code>transaction_count</code> в <strong>1.1 * session_count</strong>.</p>
+<table class="md-table"><tr><td></td><td>Максимальная длина ID (имя таблицы или колонок) в БД Oracle - это 30 символов.</td></tr></table>
+<table class="md-table"><tr><td></td><td>В Oracle есть дескриптор "cluster". Пожалуйста, не используйте его для наименования класса или столбца внутри классов RatioT SCADA.</td></tr></table>
+<table class="md-table"><tr><td></td><td>Плагин CMDB несовместим с базой данных Oracle. Пожалуйста, удалите его из RatioT SCADAплагиновконтекстапапки перед стартом сервера.</td></tr></table>
+</section>
+
+
+<section id="ls_database_performance" class="doc-section">
+<h2>Настройка производительности базы данных</h2>
+<p>Максимальная производительность базы данных RatioT Serverа - ключевой фактор высокой производительности всей инсталляции RatioT SCADA. Вот краткий список советов по оптимизации общей производительности базы данных:</p>
+<ul>
+<li>RatioT Server использует множество запросов ВСТАВИТЬ и ОБНОВИТЬ, поэтому следуйте советам производителя базы данных по повышению производительности запросов ВСТАВИТЬ/ОБНОВИТЬ.</li>
+<li>Количество разрешенных параллельных соединений должно быть больше настройки общей конфигурации Максимальный Размер Пула Соединений.</li>
+<li>Когда значения переменных, содержащие большие двоичные блоки (звуки, изображения, файлы прошивок), хранятся в базе данных, RatioT Server сохраняет их, используя одну транзакцию ВСТАВИТЬ/ОБНОВИТЬ. Таким образом, максимальный размер данных, переводимых за одну транзакцию, будет не ограничен или ограничен достаточно большим значением (рекомендуем ограничение в 100 Мб).</li>
+<li>Для больших инсталляций мы рекомендуем отключение синхронного сброса данных ВСТАВИТЬ и ОБНОВИТЬ на диск при помощи подтверждения транзакции. Это принесет значительное повышение производительности.</li>
+<li>Если сервер базы данных запущен на том же устройстве, что и RatioT Server, рекомендуем позволить ему использование 25-40% оперативной памяти, оставив остальную часть RatioT SCADAу. Также избегайте замен.</li>
+</ul>
+<h3>Настройка производительности пулов соединений базы данных</h3>
+<p>Дополнительный раздел определяет, как RatioT Server управляет пулом соединений базы данных.</p>
+<p>RatioT Server использует библиотеку пулов соединений Java под названием c3p0, чтобы управлять соединениями базы данных. Настройки по умолчанию библиотеки <strong>c3p0</strong> могут быть переопределены добавлением новых значений к файлу <code>hibernate.properties,</code> расположенному в установочной папке RatioT Serverа.</p>
+<p>Вот пример содержимого файла <code>hibernate.properties</code>:</p>
+<h2>Удостоверьтесь в правильном подходе к решению пролемы базы данныхhibernate.c3p0.checkoutTimeout=30000# Слишком большое время простоя вызывает ошибки из-за разъединения с базой данныхhibernate.c3p0.maxIdleTime=300Copy to clipboardНастройки конфигурации библиотеки <strong>c3p0</strong> описаны здесь: https://www.mchange.com/projects/c3p0/. Все свойства c3p0 должны иметь префикс "<code>hibernate.</code>".</h2>
+<h5>Регулировка размера пула соединения с БД</h5>
+<p>В настройках БД RatioT Server есть две опции, которые в значительной степени воздействуют на  производительность системы: </p>
+<ul>
+<li><strong>Минимальный размер пула соединений</strong></li>
+<li><strong>Максимальный размер пула соединений</strong></li>
+</ul>
+<table class="md-table"><tr><td></td><td>Пул соединений - это кэш соединений БД, поддерживаемый базой данных так, чтобы соединения можно было повторно использовать, когда БД получит очередные запросы данных. Пулы соединений используются для увеличения производительности выполняемых команд на БД.</td></tr></table>
+<p>Существует несколько правил для регулировки размера пула: </p>
+<ul>
+<li>Максимальный размер пула соединений должен быть больше количества одновременно подключенных устройств с высокой скоростью передачи данных (т.е. частые синхронизации или большое количество генерируемых устройством событий). Например, если отслеживаются 2000 устройств, которые опрашиваются один раз в час, можно назначить для максимального размера пула значение, равное 200, но если у Вас 500 устройств, синхронизируемых с сервером каждые 5 минут, лучше увеличить максимальный размер пула до 500.</li>
+<li>Максимальный размер пула должен быть ниже общего количества соединений, разрешенных БД для того, чтобы избежать генерируемых базой данных ошибок, таких как "слишком много соединений".</li>
+<li>Для крупных инсталляций, где <em>пиковая</em> активность значительно выше <em>средней</em> активности, рекомендуется увеличить минимальный размер пула до 20-50% от максимального размера пула.</li>
+</ul>
+<h3>Очистка базы данных</h3>
+<table class="md-table"><tr><td></td><td>Хранилище баз данных в RatioT SCADA спроектировано таким образом, чтобы быть очень устойчивым, однако настоятельно рекомендуется остановить сервер и сделать резервную копию базы данных перед очисткой любой таблицы событий или внесением любых других прямых изменений в базу данных.</td></tr></table>
+<p>База данных RatioT Server содержит преимущественно конфигурации и события. В то время как обычно объем данных конфигурации небольшой, и не увеличивается с течением времени, число событий (включая события изменения значений) может увеличиваться достаточно быстро, в следствии чего размер базы данных может составлять несколько гигабайтов. </p>
+<p>Корректировка периодов хранения событий окажет влияние с течением времени, поэтому в некоторых случаях очистка базы данных вручную имеет смысл.</p>
+<p>Чтобы установить объем и структуру базы данных, запустите действие Посмотреть статистику базы данных из корневого контекста. Это действие покажет <strong>Статистику события</strong>, т.е. количество событий в каждой таблице контейнеров событий и их распределение по типам и контекстам источника, а также общее число событий в каждой таблице.</p>
+<p>Основная концепция очистки базы данных заключается в следующем:</p>
+<table class="md-table"><tr><td></td><td>Очистка любой таблицы базы данных RatioT Server, которая содержит события в то время как сервер не работает, не помешает нормальной работе сервера.</td></tr></table>
+<p>Это делает возможным очистку почти любой таблицы в базе данных RatioT Server кроме <strong>ag_properties</strong> и других "специальных" таблиц, описанных в разделе Схема и взаимодействие базы данных. Настоятельно рекомендуем остановить сервер и сделать резервную копию базы данных перед очисткой любой таблицы событий. Еще одной опцией являются таблицы очистки с помощью действия Выполнить прямой запрос к СУБД без остановки сервера, т.е. применив <code>DELETE * FROM ag_xxx_change</code> или похожий запрос обновления.</p>
+<table class="md-table"><tr><td></td><td>Убедитесь, что каждая учетная запись пользователя базы данных, выполняющая операции по обслуживанию, имеет достаточные разрешения для изменения как самой базы данных, так и всех системных таблиц, созданных RatioT Server.</td></tr></table>
+<h5>Очистка postgresql</h5>
+<p>Рекомендуемый цикл очистки для БД PostgreSQL DB - это выполнение <em>vacuumlo()</em> каждый час и <em>vacuumdb() </em>каждый день. Помогает сохранить оптимальный размер БД PostgreSQL:</p>
+<p>#!/bin/bashexport PATH=$PATH:/usr/pgsql-9.4/bin/ export PATH=$PATH:/usr/pgsql-9.4/bin/TIME=<code>date +'%Y%m%d-%H%M'</code>echo $TIME" executing vacuumlo"vacuumlo -U postgres -v -w passwordTIME=<code>date +'%Y%m%d-%H%M'</code>echo $TIME" stop vacuumlo"Copy to clipboard</p>
+<pre><code>#!/bin/bashexport PATH=$PATH:/usr/pgsql-9.4/bin/ export PATH=$PATH:/usr/pgsql-9.4/bin/TIME=`date +'%Y%m%d-%H%M'`echo $TIME" executing vacuumdb"vacuumdb -fav -wTIME=`date +'%Y%m%d-%H%M'`echo $TIME" stop vacuumdb"</code></pre>
+<p>Copy to clipboard</p>
+<h5>Очистка Postgresql BLOB</h5>
+<p>Есть два варианта удаления устаревших BLOB данных из базы данных.</p>
+<p>Первый вариант - использовать команду:</p>
+<p><code>vacuumlo -U &lt;USER&gt; &lt;DATABASE&gt;</code></p>
+<p>Заметьте, что в процессе очистки показатели производительности значительно упадут.</p>
+<p>Второй вариант применяется к системам 24/7. Необходимо создать триггерную функцию и набор триггеров для таблиц:</p>
+<p>CREATE OR REPLACE FUNCTION "BlobDel"()RETURNS trigger AS$BODY$BEGINdelete from pg_catalog.pg_largeobject_metadatawhere pg_catalog.pg_largeobject_metadata.oid = OLD.ag_data;delete from pg_catalog.pg_largeobjectwhere pg_catalog.pg_largeobject.loid = OLD.ag_data;return OLD;END;$BODY$LANGUAGE plpgsql VOLATILECOST 100;ALTER FUNCTION "BlobDel"()OWNER TO postgres;Copy to clipboardКоторый будет активирован триггером:</p>
+<p>CREATE TRIGGER ag_infoBEFORE DELETEON ag_infoFOR EACH ROWEXECUTE PROCEDURE "BlobDel"();Copy to clipboardЭта триггерная функция удалит все потерянные BLOB из таблиц <strong>pg.largeobject_metadata</strong> и <strong>pg.largeobject</strong> после операции очистки в таблице <strong>ag_info</strong>. Есть возможность добавления таких триггеров как этот в другие таблицы вашей базы данных.</p>
+</section>
+
+
+<section id="ls_database_postgresql" class="doc-section">
+<h2>Переключение базы данных на postgresql</h2>
+<p>Чтобы переключиться на использование PostgreSQL в качестве сервера баз данных RatioT Server'а, следуйте общим инструкциям из параграфа Переключение на другой движок базы данных. Ниже приводятся специфичные для этого SQL-сервера шаги.</p>
+<ul>
+<li>Скачайте последнюю версию <strong>JDBC4</strong>-драйвера для<strong> PostgreSQL</strong>. В момент написания этой статьи он доступен на странице http://jdbc.postgresql.org/.</li>
+</ul>
+<p><strong>Примечание. Размещение JDBC-драйвера</strong></p>
+<p>Скопируйте JAR-файл драйвера в подпапку <code>/lib</code> в папке установки RatioT Server, затем перезапустите RatioT Server.</p>
+<p>Для разных дистрибутивов расположение папки установки может отличаться. Используйте папку установки RatioT Server, принятую в вашей сборке.</p>
+<ul>
+<li>Поместите файл <code>postgresql-X.X-XXX.jar</code> в подпапку <code>/lib</code> инсталляционной папки RatioT Server.</li>
+<li>В Настройках Общей Конфигурации установите значение переменной <code>Database Driver</code> в значение <code>org.postgresql.Driver</code>. Это имя Java-класса для драйвера PostgreSQL.</li>
+<li>Формат переменной <code>Database URL</code> для PostgreSQL имеет следующий вид: <code>jdbc:postgresql://host[:port]/database</code>, где <code>host</code> - IP-адрес или DNS-имя сервера, на котором запущен  PostgreSQL (может быть пустой строкой или <code>localhost</code>), <code>port</code> - номер порта (опустите эту часть URL чтобы использовать значение по умолчанию), <code>database</code> - имя базы данных, содержащей данные RatioT Server'а. В качестве имени базы данных можно использовать <code>server</code>. Например, если Ваш PostgreSQL запущен на машине 192.168.0.1 с портом по умолчанию, используйте следующую строку в качестве URL: <code>jdbc:postgresql://192.168.0.1/server</code>.</li>
+<li>Установите для переменной <code>Database Dialect</code> одно из следующих значений:</li>
+</ul>
+<p><strong>PostgreSQL (bytea)</strong>: Рекомендуемый диалект.</p>
+<ul>
+<li><strong>PostgreSQL</strong>: Устаревший диалект. В случаях, когда таблицы данных RatioT SCADA содержат настолько большие значения, что возникают проблемы с выделением памяти на сервере, рассмотрите альтернативные варианты хранения данных вместо использования не-bytea диалекта PostgreSQL.</li>
+</ul>
+</section>
+
+
+<section id="ls_database_relational" class="doc-section">
+<h2>Реляционная база данных</h2>
+<p>Этот раздел описывает, как RatioT Server использует классическую реляционную базу данных для хранения данных.</p>
+<p>RatioT Server общается с реляционной базой данных, используя драйвер <em>JDBC</em>, поэтому он может работать с большинством современных систем управления базами данных.</p>
+<table class="md-table"><tr><td></td><td>JDBC это Java DataBase Connectivity API, стандартизированный способ  взаимодействия Java приложений с разнообразными базами данных и их источниками.JDBC отличается от ODBC (Microsoft's Open DataBase Connectivity) главным образом в том моменте, что JDBC пишут на языке Java, поэтому его можно использовать без изменений в кросс-платформенной среде. В добавление к этому, учитывая, что ODBC является сложным стандартом, он технически устаревает, в то время как JDBC является современным, стирает технические требования для доступа БД разных производителей.</td></tr></table>
+<h3>Встроенная база данных</h3>
+<p>Дистрибутив RatioT Server включает встроенную базу данных (Apache Derby), которая используется по умолчанию. Эта база данных предназначена для ознакомительных целей. </p>
+<table class="md-table"><tr><td></td><td>Встроенная база данных не подходит для долговременной промышленной эксплуатации! Использование встроенной базы данных в эксплуатационных установках может привести к  высокой загрузке памяти и проблемам производительности. Необходимо переключиться на любую базу данных уровня предприятия, если система используется промышленно.</td></tr></table>
+<p>Обратитесь к разделу переключение на другой движок баз данных для получения дополнительной информации как изменить базу данных, используемую сервером.</p>
+<p>Отдельная группа настроек общей конфигурации сервера управляет взаимодействием RatioT Server с движком баз данных.</p>
+<p>Данные встроенной базы данных расположены в подпапке <code>/database</code>в папке установки RatioT Server.</p>
+<table class="md-table"><tr><td></td><td>Некоторые плагины (Classes, CMDB, NetFlow) требуют для работы БД SQL. Для них будет запущен движок встроенной БД (Apache Derby). Если вы хотите полностью деактивировать движок встроенной БД, пожалуйста, удалите эти плагины из папки RatioT Server.</td></tr></table>
+<h5>Переключение на внешний движок реляционной базы данных</h5>
+<p>Если RatioT Server установлен с базой данных Apache Derby вместо прилагаемой базы данных MySQL, вам следует учитывать переключение на внешнюю реляционную базу данных.</p>
+<p>Все данные, которые хранятся в базе данных Apache Derby RatioT Server, загружены в память в течение запуска сервера. Если ваш RatioT Server потребляет много памяти с относительно маленьким количеством устройств, проверьте размер директории <code>/db</code> в каталоге инсталляции RatioT Server. Если занимает больше, чем 100-200 Мб, вам необходимо обратить внимание на переключение на сервер внешней реляционной базы данных.</p>
+<p>Обратитесь к статье Движок переключения на другу БД для получения информации относительно переключения реляционной базы данных.</p>
+<table class="md-table"><tr><td></td><td>У документации сервера БД обычно есть собственный раздел Оптимизации производительности. Обратитесь к руководству пользователя сервера базы данных для администратора за информацией о том, как максимизировать производительность базы данных в вашей среде.</td></tr></table>
+<h3>Прилагаемый пакет mysql</h3>
+<p>Некоторые комплекты поставки RatioT Server включают в себя преднастроенный пакет MySQL. MySQL - это мощный и бесплатный сервер баз данных, который позволяет RatioT SCADA работать с тысячами устройств. </p>
+<p>Если во время установки выбран прилагаемый пакет MySQL, он будет загружен с сайта BUFFLAB и установлен в подпапке <code>/mysql</code> папки установки RatioT Server. Он уже настроен для использования с RatioT Server, поэтому дополнительных настроек в большинстве случаев не требуется.</p>
+<h5>Управление установкой прилагаемого mysql</h5>
+<p>Обычно прилагаемый сервер MySQL запускается автоматически при запуске Windows. Для его запуска/остановки вручную:</p>
+<ul>
+<li>Перейдите к <strong>Start Menu &gt; Control Panel &gt; Administration &gt; Services</strong></li>
+<li>Найдите сервис <code>MySQL for RatioT SCADA</code></li>
+<li>Щелкните по нему правой кнопкой мыши, чтобы увидеть список функций управления в контекстном меню</li>
+</ul>
+<p>Если сервис MySQL service не запускается, просмотрите файл журнала ошибок (<code>mysql/error.log</code>) для выяснения деталей ошибки.</p>
+</section>
+
+
+<section id="ls_database_structure" class="doc-section">
+<h2>Схема и взаимодействие базы данных</h2>
+<p>Схема базы данных RatioT Server полностью динамическая, новые таблицы оперативно создаются и удаляются сервером, таким образом отражая создание, удаление и обновление системных ресурсов.</p>
+<p>Тем не менее, в каждой инсталляции существует несколько основных таблиц:</p>
+<table class="md-table"><tr><td>Таблица</td><td>Описание</td></tr><tr><td>ag_properties</td><td>Содержит значения всех постоянных переменных контекста сервера. RatioT Server генерирует в этой таблице относительно малое количество запросов ВСТАВИТЬ и УДАЛИТЬ, когда создаются или разрушаются системные объекты. Количество запросов ВЫБРАТЬ также относительно мало из-за серверного кэширования памяти. При этом таблица ag_properties часто ОБНОВЛЯЕТСЯ, потому что значения постоянных свойств ресурса меняются, и сервер сохраняет измененные значения в базе данных.</td></tr><tr><td></td><td>Например, устройства, использующие постоянное значение кэша, вызывают большое количество обновлений ag_properties в период синхронизации.</td></tr><tr><td>Поля:контекст - полный путь контекста значений этих переменных содержится в строке таблицысвойство - имя переменнойданные - таблица данных, представляющая значение переменной, закодированной в виде строки с использованием невидимых разделителей</td></tr><tr><td>ag_events</td><td>Содержит все события контекста сервера, кроме тех, которые хранятся в других (настраиваемых) таблицах. Внизу приведен подробный список Событий Контекста в Памяти.Поля:контекст - полный путь контекста, в котором было запущено событиеимя - имя события (т.е. тип события)время создания - временная отметка появления события (или последнее появление события, если было зарегестрировано множество его дубликатов)срок действия - временная отметка запланированного срока действия событияуровень - уровень событияправа доступа - пользовательские права, необходимые для доступа к экземпляру события, или ноль, если должны использоваться права, обозначенные в определении событиячисло - количество зарегистрированных дубликатов событияподтверждение - закодированный список подтверждений появления событияобогащение - закодированный список обогащений событияформат - закодированный формат события или ноль, если должен использоваться формат, обозначенный в определении событияданные - таблица данных, представляющая данные события, закодированные в виде строки с использованием невидимых разделителей</td></tr><tr><td>ag_data</td><td>Содержит двоичные блоки данных, встроенные в значения переменных контекста. Эти блоки извлекаются в отдельную таблицу, когда значение переменной сохраняется в таблице ag_properties. Однако двоичные блоки не загружаются сразу после того, как загружается значение переменной из ag_properties. Блоки загружаются только по запросу, т.е. при помощи явного запроса модулей RatioT Serverа, клиентов внешних приложений.</td></tr></table>
+<h3>Память событий контекста</h3>
+<p>Большая инсталляция RatioT SCADA может хранить миллиарды событий контекста в базе данных. Эти события динамически распределяются между различными таблицами, чтобы оптимизировать память и производительность запроса. </p>
+<p>Формат всех таблиц событий соответствует формату таблицы ag_events, описанной выше.</p>
+<p>Доступ к таблицам событий обычно состоит из множества операций ВСТАВИТЬ. Новая запись вставляется каждый раз, когда регистрируется постоянное событие сервера. Сообщение УДАЛЕНО передается поверх таблицы событий в двух случаях:</p>
+<ul>
+<li>Если системный ресурс со всеми соответствующими событиями удален</li>
+<li>Если просроченные события стираются периодической задачей-планировщиком</li>
+</ul>
+<p>Количество запросов ВЫБРАТЬ в таблицах событий относительно мало. События загружаются в следующих случаях:</p>
+<ul>
+<li>Если Журнал Событий открыт, вызывая последующую активацию фильтра событий</li>
+<li>Если события напрямую загружаются при помощи функции получить () контекста <strong>Событий</strong></li>
+<li>Если история переменных загружается при помощи функции ИсторияПеременных() контекста <strong>Утилитов</strong></li>
+<li>В период начальной визуализации диаграммы виджетов, которая сконфигурирована так, чтобы включать в себя хронологические события или значения переменных</li>
+<li>В нескольких других подобных случаях</li>
+</ul>
+<table class="md-table"><tr><td></td><td>Несмотря на то, что события загружаются редко, количество загружаемых за один запрос событий не ограничено платформой, поскольку определенные инсталляции требуют миллионов событий, загружаемых за раз. Архитекторы системы, разрабатывающие решения на основе RatioT SCADA, должны помнить о максимальном количестве загружаемых событий при выстраивании серверных цепочек обработки данных и визуализирующих панелей инструментов. Попытка загрузить слишком большое количество событий за раз вызовет у RatioT Serverа исчерпывание памяти в виде значительного снижения производительности, вызванного сборкой мусора Виртуальной Машины Java, и может привести к полному зависанию сервера или внутренним ошибкам памяти.</td></tr></table>
+<table class="md-table"><tr><td></td><td>Список таблиц событий, представленный в этой документации, не полон. Различные модули и плагины RatioT Serverа могут запросить создание других выделенных таблиц событий, которые здесь не упомянуты.</td></tr></table>
+<p>Все события, которые не были явно сконфигурированы для использования настраиваемой таблицы, записываются в таблице ag_events. Приведенный ниже список описывает таблицы базы данных, которые обычно создаются для хранения событий различных типов. </p>
+<table class="md-table"><tr><td>Таблица</td><td>Описание</td></tr><tr><td>ag_info</td><td>Содержит события категории Инфо.</td></tr><tr><td>ag_alerts</td><td>Содержит события категории Тревоги.</td></tr><tr><td>ag_xxx_change</td><td>Содержит все Изменения событий, представляя изменения переменных в одном контексте устройтва (соответствующие устройству xxx). Обратите внимание, что имя таблицы может быть усечено из-за ограничения длины имени таблицы, отражающей базу данных всего сервера.</td></tr></table>
+<h3>Прямой доступ к базе данных RatioT Server</h3>
+<p>Прямой доступ сторонних приложений к базе данных RatioT Serverа не приветствуется. RatioT SCADA - мощная платформа, предлагающая полноценный пакет разработки программ (SDK) и различные виды программных интерфейсов приложения (API) для локального и удаленного доступа ко всем элементам данных, содержащимся в базе данных сервера. При этом доступ на основе программных интерфейсов приложения будет всегда наследовать надлежащие блокировки, проверку прав доступа и оптимизацию производительности.</p>
+<p>Прямая модификация данных, содержащихся в базе данных RatioT Serverа, в большинстве случае вызовет некорректное поведение системы. Тем не менее, прямое чтение (ВЫБРАТЬ) операций можно использовать в редких случаях.</p>
+<p>Пожалуйста, свяжитесь с BUFFLABом для получения информации о том, как избежать прямого доступа к базе данных.</p>
+</section>
+
+
+<section id="ls_database_switching" class="doc-section">
+<h2>Переключение на другой движок баз данных</h2>
+<p>Этот раздел описывает, как переключить RatioT Server на использование другого движка БД. По умолчанию RatioT Server использует встроенный движок БД, который подходит только для небольших инсталляций (до 20-30 устройств). Для крупных инсталляций рекомендуется использовать более мощный сервер баз данных, например MySQL, Oracle, Microsoft SQL Server, PosrgreSQL, Firebird и другие. </p>
+<table class="md-table"><tr><td></td><td>Некоторые версии RatioT Server содержат в качестве опционального пакета сервер MySQL. Если этот пакет выбирается при установке, сервер автоматически настраивается на использование MySQL. В этом случае переключение на другой движок баз данных, скорее всего, не потребуется.</td></tr></table>
+<p>Чтобы переключить RatioT Server на другой движок баз данных, необходимо:</p>
+<ul>
+<li> Выполнить резервное копирование конфигурационного файла RatioT Server (<code>server.xml</code> в установочной папке RatioT Server), скопировав его в ту же папку под именем <code>server_old.xml</code>.</li>
+<li> Установить и настроить базу данных, если это еще не было сделано.</li>
+<li> Создать новую базу данных, чтобы RatioT Server мог ее использовать для хранения данных.</li>
+<li> На движке БД создать учетную запись пользователя, от имени которого RatioT Server будет осуществлять доступ к данным.</li>
+<li> Выдать необходимые права новой учетной записи базы данных RatioT Server. Потребуются права на создание и редактирование структуры таблиц (<strong>CREATE</strong>, <strong>ALTER, DROP</strong>). Также необходимо предоставить все права на вставку, обновление, удаление и выбор данных из всех таблиц (<strong>INSERT</strong>, <strong>UPDATE</strong>, <strong>DELETE</strong> and <strong>SELECT)</strong>.</li>
+<li> Остановить RatioT Server, если он запущен.</li>
+<li> Положить соответствующий JDBC-драйвер в подпапку <code>/lib</code> установочной папки RatioT Server. Файл драйвера обычно имеет расширение <strong>.jar</strong>. Например, JDBC-драйвер для MySQL имеет имя <code>MySQL-connector-java-X.X.XX-ga-bin.jar</code>, где <em>X.XX.XX</em> i- номер версии. Драйвер JDBC может поставляться как производителем сервера базы данных (Oracle, и т.д.), так и сторонними авторами.</li>
+</ul>
+<table class="md-table"><tr><td></td><td>Существует также альтернативный метод, как сделать Ваш JDBC-драйвер доступным для RatioT Server:Создайте новый файл server.vmoptions в Файле Свойств Запускающего Модуля в папке инсталляции RatioT Server и откройте его для редактирования в текстовом редакторе.Наберите -classpath/a &lt;JDBC_Driver_File_Path&gt; в первой и единственной строке этого файла. JDBC_Driver_File_Path - это полный путь к файлу JDBC-драйвера базы данных (или имя этого файла, если он находится в директории инсталляции RatioT Server).</td></tr></table>
+<ul>
+<li>Запустите утилиту Конфигуратор сервера или RatioT Server и запустите действие Конфигурировать сервер. Перейдите во вкладку <strong>База Данных </strong>в диалоговом окне конфигурации сервера. </li>
+<li>Измените настройку <strong>Драйвер БД </strong>в Настройках общей конфигурации на имя класса Java, представляющего драйвер БД. Это имя определяется  производителем драйвера JDBC. Например, класс драйвера БД MySQL называется &amp;ldquo;com.MySQL.jdbc.Driver&amp;rdquo;. Дополнительную информацию о Общих Настройках Конфигурации можно найти здесь. </li>
+<li>В Настройках Общей Конфигурации укажите <strong>URL </strong>Вашей <strong>базы данных</strong>. Ее формат также задан производителем JDBC-драйвера. Для MySQL формат имеет  следующий вид: <code>jdbc:MySQL://[host][:port]/[database]</code>, где <code>[host]</code> - IP-адрес или DNS-имя сервера MySQL (может быть также пустой строкой или localhost), <code>[port]</code> - номер порта, на котором запущен сервер MySQL (опционально - если он не задан, используется порт по умолчанию), и <code>[database]</code>, являющееся именем базы данных RatioT Server'а. В качестве имени БД Вы можете использовать &amp;ldquo;RatioT Server&amp;rdquo;. Например, если Ваш сервер MySQL запущен на 192.168.0.1 с портом по умолчанию, используйте следующий URL: <code>jdbc:MySQL://192.168.0.1/RatioT Server</code>.</li>
+<li>Задайте правильное <strong>имя пользователя</strong> и <strong>пароль к БД</strong> в Общих Настройках Конфигурации. Они нужны для входа в базу, обозначенную в настройках <strong>URL Базы Данных</strong>.</li>
+<li>Выберите <strong>диалект базы данных</strong> в Общих Настройках Конфигурации, соответствующий типу Вашей БД. См. общие настройки конфигурации для Диалекта БД.</li>
+<li>Сохраните новые настройки. Не перезапускайте сервер, даже если появится соответствующее приглашение.</li>
+<li>Остановите конфигуратор сервера (или RatioT Server).</li>
+<li>Запустите утилиту конвертер базы данных, которая находится в папке инсталляции RatioT Server, чтобы переместить данные из старой базы в новую.</li>
+<li>Дождитесь, когда конвертер закончит работу. В зависимости от размера БД на это может уйти от нескольких секунд до нескольких часов. </li>
+<li>Запустите RatioT Server.</li>
+<li>Процесс закончен, и теперь Вы можете использовать новую БД.</li>
+</ul>
+<table class="md-table"><tr><td></td><td>Максимальное количество параллельных соединений для Вашего сервера БД должно быть больше значения Максимального размера пула подключений в Общих Настройках RatioT Serverа. В большинстве случаев количество параллельных соединений БД по умолчанию меньше размера пула подключений RatioT Server, поэтому должно быть увеличено. О том, как увеличить лимит соединений, прочитайте в документации к Вашему серверу БД.</td></tr></table>
+</section>
+
+
+<section id="ls_history" class="doc-section">
+<h2>Работа с историческими данными/значениями</h2>
+<p>RatioT Server получает значения и события от различных видов устройств и источников данных. Некоторые дополнительные события и обновления значений предоставляются внутренними источниками, такими как модели.</p>
+<p>Выбранные события и обновления значений постоянно хранятся в БД сервера. Заметьте, что в целях унификации RatioT Server хранит обновления исторических значений в форме событий. Им присвоено имя change. </p>
+<table class="md-table"><tr><td></td><td>Такие постоянно хранящиеся события и обновления значений называются историческими данными.</td></tr></table>
+<p>Работа с историческими данными является важной частью большинства проектов &lt;RatioT SCADA. Этот раздел подробно описывает все инструменты и методы хранения и обработки исторических данных.</p>
+<p>Обработка исторических данных включает в себя несколько важных аспектов:</p>
+<ul>
+<li>Конфигурация хранилища исторических событий и значений переменных; </li>
+<li>Настройка агрегирования  исходных событий/значений и хранение агрегированных данных; </li>
+<li>Получение сырых исторических значений и событий; </li>
+<li>Получение агрегированных исторических данных.</li>
+</ul>
+</section>
+
+
+<section id="ls_history_acquiring_aggregated" class="doc-section">
+<h2>Доступ к агрегированным историческим данным</h2>
+<p>Пути доступа к агрегированным историческим данным различны в зависимости от методов агрегации.</p>
+<h3>Доступ к статистике в кольцевой БД</h3>
+<p>Функция Статистика контекста Утилиты возвращает агрегированные данные, находящиеся в кольцевой БД.</p>
+<p>Функция принимает множество параметров:</p>
+<ul>
+<li>Маска исходных контекстов и имя статистического канала</li>
+<li>Время агрегирования</li>
+<li>Настройки, определяющие, какие агрегированные показатели должны быть возвращены (например, минимальные или суммарные величины)</li>
+</ul>
+<p>Данная функция возвращает таблицу данных, содержащую агрегированные данные, сгруппированные по временному периоду. Таблица может напрямую использоваться любыми инструментами обработки и визуализации данных.</p>
+<p>Похожая функция Сырые статистические данные контекста Утилиты возвращает все данные, собранные в специальный канал статистики, указанный путем контекста и именем канала. Возвращенная таблица содержит вложенные таблицы с данными, сгруппированными по временному периоду агрегации.</p>
+<p>Вот как выглядит выход функции Статистика:</p>
+<table class="md-table"><tr><td>Начало периода</td><td>Конец периода</td><td>Агрегированное числовое значение (Среднее, Минимум или Максимум)</td></tr><tr><td></td><td></td></tr></table>
+<table class="md-table"><tr><td></td><td>Пример выражения, которое возвращает средние, минимальные и максимальные часовые значения для статистического канала temperature, определенного для устройства users.admin.devices.meter:{utilities:statistics("users.admin.devices.meter", "temperature", null, "hour", true, true, true, true)}</td></tr></table>
+<h3>Доступ к истории, хранящейся в гранулах</h3>
+<p>Поскольку гранулы хранятся в виде событий, их можно получить с помощью функции  Get Event History контекста Events.</p>
+<table class="md-table"><tr><td></td><td>Это выражение возвращает все гранулы randomGranule, сохраненные для контекста users.admin.devices.virtual:callFunction("events", "get", "users.admin.devices.virtual", "randomGranule")</td></tr></table>
+</section>
+
+
+<section id="ls_history_acquiring_raw" class="doc-section">
+<h2>Доступ к сырым историческим данным</h2>
+<p>Независимо от типа базы данных, используемой для хранения исторических данных, ядро RatioT Server предоставляет единый метод для загрузки определенного количества исторических данных.</p>
+<p>Однако, существуют разные способы извлечения исторических данных из инструментов обработки данных RatioT Server. Эти способы описаны ниже.</p>
+<h3>Получить историю события</h3>
+<p>Стандартный инструмент для загрузки сырых исторических данных из БД - это функция Получить историю событий контекста События. Параметры этой функции позволяют:</p>
+<ul>
+<li>Выбрать маску исходного контекста и имя события для загрузки</li>
+<li>Применить фильтр для загружаемых событий</li>
+<li>Выбрать интервал времени/дат</li>
+<li>Сортировать конечные события</li>
+<li>Задавать максимальное количество событий для загрузки</li>
+</ul>
+<p>Все события возвращаются в большой Таблице данных, которую можно сразу же использовать в качестве источника данных отчета, алгоритма машинного обучения и т.д..</p>
+<h3>Получить историю переменной</h3>
+<p>Функция Получить историю переменной контекста Утилиты загружает исторические данные переменной определенного контекста, т.е. она изменяет события, соответствующие истории обновлений этой переменной. </p>
+<p>Параметры функции:</p>
+<ul>
+<li>Путь контекста и имя переменной, чья история должна быть загружена</li>
+<li>Интервал времени/дат</li>
+<li>Направление сортировки</li>
+<li>Максимальное количество результатов</li>
+</ul>
+<p>Все исторические значения возвращаются в большой Таблице данных:</p>
+<table class="md-table"><tr><td>Временная метка</td><td>Значение</td></tr><tr><td></td></tr></table>
+<p>Таблица может быть использована для:</p>
+<ul>
+<li>Построение запроса историческим значениям</li>
+<li>Построения отчета истории переменной</li>
+<li>Экспорта данных в сторонние системы</li>
+</ul>
+<table class="md-table"><tr><td></td><td>Пример выражения, которое возвращает историю переменной temperature, определенной в устройстве users.admin.devices.meter:{utilities:variableHistory("users.admin.devices.meter", "temperature", "2012-05-03 12:00:00.000", "2012-05-04 12:00:00.000")}</td></tr></table>
+<h3>Агрегация исторических данных при извлечении</h3>
+<p>Несмотря на то, что сырые исторические данные могут храниться в БД сервера, часто необходимо группировать загруженные значения по временному периоду, вычисляя средние, минимальные или максимальные значения и другие агрегированные показатели для каждого периода времени.</p>
+<p>Функция Обобщение контекста Утилиты является очень удобным способом агрегации данных при их извлечении. Параметры ввода данной функции позволяют:</p>
+<ul>
+<li>Определить множество серий данных для моментальной загрузки и обработки</li>
+<li>Определить маски исходного контекста и имена событий/переменных, чья история должна быть обработана</li>
+<li>Определить интервал времени/дат</li>
+<li>Определить пользовательское выражение, используемое для извлечения значений для дальнейшей агрегации</li>
+<li>Определить пользовательское выражение, используемое для извлечения временных меток из выборки данных в режиме реального времени</li>
+<li>Определить периоды группировки (напр. часы или месяцы) и временную зону, используемую для квантования времени</li>
+<li>Вычислить различные сводные показатели, такие как средние значения, число выборок за определенный период и т.д.</li>
+<li>Интеллектуально обработать различные значения типа "счетчик"</li>
+<li>Обработать значения вне порядка</li>
+</ul>
+<p>Функция Обобщение также возвращает все итоговые данные в большой Таблице данных, которая может быть сразу же использована любым другим инструментом обработки данных, таким как наборы правил модели.</p>
+</section>
+
+
+<section id="ls_history_aggregation" class="doc-section">
+<h2>Настройка агрегации исторических данных</h2>
+<p>Иногда хранение всего объема сырых событий и обновлений значений провоцирует возникновение слишком большого объема данных для постоянного хранения. В этом случае, можно использовать предварительную агрегацию исторических данных.</p>
+<p>В RatioT Server доступно два метода предварительной агрегации:</p>
+<ul>
+<li>Кольцевая БД</li>
+<li>Гранулы</li>
+</ul>
+<h3>Агрегация в кольцевой БД</h3>
+<p>В RatioT Server встроена кольцевая БД, которая помогает хранить агрегированную статистику временных серий.</p>
+<h3>Агрегация в гранулах</h3>
+<p>Гранулы - это особые события, которые содержат различные агрегированные значения для различных периодов во временных сериях. Каждый раз когда сервер получает новое событие/значение, он находит подходящую гранулу и объединяет только что полученное значение с агрегированным значением, вычисляя и непрерывно храня новое агрегированное значение.</p>
+<h3>Сравнение методов агрегации исторических данных</h3>
+<table class="md-table"><tr><td>Метрика</td><td>Статистика в кольцевой БД</td><td>Агрегированные значения в гранулах</td></tr><tr><td>Размер агрегированных данных</td><td>Постоянный, ниже</td><td>Изменяющийся, выше</td></tr><tr><td>Скорость обновления агрегированных данных</td><td>Выше</td><td>Ниже</td></tr><tr><td>Скорость извлечения агрегированных данных</td><td>Выше</td><td>Ниже</td></tr><tr><td>Тип и формат агрегированных значений</td><td>Только числовая</td><td>Любые</td></tr><tr><td>Функции агрегации</td><td>Фиксированные (средние, минимальные, максимальные, итоговое, первое, последнее)</td><td>Пользовательские</td></tr><tr><td>Периоды времени</td><td>Периоды фиксированной длительности</td><td>Периоды, соответствующие реальным календарным периодам (такие как дни и месяцы), time zones respected</td></tr><tr><td>Поддержка агрегации в оперативной памяти</td><td>Да</td><td>Нет</td></tr><tr><td>Встроенная поддержка исходных значений с динамической компенсацией</td><td>Да</td><td>Нет</td></tr></table>
+</section>
+
+
+<section id="ls_history_storage" class="doc-section">
+<h2>Конфигурация хранилища</h2>
+<p>По умолчанию, RatioT Server не хранит события или обновления значений переменных постоянно. Однако, в различных продуктах на базе RatioT SCADA можно активировать хранилище по умолчанию.</p>
+<p>Системные администраторы и авторизованные пользователи могут активировать хранилище исторических данных и настраивать периоды хранения для большинства переменных и событий. Однако методы конфигурации различны для различных системных объектов.</p>
+<h3>Системные настройки хранилища обновлений и событий</h3>
+<p>Перечисленные ниже методы могут использоваться для настройки хранилища исторических данных для различных контекстов:</p>
+<ul>
+<li>Период хранения любого события по умолчанию может быть настроен в таблице правила обработки событий. Каждое правило из этой таблицы позволяет определить <strong>истечение срока хранения </strong>события в  одном или нескольких исходных контекстах.</li>
+<li>Хранилище исторических событий и обновлений может быть дополнительно настроено с помощью таблицы Хранение событий. Эта таблица позволяет отправлять исторические события в многочисленные контейнеры для хранения, такие как таблицы БД, а также определить, какие свойства событий должны храниться постоянно.</li>
+<li>Таблица настройки синхронизации по умолчанию позволяет настраивать период хранения по умолчанию для переменных устройства (определяются по своему имени).</li>
+</ul>
+<h3>Настройки хранения отдельных событий и обновлений</h3>
+<p>Перечисленные ниже методы могут использоваться для настройки хранилища исторических данных для особых контекстов:</p>
+<ul>
+<li>Период хранения событий, полученных от определенного устройства, может быть настроен с помощью настройки период хранения событий устройства</li>
+<li>Период хранения отдельных переменных устройства может быть настроен при помощи параметров синхронизации настроек устройства</li>
+<li>Хранение переменных модели настраивается с помощью настроек <strong>время хранения истории </strong>и <strong>режим записи истории</strong></li>
+<li>Хранение событий модели настраивается с помощью свойства <strong>время хранения истории</strong></li>
+</ul>
+</section>
+
+
+<section id="ls_logging" class="doc-section">
+<h2>Журналирование событий</h2>
+<p>Как и в большей части серверного ПО, в RatioT Server важным методом журналирования событий является запись в лог-файлы. RatioT Server имеет расширенные средства логирования, которые можно легко настраивать через текстовый конфигурационный файл. Настройку журналирования можно производить в процессе работы RatioT Server, без перезапуска.</p>
+<table class="md-table"><tr><td></td><td>Наиболее важные операци сервера также журналируются как события платформы, для гибкой проверки защиты. В разделе Управление событиями описывается, как просматривать потоки событий в реальном времени и анализировать исторические события.</td></tr></table>
+<p>Для вывода записей журнала RatioT Server<em> </em>использует библиотеку Apache Log4J. Это гибкое средство логирования позволяет разделять события из различных источников на множество уровней приоритета и перенаправлять вывод логов в:</p>
+<ul>
+<li>Консоль</li>
+<li>Текстовые лог-файлы</li>
+<li>Файлы формата XML</li>
+<li>Журналы Windows</li>
+<li>Системные журналы UNIX</li>
+<li>Базы данных</li>
+<li>Другие серверы в сети</li>
+<li>Сообщения электронной почты</li>
+<li>Служба сообщений Java (JMS)</li>
+<li>и многие другие...</li>
+</ul>
+<p>Файл настройки журналирования в RatioT Server располагается в основной директории инсталляции под именем <code>logging.xml</code>. Формат этого файла кратко описан в разделе Файл настроек журналирования. В нем также содержится список категорий логирования, используемых в различных компонентах RatioT SCADA для вывода логов.</p>
+<table class="md-table"><tr><td></td><td>По умолчанию в файле настроек журналирования определены два направления журналирования: консоль и лог-файл server.log, находящийся в подкаталоге /logs директории инсталляции RatioT Server. Журналируются события на уровне Info.</td></tr></table>
+<h3>Проблемы роста файла журнала</h3>
+<p>По умолчанию система ведения журнала настроена на запись только важных сообщений. Однако на сильно загруженном сервере даже такая консервативная настройка ведения журнала может привести к тысячам записей в журнале в день, что вызывает значительный рост файла журнала.</p>
+<p>Если вы столкнулись с нежелательным увеличением размера файла журнала, рассмотрите возможность переключения категорий ведения журнала, которые производят много сообщений, на более высокие уровни ведения журнала (например, на &amp;ldquo;fatal&amp;rdquo;) или даже полное отключение ведения журнала для этих категорий.</p>
+<p>См. раздел файла конфигурации ведения журнала, чтобы узнать, как настроить ведение журнала в определенных категориях.</p>
+</section>
+
+
+<section id="ls_logging_biblio" class="doc-section">
+<h2>Документация к библиотеке журналирования</h2>
+<p>В качестве подсистемы для ведения журналов в<em> RatioT Server </em>используется <strong>Log4j</strong>. Это хорошо масштабируемая, устойчивая и гибкая библиотека. Полное описание её свойств выходит за рамки этого руководства. Исчерпывающую информацию о Log4j можно получить из следующих книг и веб-ресурсов:</p>
+<ul>
+<li>Официальный сайт Log4j </li>
+<li>Исчерпывающее руководство по Log4j </li>
+<li>Журналирование в Java с использованием JDK 1.4 Logging API и Apache log4j</li>
+</ul>
+</section>
+
+
+<section id="ls_logging_categories" class="doc-section">
+<h2>Категории журналирования</h2>
+<p>В этом разделе рассказывается о категориях журналирования, используемых в RatioT Server, RatioT Client и прочих компонентах RatioT SCADA.</p>
+<table class="md-table"><tr><td>Категория</td><td>Описание</td></tr><tr><td>ag.alerts</td><td>Сообщения, относящиеся к Тревогам.</td></tr><tr><td>ag.autorun</td><td>Сообщения, относящиеся к Автозапуску.</td></tr><tr><td>ag.bindings</td><td>Сообщения, относящиеся к Привязкам. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.ccm</td><td>Сообщения, связанные с управлением конфигурацией и изменениями.</td></tr><tr><td>ag.commands</td><td>Запись процесса обмена командами между различными компонентами системы. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.commands.device_server</td><td>Команды Сервера устройств журналируются при отладке.</td></tr><tr><td>ag.commands.agent</td><td>Команды Агента журналируются при отладке.</td></tr><tr><td>ag.commands.client</td><td>Команды Клиента журналируются при отладке.</td></tr><tr><td>ag.commands.distributed</td><td>Команды потребитель-провайдер распределенной архитектуры логируются при отладке.</td></tr><tr><td>ag.commondata</td><td>Сообщения, относящиеся к Общим данным.</td></tr><tr><td>ag.content</td><td>Сообщаения, относящиеся к медиа библиотеке</td></tr><tr><td>ag.classes</td><td>Сообщения, относящиеся к Классам.</td></tr><tr><td>ag.clients</td><td>Сообщения, относящиеся к RatioT Clients.</td></tr><tr><td>ag.cluster</td><td>Сообщения, относящиеся к Отказоустойчивому кластеру и балансировщику нагрузки.</td></tr><tr><td>ag.config</td><td>Сообщения, относящиеся к Общей Настройке RatioT Server.</td></tr><tr><td>ag.context</td><td>Сообщения, относящиеся к Контекстам. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.context.info</td><td>Информационные события в контексте RatioT Server записываются в эту категорию на информационном уровне.</td></tr><tr><td>ag.context.children</td><td>Сообщения, относящиеся к управлению деревом контекстов. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.context.variables</td><td>Сообщения, относящиеся к контексту Переменные (Свойства). Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.context.functions</td><td>Сообщения, относящиеся к контексту Функции. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.context.events</td><td>Сообщения, относящиеся к контексту События. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.context.actions</td><td>Сообщения, относящиеся к контексту Действия. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.context.*</td><td>Другие сообщения от различных плагинов контекста.</td></tr><tr><td>ag.core</td><td>В эту категорию попадают сообщения из ядра RatioT Server и RatioT Client. Различные сообщения, которые сложно отнести к какой-то конкретной категории, тоже попадают сюда.</td></tr><tr><td>ag.core.thread</td><td>Сообщения о потоках выполнения.</td></tr><tr><td>ag.dashboards</td><td>Сообщения, относящиеся к Инструментальным панелям.</td></tr><tr><td>ag.database</td><td>Взаимодействие с базой данных. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.device</td><td>Базовые сообщения, относящиеся к взаимодействию RatioT Server с устройствами.</td></tr><tr><td>ag.device.discovery</td><td>Сообщения, относящиеся к обнаружению устройств.</td></tr><tr><td>ag.device.sync</td><td>Сообщения, относящиеся к синхронизации RatioT Server с устройствами.</td></tr><tr><td>ag.device.agent</td><td>Сообщения, относящиеся к Agent.</td></tr><tr><td>ag.device.*</td><td>Прочие сообщения от различных драйверов устройств.</td></tr><tr><td>ag.device_browser</td><td>Сообщения, относящиеся к компоненту Навигатор устройств из RatioT Client.</td></tr><tr><td>ag.device_server</td><td>Сообщения, относящиеся к Серверам устройств.</td></tr><tr><td>ag.device_server.inbands</td><td>Сообщения, относящиеся к командам, проходящим в потоке данных Серверов устройств (при отладке).</td></tr><tr><td>ag.data_table</td><td>Сообщения, относящиеся к Таблицам данных. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.data_table.filter</td><td>Сообщения, относящиеся к фильтрам Таблиц Данных (используется Фильтром событий). Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.data_table_editor</td><td>Сообщения, относящиеся к компоненту Редактор таблиц данных из RatioT Client.</td></tr><tr><td>ag.dns</td><td>Сообщения, относящиеся к взаимодействию с серверами DNS. В основном используется драйвером Динамического DNS.</td></tr><tr><td>ag.entity_selector</td><td>Сообщения, относящиеся к компоненту Селектор сущностей из RatioT Client.</td></tr><tr><td>ag.eventfilters</td><td>Сообщения, относящиеся к Фильтрам событий.</td></tr><tr><td>ag.event_log</td><td>Сообщения, относящиеся к компоненту Журнал событий из RatioT Client.</td></tr><tr><td>ag.expression_builder</td><td>Сообщения, относящиеся к компоненту Редактор выражений из RatioT Client.</td></tr><tr><td>ag.expressions</td><td>Сообщения, относящиеся к обработке Выражений.</td></tr><tr><td>ag.favourites</td><td>Сообщения, относящиеся к Закладкам.</td></tr><tr><td>ag.groups</td><td>Сообщения, относящиеся к Группам.</td></tr><tr><td>ag.gui</td><td>Базовые сообщения, относящиеся к Graphics User Interface (GUI).</td></tr><tr><td>ag.gui_builder</td><td>Сообщения, относящиеся к компоненту Конструктор GUI (из RatioT Client).</td></tr><tr><td>ag.guide</td><td>Сообщения, относящиеся к Интерактивным руководствам.</td></tr><tr><td>ag.mail</td><td>Сообщения, относящиеся к обработке исходящих и входящих сообщений электронной почты.</td></tr><tr><td>ag.models</td><td>Сообщения, относящиеся к Моделям.</td></tr><tr><td>ag.net_admin</td><td>Сообщения, относящиеся к Администратору сети.</td></tr><tr><td>ag.netmanagement</td><td>Сообщения, относящиеся к Сетевому управлению</td></tr><tr><td>ag.performance</td><td>Сообщения, относящиеся к вопросам производительности: какие операции выполняются дольше, чем ожидалось. В режиме отладки в эту категорию попадают также сообщения и о небольших потерях в производительности. Более серьезные проблемы записываются с более высокими значениями приоритета.</td></tr><tr><td>ag.plugins</td><td>Сообщения, относящиеся к Плагинам.</td></tr><tr><td>ag.properties_editor</td><td>Сообщения, относящиеся к компоненту Редактор свойств из RatioT Client.</td></tr><tr><td>ag.protocol</td><td>Сообщения, относящиеся к Коммуникационным протоколам RatioT SCADA. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.protocol.caching</td><td>Сообщения, относящиеся к кэшированию в Коммуникационных протоколах RatioT SCADA. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.queries</td><td>Сообщения, относящиеся к Запросам.</td></tr><tr><td>ag.reports</td><td>Сообщения, относящиеся к Отчетам.</td></tr><tr><td>ag.resource</td><td>Сообщения, относящиеся к управлению ресурсами. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.scheduler</td><td>Сообщения, относящиеся к Запланированным заданиям.</td></tr><tr><td>ag.scripts</td><td>Сообщения, относящиеся к Скриптам и Скриптам виджетов.</td></tr><tr><td>ag.security</td><td>Сообщения, относящиеся к безопасности и правам доступа. Большая часть сообщений этой категории появляется при отладке.</td></tr><tr><td>ag.statistics</td><td>Сообщения, относящиеся к сбору статистики (Statistical Process Control).</td></tr><tr><td>ag.stdout</td><td>Стандартный вывод различных библиотек и компонент RatioT SCADA перенаправляются в эту категорию. Журналирование в этой категории происходит при отладке.</td></tr><tr><td>ag.stderr</td><td>Стандартный вывод ошибок различных библиотек и компонент RatioT SCADA перенаправляются в эту категорию. Журналирование в этой категории происходит на уровне информационный.</td></tr><tr><td>ag.store</td><td>Сообщения, относящиеся к Магазину.</td></tr><tr><td>ag.structures</td><td>Сообщения, относящиеся к Структурам Приложений</td></tr><tr><td>ag.system_tree</td><td>Сообщения, относящиеся к компоненту Дерево свойств системы из RatioT Client.</td></tr><tr><td>ag.trackers</td><td>Сообщения, относящиеся к Датчикам.</td></tr><tr><td>ag.users</td><td>Сообщения, относящиеся к Пользователям.</td></tr><tr><td>ag.view</td><td>Сообщения, относящиеся к Просмотрам.</td></tr><tr><td>ag.web</td><td>Базовые сообщения, относящиеся к Web UI RatioT Serverа.</td></tr><tr><td>ag.widgets</td><td>Сообщения, относящиеся к Виджетам.</td></tr><tr><td>ag.workflows</td><td>Сообщения, относящиеся к Процессам.</td></tr></table>
+</section>
+
+
+<section id="ls_logging_config" class="doc-section">
+<h2>Файл настроек журналирования</h2>
+<p>В этом разделе описывается конфигурационный файл журналов с настройками по умолчанию и особенности журналирования, типичные для RatioT Server.</p>
+<p>Вот конфигурация по умолчанию:</p>
+<p>                                                                                                                                   ]]&gt;Настройки журналирования по умолчанию представлены корневым элементом конфигурации, двумя аппендерами (содержат два направления журналирования) и несколькими именованными категориями журналирования. Элемент <code>&lt;root&gt;</code> определяет общий уровень журналирования событий как <strong>предупреждение</strong> (<code>&lt;Root level="warn"&gt;)</code><em> </em>(более подробно см. уровни журналирования). Эта настройка применяется ко всем сообщениям, приходящим от всех использующихся внутри сервера библиотек.</p>
+<p>Сообщения от самого сервера регистрируются с уровнем <code>warn</code>. Это определяется тегом <code>level="warn"</code>  внутри секции <code>&lt;Logger name="ag"...&gt;</code>. Чтобы понизить уровень до отладочного для некоторой категории, измените этот тег на <code>&lt;level="debug"/&gt;</code>. Элементы <code>&lt;Logger&gt;</code> определяют, для какого именно компонента RatioT Server Вы настраиваете уровень логирования. </p>
+<p>В этой конфигурации также определены два аппендера - console и file. Аппендер - это направление для введения данных журнала. Это могут быть текстовые файлы, сообщения электронной почты и пр. </p>
+<p>RollingFile требует набора политик для определения, когда необходимо выполнить ротацию файла лога. TimeBasedTriggeringPolicy используется по умолчанию, то есть ротация будет выполняться раз в день. Одновременно могут использоваться различные политики.</p>
+<p>Для более подробной информации изучите документацию по Log4j.</p>
+</section>
+
+
+<section id="ls_logging_levels" class="doc-section">
+<h2>Уровни журналирования</h2>
+<p>RatioT Server использует 5 заранее определенных уровней журналирования:</p>
+<ul>
+<li><strong>Фатальный</strong> ("fatal") уровень используется только для наиболее важных сообщений. Обычно после обнаружения и записи фатальной ошибки RatioT Server останавливает свою работу. </li>
+<li>После возникновения сообщений уровня <strong>Ошибка</strong> ("error") RatioT Server не прекращает свое выполнение, однако появление в логах сообщений подобного уровня важности говорит о том, что при работе сервера возникла ситуация, когда не обойтись без вмешательства оператора.</li>
+<li><strong>Предупреждения</strong> ("warn") показывают, что что-то происходит не так, но в большинстве случаев RatioT Server способен самостоятельно обработать проблемы подобного уровня и немедленного вмешательства оператора обычно не требуется.</li>
+<li>В <strong>Информационных</strong> ("info") сообщениях RatioT Server отображается обычная деятельность. Сообщения подобного рода используются администратором для отслеживания системы в рабочем режиме.</li>
+<li><strong>Отладочные</strong> ("debug") сообщения необходимы тогда, когда в RatioT Server что-то происходит не так, как ожидает оператор. По умолчанию сообщения этого уровня отключены. Включение отладочных сообщений для всех категорий может привести к появлению огромного количества информации в логах и значительно понизить производительность RatioT Server. Советуем включать этот уровень только <em>временно</em> и только если Вы уверены, что это действительно необходимо. Обычно этот уровень включают по совету от команды технической поддержки BUFFLAB.</li>
+</ul>
+<p>По умолчанию журналирование происходит на уровне <strong>Информационных</strong> сообщений. После установки и настройки системы с целью повышения производительности и уменьшения количества ненужной информации в журналах мы рекомендуем повысить уровень журналирования до <strong>Предупреждений</strong> и опускать до <strong>Отладочного</strong> при возникновении проблем и лишь для некоторых категорий.</p>
+<p>Чтобы изменить уровень журналирования, выполните следующие действия:</p>
+<ul>
+<li>Откройте в редакторе файл logging.xml.</li>
+<li>Найдите в нем секцию, описывающую категории: <code>&lt;Logger name="ag.category_name" level="info"/&gt;</code></li>
+<li>Поменяйте в ней значение приоритета (см. информацию выше) на интересующий Вас уровень журналирования.</li>
+<li>Обычно изменения применяются в течении 20 секунд с момента сохранения файла на диск. В некоторых случаях может потребоваться перезапустить RatioT Server, чтобы активировать изменения.</li>
+</ul>
+<table class="md-table"><tr><td></td><td>Строка priority value= может находиться в разных частях кофигурационного файла. Главное, что значение приоритета находится в секции &lt;/root&gt;. Изменение значения в секции root (особенно для таких высоких значений уровня, как debug) может значительно повлиять на производительность, привести к зависанию RatioT Server или даже его полной остановке.</td></tr></table>
+</section>
+
+
+<section id="ls_media_library_server" class="doc-section">
+<h2>Медиа библиотека сервера</h2>
+<p>Плагин Медиа библиотека сервера позволяет сохранять, организовывать и использовать элементы контента (в основном, любые файлы, включая медиафайлы, такие как изображения и видео) в RatioT SCADA. Элементы организованы в иерархии папок, и к каждой из них можно получить доступ с помощью URI, определяемого структурой папок и именем хоста сервера RatioT SCADA. Помимо использования в качестве типичных переменных единой модели данных, доступ к ресурсам Медиа библиотеки сервера может осуществляться через HTTP API, например, из компонентов  Инструментальной панели RatioT SCADA.</p>
+<table class="md-table"><tr><td>Следует помнить следующее:Псевдонимы URI должны быть уникальными во всех записях таблицы файлов.Следующие псевдонимы зарезервированы и не могут быть использованы: web, content, rest и пустая строка (""). Если указано хотя бы одно из этих значений, система не позволит сохранить файл.Изменения псевдонимов URI (как новые псевдонимы, так и изменения существующих) требуют перезагрузки сервера, чтобы вступить в силу.Записи папок, созданные до введения свойства псевдонима URI, не будут иметь эту колонку. Чтобы установить псевдоним URI для существующей папки, ее необходимо удалить, а затем создать заново.Если псевдоним URI приводит к тому, что файл имеет тот же URL, что и существующая панель инструментов, псевдоним файла будет иметь приоритет над псевдонимом панели инструментов.</td></tr></table>
+<h3>Использование REST API медиа библиотеки сервера</h3>
+<h4>Запрос файла</h4>
+<p>Получает ресурс из библиотеки.</p>
+<h5>Запрос</h5>
+<p>GET /content/file/&lt;Путь к файлу&gt;/&lt;Имя файла&gt;Copy to clipboard</p>
+<ul>
+<li><strong>Путь к файлу</strong> - имена каталогов в порядке возрастания глубины, разделенные символом <code>/</code>.</li>
+<li><strong>Имя файла</strong> - имя файла, указанное в поле <strong>Имя</strong> таблицы конфигурации.</li>
+</ul>
+<h5>Поля заголовка запроса</h5>
+<ul>
+<li><em>Авторизация</em> - текущий токен аутентификации. Дополнительные сведения об аутентификации см. в разделе Аутентификация.</li>
+</ul>
+<h5>Тело ответа</h5>
+<p>Зависит от типа содержимого запрашиваемого ресурса. </p>
+<h5>Пример запроса</h5>
+<p>Запрос:</p>
+<p>GET https://localhost:8080/content/file/text_directory/text_file.txtCopy to clipboard</p>
+<h5>Пример ответа</h5>
+<pre><code>Текст содержимого файла</code></pre>
+<p>Copy to clipboard</p>
+<h3>Пример использования медиа библиотеки сервера</h3>
+<h4>Добавление содержимого</h4>
+<p>Пример ниже включает две строки, одна из которых настроена как текстовый файл, а другая - как папка. Файл <code>example_text.txt</code> содержит текстовые данные, а папка <code>plants</code> содержит подтаблицу с изображением <code>flower_picture.png</code>.</p>
+<table class="md-table"><tr><td>Тип</td><td>Имя</td><td>Содержимое директории</td><td>Файл</td><td>Тип содержимого</td><td>Режим кэширования</td></tr><tr><td>Файл</td><td>text.txt</td><td>Null</td><td>example_text.txt</td><td>text/plain</td><td>Public</td></tr><tr><td>Директория</td><td>plants</td><td>Подтаблица</td><td>&lt;Нет данных&gt;</td><td>Н/Д</td><td>Public</td></tr></table>
+<p><strong>Подтаблица</strong></p>
+<table class="md-table"><tr><td>Тип</td><td>Название</td><td>Содержимое директории</td><td>Файл</td><td>Тип содержимого</td><td>Режим кэширования</td></tr><tr><td>Файл</td><td>flower.png</td><td>Null</td><td>flower_picture.png</td><td>image/png</td><td>Public</td></tr></table>
+<h4>Аутентификация</h4>
+<p>Все запросы к библиотеке должны быть полностью аутентифицированы, то есть содержать токен, сгенерированный из запроса на авторизацию.</p>
+<p>Пример использования cURL в командной строке Linux выглядит следующим образом:</p>
+<p>curl --request POST 'http://localhost:8080/web/v1/public/auth' \ --header 'Content-Type: application/json' \ --data-raw '{"username":"admin","password":"admin"}'Copy to clipboard<strong>Ответ</strong></p>
+<p>{    "token": "eyJhbGciOiJIUzI1NiJ9.dCI6MTY3NDIxMDg1NywiaXNzIjoiY29tLnRpYmJvLmxpbmtzZXJ2ZXIuc...",    "simpleMode": false,    "existsAdministrationDashboard": false,    "accessedAdministrationDashboard": true,    "administrationDashboardPath": "users.admin.dashboards.administration"}Copy to clipboardПараметр <code>token</code> содержит токен аутентификации.</p>
+<h4>Команды API</h4>
+<p><strong>Запрос файла</strong></p>
+<p>Для получения текстовых данных из командной строки можно использовать следующий запрос:</p>
+<p>curl --request GET 'http://localhost:8080/content/file/text.txt' \--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.dCI6MTY3NDIxMDg1NywiaXNzIjoiY29tLnRpYmJvLmxpbmtzZXJ2ZXIuc...' Copy to clipboard<strong>Ответ</strong></p>
+<p>Приведенная выше команда вернет значение файла <code>text.txt</code>:</p>
+<p>Текущий пример текста.Copy to clipboard</p>
+<h4>Инструментальные панели</h4>
+<p>Чтобы использовать ресурс в компоненте приборной панели, например в компоненте Image, выберите опцию URL и используйте URI нужного ресурса. В приведенном выше примере, если нужное изображение <code>flowers.png</code> находится в папке <code>plants/</code>, то используемый URL будет <code>http://localhost:8080/content/file/plants/flowers.png.</code></p>
+<h4>Заменить Активы по умолчанию</h4>
+<p>Медиа библиотека сервера также может быть использована для замены любого актива, видимого в веб-интерфейсе. В качестве примера можно привести замену стандартных иконок меню RatioT SCADA на соответствующие заданной палитре или изменение шрифта по умолчанию.</p>
+<p><strong>Изменение пиктограмм</strong></p>
+<p>Предположим, что необходимо заменить стандартную иконку сервера на пользовательскую иконку <code>custom-icon.png</code>. Ниже показана иконка по умолчанию: </p>
+<p>Используйте инструменты разработчика браузера, чтобы определить HTML, который отображает значок:</p>
+<p>&lt;img src="/web/static/images/st_server.png" alt="" loading="lazy" draggable="false"&gt;Copy to clipboardИз этого HTML определите местоположение ресурса, в данном случае <code>web/static/images/st_server.png</code>.</p>
+<p>Добавьте <code>custom-icon.png</code> в медиа библиотеку сервера, чтобы он отображался для <code>/web/static/images/st_server.png </code> и заменял иконку по умолчанию. Для этого в Медиа библиотеке сервера должны быть созданы следующие таблицы:</p>
+<p><strong>Корневая папка, 'web' </strong></p>
+<table class="md-table"><tr><td>Тип</td><td>Имя</td><td>Содержимое папки</td><td>Файл</td><td>Тип содержимого</td><td>Режим кэширования</td></tr><tr><td>Директория</td><td>web</td><td>Подтаблица-1</td><td>Н/Д</td><td>Н/Д</td><td>Public</td></tr></table>
+<p><strong>Подтаблица 1 (папка</strong> &amp;lsquo;<strong>static&amp;rsquo;)</strong></p>
+<table class="md-table"><tr><td>Директория</td><td>static</td><td>Подтаблица-2</td><td>Н/Д</td><td>Н/Д</td><td>Public</td></tr></table>
+<p><strong>Подтаблица 2 (папка &amp;lsquo;images&amp;rsquo;)</strong></p>
+<table class="md-table"><tr><td>Директория</td><td>images</td><td>Подтаблица-3</td><td>Н/Д</td><td>Н/Д</td><td>Public</td></tr></table>
+<p><strong>Подтаблица-3 (Файл)</strong></p>
+<table class="md-table"><tr><td>Файл</td><td>st_server.png</td><td>Н/Д</td><td>custom_image.png</td><td>image/png</td><td>Public</td></tr></table>
+<p>В результате все ссылки на <code>web/static/images/st_server.png</code> будут заменены пользовательской иконкой <code>custom-icon.png</code>. </p>
+<p><strong>Настройки шрифтов</strong></p>
+<p>Шрифты по умолчанию можно отменить с помощью того же процесса, который описан выше. Используя инструменты разработчика, определите местоположение шрифта по умолчанию. Например, следующая часть файла <code>fonts.css</code> указывает место хранения шрифтов <code>Roboto-Light:</code> </p>
+<p>@font-face {  font-family: 'Roboto';  src: url(/web/static/fonts/Roboto-Light.woff2) format('woff2'),  url(/web/static/fonts/Roboto-Light.woff) format('woff'),  url(/web/static/fonts/Roboto-Light.ttf) format('truetype');  font-weight: 300;  font-style: normal;  font-display: swap;}Copy to clipboardИз вышеуказанного следует, что по умолчанию расположение шрифтов  - <code>/web/static/fonts/Roboto-Light.woff2</code>, с форматом <code>woff2</code> и так далее. Создайте аналогичную структуру папок и файлов в Медиа библиотеке сервера, ведущую к <code>/web/static/fonts/Roboto-Light.woff2</code>, подобно тому, как это было описано в разделе " <strong>Изменение пиктограмм </strong>".</p>
+<p><strong>Корневая папка, 'web'</strong></p>
+<table class="md-table"><tr><td>Тип</td><td>Имя</td><td>Содержимое директории</td><td>Файл</td><td>Тип содержимого</td><td>Режим кэширования</td></tr><tr><td>Директория</td><td>веб-сайт</td><td>Подтаблица-1</td><td>Н/Д</td><td>Н/Д</td><td>Public</td></tr></table>
+<p><strong>Подтаблица 1 ('static' папка)</strong></p>
+<table class="md-table"><tr><td>Директория</td><td>статический</td><td>Подтаблица-2</td><td>Н/Д</td><td>Н/Д</td><td>Public</td></tr></table>
+<p><strong>Подтаблица 2 (папка &amp;lsquo;fonts&amp;rsquo;)</strong></p>
+<table class="md-table"><tr><td>Директория</td><td>шрифты</td><td>Подтаблица-3</td><td>Н/Д</td><td>Н/Д</td><td>Public</td></tr></table>
+<p><strong>Подтаблица-3 (Файл)</strong></p>
+<table class="md-table"><tr><td>Файл</td><td>Roboto-Light.woff2</td><td>Н/Д</td><td>custom-font.woff2</td><td>шрифт/вофф2</td><td>Public</td></tr><tr><td>Файл</td><td>Roboto-Light.woff</td><td>Н/Д</td><td>custom-font.woff</td><td>шрифт/вофф</td><td>Public</td></tr><tr><td>Файл</td><td>Roboto-Light.ttf</td><td>Н/Д</td><td>custom-font.ttf</td><td>font/ttf или font/compressed-ttf или application/x-font-ttf-compressed в зависимости от ситуации.</td><td>Public</td></tr></table>
+<p>Вместо шрифтов по умолчанию будут загружены пользовательские шрифты.</p>
+</section>
+
+
+<section id="ls_nosql_database_structure" class="doc-section">
+<h2>Схема и взаимодействие базы данных nosql</h2>
+<p>Схема базы данных RatioT Server полностью динамична, новые записи в базе данных создаются и удаляются сервером "на лету", чтобы отразить создание, удаление и изменение конфигурации системных ресурсов. </p>
+<p>Различные форматы NoSQL используют разную терминологию для описания групп отдельных записей. Например, в базах данных ключевых значений пары ключ-значение объединяются в пространства имен или ведра. Аналогичная структура в Cassandra ("тип широкой колоночной базы данных") - это пространство ключей, а в базах данных документов используется термин "коллекция". Термин "коллекция" в следующей статье относится к этому типу структуры более высокого уровня, но в конечном итоге зависит от типа используемой базы данных. Аналогично, в разных базах данных используется разная терминология для обозначения списка пар ключ-значение, которые существуют в записи. В следующей статье термин "поля" используется для обозначения списка пар ключ-значение, которые встречаются в каждой записи "коллекции".</p>
+<p>Основные коллекции, которые существуют в каждой установке, следующие:</p>
+<table class="md-table"><tr><td>Коллекция</td><td>Описание</td></tr><tr><td>context_directory</td><td>Содержит идентификаторы (УУИД) контекстов, которые используются для преобразования и извлечения данных из других коллекций.Поля:key - полный путь контекстаcolumn1 - идентификатор (УУИД) контекста, генерируется автоматическиvalue - время создания в миллисекундах, закодированное в типе данных BLOB</td></tr><tr><td>ag_properties</td><td>Содержит значения всех постоянных переменных контекста сервера. RatioT Server создает и удаляет относительно небольшое количество записей в этой коллекции при создании и уничтожении системных объектов. Кэширование памяти на стороне сервера также уменьшает количество запросов к этой коллекции. Однако записи в коллекции ag_properties часто обновляются, поскольку значения свойств постоянных ресурсов изменяются, и сервер сохраняет измененные значения в базе данных.Поля:key - идентификатор (УУИД) контекста, значение чьих переменных хранится в записиproperty - имя переменнойvalue - таблица данных, представляющая значение переменной, закодированной как string, с использованием невидимых разделителей</td></tr><tr><td></td><td>Например, устройства, использующие постоянную переменную кэш, вызывают большое количество обновлений в таблице ag_properties во время синхронизации.</td></tr><tr><td>ag_events</td><td>Содержит все cобытия контекста за исключением тех, которые хранятся в других (пользовательских) коллекциях. Подробнее об этом см. в разделе Хранение событий контекста ниже.Поля:key - Имеет формат идентификатор (УУИД):имя, где первая часть - это идентификатор контекста, в котором возникло событие, а вторая - имя события (т.е. тип события)column1 - УУИД с привязкой ко времени, содержит закодированную временную метку, когда произошло событие, и идентификатор событияvalue - закодированная информация о событии, которая содержит:expirationtime - временная метка в будущем, соответствующая планируемому окончанию событияlevel - уровень событияpermissions - настроенные права доступа, необходимые для доступа к экземпляру события, либо null, если должны использоваться права доступа, указанные в определении событияcount - количество дубликатов зарегистрированных событийack - закодированный список подтверждений событияenrichments - закодированный список обогащений событияformat - событие в закодированном формате, либо null, если должен использоваться формат, указанный в определении событияdata - таблица данных, в которой представлены данные события, закодированные в Byte array</td></tr><tr><td>ag_data</td><td>Содержит блоки бинарных данных, встроенные в значения переменных контекста. Эти блоки извлекаются в данную отдельную коллекцию, когда значение переменной записывается в коллекцию ag_properties. Однако, бинарные блоки не загружаются сразу при загрузке значения переменной из ag_properties. Блоки загружаются только по необходимости, т.е.  через конкретные запросы от модулей  RatioT Server, клиентов или внешних приложений.Поля:key - идентификатор (УУИД) контекста, чьи данные хранятся в записи коллекцииvalue - бинарные данные</td></tr></table>
+<h3>Хранение событий контекста</h3>
+<p>Большая инсталляция RatioT SCADA может хранить миллиарды постоянных событий контекста в базе данных. Эти события динамически распределяются между разными коллекциями, чтобы повысить производительность сохранения и извлечения. </p>
+<p>Формат всех коллекций событий соответствует формату коллекций ag_events, описанному выше.</p>
+<p>Доступ к коллекциям событий обычно включает множество операций ДОБАВИТЬ. Новая запись добавляется каждый раз при регистрации постоянного события сервера. Записи удаляются из коллекции событий в двух случаях:</p>
+<ul>
+<li>Если ресурс системы со всеми соответствующими событиями удален</li>
+<li>Если просроченные события удалены в рамках периодической задачи планировщика</li>
+</ul>
+<p>Количество запросов, выполняемых к коллекции событий, относительно невелико. События загружаются в следующих случаях</p>
+<ul>
+<li>Если открыт Журнал событий, что вызвало активацию фильтра событий</li>
+<li>Если события загружены напрямую при помощи функции get() контекста <strong>События</strong></li>
+<li>Если история переменной напрямую загружена через функцию variableHistory() контекста <strong>Утилиты</strong></li>
+<li>Во время начальной визуализации графика виджета, настроенного так, чтобы включать исторические события или значения переменных</li>
+<li>В некоторых других подобных случаях</li>
+</ul>
+<table class="md-table"><tr><td></td><td>Несмотря на то, что события загружаются нечасто, количество событий, загружаемых одним запросом, не ограничено платформой, т.к.  для некоторых инсталляций необходимо загружать миллионы событий за раз. Системные архитекторы, разрабатывающие решения на базе RatioT SCADA, должны помнить об этом и продумать максимальное количество загружаемых событий при создании конвейера обработки данных на стороне сервера, а также инструментальных панелей визуализации. Попытка загрузить слишком много событий сразу приведет к переполнению памяти RatioT Server, что проявится в резком снижении производительности из-за чистки памяти виртуальной машины Java. Это может вызвать полное зависание сервера или ошибки внутренней памяти.</td></tr></table>
+<table class="md-table"><tr><td></td><td>Список коллекции событий, приведенный в документации, не является исчерпывающим. Разные модули и плагины RatioT Server могут запросить создание других особых коллекций событий, не упомянутых здесь.</td></tr></table>
+<p>Все события, для которых нет явных настроек использовать пользовательскую коллекцию, записываются в коллекцию <strong>ag_events</strong>. Ниже представлен список коллекций БД, которые обычно создаются для хранения событий разного типа. </p>
+<p>Структура коллекций такая же, как у коллекции <strong>ag_events</strong>.</p>
+<table class="md-table"><tr><td>Коллекция</td><td>Описание</td></tr><tr><td>ag_info</td><td>Содержит события Информация.</td></tr><tr><td>ag_alert</td><td>Содержит события Тревоги.</td></tr><tr><td>ag_xxx_change</td><td>Содержит все события Изменение, показывая изменения переменных в одном контексте устройства (соответствует устройству xxx). Обратите внимание, что имя коллекции может быть сокращено из-за ограничения длины имени коллекции БД на самом сервере.</td></tr></table>
+<h3>Прямой доступ к базе данных  %ls%</h3>
+<p>Прямой доступ сторонних приложений к базе данных RatioT Server крайне нежелателен. RatioT SCADA  - мощная платформа, предлагающая полноценный комплект разработчика и различные виды API для локального и удаленного доступа ко всем элементам данных, содержащимся в БД сервера. Более того, доступ через API всегда будет наследовать надлежащие блокировки, проверку прав доступа и оптимизацию производительности.</p>
+<p>Прямое изменение данных в БД RatioT Server в большинстве случаев приведет к некорректному поведению системы. Однако, в редких случаях допускается использование операций прямого чтения (ВЫБРАТЬ).</p>
+<p>Пожалуйста, обратитесь в BUFFLAB, чтобы узнать, как избежать прямого доступа к БД.</p>
+</section>
+
+
+<section id="ls_storage" class="doc-section">
+<h2>Хранение данных</h2>
+<p>В RatioT SCADA может храниться множество различных типов данных, от относительно простых машинных временных рядов, таких как измерения температуры или напряжения, до более сложных данных, таких как топологии сетей. Можно создавать произвольные структуры данных для представления сущностей с различными типами данных, например учетных записей пользователей или заявок в службу поддержки.</p>
+<table class="md-table"><tr><td></td><td>Документация, представленная в этом разделе, применима только к локальным и граничным экземплярам серверов RatioT SCADA. Пользователи облачных серверов получают RatioT SCADA и его хранилища в качестве управляемой услуги.</td></tr></table>
+<p>Все хранимые данные имеют жесткую классификацию; существует пять классов данных, с которыми работает платформа:</p>
+<ul>
+<li><strong>Конфигурации</strong>, которые включают в себя данные, связанные с серверами, контекстами, устройствами или другими настройками системных ресурсов. На самом низком уровне конфигурации представлены как текущие значения контекстных переменных. Как правило, если переменная хранится в системном хранилище, она классифицируется как имеющая тип <em>Конфигурация </em>, даже если ее значение не влияет на поведение системы в целом.</li>
+<li><strong>События</strong> включают в себя все данные о контекстных событиях и связанные с ними временные метки, включая события изменения переменных, которые были сохранены в базе данных. <em>Текущее значение</em> переменной считается значением <em>конфигурации</em>, а ее <em>исторические значения</em> хранятся как события. </li>
+<li>К <strong>двоичным данным</strong> (или <em>блокам двоичных данных</em>) относятся все данные, хранящиеся в виде двоичных файлов. Изображения, аудио- и видеофайлы, а также некоторые документы сохраняются в RatioT SCADA в виде двоичных данных.</li>
+<li><strong>Статистические данные</strong> представляют собой временные ряды, агрегированные за фиксированные периоды времени, и сохраняются в таком агрегированном состоянии для быстрого извлечения данных за произвольные исторические периоды. </li>
+<li><strong>Топологии </strong>описывают данные<strong> </strong>, состоящие из узлов, ребер и связанных с ними свойств (например, меток или весов ребер) и хранящиеся в графовой базе данных. Топологии могут использоваться для отражения отношений между физическими или абстрактными объектами со сложной или динамической структурой, не подходящей для реляционных баз данных. Отношения любого типа (при условии, что они состоят из элементов, которые могут быть описаны как узлы и ребра) могут быть визуализированы с помощью компонента Граф, независимо от того, хранятся ли они в структуре данных <em>Топологии</em>.</li>
+</ul>
+<p>В следующих разделах описывается, как эти типы данных хранятся в RatioT SCADA и какие базы данных наиболее подходят для различных случаев использования.</p>
+</section>
+
+
+      <footer>
+        Документация RatioT SCADA 6.41.10.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('nav a[href^="#"]');
+    if (links.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(link => link.classList.remove('active'));
+            const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -60% 0px' });
+      sections.forEach(section => observer.observe(section));
+    }
+  </script>
+</body>
+</html>

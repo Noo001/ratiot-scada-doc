@@ -7,10 +7,7 @@
       if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
         var pwd = prompt('Доступ к документации. Введите пароль:');
         if (pwd !== '111') {
-          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p>  <script>
-    document.querySelector('.tiles').classList.remove('tiles-hidden');
-  </script>
-</body>';
+          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
           throw new Error('Access denied');
         }
         localStorage.setItem('ratiot-doc-auth', 'ok');
@@ -111,6 +108,11 @@
         <p>Сводный отчёт для руководителя с группировкой по статусу предъявления Объединению.</p>
       </a>
 
+      <a class="tile" href="scada/docs-6.41.10/index.html">
+        <h2>Справка RatioT SCADA 6.41.10</h2>
+        <p>Полное оглавление встроенной справки сервера 6.41.10. Удобный просмотр того, что в самой SCADA недоступно.</p>
+      </a>
+
       <a class="tile" href="product/index.html">
         <h2>Продукт и бизнес</h2>
         <p>Экосистема RatioT SCADA, лицензирование, техподдержка, обучение, профуслуги и бизнес-процессы.</p>
@@ -123,7 +125,7 @@
     </div>
 
     <footer class="landing-footer">
-      Внутренняя документация. Последнее обновление: 13 августа 2026.
+      Внутренняя документация. Последнее обновление: 19 августа 2026.
     </footer>
   </div>
   <script>

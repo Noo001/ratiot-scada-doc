@@ -1,4 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <rect id="backplate" width="32" height="32" fill="none"></rect>
-  <path id="icon" d="M444.052,250.919l-4.356-4.126,1.719-1.815,2.541,2.407,6.533-6.9,1.815,1.719ZM456,240v12a4,4,0,0,1-4,4H440a4,4,0,0,1-4-4V240a4,4,0,0,1,4-4h12A4,4,0,0,1,456,240Zm-4-2H440a2,2,0,0,0-2,2v12a2,2,0,0,0,2,2h12a2,2,0,0,0,2-2V240A2,2,0,0,0,452,238Z" transform="translate(-430 -230)" fill="#41505e"></path>
-</svg>

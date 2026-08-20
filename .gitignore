@@ -33,3 +33,6 @@ Thumbs.db
 
 # Source materials (kept locally, not versioned)
 sources/
+
+# Working temp directory
+tmp/
