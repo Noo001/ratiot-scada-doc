@@ -1,0 +1,4 @@
+<svg id="gd_drawer_panel_32" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <rect id="backplate" width="32" height="32" fill="none"/>
+  <path id="icon" d="M28,6H4A2,2,0,0,0,2,8V24a2,2,0,0,0,2,2H28a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2m0,18H17V17H10.414l2.293,2.293a1,1,0,1,1-1.414,1.414l-4-4a1,1,0,0,1,0-1.414l4-4a1,1,0,0,1,1.414,1.414L10.414,15H17V8H28Zm-6-7H17V15h5a1,1,0,0,1,0,2" fill="#607990"/>
+</svg>

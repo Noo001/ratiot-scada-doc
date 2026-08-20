@@ -1,0 +1,15 @@
+<svg id="ic_chart_bar_interval_32" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #41505e;
+      }
+    </style>
+  </defs>
+  <rect id="backplate" class="cls-1" width="32" height="32"/>
+  <path id="icon" class="cls-2" d="M29,26H11V13a1,1,0,0,0-1-1H6a1,1,0,0,0-1,1V26H3a1,1,0,0,0,0,2H29a1,1,0,0,0,0-2M7,14H9V26H7Zm15,9h4a1,1,0,0,0,1-1V11a1,1,0,0,0-1-1H22a1,1,0,0,0-1,1V22a1,1,0,0,0,1,1m3-2H23.207L25,19.207Zm-2-9h1.793L23,13.793Zm0,3.207,2-2v1.586l-2,2Zm0,3,2-2v1.586l-2,2ZM13,19V5a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H14a1,1,0,0,1-1-1"/>
+</svg>

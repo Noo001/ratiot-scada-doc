@@ -1,0 +1,15 @@
+<svg id="ic_lock_s_16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #788fa5;
+      }
+    </style>
+  </defs>
+  <rect id="backplate" class="cls-1" width="16" height="16"/>
+  <path id="icon" class="cls-2" d="M102,243v-2a4,4,0,0,0-8,0v2a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h8a1,1,0,0,0,1-1v-6A1,1,0,0,0,102,243Zm-6-2a2,2,0,0,1,4,0v2H96Zm2,7a1,1,0,1,1,1-1A1,1,0,0,1,98,248Z" transform="translate(-90 -236)"/>
+</svg>

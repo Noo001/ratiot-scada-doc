@@ -1,0 +1,15 @@
+<svg id="ic_chart_interval_32" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #41505e;
+      }
+    </style>
+  </defs>
+  <rect id="backplate" class="cls-1" width="32" height="32"/>
+  <path id="icon" class="cls-2" d="M5,27V13a1,1,0,0,0-2,0V27a1,1,0,0,0,2,0m3-4V9A1,1,0,0,0,6,9V23a1,1,0,0,0,2,0m3-4V5A1,1,0,0,0,9,5V19a1,1,0,0,0,2,0m3,4V9a1,1,0,0,0-2,0V23a1,1,0,0,0,2,0m3,4V13a1,1,0,0,0-2,0V27a1,1,0,0,0,2,0m3-4V9a1,1,0,0,0-2,0V23a1,1,0,0,0,2,0m3-4V5a1,1,0,0,0-2,0V19a1,1,0,0,0,2,0m3,4V9a1,1,0,0,0-2,0V23a1,1,0,0,0,2,0m3,4V13a1,1,0,0,0-2,0V27a1,1,0,0,0,2,0"/>
+</svg>

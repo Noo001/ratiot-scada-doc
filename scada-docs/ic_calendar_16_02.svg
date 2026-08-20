@@ -1,0 +1,15 @@
+<svg id="ic_calendar_16" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #edd262;
+      }
+    </style>
+  </defs>
+  <rect id="backplate" class="cls-1" width="16" height="16"/>
+  <path id="icon" class="cls-2" d="M43,206H42a1,1,0,0,0-2,0H36a1,1,0,0,0-2,0H33a2,2,0,0,0-2,2v8a2,2,0,0,0,2,2H43a2,2,0,0,0,2-2v-8A2,2,0,0,0,43,206Zm-9,2a1,1,0,0,0,2,0h4a1,1,0,0,0,2,0h1v2H33v-2Zm-1,8v-4H43v4Z" transform="translate(-30 -204)"/>
+</svg>
