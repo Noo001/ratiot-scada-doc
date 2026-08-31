@@ -8,9 +8,55 @@ my $pandoc = 'lib/pandoc/pandoc-3.1.11/pandoc.exe';
 my $md = 'tests/BUG_CASES.md';
 my $out = 'bug_cases.html';
 
-open my $body, '-|:encoding(UTF-8)', $pandoc, $md, '-t', 'html' or die "Cannot run pandoc: $!";
+# Extract case anchors and titles from markdown
+open my $md_fh, '<:encoding(UTF-8)', $md or die "Cannot read $md: $!";
+my $md_text = do { local $/; <$md_fh> };
+close $md_fh;
+$md_text =~ s/\r//g;
+
+# Drop standalone anchors; we will use pandoc header attributes instead
+$md_text =~ s/^<a\s+id="(case-\d+|summary)"><\/a>\n+//mg;
+
+# Extract case anchors and titles for the side navigation
+my @nav_items;
+while ($md_text =~ /^##\s+(Кейс\s+(\d+)\.\s+.+?|Итог)\s*$/mg) {
+    my ($title, $case_num) = ($1, $2);
+    my $anchor = defined $case_num ? "case-$case_num" : 'summary';
+    $title =~ s/\s+$//;
+    push @nav_items, { anchor => $anchor, title => $title };
+}
+
+my $toc_html = join("\n", map {
+    '        <a href="#' . $_->{anchor} . '">' . $_->{title} . '</a>'
+} @nav_items);
+
+# Add pandoc header attributes so generated h2 ids are stable and headings stay intact
+$md_text =~ s/^##\s+(Кейс\s+(\d+)\.\s+.+?)$/## $1 {#case-$2}/mg;
+$md_text =~ s/^##\s+(Итог)\s*$/## $1 {#summary}/mg;
+
+# Write modified markdown to a temp file and convert with pandoc
+my $tmp_md = 'bug_cases_input.md';
+open my $tmp_in, '>:encoding(UTF-8)', $tmp_md or die "Cannot write $tmp_md: $!";
+print $tmp_in $md_text;
+close $tmp_in;
+
+open my $body, '-|:encoding(UTF-8)', $pandoc, $tmp_md, '-t', 'html' or die "Cannot run pandoc: $!";
 my $body_html = do { local $/; <$body> };
 close $body;
+
+# Post-process body HTML
+# 1. Remove carriage returns
+$body_html =~ s/\r//g;
+
+# 2. Normalize the h1 title (it currently has an id with cyrillic text)
+$body_html =~ s/<h1\s+id="[^"]*"\s*>\s*<\/h1>/<h1 id="top">Баг-кейсы RatioT SCADA<\/h1>/s;
+$body_html =~ s/<h1\s+id="[^"]*"\s*>Баг-кейсы RatioT SCADA\s*6\.41\.09<\/h1>/<h1 id="top">Баг-кейсы RatioT SCADA 6.41.09<\/h1>/s;
+
+# 3. Strip the redundant "Оглавление" h2 since we have nav
+$body_html =~ s/<h2\s+id="оглавление"\s*>Оглавление<\/h2>\s*<ul>.*?<\/ul>//s;
+
+# 4. Fallback: clean up any remaining h2 ids with inline anchors
+$body_html =~ s/<h2\s+id="[^"]*"\s*>\s*<a\s+id="(case-\d+|summary)"><\/a>\s*(.+?)<\/h2>/<h2 id="$1"><a id="$1"><\/a> $2<\/h2>/gs;
 
 my $html = <<"HTML";
 <!DOCTYPE html>
@@ -58,17 +104,34 @@ my $html = <<"HTML";
       <h1>RatioT SCADA</h1>
       <div class="subtitle">Баг-кейсы и тестирование</div>
       <nav>
-        <a href="index.html">\u2190 На главную</a>
+        <a href="index.html">← На главную</a>
         <a href="scada/index.html">Документация SCADA</a>
-        <a href="scada/docs-6.41.10/index.html">Справка 6.41.10</a>
         <a href="ux.html">UX-заметки</a>
+$toc_html
       </nav>
     </aside>
     <main class="content">
-      <a class="back" href="index.html">\u2190 На главную</a>
+      <a class="back" href="index.html">← На главную</a>
 $body_html
     </main>
   </div>
+
+  <script>
+    const sections = document.querySelectorAll('h2[id], h1[id]');
+    const links = document.querySelectorAll('nav a[href^="#"]');
+    if (links.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(link => link.classList.remove('active'));
+            const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -60% 0px' });
+      sections.forEach(section => observer.observe(section));
+    }
+  </script>
 </body>
 </html>
 HTML
