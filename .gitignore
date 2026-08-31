@@ -34,5 +34,8 @@ Thumbs.db
 # Source materials (kept locally, not versioned)
 sources/
 
+# Portable tools / downloaded packages
+lib/
+
 # Working temp directory
 tmp/
