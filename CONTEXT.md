@@ -23,6 +23,7 @@ C:/repos/doc/
 │   ├── index.html
 │   ├── ux.html
 │   └── style.css
+├── scada-docs/                # Встроенная справка 6.41.10 в необработанном виде (для GitHub Pages)
 ├── product/                   # Продукт, экосистема, лицензирование, бизнес-процессы
 │   └── index.html
 ├── bug_cases.html             # Баг-кейсы
@@ -40,6 +41,8 @@ C:/repos/doc/
 ```
 
 > **Примечание:** папка `sources/` добавлена в `.gitignore` и хранится только локально. В репозиторий попадает результат обработки — статьи, выжимки и HTML-страницы.
+>
+> **Примечание:** папка `scada-docs/` содержит встроенную справку RatioT SCADA 6.41.10 в необработанном виде. Она размещена в корне репозитория специально для прямого использования в GitHub Pages. **Не перемещать и не удалять из репозитория.**
 
 ## Цель
 
@@ -80,7 +83,10 @@ C:/repos/doc/
 12. Извлечена встроенная справка RatioT SCADA 6.41.10 (1996 htm-файлов).
 13. Справка сконвертирована в Markdown: `sources/extracted/scada-docs-6.41.10-md/` (1996 md-файлов + `index.md`).
 14. Сделано сопоставление разделов справки с 17 баг-кейсами: `sources/extracted/scada-docs-6.41.10-md/case_matches.md`.
-15. Создана страница-оглавление встроенной справки RatioT SCADA 6.41.10: `scada/docs-6.41.10/index.html` (1996 разделов). Добавлен генератор `tools/build_scada_64110_toc.pl`. Оглавление доступно отдельным тайлом с главной страницы и из базы знаний.
+15. Создана страница-оглавление встроенной справки RatioT SCADA 6.41.10: `scada/docs-6.41.10/index.html` (15 глав, 1996 разделов). Добавлен генератор `tools/build_scada_64110_chapters.pl`. Оглавление доступно отдельным тайлом с главной страницы и из базы знаний.
+16. В корне репозитория размещена необработанная встроенная справка 6.41.10: `scada-docs/`. Не удалять и не перемещать — используется в GitHub Pages.
+17. Добавлен perl-генератор `tools/build_bug_cases.pl` (pandoc в `lib/`) для сборки `bug_cases.html`, так как Python недоступен в окружении.
+18. Проанализирован файл `sources/incoming/Исправление багов в RatioT SCADA 6.41.10...docx` и добавлены кейсы 18–24 в `tests/BUG_CASES.md`.
 
 ## Ключевые инструменты
 
@@ -88,7 +94,9 @@ C:/repos/doc/
 - `tests/TEST_REPORT.md` — отчёт по найденным проблемам.
 - `tests/BUG_CASES.md` — оформленные баг-кейсы и скриншоты.
 - `rebuild_report.py` + `generate_pdf.py` — генерация HTML/PDF отчёта (Playwright + Chromium).
-- `build_bug_cases.py`, `build_pdf.py`, `extract_*.py` — вспомогательные скрипты.
+- `build_bug_cases.py` / `tools/build_bug_cases.pl` — генерация `bug_cases.html` из `tests/BUG_CASES.md` (perl-версия использует pandoc из `lib/`).
+- `tools/build_scada_64110_chapters.pl` — генерация 15 HTML-глав справки 6.41.10 в `scada/docs-6.41.10/`.
+- `build_pdf.py`, `extract_*.py` — вспомогательные скрипты.
 - Playwright — для UI-автоматизации.
 
 ## Извлечённые данные по RatioT SCADA
