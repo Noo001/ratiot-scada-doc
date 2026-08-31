@@ -1,0 +1,15 @@
+<svg id="ic_align_v_top_24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #41505e;
+      }
+    </style>
+  </defs>
+  <rect id="backplate" class="cls-1" width="24" height="24"/>
+  <path id="icon" class="cls-2" d="M21,3H3A1,1,0,0,0,3,5H4V19a2,2,0,0,0,2,2H9a2,2,0,0,0,2-2V5h2v8a2,2,0,0,0,2,2h3a2,2,0,0,0,2-2V5h1a1,1,0,0,0,0-2M9,19H6V5H9Zm9-6H15V5h3Z"/>
+</svg>

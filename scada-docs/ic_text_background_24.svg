@@ -1,0 +1,4 @@
+<svg id="ic_text_background_24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="backplate" width="24" height="24" fill="none"/>
+  <path id="icon" d="M542,438.211,544.016,445h-4.032ZM552,434v16a2,2,0,0,1-2,2H534a2,2,0,0,1-2-2V434a2,2,0,0,1,2-2h16A2,2,0,0,1,552,434Zm-4.457,14.461L543.606,435.2a1.676,1.676,0,0,0-3.212,0l-3.937,13.263a1.2,1.2,0,0,0,2.3.682l.636-2.143h5.218l.636,2.143a1.2,1.2,0,0,0,2.3-.682Z" transform="translate(-530.003 -430)" fill="#41505e"/>
+</svg>

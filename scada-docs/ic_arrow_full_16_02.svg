@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #6fb83b;
+      }
+    </style>
+  </defs>
+  <g id="ic_arrow_full_16" transform="translate(16 16) rotate(180)">
+    <rect id="backplate" class="cls-1" width="16" height="16"/>
+    <path id="icon" class="cls-2" d="M8.3,4.3a1,1,0,0,0,0,1.414L9.586,7H4A1,1,0,0,0,4,9H9.586L8.3,10.286A1,1,0,1,0,9.717,11.7L12,9.417l.707-.708a1,1,0,0,0,0-1.414L12,6.588,9.712,4.3A1,1,0,0,0,8.3,4.3"/>
+  </g>
+</svg>
