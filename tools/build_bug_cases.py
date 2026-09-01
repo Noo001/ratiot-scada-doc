@@ -23,13 +23,21 @@ for m in re.finditer(r'^##\s+(Кейс\s+(\d+)\.\s+.+?|Итог)\s*$', md_text, 
 
 toc_html = "\n".join(f'        <a href="#{anchor}">{title}</a>' for anchor, title in nav_items)
 
-# Добавляем pandoc-атрибуты к заголовкам
+# Добавляем pandoc-атрибуты к заголовкам (библиотека markdown их не обработает, поэтому позже вытащим вручную)
 md_text = re.sub(r'^##\s+(Кейс\s+(\d+)\.\s+.+?)$', r'## \1 {#case-\2}', md_text, flags=re.MULTILINE)
 md_text = re.sub(r'^##\s+(Итог)\s*$', r'## \1 {#summary}', md_text, flags=re.MULTILINE)
 
 # Конвертируем markdown в html
 md = markdown.Markdown(extensions=['fenced_code', 'tables'])
 body_html = md.convert(md_text)
+
+# Присваиваем id заголовкам кейсов и итогу (pandoc-атрибуты остались в тексте заголовков)
+body_html = re.sub(
+    r'<h2>Кейс\s+(\d+)\.\s+(.+?)\s+\{#case-\d+\}</h2>',
+    r'<h2 id="case-\1">Кейс \1. \2</h2>',
+    body_html
+)
+body_html = re.sub(r'<h2>Итог\s+\{#summary\}</h2>', '<h2 id="summary">Итог</h2>', body_html)
 
 # Нормализуем h1
 body_html = re.sub(r'<h1[^>]*>\s*<\/h1>', '<h1 id="top">Баг-кейсы RatioT SCADA</h1>', body_html, count=1)
