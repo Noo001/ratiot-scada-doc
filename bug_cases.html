@@ -71,6 +71,8 @@
         <a href="#case-23">Кейс 23. Не отображаются изображения в демо-проекте Романа Шиндина</a>
         <a href="#case-24">Кейс 24. Не работает активация метаданных устройства</a>
         <a href="#case-25">Кейс 25. Встроенная справка недоступна по URL `/static/docs/`</a>
+        <a href="#case-26">Кейс 26. JS-ошибки `getListenerCode` при навигации по системному дереву</a>
+        <a href="#case-27">Кейс 27. Прямые ссылки на настройки сервера и лицензии возвращают JSON 404</a>
         <a href="#summary">Итог</a>
       </nav>
     </aside>
@@ -108,6 +110,8 @@
 <li><a href="#case-23">Кейс 23. Не отображаются изображения в демо-проекте Романа Шиндина</a></li>
 <li><a href="#case-24">Кейс 24. Не работает активация метаданных устройства</a></li>
 <li><a href="#case-25">Кейс 25. Встроенная справка недоступна по URL <code>/static/docs/</code></a></li>
+<li><a href="#case-26">Кейс 26. JS-ошибки <code>getListenerCode</code> при навигации по системному дереву</a></li>
+<li><a href="#case-27">Кейс 27. Прямые ссылки на настройки сервера и лицензии возвращают JSON 404</a></li>
 <li><a href="#summary">Итог</a></li>
 </ul>
 <hr />
@@ -797,6 +801,53 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 <li><img alt="404 при открытии /static/docs/introduction.htm" src="tests/screenshots/case25_docs_404.png" /></li>
 </ul>
 <hr />
+<h2>Кейс 26. JS-ошибки <code>getListenerCode</code> при навигации по системному дереву {#case-26}</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Web UI / JavaScript</p>
+<h3>Описание</h3>
+<p>При открытии любого раздела через системное дерево или поиск в дереве в консоли браузера фиксируются массовые JS-ошибки <code>Cannot read properties of null (reading 'getListenerCode')</code>. Разделы визуально открываются, но ошибки указывают на некорректную инициализацию слушателей событий в frontend и могут приводить к нестабильности интерфейса.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Войти в веб-клиент <code>https://localhost:8443/web</code> под <code>admin / admin</code>.</li>
+<li>Открыть консоль разработчика браузера (F12).</li>
+<li>В поле <strong>Поиск в системном дереве</strong> ввести <strong>Устройства</strong>.</li>
+<li>Кликнуть по найденному разделу <strong>Устройства</strong> в дереве.</li>
+<li>Посмотреть в консоль.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>Открытие раздела происходит без JavaScript-ошибок.</p>
+<h3>Фактический результат</h3>
+<p>В консоли появляются множественные ошибки вида:</p>
+<pre><code>Error: Ошибка инициализации приема события 'visibleChildAdded' из контекста 'users.admin.dashboards.devices':
+Cannot read properties of null (reading 'getListenerCode')
+</code></pre>
+<h3>Скриншоты</h3>
+<ul>
+<li><img alt="Открытие раздела через поиск в дереве" src="tests/screenshots/case26_js_errors_console.png" /> — состояние после открытия раздела, при этом в консоли зафиксированы ошибки <code>getListenerCode</code></li>
+</ul>
+<hr />
+<h2>Кейс 27. Прямые ссылки на настройки сервера и лицензии возвращают JSON 404 {#case-27}</h2>
+<p><strong>Серьёзность:</strong> Medium<br />
+<strong>Тип:</strong> Web UI / обработка ошибок</p>
+<h3>Описание</h3>
+<p>Прямые URL, которые могут использоваться в закладках, документации или внутренних ссылках, возвращают сырой JSON-ответ об ошибке 404 вместо HTML-страницы 404. При этом пользовательский путь через кнопку <strong>Настроить сервер</strong> и вкладку <strong>Лицензионная информация</strong> внутри <strong>Информации о сервере</strong> работает корректно.</p>
+<h3>Воспроизведение</h3>
+<ol>
+<li>Войти в веб-клиент или открыть новую вкладку браузера.</li>
+<li>Перейти по URL <code>https://localhost:8443/web/context/users.admin.server.properties</code>.</li>
+<li>Перейти по URL <code>https://localhost:8443/web/context/users.admin.licenseInfo</code>.</li>
+<li>Убедиться, что в обоих случаях отображается JSON-ответ <code>{"type":"about:blank","title":"Not Found","status":404,...}</code> вместо HTML-страницы.</li>
+</ol>
+<h3>Ожидаемый результат</h3>
+<p>По прямым ссылкам на внутренние разделы открывается либо сам раздел, либо единая HTML-страница 404 с понятным сообщением.</p>
+<h3>Фактический результат</h3>
+<p>Отображается сырой JSON 404.</p>
+<h3>Скриншоты</h3>
+<ul>
+<li><img alt="JSON 404 по ссылке настройки сервера" src="tests/screenshots/case27_server_settings_url.png" /></li>
+<li><img alt="JSON 404 по ссылке лицензионной информации" src="tests/screenshots/case27_license_info_url.png" /></li>
+</ul>
+<hr />
 <h2>Итог {#summary}</h2>
 <table>
 <thead>
@@ -929,6 +980,16 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 </tr>
 <tr>
 <td>25. Встроенная справка недоступна по <code>/static/docs/</code></td>
+<td>Medium</td>
+<td>Подтверждён в 6.41.10</td>
+</tr>
+<tr>
+<td>26. JS-ошибки <code>getListenerCode</code> при навигации по дереву</td>
+<td>Medium</td>
+<td>Подтверждён в 6.41.10</td>
+</tr>
+<tr>
+<td>27. Прямые ссылки на настройки сервера и лицензии возвращают JSON 404</td>
 <td>Medium</td>
 <td>Подтверждён в 6.41.10</td>
 </tr>
