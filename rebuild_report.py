@@ -40,6 +40,14 @@ order_and_groups = [
     (13, "Новые баги"),
     (16, "Новые баги"),
     (17, "Новые баги"),
+    (18, "Новые баги"),
+    (19, "Новые баги"),
+    (20, "Новые баги"),
+    (21, "Новые баги"),
+    (22, "Новые баги"),
+    (23, "Новые баги"),
+    (24, "Новые баги"),
+    (25, "Новые баги"),
 ]
 case_map = {c['old_num']: c for c in filtered}
 ordered = []
@@ -68,11 +76,19 @@ statuses = {
     13: "Подтверждён",
     16: "Подтверждён",
     17: "Подтверждён",
+    18: "Подтверждён",
+    19: "Подтверждён в 6.41.10",
+    20: "Подтверждён / требует уточнения",
+    21: "Подтверждён / требует уточнения",
+    22: "Подтверждён",
+    23: "Подтверждён / требует уточнения",
+    24: "Подтверждён / требует уточнения",
+    25: "Подтверждён в 6.41.10",
 }
 
-# Извлекаем критичность
+# Извлекаем критичность (поддерживаем старый "Критичность" и новый "Серьёзность")
 def get_severity(body_md):
-    m = re.search(r'\*\*Критичность:\*\*\s*(\w+)', body_md)
+    m = re.search(r'\*\*(?:Критичность|Серьёзность):\*\*\s*(\w+)', body_md)
     return m.group(1) if m else "Medium"
 
 for c in ordered:
@@ -159,7 +175,7 @@ aside_html = f'''<aside>
 
 main_html = f'''<main>
 <header>
-<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09</h1>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.10</h1>
 <a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
 </header>
 <h2>Сводная таблица</h2>
@@ -175,7 +191,7 @@ final_html = f'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Отчёт по баг-кейсам RatioT SCADA</title>
+<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.10</title>
 <style>
 :root {{ --text:#1f2328; --muted:#59636e; --border:#d1d9e0; --bg:#f6f8fa; --accent:#0969da; --danger:#cf222e; --warn:#9a6700; }}
 * {{ box-sizing: border-box; }}

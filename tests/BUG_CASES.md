@@ -31,6 +31,7 @@
 - [Кейс 22. Скриншоты и изображения AggreGate в справке и демо-проектах](#case-22)
 - [Кейс 23. Не отображаются изображения в демо-проекте Романа Шиндина](#case-23)
 - [Кейс 24. Не работает активация метаданных устройства](#case-24)
+- [Кейс 25. Встроенная справка недоступна по URL `/static/docs/`](#case-25)
 - [Итог](#summary)
 
 ---
@@ -659,10 +660,17 @@ HTML-сниппет отображается внутри выделенной �
 Дашборд отображается в веб-клиенте.
 
 ### Фактический результат
-Модальное окно ошибки: «Дашборд был создан оконным клиентом и не поддерживается WEB клиентом».
+- В версии 6.41.09: модальное окно ошибки «Дашборд был создан оконным клиентом и не поддерживается WEB клиентом».
+- В версии 6.41.10: при открытии дашборда `users.admin.dashboards.alerts` вместо HTML-страницы возвращается JSON-ошибка сервера:
+  ```json
+  {"status":"BAD_REQUEST","message":"Переменная 'additionalHttpHeaders' недоступна в контексте 'users.admin.dashboards.alerts'","code":"E"}
+  ```
+  При этом смежный дашборд `users.admin.dashboards.alertsMonitoring` («Активные тревоги») открывается корректно.
 
 ### Скриншоты
-- ![Ошибка открытия дашборда тревог](tests/screenshots/case19_alarms_dashboard_error.png)
+- ![Ошибка открытия дашборда тревог 6.41.09](tests/screenshots/case19_alarms_dashboard_error.png)
+- ![JSON-ошибка additionalHttpHeaders в 6.41.10](tests/screenshots/case19_alerts_dashboard_64110.png)
+- ![Активные тревоги открываются корректно](tests/screenshots/test_case19_alerts_monitoring.png)
 
 ---
 
@@ -802,6 +810,31 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 
 ---
 
+<a id="case-25"></a>
+## Кейс 25. Встроенная справка недоступна по URL `/static/docs/`
+
+**Серьёзность:** Medium  
+**Тип:** Документация / Web UI
+
+### Описание
+Ссылки на встроенную справку из веб-клиента и прямые URL `/static/docs/*` возвращают страницу 404 вместо HTML-справки. Документация присутствует в файловой системе сервера (`admin/custom/templates/docs/`), но не отдаётся через веб-сервер.
+
+### Воспроизведение
+1. Открыть в веб-клиенте любую страницу, например `https://localhost:8443/web/`.
+2. Перейти по прямому URL встроенной справки: `https://localhost:8443/static/docs/index.htm` или `https://localhost:8443/static/docs/introduction.htm`.
+3. Убедиться, что вместо справки отображается страница 404.
+
+### Ожидаемый результат
+По URL `/static/docs/` открывается встроенная HTML-справка RatioT SCADA.
+
+### Фактический результат
+Любой из проверенных URL (`/static/docs/index.htm`, `/static/docs/introduction.htm`, `/web/static/docs/index.htm`, `/admin/custom/templates/docs/index.htm` и др.) возвращает 404.
+
+### Скриншоты
+- ![404 при открытии /static/docs/introduction.htm](tests/screenshots/case25_docs_404.png)
+
+---
+
 <a id="summary"></a>
 ## Итог
 
@@ -831,3 +864,4 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 | 22. Скриншоты AggreGate в справке/демо | Low | Подтверждён |
 | 23. Не отображаются изображения в демо Шиндина | Medium | Подтверждён / требует уточнения |
 | 24. Активация метаданных устройства не работает | Medium | Подтверждён / требует уточнения |
+| 25. Встроенная справка недоступна по `/static/docs/` | Medium | Подтверждён в 6.41.10 |

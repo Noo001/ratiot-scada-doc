@@ -1,22 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta name="robots" content="noindex, nofollow">
-  <script>
-    (function () {
-      if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
-        var pwd = prompt('Доступ к документации. Введите пароль:');
-        if (pwd !== '111') {
-          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
-          throw new Error('Access denied');
-        }
-        localStorage.setItem('ratiot-doc-auth', 'ok');
-      }
-    })();
-  </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Отчёт по баг-кейсам RatioT SCADA</title>
+<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.10</title>
 <style>
 :root { --text:#1f2328; --muted:#59636e; --border:#d1d9e0; --bg:#f6f8fa; --accent:#0969da; --danger:#cf222e; --warn:#9a6700; }
 * { box-sizing: border-box; }
@@ -94,11 +81,19 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <a href="#case-12">12. Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a>
 <a href="#case-13">13. Вкладки «Информации о сервере» обрезаются и не переносятся</a>
 <a href="#case-14">14. Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a>
+<a href="#case-15">15. Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a>
+<a href="#case-16">16. Дашборд «Тревоги» не открывается в веб-клиенте</a>
+<a href="#case-17">17. Пустые шаблоны задвижек, насосов и других устройств</a>
+<a href="#case-18">18. Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a>
+<a href="#case-19">19. Скриншоты и изображения AggreGate в справке и демо-проектах</a>
+<a href="#case-20">20. Не отображаются изображения в демо-проекте Романа Шиндина</a>
+<a href="#case-21">21. Не работает активация метаданных устройства</a>
+<a href="#case-22">22. Встроенная справка недоступна по URL `/static/docs/`</a>
 </nav>
 </aside>
 <main>
 <header>
-<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09</h1>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.10</h1>
 <a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
 </header>
 <h2>Сводная таблица</h2>
@@ -117,7 +112,15 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>11</td><td><a href="#case-11">Вёрстка страницы 404</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>12</td><td><a href="#case-12">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td>Medium</td><td>Подтверждён</td></tr>
 <tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Подтверждён</td></tr>
-<tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Подтверждён</td></tr></tbody></table>
+<tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Подтверждён</td></tr>
+<tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Подтверждён</td></tr>
+<tr><td>16</td><td><a href="#case-16">Дашборд «Тревоги» не открывается в веб-клиенте</a></td><td>High</td><td>Подтверждён в 6.41.10</td></tr>
+<tr><td>17</td><td><a href="#case-17">Пустые шаблоны задвижек, насосов и других устройств</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
+<tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Подтверждён / требует уточнения</td></tr>
+<tr><td>19</td><td><a href="#case-19">Скриншоты и изображения AggreGate в справке и демо-проектах</a></td><td>Low</td><td>Подтверждён</td></tr>
+<tr><td>20</td><td><a href="#case-20">Не отображаются изображения в демо-проекте Романа Шиндина</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
+<tr><td>21</td><td><a href="#case-21">Не работает активация метаданных устройства</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
+<tr><td>22</td><td><a href="#case-22">Встроенная справка недоступна по URL `/static/docs/`</a></td><td>Medium</td><td>Подтверждён в 6.41.10</td></tr></tbody></table>
 <h2 class="section-title" id="section-предъявленные">Сообщённые Агрегейту</h2>
 <section class="case severity-medium" id="case-1">
 <h3>Кейс 1. Режимы лицензирования free / trial не описаны в документации</h3>
@@ -524,6 +527,191 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h4>Скриншоты</h4>
 <ul>
 <li><img alt="раздел Пользователи открывает корень системного дерева" src="tests/screenshots/smoke_05_users.png" /> — вместо списка пользователей показаны системные ресурсы</li>
+</ul>
+</section>
+<section class="case severity-medium" id="case-15">
+<h3>Кейс 15. Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p><strong>Серьёзность:</strong> Medium  </p>
+<h4>Описание</h4>
+<p>В стартовой странице демо-приложения разделы «Документация» и «Онлайн» содержат ссылки, которые ведут на <code>aggregate.digital</code>, а не на актуальные ресурсы RatioT SCADA / BUFFLAB.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть демо-приложение SCADA/HMI в веб-клиенте.</li>
+<li>На стартовой странице выбрать ссылку в блоке «Документация» или «Онлайн».</li>
+<li>Браузер переходит на <code>aggregate.digital/docs/aggregate/ru_6.4/scada_hmi.htm</code>.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Ссылки ведут на сайт RatioT SCADA / BUFFLAB (например, на внутреннюю документацию или маркетинговый сайт RatioT).</p>
+<h4>Фактический результат</h4>
+<p>Ссылки ведут на сайт AggreGate, в том числе на раздел с описанием «AggreGate SCADA/HMI».</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="Ссылки на стартовой странице" src="tests/screenshots/case18_aggregate_links_dashboard.png" /> — блок Документация/Онлайн ведёт на AggreGate</li>
+<li><img alt="Открывшийся сайт AggreGate" src="tests/screenshots/case18_aggregate_links_docs.png" /> — браузер на aggregate.digital</li>
+</ul>
+</section>
+<section class="case severity-high" id="case-16">
+<h3>Кейс 16. Дашборд «Тревоги» не открывается в веб-клиенте</h3>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён в 6.41.10</span></p>
+<p><strong>Серьёзность:</strong> High  </p>
+<h4>Описание</h4>
+<p>Дашборд «Тревоги» (возможно, созданный в десктопном клиенте) не открывается в веб-клиенте. Вместо содержимого выводится ошибка.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>В веб-клиенте открыть раздел «Тревоги» / дашборд тревог.</li>
+<li>Дождаться загрузки.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Дашборд отображается в веб-клиенте.</p>
+<h4>Фактический результат</h4>
+<ul>
+<li>В версии 6.41.09: модальное окно ошибки «Дашборд был создан оконным клиентом и не поддерживается WEB клиентом».</li>
+<li>В версии 6.41.10: при открытии дашборда <code>users.admin.dashboards.alerts</code> вместо HTML-страницы возвращается JSON-ошибка сервера:
+  <code>json
+  {"status":"BAD_REQUEST","message":"Переменная 'additionalHttpHeaders' недоступна в контексте 'users.admin.dashboards.alerts'","code":"E"}</code>
+  При этом смежный дашборд <code>users.admin.dashboards.alertsMonitoring</code> («Активные тревоги») открывается корректно.</li>
+</ul>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="Ошибка открытия дашборда тревог 6.41.09" src="tests/screenshots/case19_alarms_dashboard_error.png" /></li>
+<li><img alt="JSON-ошибка additionalHttpHeaders в 6.41.10" src="tests/screenshots/case19_alerts_dashboard_64110.png" /></li>
+<li><img alt="Активные тревоги открываются корректно" src="tests/screenshots/test_case19_alerts_monitoring.png" /></li>
+</ul>
+</section>
+<section class="case severity-medium" id="case-17">
+<h3>Кейс 17. Пустые шаблоны задвижек, насосов и других устройств</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён / требует уточнения</span></p>
+<p><strong>Серьёзность:</strong> Medium  </p>
+<h4>Описание</h4>
+<p>При открытии шаблонов устройств (задвижек, насосов и др.) основная рабочая область остаётся пустой. Не понятно, это дефект данных или такое поведение ожидается.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>В системном дереве открыть «Инструментальные панели → Группы инструментальных панелей → Шаблон задвижка».</li>
+<li>Выбрать конкретный шаблон, например «Шаблон Задвижка V2 (Dockable)».</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Отображается содержимое шаблона (поля, параметры, визуальный редактор).</p>
+<h4>Фактический результат</h4>
+<p>Правая панель пустая.</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="Пустой шаблон задвижки" src="tests/screenshots/case20_empty_valve_template.png" /></li>
+</ul>
+</section>
+<section class="case severity-high" id="case-18">
+<h3>Кейс 18. Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</h3>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён / требует уточнения</span></p>
+<p><strong>Серьёзность:</strong> High  </p>
+<h4>Описание</h4>
+<p>При попытке редактирования демо-проектов элементы дашборда показывают бесконечные спиннеры. В консоли/модальном окне появляется JS-ошибка инициализации дашборда.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть демо-проект в режиме редактирования (например, <code>users.admin.dashboards.milkStorage</code>).</li>
+<li>Дождаться загрузки.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Дашборд загружается и доступен для редактирования.</p>
+<h4>Фактический результат</h4>
+<p>Бесконечные индикаторы загрузки. Ошибка:</p>
+<pre><code>Error init dashboard &quot;users.admin.dashboards.ioField&quot;.
+Cannot read properties of null (reading 'getContextManager')
+TypeError: Cannot read properties of null (reading 'getContextManager')
+    at Ft.initComponentsInternal (...)
+    at Ft.initComponents (...)
+    at Ft.initServer (...)
+    at async Uo.loadDashboard (...)
+    at async r.prepareSubDashboardModel (...)
+    at async Promise.allSettled (index 0)
+</code></pre>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="Бесконечная загрузка элементов" src="tests/screenshots/case21_demo_loading_spinner.png" /></li>
+<li><img alt="JS-ошибка ioField" src="tests/screenshots/case21_demo_js_error.png" /></li>
+</ul>
+</section>
+<section class="case severity-low" id="case-19">
+<h3>Кейс 19. Скриншоты и изображения AggreGate в справке и демо-проектах</h3>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p><strong>Серьёзность:</strong> Low  </p>
+<h4>Описание</h4>
+<p>Во встроенной справке и демо-проектах встречаются скриншоты/изображения с брендингом AggreGate (логотип, цветовая схема, название).</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть встроенную справку или демо «Дом».</li>
+<li>Обратить внимание на картинки/приветственные экраны.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Все иллюстрации содержат брендинг RatioT SCADA / BUFFLAB.</p>
+<h4>Фактический результат</h4>
+<p>Видны логотип и тексты AggreGate.</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="Справка с брендингом AggreGate" src="tests/screenshots/case22_aggregate_screenshot_help.png" /></li>
+<li><img alt="Демо «Дом» с брендингом AggreGate" src="tests/screenshots/case22_aggregate_screenshot_demo.png" /></li>
+</ul>
+</section>
+<section class="case severity-medium" id="case-20">
+<h3>Кейс 20. Не отображаются изображения в демо-проекте Романа Шиндина</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён / требует уточнения</span></p>
+<p><strong>Серьёзность:</strong> Medium  </p>
+<h4>Описание</h4>
+<p>В присланном демо-проекте Романа Шиндина вместо изображений/иконок отображаются битые плейсхолдеры.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть указанный демо-проект.</li>
+<li>Просмотреть элементы, где должны быть картинки.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Изображения загружаются корректно.</p>
+<h4>Фактический результат</h4>
+<p>Видны пустые плейсхолдеры вместо изображений.</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="Битые изображения в демо-проекте" src="tests/screenshots/case23_missing_images_demo.png" /></li>
+</ul>
+</section>
+<section class="case severity-medium" id="case-21">
+<h3>Кейс 21. Не работает активация метаданных устройства</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён / требует уточнения</span></p>
+<p><strong>Серьёзность:</strong> Medium  </p>
+<h4>Описание</h4>
+<p>Несмотря на то что в свойствах устройства «Активные переменные/функции/события» установлено значение «Все», вкладка «Метаданные» остаётся пустой.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть свойства устройства.</li>
+<li>На вкладке «Общие свойства» установить «Активные переменные/функции/события» = «Все».</li>
+<li>Перейти на вкладку «Метаданные».</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>Отображается список метаданных устройства.</p>
+<h4>Фактический результат</h4>
+<p>Вкладка пустая (No Data), хотя условие для отображения выполнено.</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="Настройка «Активные переменные/функции/события» = Все" src="tests/screenshots/case24_metadata_active_setting.png" /></li>
+<li><img alt="Пустая вкладка Метаданные" src="tests/screenshots/case24_metadata_empty.png" /></li>
+</ul>
+</section>
+<section class="case severity-medium" id="case-22">
+<h3>Кейс 22. Встроенная справка недоступна по URL `/static/docs/`</h3>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён в 6.41.10</span></p>
+<p><strong>Серьёзность:</strong> Medium  </p>
+<h4>Описание</h4>
+<p>Ссылки на встроенную справку из веб-клиента и прямые URL <code>/static/docs/*</code> возвращают страницу 404 вместо HTML-справки. Документация присутствует в файловой системе сервера (<code>admin/custom/templates/docs/</code>), но не отдаётся через веб-сервер.</p>
+<h4>Воспроизведение</h4>
+<ol>
+<li>Открыть в веб-клиенте любую страницу, например <code>https://localhost:8443/web/</code>.</li>
+<li>Перейти по прямому URL встроенной справки: <code>https://localhost:8443/static/docs/index.htm</code> или <code>https://localhost:8443/static/docs/introduction.htm</code>.</li>
+<li>Убедиться, что вместо справки отображается страница 404.</li>
+</ol>
+<h4>Ожидаемый результат</h4>
+<p>По URL <code>/static/docs/</code> открывается встроенная HTML-справка RatioT SCADA.</p>
+<h4>Фактический результат</h4>
+<p>Любой из проверенных URL (<code>/static/docs/index.htm</code>, <code>/static/docs/introduction.htm</code>, <code>/web/static/docs/index.htm</code>, <code>/admin/custom/templates/docs/index.htm</code> и др.) возвращает 404.</p>
+<h4>Скриншоты</h4>
+<ul>
+<li><img alt="404 при открытии /static/docs/introduction.htm" src="tests/screenshots/case25_docs_404.png" /></li>
 </ul>
 </section>
 </main>
