@@ -116,7 +116,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Подтверждён</td></tr>
 <tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Исправлено в 6.41.11</td></tr>
-<tr><td>16</td><td><a href="#case-16">Дашборд «Тревоги» не открывается в веб-клиенте</a></td><td>High</td><td>Подтверждён в 6.41.10</td></tr>
+<tr><td>16</td><td><a href="#case-16">Дашборд «Тревоги» не открывается в веб-клиенте</a></td><td>High</td><td>Не исправлено в 6.41.11</td></tr>
 <tr><td>17</td><td><a href="#case-17">Пустые шаблоны задвижек, насосов и других устройств</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
 <tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Исправлено в 6.41.11</td></tr>
 <tr><td>19</td><td><a href="#case-19">Скриншоты и изображения AggreGate в справке и демо-проектах</a></td><td>Low</td><td>Частично исправлено в 6.41.11</td></tr>
@@ -607,7 +607,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-high" id="case-16">
 <h3>Кейс 16. Дашборд «Тревоги» не открывается в веб-клиенте</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён в 6.41.10</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Не исправлено в 6.41.11</span></p>
 <p><strong>Серьёзность:</strong> High  </p>
 <h4>Описание</h4>
 <p>Дашборд «Тревоги» (возможно, созданный в десктопном клиенте) не открывается в веб-клиенте. Вместо содержимого выводится ошибка.</p>
@@ -626,11 +626,17 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
   {"status":"BAD_REQUEST","message":"Переменная 'additionalHttpHeaders' недоступна в контексте 'users.admin.dashboards.alerts'","code":"E"}</code>
   При этом смежный дашборд <code>users.admin.dashboards.alertsMonitoring</code> («Активные тревоги») открывается корректно.</li>
 </ul>
+<h4>Проверка в 6.41.11 (ASD-6497, ответ АГ: «исправлено в 6.41.11, сборка 2544»)</h4>
+<p>АГ проверяли дашборд <code>alertsMonitoring</code> («Активные тревоги») — он действительно работает и у нас: открывается по иконке колокольчика в левой панели и по прямому URL, ошибок нет, вкладка «Исторические тревоги» тоже работает.</p>
+<p>Однако исходный дефект — дашборд <strong><code>alerts</code> («Тревоги»)</strong> — <strong>не исправлен</strong>. Пользовательский путь: системное дерево → поиск «alerts» → «Тревоги» (Пользователи → admin → Модели → Управление тревогами → Инструментальные панели → Тревоги) → клик → модальная ошибка «Дашборд был создан оконным клиентом и не поддерживается WEB клиентом» (та же, что в 6.41.09). Прямой URL <code>/web/dashboards/users.admin.dashboards.alerts</code> по-прежнему возвращает JSON 400: «Переменная 'additionalHttpHeaders' недоступна в контексте 'users.admin.dashboards.alerts'».</p>
+<p><strong>Итог: не исправлено. АГ проверили соседний дашборд (<code>alertsMonitoring</code>), который и раньше работал.</strong></p>
 <h4>Скриншоты</h4>
 <ul>
 <li><img alt="Ошибка открытия дашборда тревог 6.41.09" src="tests/screenshots/case19_alarms_dashboard_error.png" /></li>
 <li><img alt="JSON-ошибка additionalHttpHeaders в 6.41.10" src="tests/screenshots/case19_alerts_dashboard_64110.png" /></li>
 <li><img alt="Активные тревоги открываются корректно" src="tests/screenshots/test_case19_alerts_monitoring.png" /></li>
+<li><img alt="6.41.11: JSON 400 по прямому URL alerts" src="tests/screenshots/case19_64111_alerts.png" /></li>
+<li><img alt="6.41.11: модальная ошибка «Дашборд был создан оконным клиентом» при открытии «Тревоги» из дерева" src="tests/screenshots/case19_64111_tree_alerts_click.png" /></li>
 </ul>
 </section>
 <section class="case severity-medium" id="case-17">

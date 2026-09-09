@@ -715,11 +715,17 @@
   {"status":"BAD_REQUEST","message":"Переменная 'additionalHttpHeaders' недоступна в контексте 'users.admin.dashboards.alerts'","code":"E"}</code>
   При этом смежный дашборд <code>users.admin.dashboards.alertsMonitoring</code> («Активные тревоги») открывается корректно.</li>
 </ul>
+<h3>Проверка в 6.41.11 (ASD-6497, ответ АГ: «исправлено в 6.41.11, сборка 2544»)</h3>
+<p>АГ проверяли дашборд <code>alertsMonitoring</code> («Активные тревоги») — он действительно работает и у нас: открывается по иконке колокольчика в левой панели и по прямому URL, ошибок нет, вкладка «Исторические тревоги» тоже работает.</p>
+<p>Однако исходный дефект — дашборд <strong><code>alerts</code> («Тревоги»)</strong> — <strong>не исправлен</strong>. Пользовательский путь: системное дерево → поиск «alerts» → «Тревоги» (Пользователи → admin → Модели → Управление тревогами → Инструментальные панели → Тревоги) → клик → модальная ошибка «Дашборд был создан оконным клиентом и не поддерживается WEB клиентом» (та же, что в 6.41.09). Прямой URL <code>/web/dashboards/users.admin.dashboards.alerts</code> по-прежнему возвращает JSON 400: «Переменная 'additionalHttpHeaders' недоступна в контексте 'users.admin.dashboards.alerts'».</p>
+<p><strong>Итог: не исправлено. АГ проверили соседний дашборд (<code>alertsMonitoring</code>), который и раньше работал.</strong></p>
 <h3>Скриншоты</h3>
 <ul>
 <li><img alt="Ошибка открытия дашборда тревог 6.41.09" src="tests/screenshots/case19_alarms_dashboard_error.png" /></li>
 <li><img alt="JSON-ошибка additionalHttpHeaders в 6.41.10" src="tests/screenshots/case19_alerts_dashboard_64110.png" /></li>
 <li><img alt="Активные тревоги открываются корректно" src="tests/screenshots/test_case19_alerts_monitoring.png" /></li>
+<li><img alt="6.41.11: JSON 400 по прямому URL alerts" src="tests/screenshots/case19_64111_alerts.png" /></li>
+<li><img alt="6.41.11: модальная ошибка «Дашборд был создан оконным клиентом» при открытии «Тревоги» из дерева" src="tests/screenshots/case19_64111_tree_alerts_click.png" /></li>
 </ul>
 <hr />
 <h2 id="case-20">Кейс 20. Пустые шаблоны задвижек, насосов и других устройств</h2>
@@ -1057,7 +1063,7 @@ Cannot read properties of null (reading 'getListenerCode')
 <tr>
 <td>19. Дашборд Тревог не открывается в WEB</td>
 <td>High</td>
-<td>Подтверждён</td>
+<td>Не исправлено в 6.41.11 (АГ проверили соседний alertsMonitoring)</td>
 </tr>
 <tr>
 <td>20. Пустые шаблоны устройств</td>
