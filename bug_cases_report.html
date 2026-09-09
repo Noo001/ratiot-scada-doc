@@ -115,7 +115,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>12</td><td><a href="#case-12">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td>Medium</td><td>Подтверждён</td></tr>
 <tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Подтверждён</td></tr>
-<tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Подтверждён</td></tr>
+<tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Исправлено в 6.41.11</td></tr>
 <tr><td>16</td><td><a href="#case-16">Дашборд «Тревоги» не открывается в веб-клиенте</a></td><td>High</td><td>Подтверждён в 6.41.10</td></tr>
 <tr><td>17</td><td><a href="#case-17">Пустые шаблоны задвижек, насосов и других устройств</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
 <tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Исправлено в 6.41.11</td></tr>
@@ -536,7 +536,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-15">
 <h3>Кейс 15. Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11</span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>В стартовой странице демо-приложения разделы «Документация» и «Онлайн» содержат ссылки, которые ведут на <code>aggregate.digital</code>, а не на актуальные ресурсы RatioT SCADA / BUFFLAB.</p>
@@ -550,10 +550,59 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Ссылки ведут на сайт RatioT SCADA / BUFFLAB (например, на внутреннюю документацию или маркетинговый сайт RatioT).</p>
 <h4>Фактический результат</h4>
 <p>Ссылки ведут на сайт AggreGate, в том числе на раздел с описанием «AggreGate SCADA/HMI».</p>
+<h4>Проверка в 6.41.11 (ASD-6496, ответ АГ: «исправлено в 6.41.11, сборка 2544»)</h4>
+<p>Пользовательский путь: логин → стартовая страница «Центр управления» → блоки «Документация» и «Онлайн». Пункты — кнопки дашборда; клик по каждой открывает URL в новой вкладке.</p>
+<p>Результаты кликов:</p>
+<table>
+<thead>
+<tr>
+<th>Пункт</th>
+<th>Открывается</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Документация по SCADA/HMI</td>
+<td><code>https://buff-lab.ru/ratiot_scada/?source=sh</code> (маркетинговая страница, не документация)</td>
+</tr>
+<tr>
+<td>Документация по платформе</td>
+<td>локальная документация <code>…/web/static/templates/docs/introduction.htm</code> (брендинг RatioT SCADA / BUFFLAB)</td>
+</tr>
+<tr>
+<td>Веб-сайт продукта</td>
+<td><code>https://buff-lab.ru/ratiot_scada/?source=sh</code></td>
+</tr>
+<tr>
+<td>Веб-сайт платформы</td>
+<td><code>https://buff-lab.ru/ratiot_scada/</code></td>
+</tr>
+<tr>
+<td>Блог продукта</td>
+<td><code>https://buff-lab.ru/ratiot_scada/</code></td>
+</tr>
+<tr>
+<td>Сообщество</td>
+<td><code>https://buff-lab.ru/ratiot_scada/</code></td>
+</tr>
+<tr>
+<td>Другие решения</td>
+<td><code>https://buff-lab.ru/ratiot_scada/</code></td>
+</tr>
+<tr>
+<td>Купить</td>
+<td><code>https://buff-lab.ru/ratiot_scada/</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ни одна ссылка не ведёт на <code>aggregate.digital</code> — основной дефект исправлен, сайт RatioT (buff-lab.ru) открывается. Остаточные замечания: «Документация по SCADA/HMI» ведёт на маркетинговую главную, а не на документацию; все шесть ссылок раздела «Онлайн» ведут на одну и ту же страницу (фактически заглушки — блога, сообщества и покупки там нет).</p>
 <h4>Скриншоты</h4>
 <ul>
 <li><img alt="Ссылки на стартовой странице" src="tests/screenshots/case18_aggregate_links_dashboard.png" /> — блок Документация/Онлайн ведёт на AggreGate</li>
 <li><img alt="Открывшийся сайт AggreGate" src="tests/screenshots/case18_aggregate_links_docs.png" /> — браузер на aggregate.digital</li>
+<li><img alt="Стартовая страница в 6.41.11" src="tests/screenshots/case18_64111_start.png" /> — блоки Документация/Онлайн</li>
+<li><img alt="Сайт RatioT buff-lab.ru в 6.41.11" src="tests/screenshots/case18_click_Веб-сайт_продукта.png" /> — ссылки ведут на сайт RatioT</li>
+<li><img alt="Локальная документация платформы в 6.41.11" src="tests/screenshots/case18_click_Документация_по_платформе.png" /></li>
 </ul>
 </section>
 <section class="case severity-high" id="case-16">
