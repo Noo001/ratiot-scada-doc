@@ -789,9 +789,38 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 ### Фактический результат
 Видны логотип и тексты AggreGate.
 
+### Проверка в 6.41.11 (ASD-6500, ответ АГ: «дашборд "Дом" отсутствует в составе решения, проблем нет»)
+
+Проверены все 5 демо-решений (Линия бутилирования, Фильтровальная станция, Хранилище пастеризованного молока, Магистральный газопровод, Интеллектуальная энергосистема) и все 5 разделов «Обзор UI компонентов» — демо-проекты чистые, брендинга AggreGate нет. Дашборд «Дом» действительно отсутствует.
+
+Однако полное сканирование встроенной документации (4500+ файлов, все страницы с изображениями > 120 КБ просмотрены визуально) выявило оставшиеся места с брендингом AggreGate:
+
+| Страница документации | Что найдено |
+|---|---|
+| SCADA/HMI → Теги (`sh_scada_tags.htm`) | скриншот: в шапке «Бизнес-объекты и иерархия цифровых двойников ● AggreGate SCADA/HMI» |
+| SCADA/HMI → Библиотека символов (`sh_symbol_library.htm`) | 2 скриншота: «Медиа активы сервера ● AggreGate SCADA/HMI» |
+| SCADA/HMI → Мастер создания приложений (`sh_application_generation_wizard.htm`) | 2 скриншота: ссылка «Уже работали с AggreGate? Начните с чистого листа» |
+| Клиент → Редактор выражений (`cl_expression_builder.htm`) | скриншот: в дереве Server Data «AggreGate Server v.5.30.08» |
+| Интеграция с KAFKA (`tut_kafka_integration.htm`) | 4 внешние ссылки на `aggregate.digital/docs/...` |
+| Драйвер Modbus (`ls_drivers_modbus.htm`) | 2 внешние ссылки на `tibbo.com` (контроллер DS1206, описание Modbus) |
+| Серверы устройств → Устранение проблем (`ds_led_patterns.htm`) | внешняя ссылка на `tibbo.com/extras/leds.html` |
+
+Дополнительно (артефакт ребрендинга, не AggreGate): в заголовке дашборда «Каталог демо-проектов» отображается «RatioT SCADA SCADA/HMI» — задвоение «SCADA» осталось после замены «AggreGate SCADA/HMI».
+
+Путь воспроизведения (пользовательский): Центр управления → кнопка «Документация по платформе» → открыть перечисленные разделы в дереве документации.
+
+**Итог: кейс закрыт не полностью — демо-проекты чистые, но в документации остались 6 скриншотов с брендингом AggreGate и 7 внешних ссылок на aggregate.digital / tibbo.com.**
+
 ### Скриншоты
 - ![Справка с брендингом AggreGate](tests/screenshots/case22_aggregate_screenshot_help.png)
 - ![Демо «Дом» с брендингом AggreGate](tests/screenshots/case22_aggregate_screenshot_demo.png)
+- ![6.41.11: Теги — AggreGate SCADA/HMI в шапке](tests/screenshots/case22_64111_tags_hierarchy_ag.png)
+- ![6.41.11: Библиотека символов — AggreGate SCADA/HMI (1)](tests/screenshots/case22_64111_media_lib_1_ag.png)
+- ![6.41.11: Библиотека символов — AggreGate SCADA/HMI (2)](tests/screenshots/case22_64111_media_lib_2_ag.png)
+- ![6.41.11: Мастер создания приложений — ссылка «Уже работали с AggreGate» (1)](tests/screenshots/case22_64111_wizard_ag_1.png)
+- ![6.41.11: Мастер создания приложений — ссылка «Уже работали с AggreGate» (2)](tests/screenshots/case22_64111_wizard_ag_2.png)
+- ![6.41.11: Редактор выражений — AggreGate Server v.5.30.08](tests/screenshots/case22_64111_expression_builder_ag.png)
+- ![6.41.11: Каталог демо-проектов — «RatioT SCADA SCADA/HMI»](tests/screenshots/case22_64111_demo_catalog_scada_scada.png)
 
 ---
 
@@ -954,7 +983,7 @@ Cannot read properties of null (reading 'getListenerCode')
 | 19. Дашборд Тревог не открывается в WEB | High | Подтверждён |
 | 20. Пустые шаблоны устройств | Medium | Подтверждён / требует уточнения |
 | 21. Бесконечная загрузка и JS-ошибка демо | High | Исправлено в 6.41.11 (остаточные ошибки «Event 'shown' not found» в консоли) |
-| 22. Скриншоты AggreGate в справке/демо | Low | Подтверждён |
+| 22. Скриншоты AggreGate в справке/демо | Low | Частично исправлено в 6.41.11: демо чистые, в документации остались 6 скриншотов и 7 ссылок на aggregate.digital / tibbo.com |
 | 23. Не отображаются изображения в демо Шиндина | Medium | Подтверждён / требует уточнения |
 | 24. Активация метаданных устройства не работает | Medium | Подтверждён / требует уточнения |
 | 25. Встроенная справка недоступна по `/static/docs/` | Medium | Подтверждён в 6.41.10 |
