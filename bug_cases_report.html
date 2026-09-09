@@ -107,7 +107,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>5</td><td><a href="#case-5">Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</a></td><td>Critical</td><td>Подтверждён коллегами / настройка доступна, переключение не проводилось</td></tr>
 <tr><td>6</td><td><a href="#case-6">Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</a></td><td>High</td><td>Подтверждён коллегами / требует переустановки</td></tr>
 <tr class="group-row"><td colspan="4"><strong>Новые баги</strong></td></tr>
-<tr><td>7</td><td><a href="#case-7">Ошибки создания ресурсов при первом запуске сервера</a></td><td>Low</td><td>Подтверждён</td></tr>
+<tr><td>7</td><td><a href="#case-7">Ошибки создания ресурсов при первом запуске сервера</a></td><td>Low</td><td>Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (ASD-6474)</td></tr>
 <tr><td>8</td><td><a href="#case-8">Настройки колонок компонента eventLog сбрасываются при поступлении событий</a></td><td>High</td><td>Подтверждён коллегами / в trial нет редактора дашбордов</td></tr>
 <tr><td>9</td><td><a href="#case-9">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td>Medium</td><td>Подтверждён коллегами / в trial нет редактора дашбордов</td></tr>
 <tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td>High</td><td>Подтверждён</td></tr>
@@ -330,7 +330,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h2 class="section-title" id="section-новые">Новые баги</h2>
 <section class="case severity-low" id="case-7">
 <h3>Кейс 7. Ошибки создания ресурсов при первом запуске сервера</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Подтверждён</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Статус:</strong> Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (ASD-6474)</span></p>
 <h4>Описание</h4>
 <p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
 <h4>Воспроизведение</h4>
@@ -359,6 +359,22 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h4>Скриншоты</h4>
 <ul>
 <li><img alt="ERROR в server.log при первом запуске" src="tests/screenshots/case1_server_log_errors.png" /> — фрагмент <code>server.log</code> с ошибками инициализации ресурсов</li>
+</ul>
+<h4>Проверка в 6.41.11 (ASD-6474, ответ АГ: «состав лицензий пересмотрен и перегенерирован, новые сборки не содержат ERROR ag.context»)</h4>
+<p>Проверено на свежей установке RatioT SCADA 6.41.11 (сборка 2532), лог <code>server.log</code> начинается с первого запуска сервера (строка «First launch detected», «Starting RatioT Server v6.41.11-2532»):</p>
+<ul>
+<li>Все три исходные ошибки из кейса — <code>users.admin.models.avatarManagement</code>, <code>users.admin.reports.maintenance</code>, <code>users.admin.models.workflowModel</code> — <strong>отсутствуют в логе</strong>. Исходный дефект устранён.</li>
+<li>Однако утверждение «логи сервера более не содержат строки с ERROR ag.context» на сборке 2532 <strong>не подтверждается полностью</strong>: при «Создание ресурсов (Mode: 0, server machine)» остаётся одна ERROR того же класса:
+  <code>09.09.2026 16:47:26,827 ERROR ag.context
+    Error creating resource 'users.admin.models.deviceImages':
+    Переменная 'deviceImages' недоступна в контексте 'users.admin.models.deviceImages'</code></li>
+<li>Дополнительно при инициализации фиксируются WARN со стектрейсами <code>ag.statistics</code>: «Переменная 'status' недоступна в контексте 'users.admin.models.tabList'» и «Переменная 'eventStatistics' недоступна в контексте 'users.admin.models.tabList'».</li>
+</ul>
+<p><strong>Итог: частично исправлено. Три исходных ресурса создаются корректно, но при первом запуске остаётся одна ERROR ag.context (users.admin.models.deviceImages) и два WARN ag.statistics (users.admin.models.tabList). Возможно, перегенерация лицензий вошла в сборку новее 2532 — просим подтвердить номер сборки и проверим повторно.</strong></p>
+<h4>Скриншоты (6.41.11)</h4>
+<ul>
+<li><img alt="6.41.11: начало лога первого запуска (First launch detected, Trial License)" src="tests/screenshots/case1_64111_log.png" /></li>
+<li><img alt="6.41.11: ERROR ag.context 'users.admin.models.deviceImages' при создании ресурсов" src="tests/screenshots/case1_64111_error.png" /></li>
 </ul>
 </section>
 <section class="case severity-high" id="case-8">

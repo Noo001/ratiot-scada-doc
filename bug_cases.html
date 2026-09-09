@@ -149,6 +149,22 @@
 <li>Лог-файл: см. <code>C:\Program Files\RatioTScada\logs\server.log</code></li>
 <li>Автотест фиксирует проблему: <code>tests/test_ui_ux.py</code> → <code>test_log_errors()</code></li>
 </ul>
+<h3>Проверка в 6.41.11 (ASD-6474, ответ АГ: «состав лицензий пересмотрен и перегенерирован, новые сборки не содержат ERROR ag.context»)</h3>
+<p>Проверено на свежей установке RatioT SCADA 6.41.11 (сборка 2532), лог <code>server.log</code> начинается с первого запуска сервера (строка «First launch detected», «Starting RatioT Server v6.41.11-2532»):</p>
+<ul>
+<li>Все три исходные ошибки из кейса — <code>users.admin.models.avatarManagement</code>, <code>users.admin.reports.maintenance</code>, <code>users.admin.models.workflowModel</code> — <strong>отсутствуют в логе</strong>. Исходный дефект устранён.</li>
+<li>Однако утверждение «логи сервера более не содержат строки с ERROR ag.context» на сборке 2532 <strong>не подтверждается полностью</strong>: при «Создание ресурсов (Mode: 0, server machine)» остаётся одна ERROR того же класса:
+  <code>09.09.2026 16:47:26,827 ERROR ag.context
+    Error creating resource 'users.admin.models.deviceImages':
+    Переменная 'deviceImages' недоступна в контексте 'users.admin.models.deviceImages'</code></li>
+<li>Дополнительно при инициализации фиксируются WARN со стектрейсами <code>ag.statistics</code>: «Переменная 'status' недоступна в контексте 'users.admin.models.tabList'» и «Переменная 'eventStatistics' недоступна в контексте 'users.admin.models.tabList'».</li>
+</ul>
+<p><strong>Итог: частично исправлено. Три исходных ресурса создаются корректно, но при первом запуске остаётся одна ERROR ag.context (users.admin.models.deviceImages) и два WARN ag.statistics (users.admin.models.tabList). Возможно, перегенерация лицензий вошла в сборку новее 2532 — просим подтвердить номер сборки и проверим повторно.</strong></p>
+<h3>Скриншоты (6.41.11)</h3>
+<ul>
+<li><img alt="6.41.11: начало лога первого запуска (First launch detected, Trial License)" src="tests/screenshots/case1_64111_log.png" /></li>
+<li><img alt="6.41.11: ERROR ag.context 'users.admin.models.deviceImages' при создании ресурсов" src="tests/screenshots/case1_64111_error.png" /></li>
+</ul>
 <hr />
 <h2 id="case-2">Кейс 2. Режимы лицензирования free / trial не описаны в документации</h2>
 <p><strong>Критичность:</strong> Medium<br />
@@ -1010,7 +1026,7 @@ Cannot read properties of null (reading 'getListenerCode')
 <tr>
 <td>1. Ошибки старта</td>
 <td>Medium</td>
-<td>Подтверждён</td>
+<td>Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (ASD-6474)</td>
 </tr>
 <tr>
 <td>2. Режимы free/trial не описаны в документации</td>

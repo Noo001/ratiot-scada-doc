@@ -77,6 +77,25 @@
 - Лог-файл: см. `C:\Program Files\RatioTScada\logs\server.log`
 - Автотест фиксирует проблему: `tests/test_ui_ux.py` → `test_log_errors()`
 
+### Проверка в 6.41.11 (ASD-6474, ответ АГ: «состав лицензий пересмотрен и перегенерирован, новые сборки не содержат ERROR ag.context»)
+
+Проверено на свежей установке RatioT SCADA 6.41.11 (сборка 2532), лог `server.log` начинается с первого запуска сервера (строка «First launch detected», «Starting RatioT Server v6.41.11-2532»):
+
+- Все три исходные ошибки из кейса — `users.admin.models.avatarManagement`, `users.admin.reports.maintenance`, `users.admin.models.workflowModel` — **отсутствуют в логе**. Исходный дефект устранён.
+- Однако утверждение «логи сервера более не содержат строки с ERROR ag.context» на сборке 2532 **не подтверждается полностью**: при «Создание ресурсов (Mode: 0, server machine)» остаётся одна ERROR того же класса:
+  ```
+  09.09.2026 16:47:26,827 ERROR ag.context
+    Error creating resource 'users.admin.models.deviceImages':
+    Переменная 'deviceImages' недоступна в контексте 'users.admin.models.deviceImages'
+  ```
+- Дополнительно при инициализации фиксируются WARN со стектрейсами `ag.statistics`: «Переменная 'status' недоступна в контексте 'users.admin.models.tabList'» и «Переменная 'eventStatistics' недоступна в контексте 'users.admin.models.tabList'».
+
+**Итог: частично исправлено. Три исходных ресурса создаются корректно, но при первом запуске остаётся одна ERROR ag.context (users.admin.models.deviceImages) и два WARN ag.statistics (users.admin.models.tabList). Возможно, перегенерация лицензий вошла в сборку новее 2532 — просим подтвердить номер сборки и проверим повторно.**
+
+### Скриншоты (6.41.11)
+- ![6.41.11: начало лога первого запуска (First launch detected, Trial License)](tests/screenshots/case1_64111_log.png)
+- ![6.41.11: ERROR ag.context 'users.admin.models.deviceImages' при создании ресурсов](tests/screenshots/case1_64111_error.png)
+
 ---
 
 <a id="case-2"></a>
@@ -1016,7 +1035,7 @@ Cannot read properties of null (reading 'getListenerCode')
 
 | Кейс | Серьёзность | Статус |
 |---|---|---|
-| 1. Ошибки старта | Medium | Подтверждён |
+| 1. Ошибки старта | Medium | Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (ASD-6474) |
 | 2. Режимы free/trial не описаны в документации | Medium | Подтверждён |
 | 3. Инсталлятор запрашивает перезапись собственных файлов | Low | Подтверждён / в т.ч. в 6.41.11 |
 | 4. Импорт/экспорт Modbus CSV/XML теряет поля и кодировку | High | Подтверждён коллегами / в trial нет драйвера Modbus |
