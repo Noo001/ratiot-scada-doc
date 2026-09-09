@@ -118,7 +118,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Подтверждён</td></tr>
 <tr><td>16</td><td><a href="#case-16">Дашборд «Тревоги» не открывается в веб-клиенте</a></td><td>High</td><td>Подтверждён в 6.41.10</td></tr>
 <tr><td>17</td><td><a href="#case-17">Пустые шаблоны задвижек, насосов и других устройств</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
-<tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Подтверждён / требует уточнения</td></tr>
+<tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Исправлено в 6.41.11</td></tr>
 <tr><td>19</td><td><a href="#case-19">Скриншоты и изображения AggreGate в справке и демо-проектах</a></td><td>Low</td><td>Подтверждён</td></tr>
 <tr><td>20</td><td><a href="#case-20">Не отображаются изображения в демо-проекте Романа Шиндина</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
 <tr><td>21</td><td><a href="#case-21">Не работает активация метаданных устройства</a></td><td>Medium</td><td>Подтверждён / требует уточнения</td></tr>
@@ -606,7 +606,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-high" id="case-18">
 <h3>Кейс 18. Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Подтверждён / требует уточнения</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11</span></p>
 <p><strong>Серьёзность:</strong> High  </p>
 <h4>Описание</h4>
 <p>При попытке редактирования демо-проектов элементы дашборда показывают бесконечные спиннеры. В консоли/модальном окне появляется JS-ошибка инициализации дашборда.</p>
@@ -629,10 +629,15 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
     at async r.prepareSubDashboardModel (...)
     at async Promise.allSettled (index 0)
 </code></pre>
+<h4>Проверка в 6.41.11 (ASD-6499, ответ АГ: «исправлено в 6.41.11, сборка 2544»)</h4>
+<p>Пользовательский путь: Центр управления → «Каталог демо-проектов» → «Хранилище пастеризованного молока» → кнопка «Изменить» (URL открывается как <code>...milkStorage?mode=EDIT</code>; старый суффикс <code>/edit</code> теперь возвращает страницу 404 — роутинг изменился).</p>
+<p>Результат: дашборд загружается целиком, бесконечных спиннеров нет, редактор доступен для редактирования. Исходная ошибка <code>Cannot read properties of null (reading 'getContextManager')</code> не воспроизводится. <strong>Основной дефект исправлен.</strong></p>
+<p>Остаточные замечания (не блокируют работу): в консоли ~95 JS-ошибок при открытии редактора — серия <code>Error: Event 'shown' not found in context 'implant01N1'</code> (и десятки аналогичных для контекстов <code>implant*</code>), а также <code>Cannot set components (classFieldList0) parent</code>.</p>
 <h4>Скриншоты</h4>
 <ul>
 <li><img alt="Бесконечная загрузка элементов" src="tests/screenshots/case21_demo_loading_spinner.png" /></li>
 <li><img alt="JS-ошибка ioField" src="tests/screenshots/case21_demo_js_error.png" /></li>
+<li><img alt="Редактор milkStorage в 6.41.11 после загрузки" src="tests/screenshots/case21_u_12_milk_edit_after10s.png" /></li>
 </ul>
 </section>
 <section class="case severity-low" id="case-19">

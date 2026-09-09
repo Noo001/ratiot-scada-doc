@@ -1,0 +1,160 @@
+CONSOLE ERRORS:
+[warning] A preload for 'https://localhost:8443/web/v1/public/config' is found, but is not used because the request credentials mode does not match. Consider taking a look at crossorigin attribute.
+[error] Failed to load resource: the server responded with a status of 401 ()
+[info] 13:15:12 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] 13:15:12 ag.commands.client Unable to load format('69') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #69
+[warning] 13:15:12 ag.commands.client Unable to load format('0') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #0
+[warning] 13:15:12 ag.commands.client Unable to load format('5') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #5
+[warning] 13:15:12 ag.commands.client Unable to load format('1') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #1
+[warning] 13:15:12 ag.commands.client Unable to load format('1') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.commands.client Unable to load format('3') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.commands.client Unable to load format('334') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #3
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #334
+[warning] 13:15:12 ag.commands.client Unable to load format('2') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #2
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #442
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #443
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #444
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #445
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #386
+[warning] 13:15:12 ag.commands.client Unable to load format('4') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.commands.client Unable to load format('1649') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.commands.client Unable to load format('4') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.commands.client Unable to load format('1649') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #4
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #1649
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #4
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #1649
+[warning] 13:15:12 ag.commands.client Unable to load format('598') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.commands.client Unable to load format('1650') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #598
+[warning] 13:15:12 ag.protocol.caching Requesting remote format #1650
+[info] 13:15:12 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:15:12 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] 13:15:13 ag.commands.client Unable to load format('1709') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1709
+[warning] 13:15:13 ag.commands.client Unable to load format('1713') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1713
+[warning] 13:15:13 ag.commands.client Unable to load format('27') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('27') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('387') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #27
+[warning] 13:15:13 ag.commands.client Unable to load format('1710') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1711') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1712') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #27
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #387
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1710
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1711
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1712
+[warning] 13:15:13 ag.commands.client Unable to load format('1710') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1711') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1712') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1710
+[warning] 13:15:13 ag.commands.client Unable to load format('1714') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1714
+[warning] 13:15:13 ag.commands.client Unable to load format('187') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('596') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('597') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('594') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('595') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('593') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1715') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1716') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1717') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1718') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.commands.client Unable to load format('1719') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #187
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #596
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #597
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #594
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #595
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #593
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1715
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1716
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1717
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1718
+[warning] 13:15:13 ag.protocol.caching Requesting remote format #1719
+[warning] The resource https://localhost:8443/web/v1/public/config was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[error] Failed to load resource: the server responded with a status of 400 ()
+[info] 13:15:21 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:15:21 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:15:21 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] 13:15:21 ag.commands.client Unable to load format('1794') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:21 ag.protocol.caching Requesting remote format #1794
+[error] Failed to load resource: the server responded with a status of 404 ()
+[error] Failed to load resource: the server responded with a status of 404 ()
+[info] 13:15:32 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[error] Failed to load resource: the server responded with a status of 404 ()
+[error] Failed to load resource: the server responded with a status of 404 ()
+[error] {status: UNKNOWN_ERROR, message: Request failed with status code 404, stacktrace: Error: Request failed with status code 404
+    at …s-node_-a3abb9.js?id=2ad9541595d9c8a06b09:1:8921), httpStatus: 404, config: Object}
+[error] Failed to load resource: the server responded with a status of 404 ()
+[info] 13:15:35 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[error] Failed to load resource: the server responded with a status of 404 ()
+[error] {status: UNKNOWN_ERROR, message: Request failed with status code 404, stacktrace: Error: Request failed with status code 404
+    at …s-node_-a3abb9.js?id=2ad9541595d9c8a06b09:1:8921), httpStatus: 404, config: Object}
+[error] Failed to load resource: the server responded with a status of 404 ()
+[info] 13:15:38 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[error] Failed to load resource: the server responded with a status of 404 ()
+[error] {status: UNKNOWN_ERROR, message: Request failed with status code 404, stacktrace: Error: Request failed with status code 404
+    at …s-node_-a3abb9.js?id=2ad9541595d9c8a06b09:1:8921), httpStatus: 404, config: Object}
+[error] Failed to load resource: the server responded with a status of 404 ()
+[info] 13:15:41 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[error] Failed to load resource: the server responded with a status of 404 ()
+[error] {status: UNKNOWN_ERROR, message: Request failed with status code 404, stacktrace: Error: Request failed with status code 404
+    at …s-node_-a3abb9.js?id=2ad9541595d9c8a06b09:1:8921), httpStatus: 404, config: Object}
+[error] Failed to load resource: the server responded with a status of 404 ()
+[info] 13:15:44 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[error] Failed to load resource: the server responded with a status of 404 ()
+[error] {status: UNKNOWN_ERROR, message: Request failed with status code 404, stacktrace: Error: Request failed with status code 404
+    at …s-node_-a3abb9.js?id=2ad9541595d9c8a06b09:1:8921), httpStatus: 404, config: Object}
+[warning] A preload for 'https://localhost:8443/web/v1/public/config' is found, but is not used because the request credentials mode does not match. Consider taking a look at crossorigin attribute.
+[info] 13:15:48 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:15:48 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:15:48 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] The resource https://localhost:8443/web/v1/public/config was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+[warning] 13:15:52 ag.commands.client Unable to load format('1720') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:52 ag.commands.client Unable to load format('1721') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:52 ag.commands.client Unable to load format('1722') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:52 ag.commands.client Unable to load format('1723') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:52 ag.commands.client Unable to load format('1724') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:52 ag.protocol.caching Requesting remote format #1720
+[warning] 13:15:52 ag.protocol.caching Requesting remote format #1721
+[warning] 13:15:52 ag.protocol.caching Requesting remote format #1722
+[warning] 13:15:52 ag.protocol.caching Requesting remote format #1723
+[warning] 13:15:52 ag.protocol.caching Requesting remote format #1724
+[info] 13:15:52 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] 13:15:53 ag.eventlog filter is empty
+[warning] 13:15:53 ag.commands.client Unable to load format('1742') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:53 ag.protocol.caching Requesting remote format #1742
+[warning] 13:15:53 ag.commands.client Unable to load format('1744') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:53 ag.protocol.caching Requesting remote format #1744
+[warning] 13:15:55 ag.commands.client Unable to load format('1745') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:55 ag.commands.client Unable to load format('1746') from CacheStorage, attempt to load it from Server.
+[warning] 13:15:55 ag.protocol.caching Requesting remote format #1745
+[warning] 13:15:55 ag.protocol.caching Requesting remote format #1746
+[info] 13:15:58 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:15:58 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] 13:15:58 ag.eventlog filter is empty
+[warning] Mixed Content: The page at 'https://localhost:8443/users.admin.dashboards.devices' was loaded over HTTPS, but requested an insecure element 'http://c.tile.osm.org/4/7/7.png'. This request was automatically upgraded to HTTPS, For more information see https://blog.chromium.org/2019/10/no-more-mixed-messages-about-https.html
+[warning] Mixed Content: The page at 'https://localhost:8443/users.admin.dashboards.devices' was loaded over HTTPS, but requested an insecure element 'http://a.tile.osm.org/4/8/7.png'. This request was automatically upgraded to HTTPS, For more information see https://blog.chromium.org/2019/10/no-more-mixed-messages-about-https.html
+[warning] Mixed Content: The page at 'https://localhost:8443/users.admin.dashboards.devices' was loaded over HTTPS, but requested an insecure element 'http://a.tile.osm.org/4/7/8.png'. This request was automatically upgraded to HTTPS, For more information see https://blog.chromium.org/2019/10/no-more-mixed-messages-about-https.html
+[warning] Mixed Content: The page at 'https://localhost:8443/users.admin.dashboards.devices' was loaded over HTTPS, but requested an insecure element 'http://b.tile.osm.org/4/8/8.png'. This request was automatically upgraded to HTTPS, For more information see https://blog.chromium.org/2019/10/no-more-mixed-messages-about-https.html
+[info] 13:16:07 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:16:08 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:16:08 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] 13:16:08 ag.commands.client Unable to load format('672') from CacheStorage, attempt to load it from Server.
+[warning] 13:16:08 ag.protocol.caching Requesting remote format #672
+[info] 13:16:15 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:16:15 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[warning] 13:16:15 ag.eventlog filter is empty
+[info] 13:16:21 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+[info] 13:16:22 ag.protocol Connecting to remote server (Сервер (localhost:8443, admin))
+
+PAGE ERRORS:

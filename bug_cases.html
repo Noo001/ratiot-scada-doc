@@ -716,10 +716,15 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
     at async r.prepareSubDashboardModel (...)
     at async Promise.allSettled (index 0)
 </code></pre>
+<h3>Проверка в 6.41.11 (ASD-6499, ответ АГ: «исправлено в 6.41.11, сборка 2544»)</h3>
+<p>Пользовательский путь: Центр управления → «Каталог демо-проектов» → «Хранилище пастеризованного молока» → кнопка «Изменить» (URL открывается как <code>...milkStorage?mode=EDIT</code>; старый суффикс <code>/edit</code> теперь возвращает страницу 404 — роутинг изменился).</p>
+<p>Результат: дашборд загружается целиком, бесконечных спиннеров нет, редактор доступен для редактирования. Исходная ошибка <code>Cannot read properties of null (reading 'getContextManager')</code> не воспроизводится. <strong>Основной дефект исправлен.</strong></p>
+<p>Остаточные замечания (не блокируют работу): в консоли ~95 JS-ошибок при открытии редактора — серия <code>Error: Event 'shown' not found in context 'implant01N1'</code> (и десятки аналогичных для контекстов <code>implant*</code>), а также <code>Cannot set components (classFieldList0) parent</code>.</p>
 <h3>Скриншоты</h3>
 <ul>
 <li><img alt="Бесконечная загрузка элементов" src="tests/screenshots/case21_demo_loading_spinner.png" /></li>
 <li><img alt="JS-ошибка ioField" src="tests/screenshots/case21_demo_js_error.png" /></li>
+<li><img alt="Редактор milkStorage в 6.41.11 после загрузки" src="tests/screenshots/case21_u_12_milk_edit_after10s.png" /></li>
 </ul>
 <hr />
 <h2 id="case-22">Кейс 22. Скриншоты и изображения AggreGate в справке и демо-проектах</h2>
@@ -962,7 +967,7 @@ Cannot read properties of null (reading 'getListenerCode')
 <tr>
 <td>21. Бесконечная загрузка и JS-ошибка демо</td>
 <td>High</td>
-<td>Подтверждён</td>
+<td>Исправлено в 6.41.11 (остаточные ошибки «Event 'shown' not found» в консоли)</td>
 </tr>
 <tr>
 <td>22. Скриншоты AggreGate в справке/демо</td>
