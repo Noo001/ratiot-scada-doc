@@ -24,6 +24,9 @@ for m in pattern.finditer(md_text):
 # Фильтруем: убираем 12 (AggreGate), 14 (/web/* JSON 404), 15 (документация из SPA)
 filtered = [c for c in cases if c['old_num'] not in (12, 14, 15)]
 
+# Кейсы без тикета в АГ (реакции АГ нет)
+NO_AG_REACTION = {2, 3, 4, 9, 10, 11, 13, 20, 25, 26}
+
 # Категории ошибок (по старой нумерации):
 CAT_CUSTOM = "Ошибки кастомизации"
 CAT_OEM = "Ошибки OEM"
@@ -91,6 +94,8 @@ def get_severity(body_md):
 for c in ordered:
     c['severity'] = get_severity(c['body_md'])
     c['status'] = statuses.get(c['old_num'], "Подтверждён")
+    if c['old_num'] in NO_AG_REACTION:
+        c['status'] += " / реакции АГ нет"
     c['cat'] = cat_of(c['old_num'])
 
 filtered = ordered
