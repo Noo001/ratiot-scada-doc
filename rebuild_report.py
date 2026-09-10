@@ -24,33 +24,23 @@ for m in pattern.finditer(md_text):
 # Фильтруем: убираем 12 (AggreGate), 14 (/web/* JSON 404), 15 (документация из SPA)
 filtered = [c for c in cases if c['old_num'] not in (12, 14, 15)]
 
-# Задаём порядок и группы по старой нумерации:
-order_and_groups = [
-    (2, "Сообщённые Агрегейту"),
-    (3, "Сообщённые Агрегейту"),
-    (4, "Сообщённые Агрегейту"),
-    (6, "Сообщённые Агрегейту"),
-    (7, "Сообщённые Агрегейту"),
-    (9, "Сообщённые Агрегейту"),
-    (1, "Новые баги"),
-    (5, "Новые баги"),
-    (8, "Новые баги"),
-    (10, "Новые баги"),
-    (11, "Новые баги"),
-    (13, "Новые баги"),
-    (16, "Новые баги"),
-    (17, "Новые баги"),
-    (18, "Новые баги"),
-    (19, "Новые баги"),
-    (20, "Новые баги"),
-    (21, "Новые баги"),
-    (22, "Новые баги"),
-    (23, "Новые баги"),
-    (24, "Новые баги"),
-    (25, "Новые баги"),
-    (26, "Новые баги"),
-    (27, "Новые баги"),
-]
+# Категории ошибок (по старой нумерации):
+CAT_CUSTOM = "Ошибки кастомизации"
+CAT_OEM = "Ошибки OEM"
+CAT_PLATFORM = "Ошибки платформы партнёра"
+custom_cases = {2, 11, 12, 15, 18, 22}
+oem_cases = {1, 3, 9, 10, 25}
+
+def cat_of(old_num):
+    if old_num in custom_cases:
+        return CAT_CUSTOM
+    if old_num in oem_cases:
+        return CAT_OEM
+    return CAT_PLATFORM
+
+# Задаём порядок по старой нумерации; группа вычисляется по категории
+case_order = [2, 3, 4, 6, 7, 9, 1, 5, 8, 10, 11, 13, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+order_and_groups = [(n, cat_of(n)) for n in case_order]
 case_map = {c['old_num']: c for c in filtered}
 ordered = []
 for old_num, group in order_and_groups:
@@ -101,12 +91,14 @@ def get_severity(body_md):
 for c in ordered:
     c['severity'] = get_severity(c['body_md'])
     c['status'] = statuses.get(c['old_num'], "Подтверждён")
+    c['cat'] = cat_of(c['old_num'])
 
 filtered = ordered
 for c in filtered:
     # Убираем строки серьёзности и типа из тела, т.к. они уже в meta
     c['body_md'] = re.sub(r'\*\*Критичность:\*\*\s*\w+\s*\n', '', c['body_md'])
     c['body_md'] = re.sub(r'\*\*Тип:\*\*\s*[^\n]+\s*\n', '', c['body_md'])
+    c['body_md'] = re.sub(r'\*\*Категория:\*\*\s*[^\n]+\s*\n', '', c['body_md'])
     # Убираем служебные секции "Источник" и "Примечание" полностью
     c['body_md'] = re.sub(r'###\s*(Источник|Примечание)\s*\n(.*?)(?=###|\Z)', '', c['body_md'], flags=re.DOTALL)
     # Убираем служебные строки
@@ -116,24 +108,21 @@ for c in filtered:
     c['body_md'] = re.sub(r'[-*]\s*Тикет\s+`[^`]+`\s*из\s*`[^`]+`\.?', '', c['body_md'])
 
 # Генерируем строки таблицы с группами
-groups_order = [
-    "Сообщённые Агрегейту",
-    "Новые баги",
-]
+groups_order = [CAT_CUSTOM, CAT_OEM, CAT_PLATFORM]
 cases_by_group = {g: [] for g in groups_order}
 for c in filtered:
     cases_by_group[c['group']].append(c)
 
 table_rows = []
 for group in groups_order:
-    table_rows.append(f'<tr class="group-row"><td colspan="4"><strong>{group}</strong></td></tr>')
+    table_rows.append(f'<tr class="group-row"><td colspan="5"><strong>{group}</strong></td></tr>')
     for c in cases_by_group[group]:
         table_rows.append(
             f'<tr><td>{c["new_num"]}</td><td><a href="#case-{c["new_num"]}">{c["title"]}</a></td>'
-            f'<td>{c["severity"]}</td><td>{c["status"]}</td></tr>'
+            f'<td>{c["severity"]}</td><td>{c["cat"]}</td><td>{c["status"]}</td></tr>'
         )
 
-summary_table = '<table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Критичность</th><th>Статус</th></tr></thead><tbody>' + "\n".join(table_rows) + '</tbody></table>'
+summary_table = '<table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Критичность</th><th>Категория</th><th>Статус</th></tr></thead><tbody>' + "\n".join(table_rows) + '</tbody></table>'
 
 # Конвертируем тела кейсов в HTML
 md = markdown.Markdown(extensions=['fenced_code', 'tables'])
@@ -153,25 +142,20 @@ for c in filtered:
     # Обертка секции
     section = f'''<section class="case severity-{c["severity"].lower()}" id="case-{c["new_num"]}">
 <h3>Кейс {c["new_num"]}. {c["title"]}</h3>
-<p class="meta"><span class="severity severity-{c["severity"].lower()}"><strong>Критичность:</strong> {c["severity"]}</span> <span class="type"><strong>Статус:</strong> {c["status"]}</span></p>
+<p class="meta"><span class="severity severity-{c["severity"].lower()}"><strong>Критичность:</strong> {c["severity"]}</span> <span class="type"><strong>Категория:</strong> {c["cat"]}</span> <span class="type"><strong>Статус:</strong> {c["status"]}</span></p>
 {body_html}
 </section>'''
     sections_html[c['group']].append(section)
 
 # Генерируем левую колонку с навигацией
 nav_links = []
-g1 = groups_order[0]
-g2 = groups_order[1]
-nav_links.append(f'<a href="#section-предъявленные" class="group-link">{g1}</a>')
-for c in cases_by_group[g1]:
-    nav_links.append(f'<a href="#case-{c["new_num"]}">{c["new_num"]}. {c["title"]}</a>')
-nav_links.append(f'<a href="#section-новые" class="group-link">{g2}</a>')
-for c in cases_by_group[g2]:
-    nav_links.append(f'<a href="#case-{c["new_num"]}">{c["new_num"]}. {c["title"]}</a>')
+for gi, group in enumerate(groups_order):
+    nav_links.append(f'<a href="#section-{gi}" class="group-link">{group}</a>')
+    for c in cases_by_group[group]:
+        nav_links.append(f'<a href="#case-{c["new_num"]}">{c["new_num"]}. {c["title"]}</a>')
 
 nav_links_html = "\n".join(nav_links)
-g1_sections_html = "\n".join(sections_html[g1])
-g2_sections_html = "\n".join(sections_html[g2])
+group_sections_html = {g: "\n".join(sections_html[g]) for g in groups_order}
 
 aside_html = f'''<aside>
 <h2>Отчёт по багам</h2>
@@ -182,15 +166,12 @@ aside_html = f'''<aside>
 
 main_html = f'''<main>
 <header>
-<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.10</h1>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.11</h1>
 <a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
 </header>
 <h2>Сводная таблица</h2>
 {summary_table}
-<h2 class="section-title" id="section-предъявленные">{g1}</h2>
-{g1_sections_html}
-<h2 class="section-title" id="section-новые">{g2}</h2>
-{g2_sections_html}
+{''.join(f'<h2 class="section-title" id="section-{gi}">{group}</h2>' + group_sections_html[group] for gi, group in enumerate(groups_order))}
 </main>'''
 
 final_html = f'''<!DOCTYPE html>
@@ -198,7 +179,7 @@ final_html = f'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.10</title>
+<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.11</title>
 <style>
 :root {{ --text:#1f2328; --muted:#59636e; --border:#d1d9e0; --bg:#f6f8fa; --accent:#0969da; --danger:#cf222e; --warn:#9a6700; }}
 * {{ box-sizing: border-box; }}
