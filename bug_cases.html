@@ -840,6 +840,11 @@ RatioT SCADA.</p>
 <code>/web/static/docs/index.htm</code>,
 <code>/admin/custom/templates/docs/index.htm</code> и др.) возвращает
 404.</p>
+<h3 id="статус-asd-6503">Статус (ASD-6503)</h3>
+<p>Ответ АГ: «данный тикет является дубликатом ASD-6496, в связи с чем
+будет закрыт». ASD-6496 — кейс 18 (ссылки в демо-приложении ведут на
+сайт AggreGate).</p>
+<p><strong>Итог: тикет закрыт как дубликат ASD-6496.</strong></p>
 <h3 id="скриншоты-10">Скриншоты</h3>
 <ul>
 <li><figure>
@@ -1681,6 +1686,10 @@ cpu/memory/disk</figcaption>
 <p>В консоли появляются множественные ошибки вида:</p>
 <pre><code>Error: Ошибка инициализации приема события &#39;visibleChildAdded&#39; из контекста &#39;users.admin.dashboards.devices&#39;:
 Cannot read properties of null (reading &#39;getListenerCode&#39;)</code></pre>
+<h3 id="статус-asd-6504">Статус (ASD-6504)</h3>
+<p>От АГ: проблема разрешена, тикет закрыт. Самостоятельная проверка на
+новой сборке не проводилась.</p>
+<p><strong>Итог: разрешён / закрыт (ASD-6504).</strong></p>
 <h3 id="скриншоты-26">Скриншоты</h3>
 <ul>
 <li><img src="tests/screenshots/case26_js_errors_console.png"
@@ -2092,14 +2101,14 @@ alertsMonitoring)</td>
 <td>25. Встроенная справка недоступна по <code>/static/docs/</code></td>
 <td>Medium</td>
 <td>OEM</td>
-<td>Подтверждён в 6.41.10 / реакции АГ нет</td>
+<td>Закрыто / дубликат ASD-6496 (ASD-6503)</td>
 </tr>
 <tr class="even">
 <td>26. JS-ошибки <code>getListenerCode</code> при навигации по
 дереву</td>
 <td>Medium</td>
 <td>Платформа</td>
-<td>Подтверждён в 6.41.10 / реакции АГ нет</td>
+<td>Разрешён / закрыт (ASD-6504), самостоятельно не проверялось</td>
 </tr>
 <tr class="odd">
 <td>27. Прямые ссылки на настройки сервера и лицензии возвращают JSON

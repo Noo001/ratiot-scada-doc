@@ -113,7 +113,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>6</td><td><a href="#case-6">Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</a></td><td>High</td><td>Ошибки OEM</td><td>Передан в АГ (ASD-6487, критический), ожидает реакции / требует переустановки</td></tr>
 <tr><td>7</td><td><a href="#case-7">Ошибки создания ресурсов при первом запуске сервера</a></td><td>Low</td><td>Ошибки OEM</td><td>Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (ASD-6474)</td></tr>
 <tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td>High</td><td>Ошибки OEM</td><td>Передан в АГ (ASD-6477, критический), ожидает реакции</td></tr>
-<tr><td>22</td><td><a href="#case-22">Встроенная справка недоступна по URL `/static/docs/`</a></td><td>Medium</td><td>Ошибки OEM</td><td>Подтверждён в 6.41.10 / реакции АГ нет</td></tr>
+<tr><td>22</td><td><a href="#case-22">Встроенная справка недоступна по URL `/static/docs/`</a></td><td>Medium</td><td>Ошибки OEM</td><td>Закрыто / дубликат ASD-6496 (ASD-6503)</td></tr>
 <tr class="group-row"><td colspan="5"><strong>Ошибки платформы партнёра</strong></td></tr>
 <tr><td>3</td><td><a href="#case-3">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Подтверждён коллегами / в trial нет драйвера Modbus / реакции АГ нет / реакции АГ нет</td></tr>
 <tr><td>4</td><td><a href="#case-4">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто / не баг (by design)</td></tr>
@@ -128,7 +128,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11</td></tr>
 <tr><td>20</td><td><a href="#case-20">Не отображаются изображения в демо-проекте Романа Шиндина</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Требует уточнения / АГ: проект вне дистрибутива; передано имя дашборда «АСДУ (SCADA/HMI) v2»</td></tr>
 <tr><td>21</td><td><a href="#case-21">Не работает активация метаданных устройства</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11 / поведение подтверждено (ASD-6502)</td></tr>
-<tr><td>23</td><td><a href="#case-23">JS-ошибки `getListenerCode` при навигации по системному дереву</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Подтверждён в 6.41.10 / реакции АГ нет</td></tr>
+<tr><td>23</td><td><a href="#case-23">JS-ошибки `getListenerCode` при навигации по системному дереву</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Разрешён и закрыт (ASD-6504), самостоятельно не проверялось</td></tr>
 <tr><td>24</td><td><a href="#case-24">Прямые ссылки на настройки сервера и лицензии возвращают JSON 404</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто / by design (ASD-6505); непоследовательность JSON/HTML 404 — см. кейс 14</td></tr>
 <tr><td>25</td><td><a href="#case-25">Не работает перенос контекстов посредством приложений</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11-2553 (по ответу АГ, ASD-6521) / самостоятельно не проверялось</td></tr>
 <tr><td>26</td><td><a href="#case-26">Не работают дополнительные свойства при использовании относительных инструментальных панелей</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11-2553 (по ответу АГ, ASD-6523, задача №20649) / самостоятельно не проверялось</td></tr>
@@ -480,7 +480,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-22">
 <h3>Кейс 22. Встроенная справка недоступна по URL `/static/docs/`</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Подтверждён в 6.41.10 / реакции АГ нет</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Закрыто / дубликат ASD-6496 (ASD-6503)</span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>Ссылки на встроенную справку из веб-клиента и прямые URL <code>/static/docs/*</code> возвращают страницу 404 вместо HTML-справки. Документация присутствует в файловой системе сервера (<code>admin/custom/templates/docs/</code>), но не отдаётся через веб-сервер.</p>
@@ -899,7 +899,7 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 </section>
 <section class="case severity-medium" id="case-23">
 <h3>Кейс 23. JS-ошибки `getListenerCode` при навигации по системному дереву</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Подтверждён в 6.41.10 / реакции АГ нет</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Разрешён и закрыт (ASD-6504), самостоятельно не проверялось</span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>При открытии любого раздела через системное дерево или поиск в дереве в консоли браузера фиксируются массовые JS-ошибки <code>Cannot read properties of null (reading 'getListenerCode')</code>. Разделы визуально открываются, но ошибки указывают на некорректную инициализацию слушателей событий в frontend и могут приводить к нестабильности интерфейса.</p>
