@@ -1,7 +1,8 @@
 #!/usr/bin/env perl
 # Генерация bug_cases.html из tests/BUG_CASES.md (pandoc-версия для окружений без Python).
-# Кейсы группируются в три главы по полю **Категория:** из markdown:
-# 1. Ошибки кастомизации, 2. Ошибки OEM, 3. Ошибки платформы партнёра.
+# Кейсы группируются по полю **Категория:** из markdown:
+# 1. Ошибки кастомизации, 2. Ошибки OEM, 3. Ошибки платформы партнёра,
+# 0. Не отправлены в АГ (в конец страницы).
 use strict;
 use warnings;
 use utf8;
@@ -50,12 +51,14 @@ for my $c (@cases) {
     push @{ $chapters{$cat}{cases} }, $c;
 }
 
-# Собираем новый markdown: преамбула, главы с кейсами, итог
+# Собираем новый markdown: преамбула, главы с кейсами, итог (категория 0 «Не отправлены в АГ» — в конец)
 my $new_md = $preamble_md;
 my @nav_items;
-for my $cat (sort { $a <=> $b } keys %chapters) {
-    $new_md .= "## Глава $cat. $chapters{$cat}{name} {#cat-$cat .chapter}\n\n";
-    push @nav_items, { anchor => "cat-$cat", title => "Глава $cat. $chapters{$cat}{name}", chapter => 1 };
+for my $cat (sort { $a == 0 ? 1 : $b == 0 ? -1 : $a <=> $b } keys %chapters) {
+    my $heading = $cat == 0 ? $chapters{$cat}{name} : "Глава $cat. $chapters{$cat}{name}";
+    $new_md .= "## $heading {#cat-$cat .chapter}\n\n";
+    $new_md .= "Эти кейсы в АГ не заводились — возможно, исправлены до выхода 6.41.10.\n\n" if $cat == 0;
+    push @nav_items, { anchor => "cat-$cat", title => $heading, chapter => 1 };
     for my $c (@{ $chapters{$cat}{cases} }) {
         $new_md .= "## Кейс $c->{num}. $c->{title} {#case-$c->{num}}\n" . $c->{body};
         push @nav_items, { anchor => "case-$c->{num}", title => "$c->{num}. $c->{title}", chapter => 0 };

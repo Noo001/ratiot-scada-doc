@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Генерация bug_cases.html из tests/BUG_CASES.md (Python-версия).
 
-Кейсы группируются в три главы по полю **Категория:** из markdown:
-1. Ошибки кастомизации, 2. Ошибки OEM, 3. Ошибки платформы партнёра.
+Кейсы группируются по полю **Категория:** из markdown:
+1. Ошибки кастомизации, 2. Ошибки OEM, 3. Ошибки платформы партнёра,
+0. Не отправлены в АГ (в конец страницы).
 """
 
 import re
@@ -39,7 +40,7 @@ for c in cases:
     c['cat'], c['cat_name'] = (int(m.group(1)), m.group(2).strip()) if m else CAT_DEFAULT
     c['body'] = re.sub(r'^\*\*Категория:\*\*[^\n]*\n', '', c['body'], flags=re.MULTILINE)
 
-# Группируем кейсы по категориям (порядок глав — по номеру категории)
+# Группируем кейсы по категориям (порядок глав — по номеру категории; категория 0 «Не отправлены в АГ» — в конец)
 chapters = {}
 for c in cases:
     chapters.setdefault(c['cat'], {'name': c['cat_name'], 'cases': []})['cases'].append(c)
@@ -60,10 +61,13 @@ preamble_html = re.sub(r'<h1[^>]*>Баг-кейсы RatioT SCADA\s*6\.41\.09\s*<
 # Собираем тело: главы с кейсами + итог
 sections = [preamble_html]
 toc = []
-for cat in sorted(chapters):
+for cat in sorted(chapters, key=lambda c: (c == 0, c)):
     ch = chapters[cat]
-    sections.append(f'<h2 class="chapter" id="cat-{cat}">Глава {cat}. {ch["name"]}</h2>')
-    toc.append(f'        <a href="#cat-{cat}" class="chapter-link">Глава {cat}. {ch["name"]}</a>')
+    heading = ch['name'] if cat == 0 else f'Глава {cat}. {ch["name"]}'
+    sections.append(f'<h2 class="chapter" id="cat-{cat}">{heading}</h2>')
+    if cat == 0:
+        sections.append('<p>Эти кейсы в АГ не заводились — возможно, исправлены до выхода 6.41.10.</p>')
+    toc.append(f'        <a href="#cat-{cat}" class="chapter-link">{heading}</a>')
     for c in ch['cases']:
         body_html = md.convert(c['body'])
         md.reset()
