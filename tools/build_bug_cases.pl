@@ -1,4 +1,7 @@
 #!/usr/bin/env perl
+# Генерация bug_cases.html из tests/BUG_CASES.md (pandoc-версия для окружений без Python).
+# Кейсы группируются в три главы по полю **Категория:** из markdown:
+# 1. Ошибки кастомизации, 2. Ошибки OEM, 3. Ошибки платформы партнёра.
 use strict;
 use warnings;
 use utf8;
@@ -8,7 +11,6 @@ my $pandoc = 'lib/pandoc/pandoc-3.1.11/pandoc.exe';
 my $md = 'tests/BUG_CASES.md';
 my $out = 'bug_cases.html';
 
-# Extract case anchors and titles from markdown
 open my $md_fh, '<:encoding(UTF-8)', $md or die "Cannot read $md: $!";
 my $md_text = do { local $/; <$md_fh> };
 close $md_fh;
@@ -17,27 +19,62 @@ $md_text =~ s/\r//g;
 # Drop standalone anchors; we will use pandoc header attributes instead
 $md_text =~ s/^<a\s+id="(case-\d+|summary)"><\/a>\n+//mg;
 
-# Extract case anchors and titles for the side navigation
-my @nav_items;
+# Разбиваем markdown на преамбулу, кейсы и итог
+my @heads;
 while ($md_text =~ /^##\s+(Кейс\s+(\d+)\.\s+.+?|Итог)\s*$/mg) {
-    my ($title, $case_num) = ($1, $2);
-    my $anchor = defined $case_num ? "case-$case_num" : 'summary';
-    $title =~ s/\s+$//;
-    push @nav_items, { anchor => $anchor, title => $title };
+    push @heads, { start => $-[0], headend => $+[0], title => $1, num => $2 };
+}
+my $preamble_md = substr($md_text, 0, $heads[0]{start});
+my $summary_block;
+my @cases;
+for my $i (0 .. $#heads) {
+    my $end = $i < $#heads ? $heads[$i + 1]{start} : length($md_text);
+    my $block = substr($md_text, $heads[$i]{headend}, $end - $heads[$i]{headend});
+    if (defined $heads[$i]{num}) {
+        (my $title = $heads[$i]{title}) =~ s/^Кейс\s+\d+\.\s*//;
+        push @cases, { num => $heads[$i]{num}, title => $title, body => $block };
+    } else {
+        $summary_block = $block;
+    }
+}
+
+# Категория кейса берётся из поля **Категория:** N. Название; без поля — платформа
+my %chapters;
+for my $c (@cases) {
+    my ($cat, $catname) = (3, 'Ошибки платформы партнёра');
+    if ($c->{body} =~ /^\*\*Категория:\*\*\s*(\d+)\.\s*(.+?)\s*$/m) {
+        ($cat, $catname) = ($1, $2);
+    }
+    $c->{body} =~ s/^\*\*Категория:\*\*[^\n]*\n//m;
+    $chapters{$cat}{name} //= $catname;
+    push @{ $chapters{$cat}{cases} }, $c;
+}
+
+# Собираем новый markdown: преамбула, главы с кейсами, итог
+my $new_md = $preamble_md;
+my @nav_items;
+for my $cat (sort { $a <=> $b } keys %chapters) {
+    $new_md .= "## Глава $cat. $chapters{$cat}{name} {#cat-$cat .chapter}\n\n";
+    push @nav_items, { anchor => "cat-$cat", title => "Глава $cat. $chapters{$cat}{name}", chapter => 1 };
+    for my $c (@{ $chapters{$cat}{cases} }) {
+        $new_md .= "## Кейс $c->{num}. $c->{title} {#case-$c->{num}}\n" . $c->{body};
+        push @nav_items, { anchor => "case-$c->{num}", title => "$c->{num}. $c->{title}", chapter => 0 };
+    }
+}
+if (defined $summary_block) {
+    $new_md .= "## Итог {#summary}\n" . $summary_block;
+    push @nav_items, { anchor => 'summary', title => 'Итог', chapter => 1 };
 }
 
 my $toc_html = join("\n", map {
-    '        <a href="#' . $_->{anchor} . '">' . $_->{title} . '</a>'
+    my $class = $_->{chapter} ? 'chapter-link' : 'case-link';
+    '        <a href="#' . $_->{anchor} . '" class="' . $class . '">' . $_->{title} . '</a>'
 } @nav_items);
-
-# Add pandoc header attributes so generated h2 ids are stable and headings stay intact
-$md_text =~ s/^##\s+(Кейс\s+(\d+)\.\s+.+?)$/## $1 {#case-$2}/mg;
-$md_text =~ s/^##\s+(Итог)\s*$/## $1 {#summary}/mg;
 
 # Write modified markdown to a temp file and convert with pandoc
 my $tmp_md = 'bug_cases_input.md';
 open my $tmp_in, '>:encoding(UTF-8)', $tmp_md or die "Cannot write $tmp_md: $!";
-print $tmp_in $md_text;
+print $tmp_in $new_md;
 close $tmp_in;
 
 open my $body, '-|:encoding(UTF-8)', $pandoc, $tmp_md, '-t', 'html' or die "Cannot run pandoc: $!";
@@ -50,7 +87,7 @@ $body_html =~ s/\r//g;
 
 # 2. Normalize the h1 title (it currently has an id with cyrillic text)
 $body_html =~ s/<h1\s+id="[^"]*"\s*>\s*<\/h1>/<h1 id="top">Баг-кейсы RatioT SCADA<\/h1>/s;
-$body_html =~ s/<h1\s+id="[^"]*"\s*>Баг-кейсы RatioT SCADA\s*6\.41\.09<\/h1>/<h1 id="top">Баг-кейсы RatioT SCADA 6.41.09<\/h1>/s;
+$body_html =~ s/<h1\s+id="[^"]*"\s*>Баг-кейсы RatioT SCADA\s*6\.41\.09<\/h1>/<h1 id="top">Баг-кейсы RatioT SCADA 6.41\.09<\/h1>/s;
 
 # 3. Strip the redundant "Оглавление" h2 since we have nav
 $body_html =~ s/<h2\s+id="оглавление"\s*>Оглавление<\/h2>\s*<ul>.*?<\/ul>//s;
@@ -83,6 +120,7 @@ my $html = <<"HTML";
     .content { padding: 32px 40px; max-width: 900px; }
     .content h1 { font-size: 2rem; margin-bottom: 8px; }
     .content h2 { margin-top: 36px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .content h2.chapter { font-size: 1.6rem; margin-top: 52px; color: var(--accent); border-bottom: 2px solid var(--border); }
     .content h3 { margin-top: 24px; }
     .content p { margin: 12px 0; }
     .content ul, .content ol { margin: 12px 0; padding-left: 24px; }
@@ -96,6 +134,8 @@ my $html = <<"HTML";
     .content th { background: var(--accent-light); }
     .back { display: inline-block; margin-bottom: 20px; color: var(--accent); text-decoration: none; }
     .back:hover { text-decoration: underline; }
+    nav a.chapter-link { font-weight: 700; margin-top: 14px; color: var(--accent); }
+    nav a.case-link { padding-left: 22px; font-size: .9rem; }
   </style>
 </head>
 <body>
@@ -140,4 +180,4 @@ open my $fh, '>:encoding(UTF-8)', $out or die "Cannot write $out: $!";
 print $fh $html;
 close $fh;
 
-print "Generated $out\n";
+print "Generated $out: " . scalar(@cases) . " кейсов в " . scalar(keys %chapters) . " главах\n";
