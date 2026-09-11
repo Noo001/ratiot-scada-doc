@@ -57,7 +57,7 @@ my @nav_items;
 for my $cat (sort { $a == 0 ? 1 : $b == 0 ? -1 : $a <=> $b } keys %chapters) {
     my $heading = $cat == 0 ? $chapters{$cat}{name} : "Глава $cat. $chapters{$cat}{name}";
     $new_md .= "## $heading {#cat-$cat .chapter}\n\n";
-    $new_md .= "Эти кейсы в АГ не заводились — возможно, исправлены до выхода 6.41.10.\n\n" if $cat == 0;
+    $new_md .= "Эти кейсы в АГ не заводились: часть пересекается с отправленными кейсами, часть признана by design / не баг.\n\n" if $cat == 0;
     push @nav_items, { anchor => "cat-$cat", title => $heading, chapter => 1 };
     for my $c (@{ $chapters{$cat}{cases} }) {
         $new_md .= "## Кейс $c->{num}. $c->{title} {#case-$c->{num}}\n" . $c->{body};

@@ -66,7 +66,7 @@ for cat in sorted(chapters, key=lambda c: (c == 0, c)):
     heading = ch['name'] if cat == 0 else f'Глава {cat}. {ch["name"]}'
     sections.append(f'<h2 class="chapter" id="cat-{cat}">{heading}</h2>')
     if cat == 0:
-        sections.append('<p>Эти кейсы в АГ не заводились — возможно, исправлены до выхода 6.41.10.</p>')
+        sections.append('<p>Эти кейсы в АГ не заводились: часть пересекается с отправленными кейсами, часть признана by design / не баг.</p>')
     toc.append(f'        <a href="#cat-{cat}" class="chapter-link">{heading}</a>')
     for c in ch['cases']:
         body_html = md.convert(c['body'])
