@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <script>
+    (function () {
+      if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
+        var pwd = prompt('Доступ к документации. Введите пароль:');
+        if (pwd !== '111') {
+          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
+          throw new Error('Access denied');
+        }
+        localStorage.setItem('ratiot-doc-auth', 'ok');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Протокол испытаний TRiiot.26.0015 — Ratiot SCADA 6.41.10</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <h1>RatioT SCADA</h1>
+      <div class="subtitle">Протокол испытаний TRiiot.26.0015</div>
+      <nav>
+        <a href="#general">Общие сведения</a>
+        <a href="#goal">Цель испытаний</a>
+        <a href="#scope">Состав испытаний</a>
+        <a href="#results">Результаты</a>
+        <a href="#defects">Дефекты</a>
+        <a href="#conclusion">Заключение</a>
+        <a href="index.html">← Методика испытаний</a>
+        <a href="../index.html">← На главную</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section id="general">
+        <h2>Общие сведения</h2>
+        <table>
+          <tr><th>Параметр</th><th>Значение</th></tr>
+          <tr><td>Продукт</td><td>RatioT SCADA</td></tr>
+          <tr><td>Версия под приёмкой</td><td>6.41.10 (build 2512)</td></tr>
+          <tr><td>Версия для проверки исправлений</td><td>6.41.11 (build 2532 / 2544 / 2553)</td></tr>
+          <tr><td>Номер протокола</td><td>TRiiot.26.0015</td></tr>
+          <tr><td>Дата испытаний</td><td>11.09.2026</td></tr>
+          <tr><td>Инженер по тестированию</td><td>Ефремцев А. (andrey.efremtsev@dkc.ru)</td></tr>
+          <tr><td>Платформа</td><td>Windows 10 x64</td></tr>
+          <tr><td>Контур</td><td>Локальная установка <code>C:\Program Files\RatioTScada</code>, тестовый стенд</td></tr>
+          <tr><td>Учётные данные</td><td><code>admin / admin</code>, тестовый пользователь <code>testuser02</code></td></tr>
+          <tr><td>Основание</td><td><a href="index.html" class="badge">→ Методика регулярных испытаний</a>, служебная записка ДКС №15528_2026-1100 от 14.07.2026</td></tr>
+        </table>
+      </section>
+
+      <section id="goal">
+        <h2>Цель испытаний</h2>
+        <p><strong>Приёмка версии 6.41.10</strong>, поставленной ООО «Объединение Агрегейт», и <strong>подтверждение исправлений</strong> ранее предъявленных дефектов в версии 6.41.11 по ответам службы поддержки АГ (тикеты ASD-6474…ASD-6523). Испытания проведены по <a href="index.html" class="badge">→ Методике регулярных испытаний</a> (этапы 1–3: установка, бэклог дефектов, регрессия).</p>
+      </section>
+
+      <section id="scope">
+        <h2>Состав испытаний</h2>
+        <table>
+          <tr><th>Блок</th><th>Состав</th><th>Кол-во проверок</th></tr>
+          <tr><td>Установка и обновление</td><td>Чистая установка 6.41.10 (GUI); обновление до 6.41.11 (build 2532/2544/2553); проверка версии по API и логов сервера</td><td>3</td></tr>
+          <tr><td>Бэклог дефектов + регрессия</td><td>Кейсы 1–30 из реестра дефектов Ratiot SCADA (см. «Баг-кейсы» на портале)</td><td>27</td></tr>
+          <tr><td colspan="2"><strong>Всего</strong></td><td><strong>30</strong></td></tr>
+        </table>
+      </section>
+
+      <section id="results">
+        <h2>Результаты</h2>
+        <h3>Сводка по блокам</h3>
+        <table>
+          <tr><th>Категория</th><th>Успешных тестов</th><th>Неудачных тестов</th><th>Блокирующих</th><th>Процент успешных</th></tr>
+          <tr><td>Установка/обновление</td><td>3</td><td>0</td><td>0</td><td>100&nbsp;%</td></tr>
+          <tr><td>Бэклог дефектов и регрессия</td><td>15</td><td>12</td><td>2</td><td>55,6&nbsp;%</td></tr>
+          <tr><td><strong>ИТОГО</strong></td><td><strong>18</strong></td><td><strong>12</strong></td><td><strong>2</strong></td><td><strong>60&nbsp;%</strong></td></tr>
+        </table>
+        <p>В блок «успешных» включены кейсы, где дефект устранён, устранён частично либо снят (by design / дубликат / не воспроизводится). В «неудачных» — кейсы с неподтверждённым исправлением: не исправлен (1), ожидают реакции АГ (11), не заведены в АГ (3).</p>
+
+        <h3>Распределение итогов по кейсам</h3>
+        <table>
+          <tr><th>Итог</th><th>Кол-во</th><th>Кейсы</th></tr>
+          <tr><td>Исправлено, подтверждено повторной проверкой</td><td>7</td><td>16, 17, 18, 21, 24, 28*, 29*</td></tr>
+          <tr><td>Частично исправлено</td><td>2</td><td>1, 22</td></tr>
+          <tr><td>Снято: by design / не воспроизводится / дубликат / разрешено АГ</td><td>6</td><td>4, 6, 8, 25, 26, 27</td></tr>
+          <tr><td>Не исправлено</td><td>1</td><td>19</td></tr>
+          <tr><td>Ожидает реакции АГ (тикет открыт)</td><td>11</td><td>2, 3, 5, 7, 9, 10, 11, 13, 20, 23, 30</td></tr>
+          <tr><td>В АГ не заведены (возможно, исправлены до 6.41.10)</td><td>3</td><td>12, 14, 15</td></tr>
+        </table>
+        <p class="note">* Кейсы 28 и 29 исправлены по ответам АГ (build 2553); самостоятельная контрольная проверка не проводилась — сценарии требуют двух контуров (полигон → эталон) либо мнемосхемы с относительными инструментальными панелями. Рекомендуется контрольная проверка при появлении второго контура.</p>
+
+        <h3>Карта критичности (по методике)</h3>
+        <table>
+          <tr><th>Уровень</th><th>Кейсы</th><th>Состояние</th></tr>
+          <tr><td><strong>S0 — блокер</strong></td><td>7 (NoSQL-хранилище событий ломает сервер)</td><td>Открыт, тикет ASD-6486 на стороне АГ</td></tr>
+          <tr><td><strong>S1 — критический</strong></td><td>19 (дашборд «Тревоги» не открывается в веб-клиенте)</td><td><strong>Не исправлен</strong> (ASD-6497)</td></tr>
+          <tr><td><strong>S2 — значительный</strong></td><td>все Medium-кейсы</td><td>См. распределение выше</td></tr>
+          <tr><td><strong>S3 — незначительный</strong></td><td>все Low-кейсы</td><td>См. распределение выше</td></tr>
+        </table>
+      </section>
+
+      <section id="defects">
+        <h2>Дефекты</h2>
+        <h3>Критические дефекты (блокирующие выпуск)</h3>
+        <table>
+          <tr><th>Уровень</th><th>Дефект</th><th>Тикет АГ</th></tr>
+          <tr><td>S0</td><td>Кейс 7. Переключение хранилища событий на NoSQL приводит сервер в неработоспособное состояние</td><td>ASD-6486 (открыт)</td></tr>
+          <tr><td>S1</td><td>Кейс 19. Дашборд «Тревоги» не открывается в веб-клиенте — АГ проверили соседний дашборд (alertsMonitoring), который и раньше работал</td><td>ASD-6497 (не исправлен)</td></tr>
+        </table>
+        <h3>Значительные дефекты (S2/S3, частично исправленные или открытые)</h3>
+        <table>
+          <tr><th>Кейс</th><th>Дефект</th><th>Итог</th><th>Тикет</th></tr>
+          <tr><td>1</td><td>Ошибки создания ресурсов при первом запуске сервера</td><td>Частично: остаётся 1 ERROR + 2 WARN</td><td>ASD-6474</td></tr>
+          <tr><td>22</td><td>Скриншоты и изображения AggreGate в справке и демо-проектах</td><td>Частично: демо-проекты чистые, в документации остались 6 скриншотов и 7 внешних ссылок</td><td>ASD-6500</td></tr>
+          <tr><td>2</td><td>Режимы лицензирования free/trial не описаны в документации</td><td>Ожидает АГ</td><td>ASD-6482</td></tr>
+          <tr><td>3</td><td>Инсталлятор запрашивает перезапись собственных файлов</td><td>Ожидает АГ</td><td>ASD-6483</td></tr>
+          <tr><td>5</td><td>eventLog сбрасывает настройки колонок при поступлении событий</td><td>Ожидает АГ</td><td>ASD-6475</td></tr>
+          <tr><td>9</td><td>Установка в нестандартную папку + замена лицензии → отказ лицензирования</td><td>Ожидает АГ</td><td>ASD-6487</td></tr>
+          <tr><td>10</td><td>Локальный магазин приложений отсутствует в веб-клиенте</td><td>Ожидает АГ</td><td>ASD-6477</td></tr>
+          <tr><td>11</td><td>Вёрстка страницы 404</td><td>Ожидает АГ</td><td>ASD-6478</td></tr>
+          <tr><td>13</td><td>«Драйвера и расширения» открывает корень дерева вместо плагинов</td><td>Ожидает АГ</td><td>ASD-6479</td></tr>
+          <tr><td>20</td><td>Пустые шаблоны задвижек, насосов и других устройств</td><td>Ожидает АГ</td><td>ASD-6498</td></tr>
+          <tr><td>23</td><td>Не отображаются изображения в демо-проекте</td><td>Ожидает АГ</td><td>ASD-6501</td></tr>
+          <tr><td>30</td><td>eventLog не работает с относительными инструментальными панелями</td><td>АГ запросили контексты и сценарий воспроизведения</td><td>ASD-6522</td></tr>
+        </table>
+        <h3>Кейсы, не заведённые в АГ</h3>
+        <table>
+          <tr><th>Кейс</th><th>Дефект</th><th>Комментарий</th></tr>
+          <tr><td>12</td><td>В дистрибутиве остался логотип и брендинг AggreGate</td><td>Пересекается с уже заведёнными кейсами (18, 22) — отдельный тикет не требуется</td></tr>
+          <tr><td>14</td><td>Несуществующие страницы <code>/web/*</code> возвращают JSON вместо HTML 404</td><td>Поведение соответствует логике платформы (единая модель данных) — дефектом не считаем</td></tr>
+          <tr><td>15</td><td>Ссылки на справку из веб-клиента ведут на маркетинговый сайт</td><td>Дефектом не считаем (закрыто вместе с брендингом к 6.41.10)</td></tr>
+        </table>
+        <h3>Снятые кейсы</h3>
+        <table>
+          <tr><th>Кейс</th><th>Итог</th><th>Тикет</th></tr>
+          <tr><td>4</td><td>Закрыто АГ (самостоятельно не перепроверялось; см. также ASD-6455)</td><td>ASD-6484</td></tr>
+          <tr><td>6</td><td>By design: источником может быть только аккаунт устройства</td><td>ASD-6485</td></tr>
+          <tr><td>8</td><td>Закрыт (исправлен в 6.41.09)</td><td>ASD-6476</td></tr>
+          <tr><td>25</td><td>Дубликат ASD-6496</td><td>ASD-6503</td></tr>
+          <tr><td>26</td><td>Разрешён / закрыт</td><td>ASD-6504</td></tr>
+          <tr><td>27</td><td>By design (единая модель данных); непоследовательность обработки 404 зафиксирована отдельно в кейсе 14</td><td>ASD-6505</td></tr>
+        </table>
+      </section>
+
+      <section id="conclusion">
+        <h2>Заключение</h2>
+        <h3>Рекомендация</h3>
+        <div class="note">
+          <strong>ВЫПУСК ПОД ВОПРОСОМ.</strong> Критический дефект S1 (кейс 19, ASD-6497) не исправлен; блокирующий S0 (кейс 7, ASD-6486) открыт на стороне АГ. Требуется повторная проверка после исправлений АГ и контрольная проверка кейсов 28, 29 (build 2553) при наличии двух контуров.
+        </div>
+        <h3>Подпись</h3>
+        <p>__________________ /Ефремцев А./</p>
+        <p>Дата: 11.09.2026</p>
+      </section>
+
+      <footer>
+        Протокол испытаний TRiiot.26.0015. RatioT SCADA 6.41.10 (build 2512) / 6.41.11 (2532/2544/2553). Составлен 11 сентября 2026.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('section[id]');
+    const links = document.querySelectorAll('nav a[href^="#"]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => link.classList.remove('active'));
+          const active = document.querySelector('nav a[href="#' + entry.target.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
