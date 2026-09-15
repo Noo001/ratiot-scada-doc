@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <script>
+    (function () {
+      if (localStorage.getItem('ratiot-doc-auth') !== 'ok') {
+        var pwd = prompt('Доступ к документации. Введите пароль:');
+        if (pwd !== '111') {
+          document.documentElement.innerHTML = '<body style="font-family:sans-serif;padding:40px;text-align:center;"><h1>Доступ запрещён</h1><p>Неверный пароль.</p></body>';
+          throw new Error('Access denied');
+        }
+        localStorage.setItem('ratiot-doc-auth', 'ok');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RatioT Cloud — документация</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .landing {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .landing h1 { margin-bottom: 8px; }
+    .landing .lead {
+      color: var(--muted);
+      font-size: 1.15rem;
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .tile {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      text-align: left;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .tile:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      border-color: var(--accent);
+    }
+    .tile h2 { margin: 0 0 10px; font-size: 1.4rem; color: var(--accent); }
+    .tile p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .tile.disabled { opacity: .6; pointer-events: none; }
+    .tiles-hidden { display: none !important; }
+    footer.landing-footer {
+      margin-top: 60px;
+      color: var(--muted);
+      font-size: .85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="landing">
+    <h1>RatioT Cloud</h1>
+    <p class="lead">Функционально-технические требования (ФТТ) и протоколы испытаний облачной платформы.</p>
+
+    <div class="tiles tiles-hidden">
+      <div class="tile disabled">
+        <h2>ФТТ RatioT.Cloud</h2>
+        <p>Функционально-технические требования. Раздел в работе: идёт ревью документа перед передачей подрядчикам на бюджетную оценку.</p>
+      </div>
+
+      <div class="tile disabled">
+        <h2>Протокол испытаний</h2>
+        <p>Протоколы приёмочных испытаний RatioT Cloud. Появится после завершения разработки.</p>
+      </div>
+
+      <a class="tile" href="../index.html">
+        <h2>← На главную</h2>
+        <p>Вернуться к общей базе знаний.</p>
+      </a>
+    </div>
+
+    <footer class="landing-footer">
+      Внутренняя документация. Последнее обновление: 15 сентября 2026.
+    </footer>
+  </div>
+  <script>
+    document.querySelector('.tiles').classList.remove('tiles-hidden');
+  </script>
+</body>
+</html>
