@@ -104,9 +104,9 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </header>
 <h2>Сводная таблица</h2>
 <table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Критичность</th><th>Категория</th><th>Статус</th></tr></thead><tbody><tr class="group-row"><td colspan="5"><strong>Ошибки кастомизации</strong></td></tr>
-<tr><td>1</td><td><a href="#case-1">Режимы лицензирования free / trial не описаны в документации</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Документация исправлена в 6.41.12-2562 (начальная лицензия описана), проверено; переключение режима поверх существующей установки не работает (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>), чистая установка — в плане</td></tr>
+<tr><td>1</td><td><a href="#case-1">Режимы лицензирования free / trial не описаны в документации</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Частично: документация исправлена и чистая установка в режиме 100 тэгов работает, но лицензия называется «Network Manager Free License» и лимит 100 тэгов в UI не отображается (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>)</td></tr>
 <tr><td>11</td><td><a href="#case-11">Вёрстка страницы 404</a></td><td>Low</td><td>Ошибки кастомизации</td><td>Ожидание клиента: нужно брендированное изображение для страницы 404 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478'>ASD-6478</a>); кастомные дашборды ошибок — в roadmap АГ</td></tr>
-<tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Pending: остаточные замечания по ссылкам фиксируются в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a></td></tr>
+<tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Pending: остаточные замечания по ссылкам фиксируются в ASD-6496; проверка на 6.41.12 отложена — демо-приложение отсутствует в чистой установке (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a>)</td></tr>
 <tr><td>19</td><td><a href="#case-19">Скриншоты и изображения AggreGate в справке и демо-проектах</a></td><td>Low</td><td>Ошибки кастомизации</td><td>Закрыт как дублирующий, всё фиксируется в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a> (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6500'>ASD-6500</a>)</td></tr>
 <tr class="group-row"><td colspan="5"><strong>Ошибки OEM</strong></td></tr>
 <tr><td>2</td><td><a href="#case-2">Инсталлятор запрашивает перезапись собственных файлов</a></td><td>Low</td><td>Ошибки OEM</td><td>Частично проверено: тихие переустановки 6.41.12-2562 прошли без конфликтов, интерактивный диалог требует ручной проверки (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483'>ASD-6483</a>)</td></tr>
@@ -115,11 +115,11 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td>High</td><td>Ошибки OEM</td><td>By design по ответу АГ: локальный магазин в дистрибутив не входит (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477'>ASD-6477</a>); требуется решение ДКС</td></tr>
 <tr><td>22</td><td><a href="#case-22">Встроенная справка недоступна по URL `/static/docs/`</a></td><td>Medium</td><td>Ошибки OEM</td><td>Исправлено в 6.41.12-2562, проверено: /static/docs/index.htm отдаёт HTTP 200 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503'>ASD-6503</a>)</td></tr>
 <tr class="group-row"><td colspan="5"><strong>Ошибки платформы партнёра</strong></td></tr>
-<tr><td>3</td><td><a href="#case-3">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484'>ASD-6484</a>, также <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455'>ASD-6455</a> от коллег) / в trial нет драйвера Modbus, самостоятельно не проверялось</td></tr>
-<tr><td>4</td><td><a href="#case-4">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485'>ASD-6485</a>)</td></tr>
+<tr><td>3</td><td><a href="#case-3">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ, самостоятельная проверка на 6.41.12 невозможна: драйвер Modbus отсутствует в free-дистрибутиве, магазин модулей недоступен (Connection store error) (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484'>ASD-6484</a>)</td></tr>
+<tr><td>4</td><td><a href="#case-4">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Дефектом не считаем (соответствует документации, принят ответ АГ); контроль на 6.41.12: воспроизвести нельзя — «Дерево тегов» недоступно в free-контуре (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485'>ASD-6485</a>)</td></tr>
 <tr><td>5</td><td><a href="#case-5">Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</a></td><td>Critical</td><td>Ошибки платформы партнёра</td><td>Ожидание клиента: АГ по существу не ответили (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486'>ASD-6486</a>, блокер) / переключение не проводилось</td></tr>
 <tr><td>8</td><td><a href="#case-8">Настройки колонок компонента eventLog сбрасываются при поступлении событий</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>НЕ исправлено в 6.41.12-2562, проверено автотестом: живой виджет игнорирует сохранённые настройки колонок, всегда 7 колонок по умолчанию (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475'>ASD-6475</a>)</td></tr>
-<tr><td>9</td><td><a href="#case-9">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>)</td></tr>
+<tr><td>9</td><td><a href="#case-9">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Исправлено (не воспроизводится) в 6.41.12-2562, проверено самостоятельно: сниппет со стилями не сдвигает layout (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>)</td></tr>
 <tr><td>12</td><td><a href="#case-12">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>НЕ исправлено в 6.41.12-2562, проверено: раздел по-прежнему открывает корень дерева (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479'>ASD-6479</a>); заявленный АГ фикс не вошёл в релиз — требуется ответ АГ</td></tr>
 <tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.12-2562, проверено автотестом: скрытые вкладки доступны через «Ещё» (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480'>ASD-6480</a>)</td></tr>
 <tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Исправлено, закрыто АГ (Fixed/Done), проверено автотестом на 6.41.12-2562 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481'>ASD-6481</a>)</td></tr>
@@ -135,7 +135,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <tr><td>27</td><td><a href="#case-27">Не работает eventLog при использовании относительных инструментальных панелей</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Ожидание поддержки: коллеги предложили созвон-показ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522'>ASD-6522</a>)</td></tr></tbody></table>
 <h2 class="section-title" id="section-0">Ошибки кастомизации</h2><section class="case severity-medium" id="case-1">
 <h3>Кейс 1. Режимы лицензирования free / trial не описаны в документации</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Документация исправлена в 6.41.12-2562 (начальная лицензия описана), проверено; переключение режима поверх существующей установки не работает (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>), чистая установка — в плане</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Частично: документация исправлена и чистая установка в режиме 100 тэгов работает, но лицензия называется «Network Manager Free License» и лимит 100 тэгов в UI не отображается (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>)</span></p>
 <p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482">ASD-6482</a>.</p>
 <h4>Описание</h4>
 <p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами на <strong>этапе установки</strong>:
@@ -173,7 +173,14 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <blockquote>
 <p>Во время установки инсталлятор предлагает выбрать начальную лицензию для нового экземпляра RatioT Server на шаге «Выберите тип лицензии». Набор доступных вариантов зависит от дистрибутива: Пробная лицензия (30 дней); Бесплатная лицензия на 100 тэгов (лицензия SCADA/HMI Standard с ограничением в 100 тэгов); Бесплатная лицензия на 10 устройств; Бесплатная лицензия на 50 переменных и 10000 событий в сутки. Приобретённую коммерческую лицензию можно активировать позднее в любой момент.</p>
 </blockquote>
-<p><strong>Переключение режима поверх существующей установки — не работает (проверено).</strong> Выполнена тихая переустановка 6.41.12 с файлом ответов, в котором выбор типа лицензии изменён на «Бесплатная лицензия на 100 тэгов» (<code>license=1</code> в response.varfile). После переустановки в «Информации о лицензии» по-прежнему прежняя лицензия: владелец «Команда RatioT SCADA», устройства 0/100, оставшийся период 30/30 дн. Режим начальной лицензии применяется только при первой установке (что согласуется с поведением из кейса 9), поверх существующей установки выбор в инсталляторе игнорируется. Проверка работоспособности сервера в режиме 100 тэгов возможна только на чистой установке; запланирована после завершения параллельных проверок на текущем контуре.</p>
+<p><strong>Переключение режима поверх существующей установки — не работает (проверено).</strong> Выполнена тихая переустановка 6.41.12 с файлом ответов, в котором выбор типа лицензии изменён на «Бесплатная лицензия на 100 тэгов» (<code>license=1</code> в response.varfile). После переустановки в «Информации о лицензии» по-прежнему прежняя лицензия: владелец «Команда RatioT SCADA», устройства 0/100, оставшийся период 30/30 дн. Режим начальной лицензии применяется только при первой установке (что согласуется с поведением из кейса 9), поверх существующей установки выбор в инсталляторе игнорируется.</p>
+<p><strong>Чистая установка в режиме 100 тэгов — проверено (16.09.2026, сценарий tests/case2_license_final.py).</strong> Выполнена деинсталляция, каталог установки отложен, выполнена чистая тихая установка 6.41.12-2562 с <code>license=1</code>. Сервер работает. Путь к лицензии в веб-интерфейсе: «Администрирование» → плитка «Информация о сервере» → вкладка «Лицензионная информация». Зафиксировано:</p>
+<ul>
+<li>Владелец лицензии: <strong>«Network Manager Free License»</strong> — а не «SCADA/HMI Standard (100 тэгов)», как описано в документации (<code>licensing.htm</code>: «Бесплатная лицензия на 100 тэгов (лицензия SCADA/HMI Standard с ограничением в 100 тэгов)»). Несоответствие названия режима.</li>
+<li>Испытательный период: «Не ограничено» (30-дневного ограничения нет — подтверждено).</li>
+<li>Явного лимита «100 тэгов» в свойствах лицензии <strong>нет</strong>: группы плагинов показывают лимиты 1000000 контекстов/переменных, ограничение только на драйверы (context: 10). То есть обещанное ограничение в 100 тэгов в интерфейсе не отображается вовсе — режим выглядит как полноценная free-лицензия Network Manager без ограничения тегов.</li>
+</ul>
+<p><strong>Итог по кейсу 2:</strong> документация исправлена (начальная лицензия описана), чистая установка в режиме 100 тэгов работает, но выявлены два несоответствия: (1) лицензия называется «Network Manager Free License» вместо «SCADA/HMI Standard (100 тэгов)»; (2) лимит 100 тэгов нигде в UI не показан. Требуется ответ АГ (ASD-6482).</p>
 <h4>Ссылки на документацию</h4>
 <ul>
 <li><code>admin/custom/templates/docs/licensing.htm</code></li>
@@ -210,7 +217,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-15">
 <h3>Кейс 15. Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Pending: остаточные замечания по ссылкам фиксируются в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a></span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Pending: остаточные замечания по ссылкам фиксируются в ASD-6496; проверка на 6.41.12 отложена — демо-приложение отсутствует в чистой установке (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a>)</span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>В стартовой странице демо-приложения разделы «Документация» и «Онлайн» содержат ссылки, которые ведут на <code>aggregate.digital</code>, а не на актуальные ресурсы RatioT SCADA / BUFFLAB.</p>
@@ -278,6 +285,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </blockquote>
 <p>Тикет в статусе Pending.</p>
 <p>Остаточные замечания по ссылкам-заглушкам на buff-lab.ru фиксируются в этом же тикете (по <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6500">ASD-6500</a> их просили фиксировать в ASD-6496).</p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Самостоятельная проверка на 6.41.12-2562 (сценарий tests/case18_links_64112.py) <strong>отложена</strong>: текущий контур — чистая установка в режиме 100 тэгов, демо-приложение <code>scadaApplication</code> в ней отсутствует (контейнер «Приложения» содержит только «Группы приложений», «diagnostics» и «Platform Administration Kit»; URL дашборда отдаёт 404; поиск по дереву — 0 результатов). Ни одна из проверяемых ссылок («Документация по SCADA/HMI», «Веб-сайт продукта», «Блог», «Сообщество», «Купить» и т.п.) в доступном UI отсутствует. Проверку нужно повторить на контуре с развёрнутым демо-контентом. Это согласуется с позицией АГ (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6501">ASD-6501</a>): демо-проект в дистрибутив не входит и передаётся отдельно.</p>
 </section>
 <section class="case severity-low" id="case-19">
 <h3>Кейс 19. Скриншоты и изображения AggreGate в справке и демо-проектах</h3>
@@ -539,7 +548,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p><strong>Итог: исправлено и подтверждено на 6.41.12-2562.</strong></p>
 </section><h2 class="section-title" id="section-2">Ошибки платформы партнёра</h2><section class="case severity-high" id="case-3">
 <h3>Кейс 3. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484'>ASD-6484</a>, также <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455'>ASD-6455</a> от коллег) / в trial нет драйвера Modbus, самостоятельно не проверялось</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ, самостоятельная проверка на 6.41.12 невозможна: драйвер Modbus отсутствует в free-дистрибутиве, магазин модулей недоступен (Connection store error) (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484'>ASD-6484</a>)</span></p>
 <h4>Описание</h4>
 <p>При создании пустого Modbus-устройства и импорте регистров из ранее экспортированных файлов CSV/XML теряются имя, описание, адрес, размер и другие поля. Импорт того же файла в формате <code>.tbl</code> работает корректно. Кроме того, окно экспорта не содержит кнопки закрытия — чтобы выйти, пользователь вынужден что-то экспортировать. При экспорте регистров с русскими именами/описаниями в CSV в полученном файле русский текст отображается кракозябрами.</p>
 <h4>Воспроизведение</h4>
@@ -574,10 +583,19 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Добрый день! Данное обращение является дубликатом ASD-6455: Баги с импортом и экспортом Modbus регистров в форматах csv и xml (закрыто), всвязи с чем будет закрыто.</p>
 </blockquote>
 <p><strong>Итог: закрыто АГ (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484">ASD-6484</a>; тикет коллег <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455">ASD-6455</a> тоже закрыт), самостоятельно не проверялось.</strong></p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Попытка самостоятельной проверки на 6.41.12-2562 в режиме «Бесплатная лицензия на 100 тэгов» (сценарий tests/case4_modbus_64112.py): <strong>проверка невозможна — драйвер Modbus отсутствует в дистрибутиве</strong>.</p>
+<ul>
+<li>В диалоге «Добавить устройство» всего 11 драйверов (Агент, Локальный Агент, Аватар, Локальный файл, Локальная папка, HTTP/HTTPS клиент, Локальная Система, Модем, SMB/CIFS, SNMP, Виртуальное устройство) — Modbus, IEC-104, BACnet, DNP3 отсутствуют (урезанный набор free-дистрибутива).</li>
+<li>Поиск «modbus» в системном дереве — 0 результатов.</li>
+<li>«Установка модулей» → «Публичный репозиторий (buff-lab.ru:6460)» — ошибка «Connection store error», список модулей не загружается; драйвер из магазина недоступен (пересекается с кейсом 10).</li>
+<li>«Драйвера и расширения» — раздел не открывается (кейс 13).</li>
+</ul>
+<p>Заявленное АГ исправление самостоятельно не подтверждено: воспроизвести импорт/экспорт регистров нечем. Ситуация не изменилась со времени первичного теста в триале.</p>
 </section>
 <section class="case severity-medium" id="case-4">
 <h3>Кейс 4. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485'>ASD-6485</a>)</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Дефектом не считаем (соответствует документации, принят ответ АГ); контроль на 6.41.12: воспроизвести нельзя — «Дерево тегов» недоступно в free-контуре (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485'>ASD-6485</a>)</span></p>
 <h4>Описание</h4>
 <p>На вебинаре по RatioT SCADA 6.4 озвучивалось, что при привязке тегов цифрового двойника в дереве тегов источником можно выбирать не только устройство, но и абсолютную модель. В текущей версии такой возможности нет, а в документации описание отсутствует.</p>
 <h4>Воспроизведение</h4>
@@ -607,6 +625,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </ul>
 <p>Абсолютная модель как источник в документации не описана и в диалоге недоступна. Дашборд «Дерево тегов» (<code>users.admin.dashboards.tags</code>) в 6.41.11 открывается, но лично воспроизвести диалог выбора источника в нашем контуре нельзя — нет ни одного устройства/цифрового двойника с тегами (таблица пустая).</p>
 <p><strong>Итог: расхождение не с документацией, а с формулировкой вебинара. Поведение соответствует задокументированной архитектуре — принимаем ответ АГ, дефектом не считаем.</strong></p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Контрольная проверка на 6.41.12-2562 (free-лицензия 100 тэгов): воспроизвести диалог выбора источника по-прежнему нечем — дашборд «Дерево тегов» недоступен (узла нет в системном дереве, оба URL-паттерна отдают 404), устройств и моделей с тегами на сервере нет. Документация поставки 6.41.10 по-прежнему описывает источник только как «аккаунт устройства» — изменений нет. Косвенно подтверждено, что механизм моделей тип «Абсолютный» поддерживается (типы в мастере создания модели: Относительный / Абсолютный / Экземплярная). Вывод без изменений: дефектом не считаем.</p>
 </section>
 <section class="case severity-critical" id="case-5">
 <h3>Кейс 5. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h3>
@@ -678,7 +698,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-9">
 <h3>Кейс 9. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>)</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено (не воспроизводится) в 6.41.12-2562, проверено самостоятельно: сниппет со стилями не сдвигает layout (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>)</span></p>
 <p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476">ASD-6476</a>.</p>
 <h4>Описание</h4>
 <p>При добавлении на дашборд компонента <strong>HTML-сниппет</strong> с произвольным HTML/CSS происходит сдвиг всего layout дашборда вниз. После обновления страницы (F5) дашборд возвращается к стандартному виду, но при повторном открытии редактора сдвиг появляется снова.</p>
@@ -700,6 +720,15 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен: нет кнопки "Редактировать" для существующих дашбордов и нет возможности добавить HTML-сниппет. Попытки открыть URL <code>/.../edit</code> приводят к странице 404 (см. кейс 16). Поэтому лично воспроизвести сдвиг layout в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
 <h4>Итог</h4>
 <p>АГ протестировали на 6.41.10-2512 — проблема не воспроизвелась (видео во вложении тикета), предположили влияние содержимого сниппета и запросили .prs файл дашборда. У нас .prs нет: кейс зафиксирован по скриншотам коллег, а полный код сниппета на скриншоте <code>html_snippet_code.png</code> обрезан (виден только фрагмент CSS). Возможности запросить у коллег повторный тест нет. <strong>Кейс закрыт: не воспроизводится у АГ (6.41.10-2512), самостоятельная перепроверка невозможна, серьёзность незначительная.</strong> При повторном проявлении — воспроизводить с сохранением .prs дашборда и полного кода сниппета.</p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Самостоятельная перепроверка стала возможна в режиме «Бесплатная лицензия на 100 тэгов» (редактор дашбордов доступен). Воспроизведён полный сценарий (tests/case8_check_64112.py): создан тестовый дашборд, добавлен HTML-сниппет с полноценным документом (<code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> со стилями, <code>&lt;body&gt;</code>) и подпись рядом, сохранено.</p>
+<ul>
+<li>В визуализации сниппет и подпись в верхней строке грида, <strong>сдвига layout вниз нет</strong>.</li>
+<li>После F5 — идентичная вёрстка (не «восстановилась», а не ломалась вообще).</li>
+<li>При повторном открытии редактора сдвига нет.</li>
+<li>JS-ошибок ноль. Тестовый дашборд удалён.</li>
+</ul>
+<p><strong>Итог: ИСПРАВЛЕНО (не воспроизводится) в 6.41.12-2562</strong> — подтверждает закрытие АГ.</p>
 </section>
 <section class="case severity-medium" id="case-12">
 <h3>Кейс 12. Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</h3>
