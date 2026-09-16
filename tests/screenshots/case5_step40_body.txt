@@ -1,0 +1,176 @@
+users.admin.dashboards.scadaApplication
+Инструментальная панель
+Журнал событий
+Системное дерево
+panel9
+systemTreeApp
+RatioT Server v6.41.12
+htmlSnippetCloseWindow
+htmlSnippetCloseWindowTemplate
+Приложение
+application
+panelTitle
+dashboardName
+Приложение
+comboBox0
+Новое приложение
+panelAppManage
+panelDevelopment
+panelDataAcquisition
+labelConnectPanel
+Подключить
+label2
+label3
+buttonConnectData
+Подключить устройство
+buttonConnectSettings
+Обнаружение OPC
+managePlugins
+Управление плагинами
+buttonFlexibleDriver
+Настройка Flexible драйвера
+buttonCNA
+Создать
+panel11
+buttonCreateModel
+Создать модель
+buttonCreateClass
+Создать класс
+buttonGenerateHierarchy
+Создать иерархию
+panelDataAnalytics
+label4
+Настройка
+label5
+label6
+buttonAlert
+Создать тревогу
+buttonScript
+Создать скрипт
+buttonEventFilter
+Добавить фильтр событий
+buttonML
+Настройка машинного обучения
+buttonJob
+Запланировать задание
+buttonEventCorrelator
+Добавить коррелятор событий
+buttonCNA_1
+Создать
+panelDataVisualization
+label7
+Дизайн
+label8
+label9
+buttonCreateDash
+Создать мнемосхему
+buttonMediaLibrary
+Открыть медиа библиотеку
+buttonCreateReport
+Создать отчет
+buttonCNA_3
+Создать
+panelDataManagement
+label10
+Управление
+label11
+label12
+buttonManageUsers
+Управление пользователями
+buttonAuth
+Настройка авторизации
+buttonProcessControl
+Управление процессами
+buttonCNA_2
+Создать
+buttonPanel
+buttonDeploy
+Развертывание
+buttonOpen
+Открыть
+buttonAddResource
+Добавить ресурс
+buttonCreate
+Создать
+buttonConfApp
+buttonRollback
+label13
+buttonDeleteApp
+buttonExport
+label14
+buttonPack
+buttonUnpack
+buttonImport
+label15
+panel12
+Журнал событий
+eventLog0
+
+Компонент журнала событий недоступен в режиме редактирования
+
+Настройки и поддержка
+settings
+panel8
+label16
+Настройки и поддержка
+label17
+solutionDemos
+UI Компоненты
+label18
+panelConfigOnline
+serverConfig
+label19
+Конфигурация сервера
+label20
+label21
+button31
+button
+buttonConfigureServer
+Настроить сервер
+buttonServerInfo
+Просмотр информации о сервере
+buttonDataStorage
+Настройки хранения данных
+buttonResources
+Управление ресурсами
+syslogConfig
+Конфигурация Syslog
+buttonEventStorage
+Настройки хранения событий
+onlineCommunity
+label22
+Онлайн / Сообщество
+label23
+label24
+button37
+button
+scadaDocumentation
+Документация по SCADA/HMI
+scadaWebsite
+Веб-сайт SCADA/HMI
+solutions
+Другие решения
+buttonCommunity
+Сообщество
+blog
+Блог продукта
+purchase
+Купить
+Время
+	
+Событие
+	
+Уровень
+	
+Данные
+ 
+	
+ 
+	
+ 
+	
+ 
+
+
+No Data
+Журнал событий

@@ -1,0 +1,43 @@
+URL: https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6418
+
+Центр поддержки
+14
+Центр поддержки
+Служба технической поддержки
+ASD-6418
+Дерево тегов. Выбор в качестве источника абсолютной модели
+Пользователь Nurlan Khakimov создал этот запрос 27/июл/26 9:13 PM
+Скрыть подробности
+Название проекта или название контракта AMS
+RatioT SCADA
+Priority
+Незначительный
+Bug Request Form
+Отправлено
+Действия
+Развернуть форму «Bug Request Form»
+Событие
+Показать еще 5
+Автоматический ответ
+03/авг/26 2:42 PM
+Статус запроса изменен на «Обработано» с решением «Done».
+Автоматический ответ
+17/авг/26 2:42 PM
+Статус запроса изменен на «Закрыто».
+Automation for Jira
+17/авг/26 2:42 PM
+The request is closed. 
+Discussions about the platform’s operation are available in our Telegram community: https://t.me/AggreGate_Official/7
+Добавить комментарий
+
+Статус
+Закрыто
+Уведомления отключены
+Тип запроса
+Сообщение об ошибке Агрегейт
+Кому доступно
+Nurlan Khakimov
+Автор
+DKC RatioT SCADA
+Поделиться
+Работает на базе Jira Service Management

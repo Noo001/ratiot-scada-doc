@@ -56,34 +56,35 @@ for i, c in enumerate(ordered, start=1):
     c['new_num'] = i
 
 # Статусы по кейсам
+# Статусы по кейсам (актуализировано 16.09.2026 по результатам регресса 6.41.12-2562)
 statuses = {
-    1: "Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474'>ASD-6474</a>)",
-    2: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>, блокер), ожидает реакции",
-    3: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483'>ASD-6483</a>), ожидает реакции / в т.ч. в 6.41.11",
+    1: "Исправлено в 6.41.12-2562, проверено: в логе первого запуска нет ERROR/WARN (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474'>ASD-6474</a>)",
+    2: "Документация исправлена в 6.41.12-2562 (начальная лицензия описана), проверено; переключение режима поверх существующей установки не работает (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>), чистая установка — в плане",
+    3: "Частично проверено: тихие переустановки 6.41.12-2562 прошли без конфликтов, интерактивный диалог требует ручной проверки (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483'>ASD-6483</a>)",
     4: "Закрыто АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484'>ASD-6484</a>, также <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455'>ASD-6455</a> от коллег) / в trial нет драйвера Modbus, самостоятельно не проверялось",
-    5: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475'>ASD-6475</a>), ожидает реакции / в trial нет редактора дашбордов",
-    6: "Закрыто / не баг (by design)",
-    7: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486'>ASD-6486</a>, блокер), ожидает реакции / переключение не проводилось",
-    8: "Закрыто / не воспроизводится у АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>, 6.41.10-2512), перепроверка невозможна, незначительный",
-    9: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487'>ASD-6487</a>, критический), ожидает реакции / требует переустановки",
-    10: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477'>ASD-6477</a>, критический), ожидает реакции",
-    11: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478'>ASD-6478</a>), ожидает реакции",
-    13: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479'>ASD-6479</a>), ожидает реакции",
-    16: "Исправлено в 6.41.11-2532 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480'>ASD-6480</a>), проверено: скрытые вкладки доступны через меню «Ещё»",
-    17: "Исправлено в 6.41.11-2532 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481'>ASD-6481</a>), проверено: контекст резолвится в учётные записи (users.admin)",
-    18: "Исправлено в 6.41.11",
-    19: "Не исправлено в 6.41.11",
-    20: "Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498'>ASD-6498</a>), ожидает реакции / требует уточнения",
-    21: "Исправлено в 6.41.11",
-    22: "Частично исправлено в 6.41.11",
-    23: "Требует уточнения / АГ: проект вне дистрибутива; передано имя дашборда «АСДУ (SCADA/HMI) v2»",
+    5: "НЕ исправлено в 6.41.12-2562, проверено автотестом: живой виджет игнорирует сохранённые настройки колонок, всегда 7 колонок по умолчанию (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475'>ASD-6475</a>)",
+    6: "Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485'>ASD-6485</a>)",
+    7: "Ожидание клиента: АГ по существу не ответили (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486'>ASD-6486</a>, блокер) / переключение не проводилось",
+    8: "Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>)",
+    9: "Ожидание клиента: лицензии активны, при видоизменении ключей нужна перегенерация (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487'>ASD-6487</a>)",
+    10: "By design по ответу АГ: локальный магазин в дистрибутив не входит (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477'>ASD-6477</a>); требуется решение ДКС",
+    11: "Ожидание клиента: нужно брендированное изображение для страницы 404 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478'>ASD-6478</a>); кастомные дашборды ошибок — в roadmap АГ",
+    13: "НЕ исправлено в 6.41.12-2562, проверено: раздел по-прежнему открывает корень дерева (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479'>ASD-6479</a>); заявленный АГ фикс не вошёл в релиз — требуется ответ АГ",
+    16: "Исправлено в 6.41.12-2562, проверено автотестом: скрытые вкладки доступны через «Ещё» (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480'>ASD-6480</a>)",
+    17: "Исправлено, закрыто АГ (Fixed/Done), проверено автотестом на 6.41.12-2562 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481'>ASD-6481</a>)",
+    18: "Pending: остаточные замечания по ссылкам фиксируются в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a>",
+    19: "By design по ответу АГ: дашборд alerts — только оконный клиент, в веб используется alertsMonitoring (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6497'>ASD-6497</a>)",
+    20: "Ожидание поддержки: АГ уточняют происхождение группы панелей (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498'>ASD-6498</a>)",
+    21: "Исправлено в 6.41.12-2562, проверено: редактор демо открывается без JS-ошибок (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6499'>ASD-6499</a>)",
+    22: "Закрыт как дублирующий, всё фиксируется в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a> (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6500'>ASD-6500</a>)",
+    23: "Ожидание клиента: проект вне дистрибутива, доработка — платные услуги (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6501'>ASD-6501</a>)",
     24: "Исправлено в 6.41.11 / поведение подтверждено (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6502'>ASD-6502</a>)",
-    25: "Закрыто / дубликат <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a> (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503'>ASD-6503</a>)",
-    26: "Разрешён и закрыт (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504'>ASD-6504</a>), самостоятельно не проверялось",
+    25: "Исправлено в 6.41.12-2562, проверено: /static/docs/index.htm отдаёт HTTP 200 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503'>ASD-6503</a>)",
+    26: "Исправлено (Fixed), проверено на 6.41.12-2562 автотестом: ошибок getListenerCode нет (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504'>ASD-6504</a>)",
     27: "Закрыто / by design (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6505'>ASD-6505</a>); непоследовательность JSON/HTML 404 — см. кейс 14",
-    28: "Исправлено в 6.41.11-2553 (по ответу АГ, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521'>ASD-6521</a>) / самостоятельно не проверялось",
-    29: "Исправлено в 6.41.11-2553 (по ответу АГ, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523'>ASD-6523</a>, задача №20649) / самостоятельно не проверялось",
-    30: "Ожидает ответа коллег (АГ запросили контексты и сценарий, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522'>ASD-6522</a>)",
+    28: "Исправлено в 6.41.12-2562, проверено: сценарий АГ выполнен целиком, окно «Результат обновления» заполнено (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521'>ASD-6521</a>)",
+    29: "Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523'>ASD-6523</a>) / самостоятельная проверка требует контекстов коллег",
+    30: "Ожидание поддержки: коллеги предложили созвон-показ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522'>ASD-6522</a>)",
 }
 
 # Извлекаем критичность (поддерживаем старый "Критичность" и новый "Серьёзность")
@@ -171,7 +172,7 @@ aside_html = f'''<aside>
 
 main_html = f'''<main>
 <header>
-<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.11</h1>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.12</h1>
 <a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
 </header>
 <h2>Сводная таблица</h2>
@@ -184,7 +185,7 @@ final_html = f'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.11</title>
+<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.12</title>
 <style>
 :root {{ --text:#1f2328; --muted:#59636e; --border:#d1d9e0; --bg:#f6f8fa; --accent:#0969da; --danger:#cf222e; --warn:#9a6700; }}
 * {{ box-sizing: border-box; }}

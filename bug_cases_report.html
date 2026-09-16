@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.11</title>
+<title>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.12</title>
 <style>
 :root { --text:#1f2328; --muted:#59636e; --border:#d1d9e0; --bg:#f6f8fa; --accent:#0969da; --danger:#cf222e; --warn:#9a6700; }
 * { box-sizing: border-box; }
@@ -99,44 +99,44 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </aside>
 <main>
 <header>
-<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.11</h1>
+<h1>Отчёт по баг-кейсам RatioT SCADA 6.41.09–6.41.12</h1>
 <a class="pdf-button" href="RatioT_SCADA_Bug_Cases.pdf" download>Скачать PDF</a>
 </header>
 <h2>Сводная таблица</h2>
 <table class="summary-table"><thead><tr><th>№</th><th>Кейс</th><th>Критичность</th><th>Категория</th><th>Статус</th></tr></thead><tbody><tr class="group-row"><td colspan="5"><strong>Ошибки кастомизации</strong></td></tr>
-<tr><td>1</td><td><a href="#case-1">Режимы лицензирования free / trial не описаны в документации</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>, блокер), ожидает реакции</td></tr>
-<tr><td>11</td><td><a href="#case-11">Вёрстка страницы 404</a></td><td>Low</td><td>Ошибки кастомизации</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478'>ASD-6478</a>), ожидает реакции</td></tr>
-<tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Исправлено в 6.41.11</td></tr>
-<tr><td>19</td><td><a href="#case-19">Скриншоты и изображения AggreGate в справке и демо-проектах</a></td><td>Low</td><td>Ошибки кастомизации</td><td>Частично исправлено в 6.41.11</td></tr>
+<tr><td>1</td><td><a href="#case-1">Режимы лицензирования free / trial не описаны в документации</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Документация исправлена в 6.41.12-2562 (начальная лицензия описана), проверено; переключение режима поверх существующей установки не работает (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>), чистая установка — в плане</td></tr>
+<tr><td>11</td><td><a href="#case-11">Вёрстка страницы 404</a></td><td>Low</td><td>Ошибки кастомизации</td><td>Ожидание клиента: нужно брендированное изображение для страницы 404 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478'>ASD-6478</a>); кастомные дашборды ошибок — в roadmap АГ</td></tr>
+<tr><td>15</td><td><a href="#case-15">Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</a></td><td>Medium</td><td>Ошибки кастомизации</td><td>Pending: остаточные замечания по ссылкам фиксируются в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a></td></tr>
+<tr><td>19</td><td><a href="#case-19">Скриншоты и изображения AggreGate в справке и демо-проектах</a></td><td>Low</td><td>Ошибки кастомизации</td><td>Закрыт как дублирующий, всё фиксируется в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a> (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6500'>ASD-6500</a>)</td></tr>
 <tr class="group-row"><td colspan="5"><strong>Ошибки OEM</strong></td></tr>
-<tr><td>2</td><td><a href="#case-2">Инсталлятор запрашивает перезапись собственных файлов</a></td><td>Low</td><td>Ошибки OEM</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483'>ASD-6483</a>), ожидает реакции / в т.ч. в 6.41.11</td></tr>
-<tr><td>6</td><td><a href="#case-6">Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</a></td><td>High</td><td>Ошибки OEM</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487'>ASD-6487</a>, критический), ожидает реакции / требует переустановки</td></tr>
-<tr><td>7</td><td><a href="#case-7">Ошибки создания ресурсов при первом запуске сервера</a></td><td>Low</td><td>Ошибки OEM</td><td>Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474'>ASD-6474</a>)</td></tr>
-<tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td>High</td><td>Ошибки OEM</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477'>ASD-6477</a>, критический), ожидает реакции</td></tr>
-<tr><td>22</td><td><a href="#case-22">Встроенная справка недоступна по URL `/static/docs/`</a></td><td>Medium</td><td>Ошибки OEM</td><td>Закрыто / дубликат <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a> (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503'>ASD-6503</a>)</td></tr>
+<tr><td>2</td><td><a href="#case-2">Инсталлятор запрашивает перезапись собственных файлов</a></td><td>Low</td><td>Ошибки OEM</td><td>Частично проверено: тихие переустановки 6.41.12-2562 прошли без конфликтов, интерактивный диалог требует ручной проверки (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483'>ASD-6483</a>)</td></tr>
+<tr><td>6</td><td><a href="#case-6">Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</a></td><td>High</td><td>Ошибки OEM</td><td>Ожидание клиента: лицензии активны, при видоизменении ключей нужна перегенерация (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487'>ASD-6487</a>)</td></tr>
+<tr><td>7</td><td><a href="#case-7">Ошибки создания ресурсов при первом запуске сервера</a></td><td>Low</td><td>Ошибки OEM</td><td>Исправлено в 6.41.12-2562, проверено: в логе первого запуска нет ERROR/WARN (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474'>ASD-6474</a>)</td></tr>
+<tr><td>10</td><td><a href="#case-10">Локальный магазин приложений отсутствует в веб-клиенте</a></td><td>High</td><td>Ошибки OEM</td><td>By design по ответу АГ: локальный магазин в дистрибутив не входит (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477'>ASD-6477</a>); требуется решение ДКС</td></tr>
+<tr><td>22</td><td><a href="#case-22">Встроенная справка недоступна по URL `/static/docs/`</a></td><td>Medium</td><td>Ошибки OEM</td><td>Исправлено в 6.41.12-2562, проверено: /static/docs/index.htm отдаёт HTTP 200 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503'>ASD-6503</a>)</td></tr>
 <tr class="group-row"><td colspan="5"><strong>Ошибки платформы партнёра</strong></td></tr>
 <tr><td>3</td><td><a href="#case-3">Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484'>ASD-6484</a>, также <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455'>ASD-6455</a> от коллег) / в trial нет драйвера Modbus, самостоятельно не проверялось</td></tr>
-<tr><td>4</td><td><a href="#case-4">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто / не баг (by design)</td></tr>
-<tr><td>5</td><td><a href="#case-5">Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</a></td><td>Critical</td><td>Ошибки платформы партнёра</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486'>ASD-6486</a>, блокер), ожидает реакции / переключение не проводилось</td></tr>
-<tr><td>8</td><td><a href="#case-8">Настройки колонок компонента eventLog сбрасываются при поступлении событий</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475'>ASD-6475</a>), ожидает реакции / в trial нет редактора дашбордов</td></tr>
-<tr><td>9</td><td><a href="#case-9">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто / не воспроизводится у АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>, 6.41.10-2512), перепроверка невозможна, незначительный</td></tr>
-<tr><td>12</td><td><a href="#case-12">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479'>ASD-6479</a>), ожидает реакции</td></tr>
-<tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11-2532 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480'>ASD-6480</a>), проверено: скрытые вкладки доступны через меню «Ещё»</td></tr>
-<tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11-2532 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481'>ASD-6481</a>), проверено: контекст резолвится в учётные записи (users.admin)</td></tr>
-<tr><td>16</td><td><a href="#case-16">Дашборд «Тревоги» не открывается в веб-клиенте</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Не исправлено в 6.41.11</td></tr>
-<tr><td>17</td><td><a href="#case-17">Пустые шаблоны задвижек, насосов и других устройств</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498'>ASD-6498</a>), ожидает реакции / требует уточнения</td></tr>
-<tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11</td></tr>
-<tr><td>20</td><td><a href="#case-20">Не отображаются изображения в демо-проекте Романа Шиндина</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Требует уточнения / АГ: проект вне дистрибутива; передано имя дашборда «АСДУ (SCADA/HMI) v2»</td></tr>
+<tr><td>4</td><td><a href="#case-4">В дереве тегов невозможно выбрать абсолютную модель в качестве источника</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485'>ASD-6485</a>)</td></tr>
+<tr><td>5</td><td><a href="#case-5">Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</a></td><td>Critical</td><td>Ошибки платформы партнёра</td><td>Ожидание клиента: АГ по существу не ответили (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486'>ASD-6486</a>, блокер) / переключение не проводилось</td></tr>
+<tr><td>8</td><td><a href="#case-8">Настройки колонок компонента eventLog сбрасываются при поступлении событий</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>НЕ исправлено в 6.41.12-2562, проверено автотестом: живой виджет игнорирует сохранённые настройки колонок, всегда 7 колонок по умолчанию (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475'>ASD-6475</a>)</td></tr>
+<tr><td>9</td><td><a href="#case-9">HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>)</td></tr>
+<tr><td>12</td><td><a href="#case-12">Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>НЕ исправлено в 6.41.12-2562, проверено: раздел по-прежнему открывает корень дерева (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479'>ASD-6479</a>); заявленный АГ фикс не вошёл в релиз — требуется ответ АГ</td></tr>
+<tr><td>13</td><td><a href="#case-13">Вкладки «Информации о сервере» обрезаются и не переносятся</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.12-2562, проверено автотестом: скрытые вкладки доступны через «Ещё» (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480'>ASD-6480</a>)</td></tr>
+<tr><td>14</td><td><a href="#case-14">Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Исправлено, закрыто АГ (Fixed/Done), проверено автотестом на 6.41.12-2562 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481'>ASD-6481</a>)</td></tr>
+<tr><td>16</td><td><a href="#case-16">Дашборд «Тревоги» не открывается в веб-клиенте</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>By design по ответу АГ: дашборд alerts — только оконный клиент, в веб используется alertsMonitoring (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6497'>ASD-6497</a>)</td></tr>
+<tr><td>17</td><td><a href="#case-17">Пустые шаблоны задвижек, насосов и других устройств</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Ожидание поддержки: АГ уточняют происхождение группы панелей (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498'>ASD-6498</a>)</td></tr>
+<tr><td>18</td><td><a href="#case-18">Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.12-2562, проверено: редактор демо открывается без JS-ошибок (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6499'>ASD-6499</a>)</td></tr>
+<tr><td>20</td><td><a href="#case-20">Не отображаются изображения в демо-проекте Романа Шиндина</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Ожидание клиента: проект вне дистрибутива, доработка — платные услуги (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6501'>ASD-6501</a>)</td></tr>
 <tr><td>21</td><td><a href="#case-21">Не работает активация метаданных устройства</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11 / поведение подтверждено (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6502'>ASD-6502</a>)</td></tr>
-<tr><td>23</td><td><a href="#case-23">JS-ошибки `getListenerCode` при навигации по системному дереву</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Разрешён и закрыт (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504'>ASD-6504</a>), самостоятельно не проверялось</td></tr>
+<tr><td>23</td><td><a href="#case-23">JS-ошибки `getListenerCode` при навигации по системному дереву</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Исправлено (Fixed), проверено на 6.41.12-2562 автотестом: ошибок getListenerCode нет (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504'>ASD-6504</a>)</td></tr>
 <tr><td>24</td><td><a href="#case-24">Прямые ссылки на настройки сервера и лицензии возвращают JSON 404</a></td><td>Medium</td><td>Ошибки платформы партнёра</td><td>Закрыто / by design (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6505'>ASD-6505</a>); непоследовательность JSON/HTML 404 — см. кейс 14</td></tr>
-<tr><td>25</td><td><a href="#case-25">Не работает перенос контекстов посредством приложений</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11-2553 (по ответу АГ, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521'>ASD-6521</a>) / самостоятельно не проверялось</td></tr>
-<tr><td>26</td><td><a href="#case-26">Не работают дополнительные свойства при использовании относительных инструментальных панелей</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.11-2553 (по ответу АГ, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523'>ASD-6523</a>, задача №20649) / самостоятельно не проверялось</td></tr>
-<tr><td>27</td><td><a href="#case-27">Не работает eventLog при использовании относительных инструментальных панелей</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Ожидает ответа коллег (АГ запросили контексты и сценарий, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522'>ASD-6522</a>)</td></tr></tbody></table>
+<tr><td>25</td><td><a href="#case-25">Не работает перенос контекстов посредством приложений</a></td><td>High</td><td>Ошибки платформы партнёра</td><td>Исправлено в 6.41.12-2562, проверено: сценарий АГ выполнен целиком, окно «Результат обновления» заполнено (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521'>ASD-6521</a>)</td></tr>
+<tr><td>26</td><td><a href="#case-26">Не работают дополнительные свойства при использовании относительных инструментальных панелей</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523'>ASD-6523</a>) / самостоятельная проверка требует контекстов коллег</td></tr>
+<tr><td>27</td><td><a href="#case-27">Не работает eventLog при использовании относительных инструментальных панелей</a></td><td>Low</td><td>Ошибки платформы партнёра</td><td>Ожидание поддержки: коллеги предложили созвон-показ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522'>ASD-6522</a>)</td></tr></tbody></table>
 <h2 class="section-title" id="section-0">Ошибки кастомизации</h2><section class="case severity-medium" id="case-1">
 <h3>Кейс 1. Режимы лицензирования free / trial не описаны в документации</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>, блокер), ожидает реакции</span></p>
-<p>Тикет АГ: <code>[ASD-6482](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482)</code>.</p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Документация исправлена в 6.41.12-2562 (начальная лицензия описана), проверено; переключение режима поверх существующей установки не работает (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482'>ASD-6482</a>), чистая установка — в плане</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482">ASD-6482</a>.</p>
 <h4>Описание</h4>
 <p>Инсталлятор RatioT SCADA 6.41.09 предлагает выбор между двумя режимами на <strong>этапе установки</strong>:
 - <strong>Пробная лицензия (30 дней)</strong>
@@ -160,10 +160,20 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 - чем отличаются free и trial;
 - что будет после 30 дней или после 100 тегов;
 - можно ли перейти с free/trial на полную лицензию без переустановки.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="диалог выбора лицензии в инсталляторе" src="tests/screenshots/install_overwrite_1.png" /> — диалог выбора лицензии в инсталляторе</li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6482">ASD-6482</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 15.09):</p>
+<blockquote>
+<p>Добрый день!
+Исправление будет доступно в ближайшем брендированном дистрибутиве ДКС. Брендированные дистрибутивы выпускаются вместе с минорными релизами AggreGate, в среднем раз в две недели. Ближайший релиз планируется 16 сентября.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Дистрибутив 6.41.12-2562 (брендированный релиз 16.09).</p>
+<p><strong>Документация — исправлено.</strong> Раздел «Лицензирование» (<code>licensing.htm</code>) теперь содержит подраздел «Начальная лицензия» с описанием выбора типа лицензии на шаге «Выберите тип лицензии»:</p>
+<blockquote>
+<p>Во время установки инсталлятор предлагает выбрать начальную лицензию для нового экземпляра RatioT Server на шаге «Выберите тип лицензии». Набор доступных вариантов зависит от дистрибутива: Пробная лицензия (30 дней); Бесплатная лицензия на 100 тэгов (лицензия SCADA/HMI Standard с ограничением в 100 тэгов); Бесплатная лицензия на 10 устройств; Бесплатная лицензия на 50 переменных и 10000 событий в сутки. Приобретённую коммерческую лицензию можно активировать позднее в любой момент.</p>
+</blockquote>
+<p><strong>Переключение режима поверх существующей установки — не работает (проверено).</strong> Выполнена тихая переустановка 6.41.12 с файлом ответов, в котором выбор типа лицензии изменён на «Бесплатная лицензия на 100 тэгов» (<code>license=1</code> в response.varfile). После переустановки в «Информации о лицензии» по-прежнему прежняя лицензия: владелец «Команда RatioT SCADA», устройства 0/100, оставшийся период 30/30 дн. Режим начальной лицензии применяется только при первой установке (что согласуется с поведением из кейса 9), поверх существующей установки выбор в инсталляторе игнорируется. Проверка работоспособности сервера в режиме 100 тэгов возможна только на чистой установке; запланирована после завершения параллельных проверок на текущем контуре.</p>
 <h4>Ссылки на документацию</h4>
 <ul>
 <li><code>admin/custom/templates/docs/licensing.htm</code></li>
@@ -173,8 +183,8 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-low" id="case-11">
 <h3>Кейс 11. Вёрстка страницы 404</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478'>ASD-6478</a>), ожидает реакции</span></p>
-<p>Тикет АГ: <code>[ASD-6478](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478)</code>.</p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Ожидание клиента: нужно брендированное изображение для страницы 404 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478'>ASD-6478</a>); кастомные дашборды ошибок — в roadmap АГ</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478">ASD-6478</a>.</p>
 <h4>Описание</h4>
 <p>При обращении к несуществующей странице (например, через внутреннюю навигацию SPA) отображается страница 404 с огромным логотипом DKC, который перекрывает центр экрана. Текст «404 — Страница не найдена» и ссылка «На главную» накладываются на красный круг логотипа, что делает сообщение трудночитаемым.</p>
 <h4>Воспроизведение</h4>
@@ -187,14 +197,20 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Страница 404 содержит чёткое, центрированное сообщение об ошибке без перекрытия текстом логотипа. Логотип либо отсутствует, либо расположен так, чтобы не мешать чтению.</p>
 <h4>Фактический результат</h4>
 <p>Логотип DKC занимает большую часть экрана, а текст ошибки наложен на красный фон логотипа. Визуально выглядит некорректно.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="страница 404 с перекрывающим логотипом" src="tests/screenshots/store_docs.png" /> — страница 404, текст перекрыт логотипом DKC</li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (Vadim Pavlov, 12.09, тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6478">ASD-6478</a>):</p>
+<blockquote>
+<p>Андрей, добрый день.
+По внутренним правилам брендирования сборок Платфомы реализуется замена изображений в рамках стандартной верстки страниц web-интерфейса. Мы не предлагаем вам каким-то образом изменять что-либо в дистрибутиве, а просим предоставить брендированное изображение, подходящее для верстки страницы 404, и мы включим его в дистрибутив.
+Также сообщаем, что в дорожную карту нашей команды разработки заложена реализация возможности кастомизации дэшбордов для случаев возникновения HTTP ошибок без конкретных сроков по добавлению нового функционала. В случае необходимости реализации данного функционала в конкретные сроки, просим связаться с вашим менеджером.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<p>Проверено на 6.41.12-2562: несуществующая страница <code>/web/*</code> по-прежнему отдаёт сырой JSON «Not Found» вместо HTML-страницы (см. также кейс 14).</p>
+<p><strong>Итог: ожидает брендированное изображение 404 от ДКС; кастомные дашборды ошибок — в roadmap АГ без сроков.</strong></p>
 </section>
 <section class="case severity-medium" id="case-15">
 <h3>Кейс 15. Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Pending: остаточные замечания по ссылкам фиксируются в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a></span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>В стартовой странице демо-приложения разделы «Документация» и «Онлайн» содержат ссылки, которые ведут на <code>aggregate.digital</code>, а не на актуальные ресурсы RatioT SCADA / BUFFLAB.</p>
@@ -254,18 +270,18 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </tbody>
 </table>
 <p>Ни одна ссылка не ведёт на <code>aggregate.digital</code> — основной дефект исправлен, сайт RatioT (buff-lab.ru) открывается. Остаточные замечания: «Документация по SCADA/HMI» ведёт на маркетинговую главную, а не на документацию; все шесть ссылок раздела «Онлайн» ведут на одну и ту же страницу (фактически заглушки — блога, сообщества и покупки там нет).</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Ссылки на стартовой странице" src="tests/screenshots/case18_aggregate_links_dashboard.png" /> — блок Документация/Онлайн ведёт на AggreGate</li>
-<li><img alt="Открывшийся сайт AggreGate" src="tests/screenshots/case18_aggregate_links_docs.png" /> — браузер на aggregate.digital</li>
-<li><img alt="Стартовая страница в 6.41.11" src="tests/screenshots/case18_64111_start.png" /> — блоки Документация/Онлайн</li>
-<li><img alt="Сайт RatioT buff-lab.ru в 6.41.11" src="tests/screenshots/case18_click_Веб-сайт_продукта.png" /> — ссылки ведут на сайт RatioT</li>
-<li><img alt="Локальная документация платформы в 6.41.11" src="tests/screenshots/case18_click_Документация_по_платформе.png" /></li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496">ASD-6496</a>, от 16.09.2026)</h4>
+<p>Пользователь (Andrey Efremtsev, 08.09):</p>
+<blockquote>
+<p>Добрый день!
+Спасибо за оперативную реакцию. Буду ждать исправлений. Если Вы завели новые задачи, то эту, наверное, можно закрыть</p>
+</blockquote>
+<p>Тикет в статусе Pending.</p>
+<p>Остаточные замечания по ссылкам-заглушкам на buff-lab.ru фиксируются в этом же тикете (по <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6500">ASD-6500</a> их просили фиксировать в ASD-6496).</p>
 </section>
 <section class="case severity-low" id="case-19">
 <h3>Кейс 19. Скриншоты и изображения AggreGate в справке и демо-проектах</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Частично исправлено в 6.41.11</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки кастомизации</span> <span class="type"><strong>Статус:</strong> Закрыт как дублирующий, всё фиксируется в <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a> (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6500'>ASD-6500</a>)</span></p>
 <p><strong>Серьёзность:</strong> Low  </p>
 <h4>Описание</h4>
 <p>Во встроенной справке и демо-проектах встречаются скриншоты/изображения с брендингом AggreGate (логотип, цветовая схема, название).</p>
@@ -322,22 +338,19 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Дополнительно (артефакт ребрендинга, не AggreGate): в заголовке дашборда «Каталог демо-проектов» отображается «RatioT SCADA SCADA/HMI» — задвоение «SCADA» осталось после замены «AggreGate SCADA/HMI».</p>
 <p>Путь воспроизведения (пользовательский): Центр управления → кнопка «Документация по платформе» → открыть перечисленные разделы в дереве документации.</p>
 <p><strong>Итог: кейс закрыт не полностью — демо-проекты чистые, но в документации остались 6 скриншотов с брендингом AggreGate и 7 внешних ссылок на aggregate.digital / tibbo.com.</strong></p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Справка с брендингом AggreGate" src="tests/screenshots/case22_aggregate_screenshot_help.png" /></li>
-<li><img alt="Демо «Дом» с брендингом AggreGate" src="tests/screenshots/case22_aggregate_screenshot_demo.png" /></li>
-<li><img alt="6.41.11: Теги — AggreGate SCADA/HMI в шапке" src="tests/screenshots/case22_64111_tags_hierarchy_ag.png" /></li>
-<li><img alt="6.41.11: Библиотека символов — AggreGate SCADA/HMI (1)" src="tests/screenshots/case22_64111_media_lib_1_ag.png" /></li>
-<li><img alt="6.41.11: Библиотека символов — AggreGate SCADA/HMI (2)" src="tests/screenshots/case22_64111_media_lib_2_ag.png" /></li>
-<li><img alt="6.41.11: Мастер создания приложений — ссылка «Уже работали с AggreGate» (1)" src="tests/screenshots/case22_64111_wizard_ag_1.png" /></li>
-<li><img alt="6.41.11: Мастер создания приложений — ссылка «Уже работали с AggreGate» (2)" src="tests/screenshots/case22_64111_wizard_ag_2.png" /></li>
-<li><img alt="6.41.11: Редактор выражений — AggreGate Server v.5.30.08" src="tests/screenshots/case22_64111_expression_builder_ag.png" /></li>
-<li><img alt="6.41.11: Каталог демо-проектов — «RatioT SCADA SCADA/HMI»" src="tests/screenshots/case22_64111_demo_catalog_scada_scada.png" /></li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6500">ASD-6500</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Anisimov Mikhail, 15.09):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Передал ваш комментарий коллеге, который занимается тикетом ASD-6496.
+Чтобы все проблемы со ссылками и упоминаниями Aggregate в OEM-проекте были в одном месте и точно не потерялись, давайте фиксировать их в том тикете.
+Данное обращение будет закрыто как дублирующее, не беспокойтесь - ваше последнее сообщение уже в работе</p>
+</blockquote>
+<p>Статус: Обработано/Fixed.</p>
 </section><h2 class="section-title" id="section-1">Ошибки OEM</h2><section class="case severity-low" id="case-2">
 <h3>Кейс 2. Инсталлятор запрашивает перезапись собственных файлов</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483'>ASD-6483</a>), ожидает реакции / в т.ч. в 6.41.11</span></p>
-<p>Тикет АГ: <code>[ASD-6483](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483)</code>.</p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Частично проверено: тихие переустановки 6.41.12-2562 прошли без конфликтов, интерактивный диалог требует ручной проверки (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483'>ASD-6483</a>)</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483">ASD-6483</a>.</p>
 <h4>Описание</h4>
 <p>При установке RatioT SCADA 6.41.09 инсталлятор выдаёт диалог «Файл уже существует. Вы хотите, чтобы программа установки заменила его?» для файлов внутри <code>C:\Program Files\RatioTScada\admin\custom\templates\docs_ru\wizard_1.png</code> и <code>wizard_2.png</code>. Это создаёт впечатление, что установка повторяется поверх существующей, или что инсталлятор не может корректно управлять своими же файлами.</p>
 <h4>Воспроизведение</h4>
@@ -353,16 +366,21 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h4>Фактический результат</h4>
 <p>Пользователь вынужден несколько раз вручную подтверждать перезапись файлов, которые только что были скопированы установщиком. Это выглядит как ошибка упаковки инсталлятора: одни и те же файлы попадают в разные компоненты/директории и конфликтуют при распаковке.</p>
 <p><strong>Подтверждено в 6.41.11 (01.09.2026):</strong> при установке RatioT SCADA 6.41.11 проблема сохраняется — инсталлятор снова выводит диалог «Файл уже существует... docs_ru\wizard_1.png. Вы хотите, чтобы программа установки заменила его?».</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="диалог перезаписи wizard_1.png" src="tests/screenshots/install_overwrite_2.png" /> — диалог перезаписи <code>wizard_1.png</code></li>
-<li><img alt="диалог перезаписи wizard_2.png" src="tests/screenshots/install_overwrite_3.png" /> — диалог перезаписи <code>wizard_2.png</code></li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6483">ASD-6483</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Vadim Pavlov, 12.09):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Исправление будет доступно в ближайшем брендированном дистрибутиве ДКС. Брендированные дистрибутивы выпускаются вместе с минорными релизами AggreGate, в среднем раз в две недели. Ближайший релиз планируется 16 сентября.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Две тихие переустановки дистрибутива 6.41.12-2562 поверх существующей установки (16.09.2026, ~11:43 и ~13:49) прошли штатно, код возврата 0, конфликтов файлов зафиксировано не было.</p>
+<p>Интерактивный диалог установщика install4j (про который заявлен баг) в автоматическом тесте проверить нельзя: Playwright не автоматизирует Java-GUI установщика, а в тихом режиме (-q) диалоги принудительно подавляются. <strong>Требуется ручная проверка:</strong> запустить инсталлятор 6.41.12 в интерактивном режиме и проследить, появляются ли диалоги перезаписи <code>docs_ru\wizard_1.png</code> и <code>wizard_2.png</code>.</p>
 </section>
 <section class="case severity-high" id="case-6">
 <h3>Кейс 6. Установка в нестандартную папку + замена лицензии приводит к отказу лицензирования и новому activation key</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487'>ASD-6487</a>, критический), ожидает реакции / требует переустановки</span></p>
-<p>Тикет АГ: <code>[ASD-6487](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487)</code>.</p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Ожидание клиента: лицензии активны, при видоизменении ключей нужна перегенерация (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487'>ASD-6487</a>)</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487">ASD-6487</a>.</p>
 <h4>Описание</h4>
 <p>При установке RatioT SCADA в папку, отличную от предыдущей, инсталлятор всё равно запрашивает согласие на копирование/перезапись файлов. После замены файла лицензии в новой папке программа продолжает сообщать об отсутствии лицензии. Служба сервера запускается и перезапускается, но веб-сервер не отвечает. В итоге требуется полное удаление всех версий; при новой установке генерируется новый activation key, и старая лицензия не принимается.</p>
 <h4>Воспроизведение</h4>
@@ -386,15 +404,22 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li>Лицензия не активируется; сервер не отвечает по вебу.</li>
 <li>После удаления и переустановки генерируется новый activation key, и старая лицензия не подходит.</li>
 </ul>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="страница «Информация о сервере»" src="tests/screenshots/case13_server_info.png" /> — в веб-интерфейсе открыта страница <strong>Информация о сервере</strong></li>
-<li><img alt="лицензионная информация: Trial License, 30 дней, 100 устройств" src="tests/screenshots/case13_license_info.png" /> — вкладка <strong>Лицензионная информация</strong> показывает <code>Trial License</code>, оставшееся время 29 дней, максимальное количество устройств 100</li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6487">ASD-6487</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 15.09):</p>
+<blockquote>
+<p>Андрей, добрый день!
+В приложенном архиве keys.zip — три пустых .txt-файла.
+Мы проверили ваши лицензии: все они содержат ключи и плагины, но ограничены по времени.
+Состав модулей у всех трёх одинаковый. При этом у HEYeHBx0eXBl-MjgdHRxS период действия — 291 день, тогда как у двух других — 260. Ключи совпадают у HEYeHBx0eXBl-FIeHDUdHDFlNDcyYzg3HR0 и HEYeHBx0eXBl-MjgdHRxS; у HEYeHBx0eXBl-IeHDUdHDFlNDcyYzg3HR0= ключ отличается.
+Все лицензии активны, срок действия ещё не истёк.
+Если ключи видоизменились (особенно если они были старого образца), потребуется перегенерация лицензий. Для этого нам нужно получить от вас актуальные ключи.
+Отдельно про папки установки: ошибка «попробуйте установить в другую» возникает при попытке установки в папку, где платформа уже установлена — или была установлена ранее, поскольку при деинсталляции не все файлы могли быть удалены.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
 </section>
 <section class="case severity-low" id="case-7">
 <h3>Кейс 7. Ошибки создания ресурсов при первом запуске сервера</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Частично исправлено в 6.41.11 (2532): 3 исходных ERROR устранены, осталась deviceImages (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474'>ASD-6474</a>)</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.12-2562, проверено: в логе первого запуска нет ERROR/WARN (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474'>ASD-6474</a>)</span></p>
 <h4>Описание</h4>
 <p>При первом запуске <code>RatioT_server_console.exe</code> сервер стартует, но в журнале фиксируются 3 ERROR. Часть встроенных моделей и отчётов не инициализируется.</p>
 <h4>Воспроизведение</h4>
@@ -421,9 +446,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
   Cannot invoke &quot;...Context.callFunction(...)&quot; because &quot;container&quot; is null
 </code></pre>
 <h4>Скриншоты</h4>
-<ul>
-<li><img alt="ERROR в server.log при первом запуске" src="tests/screenshots/case1_server_log_errors.png" /> — фрагмент <code>server.log</code> с ошибками инициализации ресурсов</li>
-</ul>
 <h4>Проверка в 6.41.11 (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474">ASD-6474</a>, ответ АГ: «состав лицензий пересмотрен и перегенерирован, новые сборки не содержат ERROR ag.context»)</h4>
 <p>Проверено на свежей установке RatioT SCADA 6.41.11 (сборка 2532), лог <code>server.log</code> начинается с первого запуска сервера (строка «First launch detected», «Starting RatioT Server v6.41.11-2532»):</p>
 <ul>
@@ -435,16 +457,21 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li>Дополнительно при инициализации фиксируются WARN со стектрейсами <code>ag.statistics</code>: «Переменная 'status' недоступна в контексте 'users.admin.models.tabList'» и «Переменная 'eventStatistics' недоступна в контексте 'users.admin.models.tabList'».</li>
 </ul>
 <p><strong>Итог: частично исправлено. Три исходных ресурса создаются корректно, но при первом запуске остаётся одна ERROR ag.context (users.admin.models.deviceImages) и два WARN ag.statistics (users.admin.models.tabList). Возможно, перегенерация лицензий вошла в сборку новее 2532 — просим подтвердить номер сборки и проверим повторно.</strong></p>
-<h4>Скриншоты (6.41.11)</h4>
-<ul>
-<li><img alt="6.41.11: начало лога первого запуска (First launch detected, Trial License)" src="tests/screenshots/case1_64111_log.png" /></li>
-<li><img alt="6.41.11: ERROR ag.context 'users.admin.models.deviceImages' при создании ресурсов" src="tests/screenshots/case1_64111_error.png" /></li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 15.09, тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6474">ASD-6474</a>):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Перегенерированные лицензии вошли в сборки платформы после 2544.
+Исправление будет доступно в ближайшем брендированном дистрибутиве ДКС. Брендированные дистрибутивы выпускаются вместе с минорными релизами AggreGate, в среднем раз в две недели. Ближайший релиз планируется 16 сентября.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<p>Проверено на 6.41.12-2562 (тестовый контур, первый запуск сервера после установки): в логе первого запуска нет ERROR (в том числе исчезла ERROR <code>ag.context users.admin.models.deviceImages</code>) и нет WARN <code>ag.statistics</code>.</p>
+<p><strong>Итог: исправлено и подтверждено на 6.41.12-2562.</strong></p>
 </section>
 <section class="case severity-high" id="case-10">
 <h3>Кейс 10. Локальный магазин приложений отсутствует в веб-клиенте</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477'>ASD-6477</a>, критический), ожидает реакции</span></p>
-<p>Тикет АГ: <code>[ASD-6477](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477)</code>.</p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> By design по ответу АГ: локальный магазин в дистрибутив не входит (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477'>ASD-6477</a>); требуется решение ДКС</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477">ASD-6477</a>.</p>
 <h4>Описание</h4>
 <p>В дистрибутиве RatioT SCADA присутствует локальный файл магазина приложений <code>C:\Program Files\RatioTScada\store\store.xml</code>. Документация (<code>ls_store.htm</code>) описывает магазин приложений как способ распространения модулей и решений, а также указывает, что в системном дереве должен быть доступен плагин <strong>Магазин</strong> под разделом <strong>Драйверы и расширения</strong>. Однако в веб-клиенте отсутствует какой-либо раздел или плагин «Магазин приложений». Если пользователь удалит приложение/модуль, восстановить его из локального магазина через веб-интерфейс невозможно.</p>
 <h4>Воспроизведение</h4>
@@ -467,10 +494,15 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li>Локальный <code>store.xml</code> существует, но недоступен через UI.</li>
 <li>Удалённые приложения/модули нельзя восстановить через веб-клиент.</li>
 </ul>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="поиск &quot;Магазин&quot; в системном дереве не находит раздел" src="tests/screenshots/store_tree_search.png" /> — поиск "Магазин" в дереве не находит раздел</li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 16.09, тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6477">ASD-6477</a>):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Если отбросить брендирование, у вас обычный дистрибутив SCADA, и локальный магазин в него не входит. Судя по ошибке, вы пытаетесь подключиться к адресу buff-lab.ru:6440. По умолчанию этот адрес ведёт на наш публичный магазин, однако в рамках кастомизации все названия были заменены на те, которые вы предоставили со своей стороны. Соответственно, если вы отдельно не разворачивали собственный магазин по этому адресу, то работать ничего не будет.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<p>Проверено на 6.41.12-2562: в системном дереве по-прежнему нет плагина «Магазин» (поиск «Магазин» в поле «Поиск в системном дереве» — 0 результатов).</p>
+<p><strong>Итог: конфигурационное ограничение по ответу АГ (локальный магазин не входит в дистрибутив); требуется решение ДКС о развёртывании собственного магазина.</strong></p>
 <h4>Пруф из документации</h4>
 <p>В <code>admin/custom/templates/docs/ls_store.htm</code> сказано:</p>
 <blockquote>
@@ -480,7 +512,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </section>
 <section class="case severity-medium" id="case-22">
 <h3>Кейс 22. Встроенная справка недоступна по URL `/static/docs/`</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Закрыто / дубликат <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496'>ASD-6496</a> (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503'>ASD-6503</a>)</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки OEM</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.12-2562, проверено: /static/docs/index.htm отдаёт HTTP 200 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503'>ASD-6503</a>)</span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>Ссылки на встроенную справку из веб-клиента и прямые URL <code>/static/docs/*</code> возвращают страницу 404 вместо HTML-справки. Документация присутствует в файловой системе сервера (<code>admin/custom/templates/docs/</code>), но не отдаётся через веб-сервер.</p>
@@ -497,10 +529,14 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6503">ASD-6503</a>)</h4>
 <p>Ответ АГ: «данный тикет является дубликатом <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496">ASD-6496</a>, в связи с чем будет закрыт». <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496">ASD-6496</a> — кейс 18 (ссылки в демо-приложении ведут на сайт AggreGate).</p>
 <p><strong>Итог: тикет закрыт как дубликат <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6496">ASD-6496</a>.</strong></p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="404 при открытии /static/docs/introduction.htm" src="tests/screenshots/case25_docs_404.png" /></li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (Anisimov Mikhail, 02.09):</p>
+<blockquote>
+<p>Добрый день, данный тикет является дубликатом ASD-6496: Ссылки в демо-приложении ведут на сайт AggreGate вместо RatioT/BUFFLAB (Pending), всвязи с чем будет закрыт</p>
+</blockquote>
+<p>Тикет закрыт (Fixed/Done).</p>
+<p>Проверено на 6.41.12-2562: <code>https://localhost:8443/static/docs/index.htm</code> возвращает HTTP 200 text/html.</p>
+<p><strong>Итог: исправлено и подтверждено на 6.41.12-2562.</strong></p>
 </section><h2 class="section-title" id="section-2">Ошибки платформы партнёра</h2><section class="case severity-high" id="case-3">
 <h3>Кейс 3. Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку</h3>
 <p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484'>ASD-6484</a>, также <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455'>ASD-6455</a> от коллег) / в trial нет драйвера Modbus, самостоятельно не проверялось</span></p>
@@ -532,21 +568,16 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <h4>Уточнение по лицензированию</h4>
 <p>При проверке на текущей trial-лицензии (<code>Trial License</code>, 0/100 устройств) в диалоге добавления устройства драйвер <strong>Modbus</strong> отсутствует. В списке доступны IEC-104, Агент, BACnet, DNP3 и др., но Modbus нет. Это не позволяет лично воспроизвести импорт/экспорт регистров в данном контуре. Скриншоты самого бага (пустые поля, кодировка) предоставлены коллегами с полноценной лицензией.</p>
 <h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484">ASD-6484</a>)</h4>
-<p>Тикет АГ <code>[ASD-6484](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484)</code> (критический, создан 20.08.2026) закрыт, обновлён 24.08.2026. Тикет коллег <code>[ASD-6455](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455)</code> (Сыченко Артем, 10.08.2026) — также закрыт. Самостоятельная проверка исправления в новой сборке не проводилась (в trial-контуре нет драйвера Modbus).</p>
+<p>Тикет АГ <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484">ASD-6484</a> (критический, создан 20.08.2026) закрыт, обновлён 24.08.2026. Тикет коллег <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455">ASD-6455</a> (Сыченко Артем, 10.08.2026) — также закрыт. Самостоятельная проверка исправления в новой сборке не проводилась (в trial-контуре нет драйвера Modbus).</p>
+<p>Ответ АГ (Anisimov Mikhail, 24.08):</p>
+<blockquote>
+<p>Добрый день! Данное обращение является дубликатом ASD-6455: Баги с импортом и экспортом Modbus регистров в форматах csv и xml (закрыто), всвязи с чем будет закрыто.</p>
+</blockquote>
 <p><strong>Итог: закрыто АГ (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484">ASD-6484</a>; тикет коллег <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6455">ASD-6455</a> тоже закрыт), самостоятельно не проверялось.</strong></p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="пустое устройство modbus перед импортом" src="tests/screenshots/modbus_import_empty.png" /> — пустое устройство modbus перед импортом</li>
-<li><img alt="после импорта CSV: пустые имена/описания и адреса" src="tests/screenshots/modbus_import_csv_empty_fields.png" /> — после импорта CSV: пустые имена/описания и адреса</li>
-<li><img alt="после импорта TBL: данные на месте" src="tests/screenshots/modbus_import_tbl_ok.png" /> — после импорта TBL: данные на месте</li>
-<li><img alt="диалог экспорта без кнопки закрыть" src="tests/screenshots/modbus_export_dialog.png" /> — диалог экспорта без кнопки закрыть</li>
-<li><img alt="CSV с искажённой кодировкой" src="tests/screenshots/modbus_csv_encoding.png" /> — CSV с искажённой кодировкой</li>
-<li><img alt="драйвер Modbus отсутствует в trial-версии" src="tests/screenshots/case8_modbus_empty.png" /> — драйвер Modbus отсутствует в списке доступных драйверов (trial-лицензия)</li>
-</ul>
 </section>
 <section class="case severity-medium" id="case-4">
 <h3>Кейс 4. В дереве тегов невозможно выбрать абсолютную модель в качестве источника</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто / не баг (by design)</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485'>ASD-6485</a>)</span></p>
 <h4>Описание</h4>
 <p>На вебинаре по RatioT SCADA 6.4 озвучивалось, что при привязке тегов цифрового двойника в дереве тегов источником можно выбирать не только устройство, но и абсолютную модель. В текущей версии такой возможности нет, а в документации описание отсутствует.</p>
 <h4>Воспроизведение</h4>
@@ -568,11 +599,6 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li>В trial-версии раздел "Дерево тегов" отсутствует.</li>
 <li>Скриншоты коллег показывают, что выбор источника ограничен устройствами; абсолютная модель не доступна.</li>
 </ul>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="диалог выбора источника, список пуст/отсутствует абсолютная модель" src="tests/screenshots/tagtree_source_empty.png" /> — диалог выбора источника, список пуст/отсутствует абсолютная модель</li>
-<li><img alt="поиск &quot;тег&quot; в системном дереве не находит раздел &quot;Дерево тегов&quot;" src="tests/screenshots/case10_tag_tree.png" /> — поиск "тег" не находит раздел "Дерево тегов" в trial-версии</li>
-</ul>
 <h4>Проверка в 6.41.11 (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6485">ASD-6485</a>, ответ АГ: «не является ошибкой, источником может быть только аккаунт устройства»)</h4>
 <p>Поведение подтверждено документацией поставки. В локальной документации RatioT SCADA 6.41.11 (<code>sh_scada_tags.htm</code>, раздел «Теги») прямо сказано:</p>
 <ul>
@@ -581,16 +607,11 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </ul>
 <p>Абсолютная модель как источник в документации не описана и в диалоге недоступна. Дашборд «Дерево тегов» (<code>users.admin.dashboards.tags</code>) в 6.41.11 открывается, но лично воспроизвести диалог выбора источника в нашем контуре нельзя — нет ни одного устройства/цифрового двойника с тегами (таблица пустая).</p>
 <p><strong>Итог: расхождение не с документацией, а с формулировкой вебинара. Поведение соответствует задокументированной архитектуре — принимаем ответ АГ, дефектом не считаем.</strong></p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="диалог выбора источника, список пуст/отсутствует абсолютная модель" src="tests/screenshots/tagtree_source_empty.png" /> — диалог выбора источника, список пуст/отсутствует абсолютная модель</li>
-<li><img alt="поиск &quot;тег&quot; в системном дереве не находит раздел &quot;Дерево тегов&quot;" src="tests/screenshots/case10_tag_tree.png" /> — поиск "тег" не находит раздел "Дерево тегов" в trial-версии</li>
-</ul>
 </section>
 <section class="case severity-critical" id="case-5">
 <h3>Кейс 5. Переключение хранилища событий на NoSQL-хранилище приводит сервер в неработоспособное состояние</h3>
-<p class="meta"><span class="severity severity-critical"><strong>Критичность:</strong> Critical</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486'>ASD-6486</a>, блокер), ожидает реакции / переключение не проводилось</span></p>
-<p>Тикет АГ: <code>[ASD-6486](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486)</code>.</p>
+<p class="meta"><span class="severity severity-critical"><strong>Критичность:</strong> Critical</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Ожидание клиента: АГ по существу не ответили (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486'>ASD-6486</a>, блокер) / переключение не проводилось</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486">ASD-6486</a>.</p>
 <h4>Описание</h4>
 <p>В настройках сервера, раздел <strong>Хранилище → База данных</strong>, пункт <strong>Хранилище событий</strong> по умолчанию отключён. Если выбрать <strong>NoSQL-хранилище</strong>, сервер уходит в перезапуск и больше не восстанавливается. Утилита <code>configurator</code> для версии 6.41 отсутствует, что не позволяет восстановить конфигурацию.</p>
 <h4>Воспроизведение</h4>
@@ -607,15 +628,17 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Сервер не восстанавливается; конфигурация может быть потеряна; отсутствует утилита для ручного восстановления.</p>
 <h4>Уточнение</h4>
 <p>При проверке на trial-версии вкладка <strong>Хранилище → База данных</strong> доступна, и в ней видно, что <strong>Хранилище событий</strong> по умолчанию <strong>Отключено</strong>. Рядом расположен выпадающий список с вариантом <strong>NoSQL хранилище</strong>. Само переключение не производилось, чтобы не вывести сервер из строя.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="вкладка «Хранилище» с выпадающим списком хранилищ" src="tests/screenshots/storage_nosql_dropdown.png" /> — скриншот коллег: выпадающий список хранилищ</li>
-<li><img alt="вкладка Хранилище в trial-версии" src="tests/screenshots/case11_storage.png" /> — вкладка <strong>Хранилище → База данных</strong>, "Хранилище событий" = "Отключено"</li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6486">ASD-6486</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 31.08):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Благодарим за обратную связь, обращение будет переведено в корректный статус.</p>
+</blockquote>
+<p>По существу не отвечали. Статус тикета: Ожидание клиента.</p>
 </section>
 <section class="case severity-high" id="case-8">
 <h3>Кейс 8. Настройки колонок компонента eventLog сбрасываются при поступлении событий</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475'>ASD-6475</a>), ожидает реакции / в trial нет редактора дашбордов</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> НЕ исправлено в 6.41.12-2562, проверено автотестом: живой виджет игнорирует сохранённые настройки колонок, всегда 7 колонок по умолчанию (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475'>ASD-6475</a>)</span></p>
 <h4>Описание</h4>
 <p>В дашборде добавлен элемент <strong>Журнал событий (eventLog)</strong>. В расширенных настройках на вкладке <strong>Колонки</strong> включена опция «Ширина колонок настроена вручную», задан порядок колонок, их ширина и видимость. Настройки применяются, пока событий нет; как только поступает событие, таблица возвращается к дефолтному виду и отображаются все колонки, включая скрытые.</p>
 <h4>Воспроизведение</h4>
@@ -634,19 +657,29 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>При поступлении события отображаются все колонки, настройки не применены.</p>
 <h4>Уточнение по лицензированию</h4>
 <p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен (нет кнопки/раздела для добавления/редактирования компонентов), поэтому лично воспроизвести настройку колонок eventLog в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="редактор дашборда с выделенным eventLog" src="tests/screenshots/eventlog_columns_editor.png" /> — редактор дашборда с выделенным eventLog</li>
-<li><img alt="настройки колонок без данных" src="tests/screenshots/eventlog_columns_nodata.png" /> — настройки колонок без данных</li>
-<li><img alt="список полей eventLog" src="tests/screenshots/eventlog_columns_list.png" /> — список полей eventLog</li>
-<li><img alt="журнал с событием: видны все колонки" src="tests/screenshots/eventlog_with_event.png" /> — журнал с событием: видны все колонки</li>
-<li><img alt="после события настройки не восстановились" src="tests/screenshots/eventlog_empty_after_event.png" /> — после события настройки не восстановились</li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6475">ASD-6475</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Anisimov Mikhail, 15.09):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Исправление будет доступно в ближайшем брендированном дистрибутиве ДКС. Брендированные дистрибутивы выпускаются вместе с минорными релизами AggreGate, в среднем раз в две недели. Ближайший релиз планируется 16 сентября.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Проверка выполнена автотестом на 6.41.12-2562 (сценарий tests/case5_eventlog_columns.py, редактор дашборда scadaApplication → виджет «Журнал событий» → диалог колонок через иконку ⋮):</p>
+<ol>
+<li>В диалоге колонок оставлены только «Время» и «Событие» (сняты галочки с «Уровень» и «Данные»), нажато OK, дашборд сохранён кнопкой «Сохранить».</li>
+<li>В редакторе настройка применена и сохранена (видны 2 колонки).</li>
+<li>Живой виджет eventLog показывает <strong>полный набор из 7 колонок по умолчанию</strong> (Время, Событие, Контекст, Уровень, Данные, Подтверждения, Обогащения) — сохранённая конфигурация игнорируется.</li>
+<li>Сгенерированы новые события (изменение статуса устройств + повторный вход пользователя) — набор колонок остался полным (7 шт.).</li>
+<li>После перезагрузки страницы — по-прежнему все 7 колонок.</li>
+</ol>
+<p><strong>Итог: НЕ ИСПРАВЛЕНО в 6.41.12-2562</strong> — живой виджет eventLog игнорирует сохранённые в дашборде настройки колонок и показывает набор по умолчанию; поступление событий и перезагрузка настройку не возвращают. Заявленный АГ фикс не вошёл в релиз — требуется ответ АГ. Дополнительно зафиксировано: до изменений рассинхрон уже существовал (в редакторе отмечено 4 колонки, в живом виджете — 7).</p>
+<p>Ограничения проверки: опция «Ширина колонок настроен вручную» из исходного описания в веб-интерфейсе не найдена (в диалоге только чекбоксы и «Сброс»/«OK») — возможно, она есть только в десктопном клиенте.</p>
 </section>
 <section class="case severity-medium" id="case-9">
 <h3>Кейс 9. HTML-сниппет сдвигает layout дашборда; после обновления страницы сбрасывается</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто / не воспроизводится у АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>, 6.41.10-2512), перепроверка невозможна, незначительный</span></p>
-<p>Тикет АГ: <code>[ASD-6476](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476)</code>.</p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476'>ASD-6476</a>)</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6476">ASD-6476</a>.</p>
 <h4>Описание</h4>
 <p>При добавлении на дашборд компонента <strong>HTML-сниппет</strong> с произвольным HTML/CSS происходит сдвиг всего layout дашборда вниз. После обновления страницы (F5) дашборд возвращается к стандартному виду, но при повторном открытии редактора сдвиг появляется снова.</p>
 <h4>Воспроизведение</h4>
@@ -665,22 +698,13 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Визуализация дашборда сдвигается вниз; после F5 временно восстанавливается.</p>
 <h4>Уточнение по лицензированию</h4>
 <p>При проверке на trial-версии редактор дашбордов в веб-клиенте недоступен: нет кнопки "Редактировать" для существующих дашбордов и нет возможности добавить HTML-сниппет. Попытки открыть URL <code>/.../edit</code> приводят к странице 404 (см. кейс 16). Поэтому лично воспроизвести сдвиг layout в данном контуре не удалось. Скриншоты бага предоставлены коллегами с полноценной лицензией.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="редактор с добавленным HTML-сниппетом" src="tests/screenshots/html_snippet_editor.png" /> — редактор с добавленным HTML-сниппетом</li>
-<li><img alt="фрагмент вставленного HTML/CSS" src="tests/screenshots/html_snippet_code.png" /> — фрагмент вставленного HTML/CSS</li>
-<li><img alt="дашборд съехал вниз" src="tests/screenshots/html_snippet_layout_shift.png" /> — дашборд съехал вниз</li>
-<li><img alt="визуализация после обновления страницы" src="tests/screenshots/html_snippet_dashboard.png" /> — визуализация после обновления страницы</li>
-<li><img alt="второй пример: HTML-игра в редакторе" src="tests/screenshots/html_snippet_game_editor.png" /> — второй пример: HTML-игра в редакторе</li>
-<li><img alt="та же игра в режиме просмотра" src="tests/screenshots/html_snippet_game_runtime.png" /> — та же игра в режиме просмотра</li>
-</ul>
 <h4>Итог</h4>
 <p>АГ протестировали на 6.41.10-2512 — проблема не воспроизвелась (видео во вложении тикета), предположили влияние содержимого сниппета и запросили .prs файл дашборда. У нас .prs нет: кейс зафиксирован по скриншотам коллег, а полный код сниппета на скриншоте <code>html_snippet_code.png</code> обрезан (виден только фрагмент CSS). Возможности запросить у коллег повторный тест нет. <strong>Кейс закрыт: не воспроизводится у АГ (6.41.10-2512), самостоятельная перепроверка невозможна, серьёзность незначительная.</strong> При повторном проявлении — воспроизводить с сохранением .prs дашборда и полного кода сниппета.</p>
 </section>
 <section class="case severity-medium" id="case-12">
 <h3>Кейс 12. Раздел «Драйвера и расширения» открывает корень системного дерева вместо плагинов</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479'>ASD-6479</a>), ожидает реакции</span></p>
-<p>Тикет АГ: <code>[ASD-6479](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479)</code>.</p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> НЕ исправлено в 6.41.12-2562, проверено: раздел по-прежнему открывает корень дерева (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479'>ASD-6479</a>); заявленный АГ фикс не вошёл в релиз — требуется ответ АГ</span></p>
+<p>Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479">ASD-6479</a>.</p>
 <h4>Описание</h4>
 <p>В системном дереве веб-клиента присутствует раздел <strong>«Драйвера и расширения»</strong> (уже с грамматической ошибкой: правильно «Драйверы и расширения»). При его открытии справа загружается контейнер с тем же названием, но содержимое представляет собой корень системного дерева: <strong>Устройства</strong>, <strong>Группы устройств</strong>, <strong>Пользователи</strong>, <strong>Приложения</strong>, <strong>Модели</strong> и т.д. — то есть общий список ресурсов сервера, а не драйверы/плагины. Tooltip раздела на английском языке: <code>plugins (pluginsGlobalConf)</code>.</p>
 <h4>Воспроизведение</h4>
@@ -702,14 +726,19 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <li>В контейнере отображаются корневые ресурсы сервера, а не драйверы/плагины.</li>
 <li>Tooltip содержит английский технический текст <code>plugins (pluginsGlobalConf)</code>.</li>
 </ul>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="раздел Драйвера и расширения открывает корень системного дерева" src="tests/screenshots/smoke_06_drivers.png" /> — раздел открывает общий контейнер ресурсов, tooltip на английском</li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 15.09, тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6479">ASD-6479</a>):</p>
+<blockquote>
+<p>Добрый день!
+Исправление будет доступно в ближайшем брендированном дистрибутиве ДКС. Брендированные дистрибутивы выпускаются вместе с минорными релизами AggreGate, в среднем раз в две недели. Ближайший релиз планируется 16 сентября.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<p>Проверено на 6.41.12-2562 (16.09, брендированный релиз): <strong>не исправлено</strong>. Узел по-прежнему называется «Драйвера и расширения» (грамматическая ошибка сохранена); при открытии справа таблица «All Resources» с корнем системного дерева (Устройства, Группы устройств, Пользователи, Приложения, Модели, …) вместо драйверов/плагинов; tooltip английский «plugins (pluginsGlobalConf)».</p>
+<p><strong>Итог: не исправлено. Требуется ответ АГ: заявленное на 16.09 исправление в дистрибутив не вошло.</strong></p>
 </section>
 <section class="case severity-low" id="case-13">
 <h3>Кейс 13. Вкладки «Информации о сервере» обрезаются и не переносятся</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11-2532 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480'>ASD-6480</a>), проверено: скрытые вкладки доступны через меню «Ещё»</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.12-2562, проверено автотестом: скрытые вкладки доступны через «Ещё» (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480'>ASD-6480</a>)</span></p>
 <h4>Описание</h4>
 <p>На странице <strong>Информация о сервере</strong> в правой части расположена строка вкладок: <strong>Сервер</strong>, <strong>Хранилище</strong>, <strong>Статистика контекстов</strong>, <strong>Статистика выражений</strong>, <strong>Статистика устройств</strong>, <strong>Лицензионная информация</strong>, <strong>Активные расширения</strong>, <strong>Установленные расширения</strong> и др. При стандартной ширине окна часть вкладок обрезается и не помещается в строку. Нет ни горизонтальной прокрутки, ни переноса вкладок, ни выпадающего меню «Ещё».</p>
 <h4>Воспроизведение</h4>
@@ -722,18 +751,21 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Все вкладки доступны: переносятся на следующую строку, прокручиваются или сворачиваются в меню.</p>
 <h4>Фактический результат</h4>
 <p>Последние вкладки обрезаются (например, «Активные расширения» видно частично, «Установленные расширения» скрыта).</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="обрезанные вкладки Информации о сервере" src="tests/screenshots/smoke_03_server_info.png" /> — вкладки не помещаются в строку</li>
-<li><img alt="страница в 6.41.11: кнопка «Ещё» у строки вкладок" src="tests/screenshots/case16_server_info_64111.png" /> — 6.41.11-2532: рядом со строкой вкладок появилась кнопка «Ещё»</li>
-<li><img alt="выпадающее меню «Ещё» со скрытыми вкладками" src="tests/screenshots/case16_more_dropdown.png" /> — скрытые вкладки доступны через меню «Ещё»</li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (Anisimov Mikhail, 15.09, тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480">ASD-6480</a>):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Исправление будет доступно в ближайшем брендированном дистрибутиве ДКС. Брендированные дистрибутивы выпускаются вместе с минорными релизами AggreGate, в среднем раз в две недели. Ближайший релиз планируется 16 сентября.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<p>Проверено на 6.41.12-2562 автотестом: кнопка «Ещё» (<code>.ant-tabs-nav-more</code>) у вкладок информации о сервере появляется, через неё открывается скрытая вкладка «Производительность».</p>
+<p><strong>Итог: исправлено и подтверждено на 6.41.12-2562.</strong></p>
 <h4>Итог</h4>
 <p>АГ сообщили, что ошибка исправлена и изменения будут доступны в будущих версиях платформы (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6480">ASD-6480</a>). Проверено на 6.41.11-2532: <strong>исправлено</strong> — строка вкладок больше не обрезается бесследно, рядом появилась кнопка «Ещё» (…), не поместившиеся вкладки доступны через выпадающее меню; открытие скрытой вкладки «Производительность» через меню «Ещё» подтверждено (см. скриншоты).</p>
 </section>
 <section class="case severity-medium" id="case-14">
 <h3>Кейс 14. Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11-2532 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481'>ASD-6481</a>), проверено: контекст резолвится в учётные записи (users.admin)</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено, закрыто АГ (Fixed/Done), проверено автотестом на 6.41.12-2562 (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481'>ASD-6481</a>)</span></p>
 <h4>Описание</h4>
 <p>В системном дереве веб-клиента раздел <strong>Пользователи</strong> при открытии загружает контейнер с тем же названием, но внутри отображает не учётные записи пользователей, а корневые ресурсы сервера: <strong>Устройства</strong>, <strong>Группы устройств</strong>, <strong>Пользователи</strong>, <strong>Приложения</strong>, <strong>Модели</strong> и т.д. То есть раздел не выполняет свою функцию.</p>
 <h4>Воспроизведение</h4>
@@ -746,17 +778,16 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>В правой панели отображается список пользователей сервера (admin, testuser02 и др.) с возможностью их редактирования.</p>
 <h4>Фактический результат</h4>
 <p>В правой панели отображается корень системного дерева, а не пользователи.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="раздел Пользователи открывает корень системного дерева" src="tests/screenshots/smoke_05_users.png" /> — вместо списка пользователей показаны системные ресурсы</li>
-<li><img alt="контекст «Пользователи» в 6.41.11" src="tests/screenshots/case17_users_fixed.png" /> — 6.41.11-2532: контекст резолвится в учётные записи (admin), корень сервера не подставляется</li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481">ASD-6481</a>): Fixed / закрыто (Done) 15.09.</p>
+<p>Проверено на 6.41.12-2562 автотестом: контекст «Пользователи» корректно резолвится в <code>users.admin</code> (список пользователей).</p>
+<p><strong>Итог: исправлено и подтверждено на 6.41.12-2562.</strong></p>
 <h4>Итог</h4>
 <p>АГ сообщили, что ошибка исправлена, изменения в будущих версиях платформы (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481">ASD-6481</a>). Проверено на 6.41.11-2532: <strong>исправлено</strong> — в системном дереве контекст «Пользователи» (users) раскрывается в учётные записи пользователей (<code>admin (Администратор)</code>, путь <code>users.admin (user)</code>), корневые ресурсы сервера (Устройства, Группы устройств и т.д.) больше не подставляются. Проверка автотестом <code>tests/case17_6481_check.py</code> (пользовательский путь: поиск «Пользователи» в системном дереве → открытие контекста).</p>
 </section>
 <section class="case severity-high" id="case-16">
 <h3>Кейс 16. Дашборд «Тревоги» не открывается в веб-клиенте</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Не исправлено в 6.41.11</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> By design по ответу АГ: дашборд alerts — только оконный клиент, в веб используется alertsMonitoring (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6497'>ASD-6497</a>)</span></p>
 <p><strong>Серьёзность:</strong> High  </p>
 <h4>Описание</h4>
 <p>Дашборд «Тревоги» (возможно, созданный в десктопном клиенте) не открывается в веб-клиенте. Вместо содержимого выводится ошибка.</p>
@@ -779,20 +810,22 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>АГ проверяли дашборд <code>alertsMonitoring</code> («Активные тревоги») — он действительно работает и у нас: открывается по иконке колокольчика в левой панели и по прямому URL, ошибок нет, вкладка «Исторические тревоги» тоже работает.</p>
 <p>Однако исходный дефект — дашборд <strong><code>alerts</code> («Тревоги»)</strong> — <strong>не исправлен</strong>. Пользовательский путь: системное дерево → поиск «alerts» → «Тревоги» (Пользователи → admin → Модели → Управление тревогами → Инструментальные панели → Тревоги) → клик → модальная ошибка «Дашборд был создан оконным клиентом и не поддерживается WEB клиентом» (та же, что в 6.41.09). Прямой URL <code>/web/dashboards/users.admin.dashboards.alerts</code> по-прежнему возвращает JSON 400: «Переменная 'additionalHttpHeaders' недоступна в контексте 'users.admin.dashboards.alerts'».</p>
 <p><strong>Итог: не исправлено. АГ проверили соседний дашборд (<code>alertsMonitoring</code>), который и раньше работал.</strong></p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Ошибка открытия дашборда тревог 6.41.09" src="tests/screenshots/case19_alarms_dashboard_error.png" /></li>
-<li><img alt="JSON-ошибка additionalHttpHeaders в 6.41.10" src="tests/screenshots/case19_alerts_dashboard_64110.png" /></li>
-<li><img alt="Активные тревоги открываются корректно" src="tests/screenshots/test_case19_alerts_monitoring.png" /></li>
-<li><img alt="6.41.11: JSON 400 по прямому URL alerts" src="tests/screenshots/case19_64111_alerts.png" /></li>
-<li><img alt="6.41.11: модальная ошибка «Дашборд был создан оконным клиентом» при открытии «Тревоги» из дерева" src="tests/screenshots/case19_64111_tree_alerts_click.png" /></li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6497">ASD-6497</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Gleb Dibrov, 10.09):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Хотим пояснить ситуацию с дашбордом alerts:
+Дашборд alerts («Тревоги») разрабатывался исключительно для настольного (оконного) клиента. В веб-интерфейсе он не поддерживается - именно об этом сообщает системная ошибка.
+Начиная с версий 6.41.10, 7.00.09 и новее основным дашбордом в веб-интерфейсе является дашборд alertsMonitoring («Тревоги»), доступный через иконку колокольчика на панели. Вся работа с тревогами перенесена именно туда.</p>
+</blockquote>
+<p>Статус тикета: Pending.</p>
+<p><strong>Итог: by design — в веб-клиенте использовать alertsMonitoring.</strong></p>
 </section>
 <section class="case severity-medium" id="case-17">
 <h3>Кейс 17. Пустые шаблоны задвижек, насосов и других устройств</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Передан в АГ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498'>ASD-6498</a>), ожидает реакции / требует уточнения</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Ожидание поддержки: АГ уточняют происхождение группы панелей (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498'>ASD-6498</a>)</span></p>
 <p><strong>Серьёзность:</strong> Medium<br />
-Тикет АГ: <code>[ASD-6498](https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498)</code>.</p>
+Тикет АГ: <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498">ASD-6498</a>.</p>
 <h4>Описание</h4>
 <p>При открытии шаблонов устройств (задвижек, насосов и др.) основная рабочая область остаётся пустой. Не понятно, это дефект данных или такое поведение ожидается.</p>
 <h4>Воспроизведение</h4>
@@ -804,14 +837,23 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Отображается содержимое шаблона (поля, параметры, визуальный редактор).</p>
 <h4>Фактический результат</h4>
 <p>Правая панель пустая.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Пустой шаблон задвижки" src="tests/screenshots/case20_empty_valve_template.png" /></li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6498">ASD-6498</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 02.09):</p>
+<blockquote>
+<p>Андрей, добрый день!
+Благодарим за обращение — мы уже приступили к его рассмотрению.
+Нам важно правильно понять контекст: подскажите, пожалуйста, каким образом сформировалась эта группа инструментальных панелей?</p>
+</blockquote>
+<p>Пользователь (12.09):</p>
+<blockquote>
+<p>Доброго дня!
+Это ещё один кейс из демо-проекта, который был выслан отдельно и не входил в дистрибутив. Мы думали, что демо-проекты должны правильно работать в нашем дистрибутиве, в связи с этим и завели этот кейс. Если это не так, прошу дать разъяснения, какие проекты теперь должны работать в нашем дистрибутиве и закрыть этот кейс</p>
+</blockquote>
+<p>Статус тикета: Ожидание поддержки.</p>
 </section>
 <section class="case severity-high" id="case-18">
 <h3>Кейс 18. Бесконечная загрузка и JS-ошибка при редактировании демо-проектов</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.12-2562, проверено: редактор демо открывается без JS-ошибок (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6499'>ASD-6499</a>)</span></p>
 <p><strong>Серьёзность:</strong> High  </p>
 <h4>Описание</h4>
 <p>При попытке редактирования демо-проектов элементы дашборда показывают бесконечные спиннеры. В консоли/модальном окне появляется JS-ошибка инициализации дашборда.</p>
@@ -838,16 +880,19 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 <p>Пользовательский путь: Центр управления → «Каталог демо-проектов» → «Хранилище пастеризованного молока» → кнопка «Изменить» (URL открывается как <code>...milkStorage?mode=EDIT</code>; старый суффикс <code>/edit</code> теперь возвращает страницу 404 — роутинг изменился).</p>
 <p>Результат: дашборд загружается целиком, бесконечных спиннеров нет, редактор доступен для редактирования. Исходная ошибка <code>Cannot read properties of null (reading 'getContextManager')</code> не воспроизводится. <strong>Основной дефект исправлен.</strong></p>
 <p>Остаточные замечания (не блокируют работу): в консоли ~95 JS-ошибок при открытии редактора — серия <code>Error: Event 'shown' not found in context 'implant01N1'</code> (и десятки аналогичных для контекстов <code>implant*</code>), а также <code>Cannot set components (classFieldList0) parent</code>.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Бесконечная загрузка элементов" src="tests/screenshots/case21_demo_loading_spinner.png" /></li>
-<li><img alt="JS-ошибка ioField" src="tests/screenshots/case21_demo_js_error.png" /></li>
-<li><img alt="Редактор milkStorage в 6.41.11 после загрузки" src="tests/screenshots/case21_u_12_milk_edit_after10s.png" /></li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ (Vadim Pavlov, 11.09, тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6499">ASD-6499</a>):</p>
+<blockquote>
+<p>Андрей, добрый день.
+Просим оформить новое обращение по наблюдаемым ошибкам. Данный тикет будет закрыт в силу решения проблемы.</p>
+</blockquote>
+<p>Тикет закрыт (Обработано/Fixed).</p>
+<p>Проверено на 6.41.12-2562 пользовательским путём: системное дерево → поиск «IO Field» → правый клик → «Редактировать» → редактор открывается (<code>?mode=EDIT</code>), дашборд отрисовывается (Pump/RPM/0.0), JS-ошибок и спиннеров нет.</p>
+<p><strong>Итог: исправлено и подтверждено на 6.41.12-2562.</strong></p>
 </section>
 <section class="case severity-medium" id="case-20">
 <h3>Кейс 20. Не отображаются изображения в демо-проекте Романа Шиндина</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Требует уточнения / АГ: проект вне дистрибутива; передано имя дашборда «АСДУ (SCADA/HMI) v2»</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Ожидание клиента: проект вне дистрибутива, доработка — платные услуги (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6501'>ASD-6501</a>)</span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>В присланном демо-проекте Романа Шиндина вместо изображений/иконок отображаются битые плейсхолдеры.</p>
@@ -860,10 +905,13 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 <p>Изображения загружаются корректно.</p>
 <h4>Фактический результат</h4>
 <p>Видны пустые плейсхолдеры вместо изображений.</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Битые изображения в демо-проекте" src="tests/screenshots/case23_missing_images_demo.png" /></li>
-</ul>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6501">ASD-6501</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Vadim Pavlov, 15.09):</p>
+<blockquote>
+<p>Андрей, добрый день.
+Хотим уточнить, что проект был передан вам дополнительно в качестве демонстрационного примера и не является частью брендированного дистрибутива ДКС. Поэтому его совместимость и дальнейшая поддержка в рамках технической поддержки ДКС не предусмотрены. В случае необходимости доработки данного проекта, готовы рассмотреть проведение работ в рамках профессиональных услуг. Если предлагаемый вариант взаимодействия подходит, просим связаться с вашим менеджером.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
 <h4>Итог</h4>
 <p>Переписка по <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6501">ASD-6501</a>: АГ сообщили, что данный проект <strong>не входит в состав дистрибутива</strong> и был направлен в качестве примера. Наша позиция: раз проект передан вместе с продуктом, его отображение с битыми изображениями — баг само по себе; передаётся полностью готовый продукт. АГ уточнили, что в переданной сборке проекта не нашли, и запросили <strong>имя дашборда</strong> со скриншота → <strong>«АСДУ (SCADA/HMI) v2»</strong> (видно в заголовке вкладки на скриншоте). Локально подтверждено: проекта «АСДУ» нет ни в каталоге демо-проектов, ни в объединённом поиске на 6.41.11-2532. Ожидаем реакции АГ.</p>
 </section>
@@ -894,18 +942,10 @@ TypeError: Cannot read properties of null (reading 'getContextManager')
 </ol>
 <p>Подтверждаем позицию АГ: при значении «Все» список метаданных на вкладке недоступен по замыслу (все переменные активны без явного выбора), редактируемый список появляется только при «Только выбранные». Функционал активации метаданных работает, исходная жалоба воспроизводилась из-за некорректной подсказки у поля. Текст всплывающей подсказки [?] при автоматизированной проверке не зафиксировался (не появляется при программном наведении), текст на самой вкладке «Метаданные» сформулирован корректно.</p>
 <p><strong>Итог: исправлено / поведение подтверждено. Рекомендуется уточнить подсказку [?] у поля в соответствии с ответом АГ.</strong></p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Настройка «Активные переменные/функции/события» = Все" src="tests/screenshots/case24_metadata_active_setting.png" /></li>
-<li><img alt="Пустая вкладка Метаданные" src="tests/screenshots/case24_metadata_empty.png" /></li>
-<li><img alt="6.41.11: свойства устройства local_system, поле «Активные переменные/функции/события» = «Все»" src="tests/screenshots/case24_64111_tooltip.png" /></li>
-<li><img alt="6.41.11: выпадающий список значений поля («Все» / «Только выбранные»)" src="tests/screenshots/case24_64111_values.png" /></li>
-<li><img alt="6.41.11: вкладка «Метаданные» после установки «Только выбранные» — список переменных cpu/memory/disk" src="tests/screenshots/case24_64111_metadata_tab.png" /></li>
-</ul>
 </section>
 <section class="case severity-medium" id="case-23">
 <h3>Кейс 23. JS-ошибки `getListenerCode` при навигации по системному дереву</h3>
-<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Разрешён и закрыт (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504'>ASD-6504</a>), самостоятельно не проверялось</span></p>
+<p class="meta"><span class="severity severity-medium"><strong>Критичность:</strong> Medium</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено (Fixed), проверено на 6.41.12-2562 автотестом: ошибок getListenerCode нет (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504'>ASD-6504</a>)</span></p>
 <p><strong>Серьёзность:</strong> Medium  </p>
 <h4>Описание</h4>
 <p>При открытии любого раздела через системное дерево или поиск в дереве в консоли браузера фиксируются массовые JS-ошибки <code>Cannot read properties of null (reading 'getListenerCode')</code>. Разделы визуально открываются, но ошибки указывают на некорректную инициализацию слушателей событий в frontend и могут приводить к нестабильности интерфейса.</p>
@@ -927,10 +967,10 @@ Cannot read properties of null (reading 'getListenerCode')
 <h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504">ASD-6504</a>)</h4>
 <p>От АГ: проблема разрешена, тикет закрыт. Самостоятельная проверка на новой сборке не проводилась.</p>
 <p><strong>Итог: разрешён / закрыт (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6504">ASD-6504</a>).</strong></p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="Открытие раздела через поиск в дереве" src="tests/screenshots/case26_js_errors_console.png" /> — состояние после открытия раздела, при этом в консоли зафиксированы ошибки <code>getListenerCode</code></li>
-</ul>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Ответ АГ: проблема разрешена, тикет в статусе Обработано/Fixed (11.09).</p>
+<p>Проверено на 6.41.12-2562 автотестом: при открытии раздела «Устройства» через поиск в системном дереве JavaScript-ошибок в консоли нет (в том числе ошибок <code>getListenerCode</code>).</p>
+<p><strong>Итог: исправлено и подтверждено на 6.41.12-2562.</strong></p>
 </section>
 <section class="case severity-medium" id="case-24">
 <h3>Кейс 24. Прямые ссылки на настройки сервера и лицензии возвращают JSON 404</h3>
@@ -957,17 +997,10 @@ Cannot read properties of null (reading 'getListenerCode')
 <li><strong>REST API (предложение АГ) функционирует.</strong> <code>POST /rest/auth</code> с логином/паролем возвращает токен; <code>GET /rest/v1/contexts/users.admin</code> с заголовком <code>Authorization: Bearer &lt;токен&gt;</code> возвращает 200 и данные контекста. Это интеграционный API: для «прямой ссылки в закладках браузера» неприменим, так как обычный переход по ссылке не передаёт кастомный заголовок Authorization.</li>
 </ol>
 <p><strong>Итог: принимаем позицию АГ по сути обращения — прямой доступ к настройкам «к к файлу» по URL является by design.</strong> Ответ на вопрос АГ «на основании чего предположили, что должно работать иначе»: ожидание касалось не доступа к переменным, а единообразия обработки ошибок в веб-клиенте — пользователь по любой «битой» ссылке внутри <code>/web/*</code> видит сырой JSON, тогда как другие разделы сервера отдают HTML-страницу 404. Это непоследовательное поведение зафиксировано отдельно в <strong>кейсе 14</strong> и остаётся актуальным; настоящий кейс можно закрывать. Тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6505">ASD-6505</a> закрыт АГ: статус «Закрыто», решение «Done».</p>
-<h4>Скриншоты</h4>
-<ul>
-<li><img alt="JSON 404 по ссылке настройки сервера" src="tests/screenshots/case27_server_settings_url.png" /></li>
-<li><img alt="JSON 404 по ссылке лицензионной информации" src="tests/screenshots/case27_license_info_url.png" /></li>
-<li><img alt="6.41.11: JSON 404 после авторизации по прямому URL licenseInfo" src="tests/screenshots/case27_64111_license_auth.png" /></li>
-<li><img alt="6.41.11: вкладка «Лицензионная информация» — пользовательский путь через UI работает" src="tests/screenshots/case27_64111_license_tab.png" /></li>
-</ul>
 </section>
 <section class="case severity-high" id="case-25">
 <h3>Кейс 25. Не работает перенос контекстов посредством приложений</h3>
-<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11-2553 (по ответу АГ, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521'>ASD-6521</a>) / самостоятельно не проверялось</span></p>
+<p class="meta"><span class="severity severity-high"><strong>Критичность:</strong> High</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.12-2562, проверено: сценарий АГ выполнен целиком, окно «Результат обновления» заполнено (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521'>ASD-6521</a>)</span></p>
 <p><strong>Серьёзность:</strong> High<br />
 <strong>Источник:</strong> коллеги (ilya.tarynin@dkc.ru), тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521">ASD-6521</a></p>
 <h4>Описание</h4>
@@ -986,14 +1019,34 @@ Cannot read properties of null (reading 'getListenerCode')
 <h4>Ответ АГ (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521">ASD-6521</a>)</h4>
 <p>«Провели тестирование на версии 6.41.11-2553 — проблема отсутствует». Алгоритм проверки АГ (воспроизводим на одном сервере): создать приложение «test» → добавить ресурс и сохранить изменения → упаковать и выгрузить приложение как ZIP-архив → удалить все ресурсы из приложения и сохранить → выполнить обновление ранее выгруженным архивом (окно «Результат обновления» заполнено: «Контекст обновлён», «Контекст пропущен») → ресурс добавлен обратно («Мастер настроек тревог»).</p>
 <p><strong>Итог: по ответу АГ исправлено в 6.41.11-2553. Самостоятельная проверка нашей командой не проводилась — сценарий переноса требует двух контуров (полигон → эталон); при наличии двух серверов рекомендуется контрольная проверка по алгоритму АГ.</strong></p>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521">ASD-6521</a>, от 16.09.2026)</h4>
+<p>Ответ АГ (Artem Moskalenko, 15.09):</p>
+<blockquote>
+<p>Илья, добрый день!
+Провели аналогичное тестирование на версии 6.41.12-2562, воспроизвести проблему все также не удалось. Предлагаем вам проверить на новой сборке.
+Брендированные дистрибутивы выпускаются вместе с минорными релизами AggreGate, в среднем раз в две недели. Ближайший релиз планируется 16 сентября.</p>
+</blockquote>
+<p>Статус тикета: Ожидание клиента.</p>
+<h4>Проверка в 6.41.12 (от 16.09.2026)</h4>
+<p>Самостоятельная проверка по алгоритму АГ на 6.41.12-2562 выполнена целиком (в одном контуре, сценарий tests/case28_64112_final3.py):</p>
+<ol>
+<li>Создано приложение «test» (видно в таблице приложений).</li>
+<li>Добавлен ресурс — инструментальная панель «Устройства» (<code>users.admin.dashboards.devices</code>).</li>
+<li>Упаковка: ДЕЙСТВИЯ → «Упаковать» → «Скачать как ZIP-архив» — открылось окно «Результат экспорта», скачан валидный ZIP (3 записи: <code>application.properties</code>, <code>application.test.prs</code>, <code>users.%.dashboards.devices.prs</code>).</li>
+<li>Ресурс удалён из приложения (таблица ресурсов — «No Data»).</li>
+<li>Обновление: ДЕЙСТВИЯ → «Обновить» → «Загрузить как ZIP-архив» — после установки архива <strong>окно «Результат обновления» открылось и заполнено</strong>: строки «users.admin.applications.test — Контекст обновлен» и «users.admin.dashboards.devices — Контекст пропущен», уведомление «Импорт контекстов (100% завершено)».</li>
+<li>Ресурс «Устройства» вернулся в приложение. Тестовое приложение удалено, контур очищен.</li>
+</ol>
+<p>JS-ошибок, влияющих на сценарий, нет (4 одинаковых предупреждения инициализации дашборда <code>Cannot read properties of undefined (reading 'variables')</code> — известная некритичная ошибка).</p>
+<p><strong>Итог: ИСПРАВЛЕНО в 6.41.12-2562</strong> — поведение подтверждено воспроизведением сценария коллег; окно «Результат обновления» заполняется корректно. Ответить АГ о подтверждении исправления.</p>
 <h4>Скриншоты</h4>
 <ul>
-<li>Скриншоты приложены в тикете <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521">ASD-6521</a> (пустое окно «Результат обновления» со стороны коллег, скриншоты проверки АГ). Файлы <code>tests/screenshots/case28_*.png</code> — вносятся.</li>
+<li>Скриншоты приложены в тикете <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6521">ASD-6521</a> (пустое окно «Результат обновления» со стороны коллег, скриншоты проверки АГ).</li>
 </ul>
 </section>
 <section class="case severity-low" id="case-26">
 <h3>Кейс 26. Не работают дополнительные свойства при использовании относительных инструментальных панелей</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Исправлено в 6.41.11-2553 (по ответу АГ, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523'>ASD-6523</a>, задача №20649) / самостоятельно не проверялось</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Закрыто АГ (Fixed/Done, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523'>ASD-6523</a>) / самостоятельная проверка требует контекстов коллег</span></p>
 <p><strong>Серьёзность:</strong> Low<br />
 <strong>Источник:</strong> коллеги (ilya.tarynin@dkc.ru), тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523">ASD-6523</a></p>
 <h4>Описание</h4>
@@ -1011,14 +1064,16 @@ Cannot read properties of null (reading 'getListenerCode')
 <h4>Ответ АГ (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523">ASD-6523</a>)</h4>
 <p>«Проверили на версии 6.41.11-2553 — ошибка отсутствует. Ранее похожий инцидент с дополнительным свойством уже был исправлен нашей командой разработки (задача №20649)».</p>
 <p><strong>Итог: по ответу АГ исправлено в 6.41.11-2553 (задача разработки №20649). Самостоятельная проверка нашей командой не проводилась — требуется контур с мнемосхемой, использующей относительные инструментальные панели.</strong></p>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523">ASD-6523</a>, от 16.09.2026)</h4>
+<p>Ответ АГ: Fixed / закрыто (12.09). Самостоятельная проверка не проводилась (сценарий от коллег, требуются контексты).</p>
 <h4>Скриншоты</h4>
 <ul>
-<li>Скриншоты приложены в тикете <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523">ASD-6523</a> (мнемосхема с пустой панелью «Общие данные»). Файлы <code>tests/screenshots/case29_*.png</code> — вносятся.</li>
+<li>Скриншоты приложены в тикете <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6523">ASD-6523</a> (мнемосхема с пустой панелью «Общие данные»).</li>
 </ul>
 </section>
 <section class="case severity-low" id="case-27">
 <h3>Кейс 27. Не работает eventLog при использовании относительных инструментальных панелей</h3>
-<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Ожидает ответа коллег (АГ запросили контексты и сценарий, <a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522'>ASD-6522</a>)</span></p>
+<p class="meta"><span class="severity severity-low"><strong>Критичность:</strong> Low</span> <span class="type"><strong>Категория:</strong> Ошибки платформы партнёра</span> <span class="type"><strong>Статус:</strong> Ожидание поддержки: коллеги предложили созвон-показ (<a href='https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522'>ASD-6522</a>)</span></p>
 <p><strong>Серьёзность:</strong> Low<br />
 <strong>Источник:</strong> коллеги (ilya.tarynin@dkc.ru), тикет <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522">ASD-6522</a></p>
 <h4>Описание</h4>
@@ -1036,9 +1091,15 @@ Cannot read properties of null (reading 'getListenerCode')
 <h4>Ответ АГ (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522">ASD-6522</a>)</h4>
 <p>«Чтобы мы могли оперативно и точно разобраться в ситуации, нам очень не хватает деталей. Не могли бы вы дополнить запрос: приложите, пожалуйста, все контексты по задаче и распишите пошаговый сценарий воспроизведения».</p>
 <p><strong>Итог: ожидает ответа коллег — АГ запросили контексты и пошаговый сценарий воспроизведения.</strong></p>
+<h4>Статус (<a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522">ASD-6522</a>, от 16.09.2026)</h4>
+<p>Пользователь (Илья Тарынин, 12.09):</p>
+<blockquote>
+<p>Добрый День ! Предлагаю созвониться и я могу визуально показать, что требуется.</p>
+</blockquote>
+<p>Статус тикета: Ожидание поддержки.</p>
 <h4>Скриншоты</h4>
 <ul>
-<li>Скриншоты приложены в тикете <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522">ASD-6522</a>. Файлы <code>tests/screenshots/case30_*.png</code> — вносятся.</li>
+<li>Скриншоты приложены в тикете <a href="https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6522">ASD-6522</a>.</li>
 </ul>
 </section>
 </main>

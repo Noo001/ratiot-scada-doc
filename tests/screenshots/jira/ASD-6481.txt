@@ -1,0 +1,45 @@
+URL: https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6481
+
+Центр поддержки
+14
+Центр поддержки
+Служба технической поддержки
+ASD-6481
+Раздел «Пользователи» открывает корень системного дерева вместо списка пользователей
+Пользователь andrey.efremtsev@dkc.ru создал этот запрос 20/авг/26 8:46 PM
+Скрыть подробности
+Название проекта или название контракта AMS
+DKC RatioT SCADA  OEM
+Installation Unique ID
+OEM
+Priority
+Серьезный
+Bug Request Form
+Отправлено
+Действия
+Развернуть форму «Bug Request Form»
+Событие
+Показать еще 5
+Автоматический ответ
+Вчера 4:05 PM
+Статус запроса изменен на «Обработано» с решением «Fixed».
+Автоматический ответ
+Вчера 4:05 PM
+Статус запроса изменен на «Закрыто» с решением «Done».
+Automation for Jira
+Вчера 4:05 PM
+The request is closed. 
+Discussions about the platform’s operation are available in our Telegram community: https://t.me/AggreGate_Official/7
+Добавить комментарий
+
+Статус
+Закрыто
+Уведомления включены
+Тип запроса
+Сообщение об ошибке Агрегейт
+Кому доступно
+andrey.efremtsev@dkc.ru
+Автор
+DKC RatioT SCADA
+Поделиться
+Работает на базе Jira Service Management

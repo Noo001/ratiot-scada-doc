@@ -1,0 +1,51 @@
+URL: https://tibbotech.atlassian.net/servicedesk/customer/portal/1/ASD-6484
+
+Центр поддержки
+14
+Центр поддержки
+Служба технической поддержки
+ASD-6484
+Импорт Modbus-регистров из CSV/XML теряет имена, описания и адреса; экспорт в CSV портит русскую кодировку
+Пользователь andrey.efremtsev@dkc.ru создал этот запрос 20/авг/26 9:32 PM
+Скрыть подробности
+Название проекта или название контракта AMS
+DKC RatioT SCADA  OEM
+Priority
+Критический
+Bug Request Form
+Отправлено
+Действия
+Развернуть форму «Bug Request Form»
+Событие
+Anisimov Mikhail
+24/авг/26 7:30 PM
+Добрый день! Данное обращение является дубликатом 
+ASD-6455: Баги с импортом и экспортом Modbus регистров в форматах csv и xml
+Закрыто
+, всвязи с чем будет закрыто. 
+Автоматический ответ
+24/авг/26 7:30 PM
+Статус запроса изменен на «Ожидание клиента».
+Автоматический ответ
+24/авг/26 7:30 PM
+Статус запроса изменен на «Обработано» с решением «Fixed».
+Автоматический ответ
+24/авг/26 7:30 PM
+Статус запроса изменен на «Закрыто» с решением «Done».
+Automation for Jira
+24/авг/26 7:30 PM
+The request is closed. 
+Discussions about the platform’s operation are available in our Telegram community: https://t.me/AggreGate_Official/7
+Добавить комментарий
+
+Статус
+Закрыто
+Уведомления включены
+Тип запроса
+Сообщение об ошибке Агрегейт
+Кому доступно
+andrey.efremtsev@dkc.ru
+Автор
+DKC RatioT SCADA
+Поделиться
+Работает на базе Jira Service Management
