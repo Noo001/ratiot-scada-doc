@@ -183,9 +183,9 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p><strong>Итог по кейсу 2:</strong> документация исправлена (начальная лицензия описана), чистая установка в режиме 100 тэгов работает, но выявлены два несоответствия: (1) лицензия называется «Network Manager Free License» вместо «SCADA/HMI Standard (100 тэгов)»; (2) лимит 100 тэгов нигде в UI не показан. Требуется ответ АГ (ASD-6482).</p>
 <h4>Ссылки на документацию</h4>
 <ul>
-<li><code>admin/custom/templates/docs/licensing.htm</code></li>
-<li><code>admin/custom/templates/docs/ls_license_server.htm</code></li>
-<li><code>admin/custom/templates/docs/ls_config_license_server.htm</code></li>
+<li>Описание лицензирования есть во встроенной справке сервера (разделы «Лицензирование», «Сервер лицензий», «Настройка сервера лицензий»).</li>
+
+
 </ul>
 </section>
 <section class="case severity-low" id="case-11">
@@ -248,7 +248,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 </tr>
 <tr>
 <td>Документация по платформе</td>
-<td>локальная документация <code>…/web/static/templates/docs/introduction.htm</code> (брендинг RatioT SCADA / BUFFLAB)</td>
+<td>локальная документация сервера (брендинг RatioT SCADA / BUFFLAB)</td>
 </tr>
 <tr>
 <td>Веб-сайт продукта</td>
@@ -513,7 +513,7 @@ header h1 { font-size: 1.8rem; margin: 0 0 12px; }
 <p>Проверено на 6.41.12-2562: в системном дереве по-прежнему нет плагина «Магазин» (поиск «Магазин» в поле «Поиск в системном дереве» — 0 результатов).</p>
 <p><strong>Итог: конфигурационное ограничение по ответу АГ (локальный магазин не входит в дистрибутив); требуется решение ДКС о развёртывании собственного магазина.</strong></p>
 <h4>Пруф из документации</h4>
-<p>В <code>admin/custom/templates/docs/ls_store.htm</code> сказано:</p>
+<p>Во встроенной справке сервера (раздел «Магазин приложений») сказано:</p>
 <blockquote>
 <p>«Магазин приложений — это особый RatioT Server, на котором работает модуль "marketplace" (Store Server), и который предоставляет решения и модули для других серверов RatioT SCADA. Другие экземпляры RatioT Server могут подключиться к Магазину и загрузить предлагаемые решения и модули при помощи модуля Store Client. ... Функционал Магазина обеспечивается плагином <strong>Store Client</strong>, который скачивает решения и модули с серверов Магазина приложений...»</p>
 </blockquote>

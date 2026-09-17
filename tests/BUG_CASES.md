@@ -173,9 +173,7 @@
 **Итог по кейсу 2:** документация исправлена (начальная лицензия описана), чистая установка в режиме 100 тэгов работает, но выявлены два несоответствия: (1) лицензия называется «Network Manager Free License» вместо «SCADA/HMI Standard (100 тэгов)»; (2) лимит 100 тэгов нигде в UI не показан. Требуется ответ АГ (ASD-6482).
 
 ### Ссылки на документацию
-- `admin/custom/templates/docs/licensing.htm`
-- `admin/custom/templates/docs/ls_license_server.htm`
-- `admin/custom/templates/docs/ls_config_license_server.htm`
+Описание лицензирования есть во встроенной справке сервера (разделы «Лицензирование», «Сервер лицензий», «Настройка сервера лицензий»).
 
 ---
 
@@ -570,7 +568,7 @@ HTML-сниппет отображается внутри выделенной �
 **Итог: конфигурационное ограничение по ответу АГ (локальный магазин не входит в дистрибутив); требуется решение ДКС о развёртывании собственного магазина.**
 
 ### Пруф из документации
-В `admin/custom/templates/docs/ls_store.htm` сказано:
+Во встроенной справке сервера (раздел «Магазин приложений») сказано:
 
 > «Магазин приложений — это особый RatioT Server, на котором работает модуль "marketplace" (Store Server), и который предоставляет решения и модули для других серверов RatioT SCADA. Другие экземпляры RatioT Server могут подключиться к Магазину и загрузить предлагаемые решения и модули при помощи модуля Store Client. ... Функционал Магазина обеспечивается плагином **Store Client**, который скачивает решения и модули с серверов Магазина приложений...»
 
@@ -578,7 +576,7 @@ HTML-сниппет отображается внутри выделенной �
 
 ### Источник
 - Локальный файл: `C:\Program Files\RatioTScada\store\store.xml`
-- Документация: `admin/custom/templates/docs/ls_store.htm`
+- Документация: встроенная справка сервера (раздел «Магазин приложений»)
 
 ---
 
@@ -656,7 +654,7 @@ HTML-сниппет отображается внутри выделенной �
 - `C:\Program Files\RatioTScada\admin\web\static\js\res_ru.js`, `res_en.js`
 - `C:\Program Files\RatioTScada\admin\web\static\js\aggregate-ts-sdk.d.ts`
 - `C:\Program Files\RatioTScada\admin\web\WEB-INF\classes\...\AggreGateAccountLockedException.kt`
-- Встроенная документация: `admin/custom/templates/docs/*.htm`
+- Встроенная документация сервера
 
 ---
 
@@ -865,7 +863,7 @@ HTML-сниппет отображается внутри выделенной �
 | Пункт | Открывается |
 |---|---|
 | Документация по SCADA/HMI | `https://buff-lab.ru/ratiot_scada/?source=sh` (маркетинговая страница, не документация) |
-| Документация по платформе | локальная документация `…/web/static/templates/docs/introduction.htm` (брендинг RatioT SCADA / BUFFLAB) |
+| Документация по платформе | локальная документация сервера (брендинг RatioT SCADA / BUFFLAB) |
 | Веб-сайт продукта | `https://buff-lab.ru/ratiot_scada/?source=sh` |
 | Веб-сайт платформы | `https://buff-lab.ru/ratiot_scada/` |
 | Блог продукта | `https://buff-lab.ru/ratiot_scada/` |
