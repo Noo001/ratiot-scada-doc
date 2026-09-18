@@ -33,6 +33,9 @@
         <a href="#reporting">Оформление результатов</a>
         <a href="#period">Периодичность</a>
         <a href="#appendix">Приложения</a>
+        <a href="#bck">Проверки из реестра дефектов (BCK)</a>
+        <a href="#auto">Автоматизация (AUTO)</a>
+        <a href="protocol-TRiiot.26.0016.html">→ Протокол TRiiot.26.0016</a>
         <a href="protocol-TRiiot.26.0015.html">→ Протокол TRiiot.26.0015</a>
         <a href="../index.html">← На главную</a>
       </nav>
@@ -177,7 +180,7 @@
           <li><strong>Рекомендация</strong> (например: «Релиз с задержкой — требуется исправление значительных дефектов»).</li>
           <li><strong>Подпись</strong> и дата.</li>
         </ol>
-        <p>Образец заполненного протокола: <a href="protocol-TRiiot.26.0015.html" class="badge">→ Протокол испытаний № TRiiot.26.0015</a>.</p>
+        <p>Образцы заполненных протоколов: <a href="protocol-TRiiot.26.0016.html" class="badge">→ Протокол испытаний № TRiiot.26.0016</a> (6.41.12, регресс бэклога автотестами), <a href="protocol-TRiiot.26.0015.html" class="badge">→ Протокол испытаний № TRiiot.26.0015</a> (6.41.10/6.41.11).</p>
         <h3>Шаблон отчёта о дефекте</h3>
         <p>Поля отчёта: <strong>ID</strong> (BUG-NNN), <strong>Статус</strong> (OPEN), <strong>Критичность</strong> (S0–S4), <strong>Обнаружил</strong>, <strong>Дата</strong>, <strong>Версия</strong> (X.Y.Z build NNNN), <strong>Окружение</strong> (ОС, браузер, RAM), <strong>Заголовок</strong>, <strong>Описание</strong>, <strong>Шаги воспроизведения</strong>, <strong>Ожидаемый результат</strong>, <strong>Фактический результат</strong>, <strong>Приложение</strong> (скриншоты, образцы, последние 100 строк server.log), <strong>Дополнительная информация</strong>, <strong>Приоритет для исправления</strong>, <strong>Назначено</strong> («Создан запрос в Aggregate», ASD-xxxx), <strong>Планируемый срок исправления</strong>.</p>
         <h3>Идентификаторы документов</h3>
@@ -215,8 +218,50 @@
         <p><strong>Windows (quick_test.ps1):</strong> <code>Get-Service "RatioT SCADA Server"</code>; <code>Test-NetConnection localhost -Port 8080/8443/6460</code>; <code>Invoke-WebRequest http://localhost:8080/web</code>; <code>Select-String -Path "C:\Program Files\RatioT SCADA\logs\server.log" -Pattern ERROR</code>.</p>
       </section>
 
+      <section id="bck">
+        <h2>Проверки из реестра дефектов (BCK)</h2>
+        <p>Пополнение методики проверками, выведенными из реальных дефектов (реестр баг-кейсов на портале). Выполняются на каждом цикле регрессии наряду с REG-проверками; результат заносится в протокол. Проверка BCK-11 — только после ответа АГ по ASD-6497.</p>
+        <table>
+          <tr><th>ID</th><th>Проверка</th><th>Источник</th></tr>
+          <tr><td>BCK-01</td><td>Лог первого запуска сервера после чистой установки не содержит ERROR <code>ag.context</code> и WARN <code>ag.statistics</code></td><td>Кейс 1</td></tr>
+          <tr><td>BCK-02</td><td>Режим 100 тэгов: чистая тихая установка с <code>license=1</code>; сервер работает; в «Информации о сервере» → «Лицензионная информация» виден режим и его ограничения</td><td>Кейсы 2, 9</td></tr>
+          <tr><td>BCK-03</td><td>Виджет «Журнал событий»: настройки колонок (диалог через иконку ⋮) сохраняются и восстанавливаются в живом виджете после поступления событий и перезагрузки</td><td>Кейс 5</td></tr>
+          <tr><td>BCK-04</td><td>HTML-сниппет с полноценным документом (DOCTYPE, head со стилями, body) не сдвигает layout дашборда после сохранения и переоткрытия</td><td>Кейс 8</td></tr>
+          <tr><td>BCK-05</td><td>Вкладки «Информации о сервере»: при нехватке ширины появляется кнопка «Ещё», скрытые вкладки (в т.ч. «Производительность») доступны через неё</td><td>Кейс 16</td></tr>
+          <tr><td>BCK-06</td><td>Открытие «Пользователи» из системного дерева резолвится в список пользователей (<code>users.admin</code>), а не в корень системного дерева</td><td>Кейс 17</td></tr>
+          <tr><td>BCK-07</td><td>Встроенная справка: <code>https://localhost:8443/static/docs/index.htm</code> возвращает HTTP 200 text/html (не 404)</td><td>Кейс 25</td></tr>
+          <tr><td>BCK-08</td><td>Навигация по системному дереву (в т.ч. открытие «Устройства» через поиск) не порождает JS-ошибок в консоли браузера (в т.ч. <code>getListenerCode</code>)</td><td>Кейс 26</td></tr>
+          <tr><td>BCK-09</td><td>Раздел «Драйверы и расширения» открывает список драйверов/плагинов, а не корень системного дерева; название узла и tooltip без ошибок</td><td>Кейс 13</td></tr>
+          <tr><td>BCK-10</td><td>Перенос контекстов через обновление приложения: упаковка → удаление ресурсов → обновление из архива → окно «Результат обновления» заполнено, ресурсы восстановлены</td><td>Кейс 28</td></tr>
+          <tr><td>BCK-11</td><td>Поиск «alerts» в системном дереве: дашборд «Тревоги» (<code>users.admin.dashboards.alerts</code>) отсутствует либо открывается с понятным сообщением и ссылкой на <code>alertsMonitoring</code></td><td>Кейс 19</td></tr>
+          <tr><td>BCK-12</td><td>Несуществующие URL <code>/web/*</code> возвращают пользовательскую страницу 404 единого вида (не сырой JSON)</td><td>Кейсы 11, 14</td></tr>
+        </table>
+      </section>
+
+      <section id="auto">
+        <h2>Автоматизация (AUTO)</h2>
+        <p>Проверки BCK/REG, покрытые автотестами UI (Selenium, Chrome), выполняются скриптами из репозитория тестов; результат прогона заносится в протокол со ссылкой на скриншоты и логи. Автотесты экономят до 70&nbsp;% времени цикла регрессии на повторных приёмках; ручной проход остаётся обязательным для проверок, требующих демо-контента, двух контуров или лицензий сверх 100 тэгов.</p>
+        <table>
+          <tr><th>ID</th><th>Автотест</th><th>Покрывает</th></tr>
+          <tr><td>AUTO-01</td><td><code>case1_6474.py</code> (+ <code>case1_log_screenshot.py</code>)</td><td>BCK-01 — лог первого запуска без ERROR/WARN, скриншот лога</td></tr>
+          <tr><td>AUTO-02</td><td><code>case2_license_final.py</code></td><td>BCK-02 — чистая тихая установка в режиме 100 тэгов, фиксация свойств лицензии</td></tr>
+          <tr><td>AUTO-03</td><td><code>case5_eventlog_columns.py</code></td><td>BCK-03 — настройки колонок eventLog (редактор → сохранение → живой виджет)</td></tr>
+          <tr><td>AUTO-04</td><td><code>case8_check_64112.py</code></td><td>BCK-04 — HTML-сниппет, целостность layout дашборда</td></tr>
+          <tr><td>AUTO-05</td><td><code>case16_6480_check.py</code>, <code>case16_6480_more.py</code></td><td>BCK-05 — вкладки «Информации о сервере», меню «Ещё», вкладка «Производительность»</td></tr>
+          <tr><td>AUTO-06</td><td><code>case17_6481_check.py</code></td><td>BCK-06 — резолв «Пользователи» → <code>users.admin</code> (пользовательский путь: поиск → открытие)</td></tr>
+          <tr><td>AUTO-07</td><td><code>case26_check_64112.py</code></td><td>BCK-08 — JS-консоль при навигации по дереву, ошибки <code>getListenerCode</code></td></tr>
+          <tr><td>AUTO-08</td><td><code>case13_10_check.py</code>, <code>case13_10_tree.py</code></td><td>BCK-09 — раздел «Драйверы и расширения» (поведение дерева)</td></tr>
+          <tr><td>AUTO-09</td><td><code>case28_64112_final3.py</code> (этапы: <code>step2…step5*</code>)</td><td>BCK-10 — перенос контекстов через обновление приложения по алгоритму АГ</td></tr>
+          <tr><td>AUTO-10</td><td><code>case14_11_404.py</code>, <code>case27_6505.py</code></td><td>BCK-12 — вид ответа 404 для <code>/web/*</code> и прямых ссылок</td></tr>
+          <tr><td>AUTO-11</td><td><code>case19_tree.py</code>, <code>case19_64111.py</code></td><td>BCK-11 — доступность дашборда alerts в системном дереве/поиске</td></tr>
+          <tr><td>AUTO-12</td><td><code>case21_check_64112.py</code>, <code>case18_links_64112.py</code></td><td>Кейсы 18, 21 — редактор демо-проектов, ссылки демо (требуется демо-контент)</td></tr>
+          <tr><td>AUTO-13</td><td><code>smoke_test.py</code>, <code>test_ui_ux.py</code></td><td>Базовый прогон: доступность Web UI, версия по API, журнал JS-ошибок</td></tr>
+        </table>
+        <p class="note">Автотесты работают против запущенного сервера (<code>https://localhost:8443</code>) с авторизацией <code>admin/admin</code>; перед прогоном выполняется <code>smoke_test.py</code>. Проверки, помеченные «требуется демо-контент/два контура», автоматизированы частично — полный проход выполняется вручную (см. ограничения в протоколе TRiiot.26.0016).</p>
+      </section>
+
       <footer>
-        Методика регулярных испытаний Ratiot SCADA. Редакция 1.0 от 11 сентября 2026.
+        Методика регулярных испытаний Ratiot SCADA. Редакция 1.1 от 17 сентября 2026 (добавлены проверки BCK из реестра дефектов и раздел автоматизации AUTO; протокол TRiiot.26.0016).
       </footer>
     </main>
   </div>
