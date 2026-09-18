@@ -18,6 +18,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RatioT SCADA — база знаний</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 16px 0 8px;
+    }
+    .tile {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      text-align: left;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .tile:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      border-color: var(--accent);
+    }
+    .tile h3 { margin: 0 0 6px; font-size: 1.05rem; color: var(--accent); }
+    .tile p { margin: 0; color: var(--muted); line-height: 1.45; font-size: .9rem; }
+  </style>
 </head>
 <body>
   <div class="layout">
@@ -25,6 +50,7 @@
       <h1>RatioT SCADA</h1>
       <div class="subtitle">База знаний / выжимка</div>
       <nav>
+        <a href="#sections">Разделы</a>
         <a href="#intro">Введение</a>
         <a href="#architecture">Архитектура</a>
         <a href="#stack">Технологический стек</a>
@@ -49,6 +75,46 @@
     </aside>
 
     <main>
+      <section id="sections">
+        <h2>Разделы по RatioT SCADA</h2>
+        <div class="tiles">
+          <a class="tile" href="#intro">
+            <h3>База знаний</h3>
+            <p>Архитектура, развёртывание, Web UI, протоколы, HMI и скрипты — выжимка по официальным руководствам (эта страница).</p>
+          </a>
+
+          <a class="tile" href="ux.html">
+            <h3>Пользовательский опыт</h3>
+            <p>Отдельная выжимка: вход, дашборды, binding, права доступа, аварии и типовые сценарии.</p>
+          </a>
+
+          <a class="tile" href="../bug_cases.html">
+            <h3>Баг-кейсы</h3>
+            <p>Найденные проблемы, шаги воспроизведения, статусы тикетов АГ и итоги повторных проверок.</p>
+          </a>
+
+          <a class="tile" href="../testing/index.html">
+            <h3>Испытания</h3>
+            <p>Методика регулярных испытаний и протоколы: TRiiot.26.0016 (6.41.12), TRiiot.26.0015 (6.41.10/6.41.11).</p>
+          </a>
+
+          <a class="tile" href="../regulations/index.html">
+            <h3>Регламент жизненного цикла</h3>
+            <p>Регламент поддержки бизнес-процессов жизненного цикла Ratiot SCADA: роли, процессы, работа с дефектами.</p>
+          </a>
+
+          <a class="tile" href="docs-6.41.10/index.html">
+            <h3>Полная справка 6.41.10</h3>
+            <p>Исходные файлы справки из дистрибутива: руководства, HMI, протоколы, администрирование и скрипты.</p>
+          </a>
+
+          <a class="tile" href="../product/index.html">
+            <h3>Продукт и бизнес</h3>
+            <p>Экосистема RatioT SCADA, лицензирование, техподдержка, обучение, профуслуги и бизнес-процессы.</p>
+          </a>
+        </div>
+      </section>
+
       <section id="intro">
         <h2>Введение</h2>
         <p><strong>RatioT SCADA</strong> — серверная SCADA/HMI-платформа для сбора данных, визуализации и управления промышленными объектами. Основной интерфейс оператора — <strong>Web UI</strong> на React, который работает в браузере и подключается к единой серверной модели данных.</p>
@@ -713,7 +779,7 @@ WHERE logins.get$username = 'john'</pre>
       </section>
 
       <footer>
-        Собрано из официальной документации RatioT SCADA. Дополнено встроенной справкой 6.41.10. Последнее обновление: 19 августа 2026.
+        Собрано из официальной документации RatioT SCADA. Дополнено встроенной справкой 6.41.10. Последнее обновление: 17 сентября 2026.
       </footer>
     </main>
   </div>
